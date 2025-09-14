@@ -29,6 +29,7 @@ import PPID from "./pages/PPID";
 // Galeri pages
 import Foto from "./pages/galeri/Foto";
 import Video from "./pages/galeri/Video";
+import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 
 const queryClient = new QueryClient();
 
@@ -40,31 +41,44 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          
+
           {/* Profil Routes */}
           <Route path="/profil/sejarah" element={<Sejarah />} />
           <Route path="/profil/visi-misi" element={<VisiMisi />} />
           <Route path="/profil/tugas-fungsi" element={<TugasFungsi />} />
-          <Route path="/profil/struktur-organisasi" element={<StrukturOrganisasi />} />
-          
+          <Route
+            path="/profil/struktur-organisasi"
+            element={<StrukturOrganisasi />}
+          />
+          <Route
+            path="/profil/tugas-fungsi/kepala-dinas"
+            element={<DetailTugasFungsi />}
+          />
+
           {/* Pelayanan Routes */}
           <Route path="/pelayanan/visi-misi" element={<VisiMisiPelayanan />} />
           <Route path="/pelayanan/motto" element={<MottoPelayanan />} />
           <Route path="/pelayanan/pinjam-ruang" element={<PinjamRuang />} />
           <Route path="/pelayanan/sop" element={<SOP />} />
-          <Route path="/pelayanan/sarana-prasarana" element={<SaranaPrasarana />} />
-          <Route path="/pelayanan/standar-pelayanan" element={<StandarPelayanan />} />
+          <Route
+            path="/pelayanan/sarana-prasarana"
+            element={<SaranaPrasarana />}
+          />
+          <Route
+            path="/pelayanan/standar-pelayanan"
+            element={<StandarPelayanan />}
+          />
           <Route path="/pelayanan/pengaduan" element={<Pengaduan />} />
           <Route path="/pelayanan/prestasi" element={<Prestasi />} />
           <Route path="/pelayanan/klinik" element={<KlinikPendidikan />} />
-          
+
           {/* PPID Route */}
           <Route path="/ppid" element={<PPID />} />
-          
+
           {/* Galeri Routes */}
           <Route path="/galeri/foto" element={<Foto />} />
           <Route path="/galeri/video" element={<Video />} />
-          
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
