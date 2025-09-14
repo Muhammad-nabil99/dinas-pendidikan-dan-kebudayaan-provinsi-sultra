@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { History, Landmark, MapPin } from "lucide-react";
 
 const Sejarah = () => {
   return (
@@ -15,97 +16,95 @@ const Sejarah = () => {
           </p>
         </div>
 
-        <div className="grid gap-6">
-          <Card className="shadow-elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-government-blue">
-                <span className="text-2xl">📚</span>
-                Awal Pembentukan
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground leading-relaxed">
-                Dinas Pendidikan Provinsi Sulawesi Tenggara dibentuk berdasarkan
-                Peraturan Daerah... [Template - Isi dengan sejarah pembentukan
-                dinas]
+        <Card >
+          <CardContent className="p-6">
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <MapPin className="mr-2 text-government-blue" /> Profil Provinsi
+                Sulawesi Tenggara
+              </h2>
+              <p className="mb-4 text-justify leading-relaxed">
+                Sulawesi Tenggara merupakan sebuah provinsi di Indonesia yang
+                terletak di bagian tenggara pulau Sulawesi dengan ibukota
+                Kendari. Provinsi ini terletak di Jazirah Tenggara Pulau
+                Sulawesi, secara geografis terletak di bagian selatan garis
+                khatulistiwa di antara $02°45'$ – $06°15'$ Lintang Selatan dan
+                $120°45'$ – $124°30'$ Bujur Timur.
               </p>
-              <div className="bg-muted/50 p-4 rounded-lg">
-                <p className="font-semibold text-government-blue">
-                  Tahun Pembentukan: [Tahun]
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Dasar Hukum: [Peraturan Daerah]
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+              <p className="text-justify leading-relaxed">
+                Wilayahnya mempunyai luas daratan $38.140 km²$ ($3.814.000$ ha)
+                dan perairan (laut) seluas $110.000 km²$ ($11.000.000$ ha).
+                Sulawesi Tenggara awalnya merupakan nama salah satu kabupaten di
+                Provinsi Sulawesi Selatan dan Tenggara dengan Baubau sebagai
+                ibukota kabupaten. Provinsi ini ditetapkan sebagai Daerah Otonom
+                berdasarkan Perpu No. 2 tahun 1964 Juncto UU No. 13 Tahun 1964.
+              </p>
+            </section>
 
-          <Card className="shadow-elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-government-blue">
-                <span className="text-2xl">🏛️</span>
-                Perkembangan Organisasi
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="border-l-4 border-government-blue pl-4">
-                  <h3 className="font-semibold text-lg">
-                    Era Awal (Tahun - Tahun)
-                  </h3>
-                  <p className="text-muted-foreground">
-                    [Template - Isi dengan perkembangan organisasi di era awal]
-                  </p>
-                </div>
-                <div className="border-l-4 border-education-green pl-4">
-                  <h3 className="font-semibold text-lg">
-                    Era Pengembangan (Tahun - Tahun)
-                  </h3>
-                  <p className="text-muted-foreground">
-                    [Template - Isi dengan perkembangan di era pengembangan]
-                  </p>
-                </div>
-                <div className="border-l-4 border-accent-gold pl-4">
-                  <h3 className="font-semibold text-lg">
-                    Era Modern (Tahun - Sekarang)
-                  </h3>
-                  <p className="text-muted-foreground">
-                    [Template - Isi dengan perkembangan era modern]
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <Landmark className="mr-2 text-government-blue" /> Masa Kesultanan
+                dan Kerajaan
+              </h2>
+              <p className="mb-4 text-justify leading-relaxed">
+                Pada masa pemerintahan Negara Kesultanan – Kerajaan Nusantara
+                hingga terbentuknya Kabupaten Sulawesi Tenggara pada tahun 1952,
+                wilayah ini sebelumnya merupakan *Onderafdeling* (istilah
+                Belanda untuk wilayah administratif setingkat kawedanan).
+                Onderafdeling ini kemudian dikenal dengan sebutan *Onderafdeling
+                Boeton Laiwoi* dengan pusat Pemerintahannya di Bau-Bau.
+              </p>
+              <p className="mb-4 text-justify leading-relaxed">
+                *Onderafdeling Boeton Laiwui* terdiri dari: *Afdeling Boeton*,
+                *Afdeling Muna*, dan *Afdeling Laiwui*. Status ini diberikan
+                oleh pemerintah Hindia Belanda kepada daerah-daerah yang
+                memiliki kekuasaan asli dan kedaulatan yang dihormati,
+                menunjukkan bahwa daerah ini bukanlah jajahan murni, melainkan
+                memiliki hubungan dominasi dengan Belanda.
+              </p>
+              <p className="mb-4 text-justify leading-relaxed">
+                Pada waktu itu, *Afdeling Kolaka* berada di bawah *Onderafdeling
+                Luwu* (Sulawesi Selatan). Dengan Peraturan Pemerintah No. 34
+                Tahun 1952, Sulawesi Tenggara menjadi satu kabupaten, yaitu
+                Kabupaten Sulawesi Tenggara dengan ibu kotanya Baubau.
+              </p>
+            </section>
 
-          <Card className="shadow-elegant">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-government-blue">
-                <span className="text-2xl">🎯</span>
-                Pencapaian Bersejarah
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-gradient-primary/10 p-4 rounded-lg">
-                  <h4 className="font-semibold text-government-blue mb-2">
-                    Prestasi Pendidikan
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    [Template - Isi dengan prestasi pendidikan]
-                  </p>
-                </div>
-                <div className="bg-gradient-primary/10 p-4 rounded-lg">
-                  <h4 className="font-semibold text-government-blue mb-2">
-                    Inovasi Program
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    [Template - Isi dengan inovasi program]
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <History className="mr-2 text-government-blue" /> Masa Orde Lama
+                (1964)
+              </h2>
+              <p className="mb-4 text-justify leading-relaxed">
+                Selanjutnya, dengan Undang-Undang No. 29 Tahun 1959, Kabupaten
+                Sulawesi Tenggara dimekarkan menjadi empat kabupaten, yaitu:
+              </p>
+              <ul className="list-disc list-inside space-y-1 mb-4 pl-4 text-gray-700">
+                <li>Kabupaten Buton</li>
+                <li>Kabupaten Kendari</li>
+                <li>Kabupaten Kolaka</li>
+                <li>Kabupaten Muna</li>
+              </ul>
+              <p className="mb-4 text-justify leading-relaxed">
+                Keempat daerah tersebut merupakan bagian dari Provinsi Sulawesi
+                Selatan dan Tenggara. Sulitnya komunikasi dan gangguan DI/TII
+                pada masa itu sangat menghambat pelaksanaan tugas pemerintahan
+                dan pembangunan. Atas pertimbangan ini, tokoh-tokoh masyarakat
+                Sulawesi Tenggara membentuk Panitia Penuntut Daerah Otonom
+                Tingkat I untuk memperjuangkan pembentukan daerah otonom di
+                Jakarta.
+              </p>
+              <p className="text-justify leading-relaxed">
+                Cita-cita rakyat Sulawesi Tenggara tercapai dengan keluarnya
+                Perpu No. 2 Tahun 1964, yang menetapkan Sulawesi Tenggara
+                sebagai Daerah Otonom Tingkat I dengan ibukotanya Kendari.
+                Realisasi pembentukan ini dilakukan pada tanggal 27 April 1964,
+                yang diperingati sebagai hari lahirnya Provinsi Daerah Tingkat I
+                Sulawesi Tenggara.
+              </p>
+            </section>
+          </CardContent>
+        </Card>
       </div>
     </main>
   );
