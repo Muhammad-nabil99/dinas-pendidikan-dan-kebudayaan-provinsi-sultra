@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Divide } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -76,7 +76,11 @@ const Navbar = () => {
 
   return (
     <nav
+<<<<<<< HEAD
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+=======
+      className={`fixed top-0 left-0 w-full  z-50 transition-all duration-500 ${
+>>>>>>> 13811a0001691a017b43b8e3622be299205d9b9b
         scrolled
           ? "bg-white shadow-md border-b border-gray-200"
           : "bg-transparent backdrop-blur-sm border-b border-white/20"
