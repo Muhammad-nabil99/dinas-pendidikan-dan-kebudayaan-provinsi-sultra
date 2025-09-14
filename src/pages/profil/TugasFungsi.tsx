@@ -15,128 +15,125 @@ const fungsiDinas = [
 type UnitKerja = {
   nama: string;
   unit: string;
-  link: string;
+  id: string;
 };
 const unitKerja: UnitKerja[] = [
   {
     nama: "nama",
     unit: "Kepala Dinas Pendidikan dan Kebudayaan Provinsi Sulawesi Tenggara",
-    link: "/profil/tugas-fungsi/kepala-dinas",
+    id: "kepala-dinas",
   },
   {
     nama: "nama",
     unit: "Sekretaris",
-    link: "/profil/tugas-fungsi/sekretaris",
+    id: "sekretaris",
   },
   {
     nama: "nama",
     unit: "Bidang Perencanaan dan Penganggaran",
-    link: "/profil/tugas-fungsi/bidang-perencanaan-dan-penganggaran",
+    id: "bidang-perencanaan-dan-penganggaran",
   },
   {
     nama: "nama",
     unit: "Bidang Pembinaan Sekolah Menengah Atas",
-    link: "/profil/tugas-fungsi/bidang-pembinaan-sekolah-menengah-atas",
+    id: "bidang-pembinaan-sekolah-menengah-atas",
   },
   {
     nama: "nama",
     unit: "Bidang Pembinaan Sekolah Menengah Kejuruan dan Pendidikan Khusus-Layanan Khusus",
-    link: "/profil/tugas-fungsi/bidang-pembinaan-sekolah-menengah-kejuruan-dan-pendidikan-khusus-layanan-khusus",
+    id: "bidang-pembinaan-sekolah-menengah-kejuruan-dan-pendidikan-khusus-layanan-khusus",
   },
   {
     nama: "nama",
     unit: "Bidang Pembinaan Guru dan Ketenagaan",
-    link: "/profil/tugas-fungsi/bidang-pembinaan-guru-dan-ketenagaan",
+    id: "bidang-pembinaan-guru-dan-ketenagaan",
   },
   {
     nama: "nama",
     unit: "Bidang Kebudayaan",
-    link: "/profil/tugas-fungsi/bidang-kebudayaan",
+    id: "bidang-kebudayaan",
   },
   {
     nama: "nama",
     unit: "Unit Pelaksana Teknis Dinas (UPTD)",
-    link: "/profil/tugas-fungsi/unit-pelaksana-teknis-dinas-uptd",
+    id: "unit-pelaksana-teknis-dinas-uptd",
   },
 ];
 
 const TugasFungsi = () => {
   return (
-    <div className="min-h-screen bg-gradient-subtle">
-      <Navbar />
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-government-blue ">
-              Tugas Pokok & Fungsi
-            </h1>
-            <p className=" text-muted-foreground text-md my-1.5">
-              Peran dan Tanggung Jawab Dinas Pendidikan
-            </p>
+    <main className="container mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-government-blue ">
+            Tugas Pokok & Fungsi
+          </h1>
+          <p className=" text-muted-foreground text-md my-1.5">
+            Peran dan Tanggung Jawab Dinas Pendidikan
+          </p>
 
-            <p className="my-5">
-              Dinas Pendidikan Dan Kebudayaan Provinsi Sulawesi Tenggara adalah
-              salah satu Dinas Daerah di lingkungan Pemerintah Provinsi Sulawesi
-              Tenggara yang merupakan unsur pelaksana otonomi daerah, dipimpin
-              oleh seorang Kepala Dinas yang berada di bawah dan bertanggung
-              jawab kepada Gubernur melalui Sekretaris Daerah.
-            </p>
+          <p className="my-5">
+            Dinas Pendidikan Dan Kebudayaan Provinsi Sulawesi Tenggara adalah
+            salah satu Dinas Daerah di lingkungan Pemerintah Provinsi Sulawesi
+            Tenggara yang merupakan unsur pelaksana otonomi daerah, dipimpin
+            oleh seorang Kepala Dinas yang berada di bawah dan bertanggung jawab
+            kepada Gubernur melalui Sekretaris Daerah.
+          </p>
+        </div>
+
+        <div>
+          <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
+            Tugas
+          </h1>
+
+          <p className="text-center">
+            Berdasarkan Peraturan Daerah Provinsi Sulawesi Tenggara nomor 13
+            Tahun 2016, tentang Pembentukan dan Susunan Perangkat Daerah
+            Provinsi Provinsi Sulawesi Tenggara, didalamnya menyebutkan bahwa
+            “Dinas Pendidikan dan Kebudayaan mempunyai tugas membantu Gubernur
+            melaksanakan urusan pemerintahan yang menjadi kewenangan daerah dan
+            tugas pembantuan di bidang pendidikan dan kebudayaan.”
+          </p>
+        </div>
+        <div>
+          <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
+            Fungsi
+          </h1>
+          <p className="text-center">
+            Untuk menyelenggarakan tugas sebagaimana dimaksud di atas Dinas
+            Pendidikan Dan Kebudayaan Provinsi Sulawesi Tenggara memiliki fungsi
+          </p>
+
+          <ol className="my-5 ml-10">
+            {fungsiDinas?.map((item, index) => (
+              <li key={index} className="py-1">
+                {index + 1}. {item}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div>
+          <h1 className="my-20 text-2xl text-center capitalize font-bold text-government-blue mb-4">
+            Tugas pokok dan fungsi masing – masing unit kerja
+          </h1>
+
+          <div className="flex">
+            {unitKerja?.map((item, index) => (
+              <Link
+                to={`/profil/tugas-fungsi/${item.link}`}
+                key={index}
+                className="text-center flex flex-col gap-2 flex-1"
+              >
+                <div className="w-32  h-32 rounded-md  bg-gray-300"></div>
+                <h1 className="font-bold capitalize">{item.nama}</h1>
+                <h2>{item.unit}</h2>
+              </Link>
+            ))}
           </div>
+        </div>
 
-          <div>
-            <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
-              Tugas
-            </h1>
-
-            <p className="text-center">
-              Berdasarkan Peraturan Daerah Provinsi Sulawesi Tenggara nomor 13
-              Tahun 2016, tentang Pembentukan dan Susunan Perangkat Daerah
-              Provinsi Provinsi Sulawesi Tenggara, didalamnya menyebutkan bahwa
-              “Dinas Pendidikan dan Kebudayaan mempunyai tugas membantu Gubernur
-              melaksanakan urusan pemerintahan yang menjadi kewenangan daerah
-              dan tugas pembantuan di bidang pendidikan dan kebudayaan.”
-            </p>
-          </div>
-          <div>
-            <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
-              Fungsi
-            </h1>
-            <p className="text-center">
-              Untuk menyelenggarakan tugas sebagaimana dimaksud di atas Dinas
-              Pendidikan Dan Kebudayaan Provinsi Sulawesi Tenggara memiliki
-              fungsi
-            </p>
-
-            <ol className="my-5 ml-10">
-              {fungsiDinas?.map((item, index) => (
-                <li key={index} className="py-1">
-                  {index + 1}. {item}
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div>
-            <h1 className="my-20 text-2xl text-center capitalize font-bold text-government-blue mb-4">
-              Tugas pokok dan fungsi masing – masing unit kerja
-            </h1>
-
-            <div className="flex">
-              {unitKerja?.map((item, index) => (
-                <Link
-                  to={item.link}
-                  key={index}
-                  className="text-center flex flex-col gap-2 flex-1"
-                >
-                  <div className="w-32  h-32 rounded-md  bg-gray-300"></div>
-                  <h1 className="font-bold capitalize">{item.nama}</h1>
-                  <h2>{item.unit}</h2>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* <Tabs defaultValue="tugas" className="space-y-6">
+        {/* <Tabs defaultValue="tugas" className="space-y-6">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="tugas">Tugas Pokok</TabsTrigger>
               <TabsTrigger value="fungsi">Fungsi</TabsTrigger>
@@ -269,10 +266,8 @@ const TugasFungsi = () => {
               </div>
             </TabsContent>
           </Tabs> */}
-        </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </main>
   );
 };
 

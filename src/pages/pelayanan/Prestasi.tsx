@@ -6,8 +6,6 @@ import { Progress } from "@/components/ui/progress";
 
 const Prestasi = () => {
   return (
-    <div className="min-h-screen bg-gradient-subtle">
-      <Navbar />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
@@ -325,8 +323,6 @@ const Prestasi = () => {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
   );
 };
 

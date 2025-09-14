@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-function layout() {
+function AppLayout() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-subtle">
       <Navbar />
       <main>
         <Outlet />
@@ -13,4 +13,4 @@ function layout() {
     </div>
   );
 }
-export default layout;
+export default AppLayout;

@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 
 const StandarPelayanan = () => {
   return (
-    <div className="min-h-screen bg-gradient-subtle">
-      <Navbar />
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
@@ -291,8 +289,6 @@ const StandarPelayanan = () => {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
   );
 };
 
