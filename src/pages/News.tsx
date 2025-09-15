@@ -141,8 +141,15 @@ const News = () => {
 
       <main>
         {/* Header Section */}
-        <section className="py-20 bg-gradient-primary text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section
+          className="relative py-20 text-white bg-cover bg-center"
+          style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+        >
+          {/* Overlay warna biru dengan opacity */}
+          <div className="absolute inset-0 bg-blue-900/70"></div>
+
+          {/* Konten */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center mb-6">
               <Link to="/">
                 <Button
@@ -151,7 +158,7 @@ const News = () => {
                   className="bg-white/10 border-white/20 text-white hover:bg-white/20"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Kembali ke Beranda
+                  <span className="hidden sm:inline">Kembali ke Beranda</span>
                 </Button>
               </Link>
             </div>
@@ -172,6 +179,7 @@ const News = () => {
             </div>
           </div>
         </section>
+
 
         {/* Filter Section */}
         <section className="py-8 bg-muted/30">
@@ -244,11 +252,13 @@ const News = () => {
                       <span className="text-sm text-muted-foreground">
                         {item.date}
                       </span>
-                      <Link to={`/berita/${item.id}`}>
-                        <Button variant="ghost" size="sm" className="text-government-blue hover:text-government-blue/80">
-                          Baca Selengkapnya
-                        </Button>
-                      </Link>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-government-blue hover:text-government-blue/80"
+                      >
+                        Baca Selengkapnya
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

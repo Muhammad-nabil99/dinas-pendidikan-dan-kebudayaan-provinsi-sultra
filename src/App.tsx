@@ -21,7 +21,6 @@ import Video from "./pages/galeri/Video";
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 
 import News from "./pages/News";
-import NewsDetail from "./pages/NewsDetail";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +55,6 @@ const App = () => (
 
             {/* News Routes */}
             <Route path="/news" element={<News />} />
-            <Route path="/berita/:id" element={<NewsDetail />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
