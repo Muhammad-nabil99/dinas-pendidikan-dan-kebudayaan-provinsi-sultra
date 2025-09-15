@@ -1,492 +1,769 @@
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { 
   Search, 
+  Grid3X3, 
+  List, 
+  Play, 
   Calendar, 
   MapPin, 
+  Eye, 
   Download, 
-  Upload, 
-  Filter, 
   ChevronLeft, 
   ChevronRight,
-  X,
-  Eye,
-  Play,
+  ChevronDown,
+  Filter,
+  Image,
   Video
-} from "lucide-react";
+} from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
-const Galeri = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchDate, setSearchDate] = useState("");
-  const [filteredAlbums, setFilteredAlbums] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Semua Media");
-  const [selectedAlbum, setSelectedAlbum] = useState(null);
-  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [viewMode, setViewMode] = useState("grid");
+// Import images
+import educationBuilding from '@/assets/education-building.jpg';
+import studentsActivity from '@/assets/students-activity.jpg';
+import teacherMeeting from '@/assets/teacher-meeting.jpg';
+import graduation from '@/assets/graduation.jpg';
 
-  // Data album dengan foto dan video
-  const albums = [
-    {
-      id: 1,
-      judul: "Rapat Koordinasi Kepala Sekolah",
-      tanggal: "15 September 2024",
-      lokasi: "Aula Dinas Pendidikan",
-      jumlahMedia: 28,
-      kategori: "Kegiatan Resmi",
-      cover: "https://picsum.photos/seed/album1/600/400",
-      media: [
-        { id: 1, type: "image", url: "https://picsum.photos/seed/photo1-1/800/600", judul: "Pembukaan Rapat", deskripsi: "Sambutan oleh kepala dinas" },
-        { id: 2, type: "image", url: "https://picsum.photos/seed/photo1-2/800/600", judul: "Sesi Diskusi", deskripsi: "Diskusi antar kepala sekolah" },
-        { id: 3, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", judul: "Video Dokumentasi Rapat", deskripsi: "Cuplikan kegiatan rapat" },
-        { id: 4, type: "image", url: "https://picsum.photos/seed/photo1-4/800/600", judul: "Sesi Tanya Jawab", deskripsi: "Interaksi dengan peserta" },
-        { id: 5, type: "image", url: "https://picsum.photos/seed/photo1-5/800/600", judul: "Penutupan", deskripsi: "Foto bersama peserta rapat" },
-      ]
-    },
-    {
-      id: 2,
-      judul: "Workshop Kurikulum Merdeka",
-      tanggal: "10 September 2024", 
-      lokasi: "Hotel Santika Kendari",
-      jumlahMedia: 45,
-      kategori: "Pelatihan",
-      cover: "https://picsum.photos/seed/album2/600/400",
-      media: [
-        { id: 1, type: "image", url: "https://picsum.photos/seed/photo2-1/800/600", judul: "Sambutan", deskripsi: "Pembukaan workshop" },
-        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", judul: "Video Workshop", deskripsi: "Cuplikan kegiatan workshop" },
-        { id: 3, type: "image", url: "https://picsum.photos/seed/photo2-3/800/600", judul: "Sesi Praktik", deskripsi: "Praktik penerapan kurikulum" },
-        { id: 4, type: "image", url: "https://picsum.photos/seed/photo2-4/800/600", judul: "Diskusi Kelompok", deskripsi: "Peserta berdiskusi dalam kelompok" },
-        { id: 5, type: "image", url: "https://picsum.photos/seed/photo2-5/800/600", judul: "Penyerahan Sertifikat", deskripsi: "Penyerahan sertifikat peserta" },
-      ]
-    },
-    {
-      id: 3,
-      judul: "Kunjungan Menteri Pendidikan",
-      tanggal: "5 September 2024",
-      lokasi: "SMAN 1 Kendari",
-      jumlahMedia: 38,
-      kategori: "Kunjungan",
-      cover: "https://picsum.photos/seed/album3/600/400",
-      media: [
-        { id: 1, type: "image", url: "https://picsum.photos/seed/photo3-1/800/600", judul: "Kedatangan", deskripsi: "Menteri tiba di lokasi" },
-        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", judul: "Video Kunjungan", deskripsi: "Dokumentasi kunjungan menteri" },
-        { id: 3, type: "image", url: "https://picsum.photos/seed/photo3-3/800/600", judul: "Interaksi dengan Siswa", deskripsi: "Berkomunikasi dengan siswa" },
-        { id: 4, type: "image", url: "https://picsum.photos/seed/photo3-4/800/600", judul: "Demo Kelas", deskripsi: "Menonton demonstrasi kelas" },
-        { id: 5, type: "image", url: "https://picsum.photos/seed/photo3-5/800/600", judul: "Sesi Foto", deskripsi: "Foto bersama dengan staf sekolah" },
-      ]
-    },
-    {
-      id: 4,
-      judul: "Upacara HUT RI ke-79",
-      tanggal: "17 Agustus 2024",
-      lokasi: "Lapangan Kantor Gubernur",
-      jumlahMedia: 25,
-      kategori: "Upacara",
-      cover: "https://picsum.photos/seed/album4/600/400",
-      media: [
-        { id: 1, type: "image", url: "https://picsum.photos/seed/photo4-1/800/600", judul: "Pengibaran Bendera", deskripsi: "Detik-detik pengibaran bendera" },
-        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", judul: "Video Upacara", deskripsi: "Dokumentasi upacara bendera" },
-        { id: 3, type: "image", url: "https://picsum.photos/seed/photo4-3/800/600", judul: "Pasukan Upacara", deskripsi: "Pasukan pengibar bendera" },
-        { id: 4, type: "image", url: "https://picsum.photos/seed/photo4-4/800/600", judul: "Peserta Upacara", deskripsi: "Seluruh peserta upacara" },
-        { id: 5, type: "image", url: "https://picsum.photos/seed/photo4-5/800/600", judul: "Tumpeng Kemerdekaan", deskripsi: "Pemotongan tumpeng kemerdekaan" },
-      ]
-    },
-    {
-      id: 5,
-      judul: "Video Dokumentasi Pendidikan",
-      tanggal: "20 September 2024",
-      lokasi: "Berbagai Lokasi",
-      jumlahMedia: 8,
-      kategori: "Video",
-      cover: "https://picsum.photos/seed/video-cover/600/400",
-      media: [
-        { id: 1, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", judul: "Proses Belajar Mengajar", deskripsi: "Aktivitas belajar di kelas" },
-        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", judul: "Ekstrakurikuler", deskripsi: "Kegiatan ekstrakurikuler siswa" },
-        { id: 3, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", judul: "Pelatihan Guru", deskripsi: "Peningkatan kompetensi guru" },
-        { id: 4, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", judul: "Infrastruktur Sekolah", deskripsi: "Fasilitas pendukung pendidikan" },
-      ]
-    }
-  ];
+interface Media {
+  id: string;
+  type: 'foto' | 'video';
+  url: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+}
 
-  // Kategori unik
-  const categories = ["Semua Media", ...new Set(albums.map(album => album.kategori))];
+interface Album {
+  id: string;
+  title: string;
+  category: 'foto' | 'video';
+  coverImage: string;
+  mediaCount: number;
+  date: string;
+  location: string;
+  media: Media[];
+}
 
-  // Filter album berdasarkan pencarian dan kategori
+// Dummy data
+const dummyAlbums: Album[] = [
+  {
+    id: '1',
+    title: 'Gedung Dinas Pendidikan',
+    category: 'foto',
+    coverImage: educationBuilding,
+    mediaCount: 5,
+    date: '2024-03-15',
+    location: 'Kendari, Sulawesi Tenggara',
+    media: [
+      {
+        id: '1',
+        type: 'foto',
+        url: educationBuilding,
+        thumbnail: educationBuilding,
+        title: 'Gedung Utama Dinas Pendidikan',
+        description: 'Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi'
+      },
+    ]
+  },
+  {
+    id: '2',
+    title: 'Kegiatan Pembelajaran Siswa',
+    category: 'foto',
+    coverImage: studentsActivity,
+    mediaCount: 8,
+    date: '2024-03-10',
+    location: 'SMA Negeri 1 Kendari',
+    media: [
+      {
+        id: '2',
+        type: 'foto',
+        url: studentsActivity,
+        thumbnail: studentsActivity,
+        title: 'Aktivitas Siswa di Kelas',
+        description: 'Siswa-siswa sedang aktif belajar dalam suasana kelas yang kondusif'
+      },
+    ]
+  },
+  {
+    id: '3',
+    title: 'Rapat Koordinasi Guru',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 3,
+    date: '2024-03-08',
+    location: 'Aula Dinas Pendidikan',
+    media: [
+      {
+        id: '3',
+        type: 'video',
+        url: '/sample-video.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Video Rapat Koordinasi',
+        description: 'Dokumentasi rapat koordinasi antara guru dan pengawas pendidikan'
+      },
+    ]
+  },
+  {
+    id: '4',
+    title: 'Upacara Wisuda',
+    category: 'foto',
+    coverImage: graduation,
+    mediaCount: 12,
+    date: '2024-03-05',
+    location: 'Universitas Halu Oleo',
+    media: [
+      {
+        id: '4',
+        type: 'foto',
+        url: graduation,
+        thumbnail: graduation,
+        title: 'Upacara Wisuda Sarjana',
+        description: 'Momen sakral wisuda lulusan program studi pendidikan'
+      },
+    ]
+  },
+  {
+    id: '5',
+    title: 'Workshop Teknologi Pendidikan',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 6,
+    date: '2024-03-01',
+    location: 'Lab Komputer SMAN 2',
+    media: [
+      {
+        id: '5',
+        type: 'video',
+        url: '/sample-video2.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Workshop Digital Learning',
+        description: 'Pelatihan penggunaan teknologi dalam pembelajaran modern'
+      },
+    ]
+  },
+  {
+    id: '6',
+    title: 'Kunjungan Kerja Kepala Dinas',
+    category: 'foto',
+    coverImage: educationBuilding,
+    mediaCount: 4,
+    date: '2024-02-28',
+    location: 'SD Negeri 5 Kendari',
+    media: [
+      {
+        id: '6',
+        type: 'foto',
+        url: educationBuilding,
+        thumbnail: educationBuilding,
+        title: 'Monitoring Sekolah',
+        description: 'Kunjungan monitoring dan evaluasi fasilitas sekolah'
+      },
+    ]
+  },
+  {
+    id: '7',
+    title: 'Pelatihan Guru PAUD',
+    category: 'video',
+    coverImage: studentsActivity,
+    mediaCount: 5,
+    date: '2024-02-25',
+    location: 'PAUD Terpadu Kendari',
+    media: [
+      {
+        id: '7',
+        type: 'video',
+        url: '/sample-video3.mp4',
+        thumbnail: studentsActivity,
+        title: 'Pelatihan PAUD',
+        description: 'Workshop pengembangan metode pembelajaran untuk guru PAUD'
+      },
+    ]
+  },
+  {
+    id: '8',
+    title: 'Dokumentasi Sekolah Alam',
+    category: 'foto',
+    coverImage: graduation,
+    mediaCount: 7,
+    date: '2024-02-20',
+    location: 'Sekolah Alam Kendari',
+    media: [
+      {
+        id: '8',
+        type: 'foto',
+        url: graduation,
+        thumbnail: graduation,
+        title: 'Pembelajaran Outdoor',
+        description: 'Kegiatan pembelajaran di alam terbuka'
+      },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Seminar Pendidikan Digital',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 4,
+    date: '2024-02-15',
+    location: 'Hotel Santika Kendari',
+    media: [
+      {
+        id: '9',
+        type: 'video',
+        url: '/sample-video4.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Seminar Digital',
+        description: 'Seminar tentang transformasi pendidikan digital'
+      },
+    ]
+  },
+];
+
+const Galeri: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<'semua' | 'foto' | 'video'>('semua');
+  const [sortOrder, setSortOrder] = useState<'terbaru' | 'terlama'>('terbaru');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
+  const [fotoCurrentPage, setFotoCurrentPage] = useState(1);
+  const [videoCurrentPage, setVideoCurrentPage] = useState(1);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
+  
+  const isMobile = useIsMobile();
+  const itemsPerPage = 6;
+
+  // Auto switch to list view on mobile
   useEffect(() => {
-    let results = albums;
-    
-    // Filter berdasarkan kategori
-    if (selectedCategory !== "Semua Media") {
-      results = results.filter(album => album.kategori === selectedCategory);
+    if (isMobile) {
+      setViewMode('list');
     }
-    
-    // Filter berdasarkan judul
-    if (searchTerm) {
-      results = results.filter(album => 
-        album.judul.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    // Filter berdasarkan tanggal
-    if (searchDate) {
-      results = results.filter(album => 
-        album.tanggal.toLowerCase().includes(searchDate.toLowerCase())
-      );
-    }
-    
-    setFilteredAlbums(results);
-  }, [searchTerm, searchDate, selectedCategory]);
+  }, [isMobile]);
 
-  // Fungsi untuk membuka album
-  const openAlbum = (album) => {
+  // Filter and sort albums
+  const filteredAlbums = dummyAlbums
+    .filter(album => {
+      const matchesSearch = album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           album.location.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = categoryFilter === 'semua' || album.category === categoryFilter;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return sortOrder === 'terbaru' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
+    });
+
+  // Separate albums by category
+  const fotoAlbums = filteredAlbums.filter(album => album.category === 'foto');
+  const videoAlbums = filteredAlbums.filter(album => album.category === 'video');
+
+  // Pagination for each category
+  const fotoTotalPages = Math.ceil(fotoAlbums.length / itemsPerPage);
+  const videoTotalPages = Math.ceil(videoAlbums.length / itemsPerPage);
+  
+  const fotoStartIndex = (fotoCurrentPage - 1) * itemsPerPage;
+  const videoStartIndex = (videoCurrentPage - 1) * itemsPerPage;
+  
+  const paginatedFotoAlbums = fotoAlbums.slice(fotoStartIndex, fotoStartIndex + itemsPerPage);
+  const paginatedVideoAlbums = videoAlbums.slice(videoStartIndex, videoStartIndex + itemsPerPage);
+
+  const handleAlbumClick = (album: Album) => {
     setSelectedAlbum(album);
-    setCurrentMediaIndex(0);
+    setSelectedMediaIndex(0);
   };
 
-  // Fungsi untuk menutup album
-  const closeAlbum = () => {
-    setSelectedAlbum(null);
+  const handleMediaSelect = (index: number) => {
+    setSelectedMediaIndex(index);
   };
 
-  // Fungsi untuk media berikutnya
-  const nextMedia = () => {
-    setCurrentMediaIndex(prev => 
-      prev < selectedAlbum.media.length - 1 ? prev + 1 : 0
-    );
-  };
-
-  // Fungsi untuk media sebelumnya
-  const prevMedia = () => {
-    setCurrentMediaIndex(prev => 
-      prev > 0 ? prev - 1 : selectedAlbum.media.length - 1
-    );
-  };
-
-  // Render media berdasarkan type (image atau video)
-  const renderMedia = (media) => {
-    if (media.type === "image") {
-      return (
-        <img 
-          src={media.url} 
-          alt={media.judul}
-          className="max-h-[60vh] object-contain"
-        />
-      );
-    } else {
-      return (
-        <video 
-          controls 
-          className="max-h-[60vh] max-w-min"
-          poster={selectedAlbum.cover}
-        >
-          <source src={media.url} type="video/mp4" />
-          Browser Anda tidak mendukung pemutar video.
-        </video>
-      );
+  const handleNextMedia = () => {
+    if (selectedAlbum && selectedMediaIndex < selectedAlbum.media.length - 1) {
+      setSelectedMediaIndex(selectedMediaIndex + 1);
     }
+  };
+
+  const handlePrevMedia = () => {
+    if (selectedMediaIndex > 0) {
+      setSelectedMediaIndex(selectedMediaIndex - 1);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('id-ID', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  };
+
+  // Reset pagination when category filter changes
+  const handleCategoryChange = (category: 'semua' | 'foto' | 'video') => {
+    setCategoryFilter(category);
+    setFotoCurrentPage(1);
+    setVideoCurrentPage(1);
+    setShowCategoryDropdown(false);
+  };
+
+  // Render album cards component
+  const renderAlbumCard = (album: Album) => (
+    <Card 
+      key={album.id} 
+      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 hover:border-gallery-primary rounded-xl"
+      onClick={() => handleAlbumClick(album)}
+    >
+      <div className="relative overflow-hidden">
+        <img
+          src={album.coverImage}
+          alt={album.title}
+          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+        {album.category === 'video' && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all duration-300">
+            <div className="bg-white bg-opacity-90 rounded-full p-3 transform scale-100 group-hover:scale-110 transition-transform duration-300">
+              <Play className="h-6 w-6 text-gallery-primary" />
+            </div>
+          </div>
+        )}
+        <div className="absolute top-3 right-3">
+          <Badge 
+            variant={album.category === 'video' ? 'default' : 'secondary'}
+            className={album.category === 'video' ? 'bg-gallery-primary hover:bg-gallery-primary-dark' : ''}
+          >
+            {album.category === 'video' ? 'Video' : 'Foto'}
+          </Badge>
+        </div>
+        <div className="absolute bottom-3 left-3">
+          <Badge variant="outline" className="bg-white bg-opacity-90">
+            {album.mediaCount} Media
+          </Badge>
+        </div>
+      </div>
+      <CardContent className="p-4">
+        <h3 className="font-semibold text-gallery-text-primary mb-2 line-clamp-2">
+          {album.title}
+        </h3>
+        <div className="space-y-1 text-sm text-gallery-text-secondary">
+          <div className="flex items-center gap-1">
+            <Calendar className="h-3 w-3" />
+            {formatDate(album.date)}
+          </div>
+          <div className="flex items-center gap-1">
+            <MapPin className="h-3 w-3" />
+            {album.location}
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Button 
+          className="w-full bg-gallery-primary hover:bg-gallery-primary-dark transition-colors duration-200"
+          size="sm"
+        >
+          <Eye className="h-4 w-4 mr-2" />
+          {album.category === 'video' ? 'Lihat Video' : 'Lihat Album'}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+
+  // Render album list item component
+  const renderAlbumListItem = (album: Album) => (
+    <Card 
+      key={album.id}
+      className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 border-2 hover:border-gallery-primary rounded-xl"
+      onClick={() => handleAlbumClick(album)}
+    >
+      <CardContent className="p-4">
+        <div className="flex gap-4">
+          <div className="relative flex-shrink-0">
+            <img
+              src={album.coverImage}
+              alt={album.title}
+              className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg"
+            />
+            {album.category === 'video' && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
+                <div className="bg-white bg-opacity-90 rounded-full p-2">
+                  <Play className="h-4 w-4 text-gallery-primary" />
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <h3 className="font-semibold text-gallery-text-primary text-sm sm:text-base">
+                {album.title}
+              </h3>
+              <div className="flex gap-2">
+                <Badge 
+                  variant={album.category === 'video' ? 'default' : 'secondary'}
+                  className={`text-xs ${album.category === 'video' ? 'bg-gallery-primary hover:bg-gallery-primary-dark' : ''}`}
+                >
+                  {album.category === 'video' ? 'Video' : 'Foto'}
+                </Badge>
+                <Badge variant="outline" className="text-xs">
+                  {album.mediaCount} Media
+                </Badge>
+              </div>
+            </div>
+            <div className="space-y-1 text-xs sm:text-sm text-gallery-text-secondary mb-3">
+              <div className="flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                {formatDate(album.date)}
+              </div>
+              <div className="flex items-center gap-1">
+                <MapPin className="h-3 w-3" />
+                {album.location}
+              </div>
+            </div>
+            <Button 
+              size="sm" 
+              className="bg-gallery-primary hover:bg-gallery-primary-dark transition-colors duration-200 text-xs sm:text-sm"
+            >
+              <Eye className="h-3 w-3 mr-1" />
+              {album.category === 'video' ? 'Lihat Video' : 'Lihat Album'}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  // Render pagination component
+  const renderPagination = (currentPage: number, totalPages: number, setCurrentPage: (page: number) => void) => {
+    if (totalPages <= 1) return null;
+
+    return (
+      <div className="flex justify-center items-center gap-2 mt-6">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+          disabled={currentPage === 1}
+          className="border-2"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Button
+            key={page}
+            variant={page === currentPage ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setCurrentPage(page)}
+            className={`border-2 ${page === currentPage ? 'bg-gallery-primary hover:bg-gallery-primary-dark' : ''}`}
+          >
+            {page}
+          </Button>
+        ))}
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+          disabled={currentPage === totalPages}
+          className="border-2"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
-      <main className="container mx-auto px-4 py-8 pt-24">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-blue-800 mb-4">Galeri Media</h1>
-            <p className="text-gray-600 text-lg">Dokumentasi Foto dan Video Kegiatan Dinas Pendidikan Sulawesi Tenggara</p>
+    <div className="min-h-screen bg-gallery-bg-light">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-gallery-text-primary mb-4">Galeri Media</h1>
+            <p className="text-lg text-gallery-text-secondary max-w-3xl mx-auto">
+              Dokumentasi Foto dan Video Kegiatan Dinas Pendidikan Sulawesi Tenggara
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Search and Filters */}
+        <div className="mb-8 space-y-4">
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gallery-text-secondary h-4 w-4" />
+            <Input
+              placeholder="Cari album atau lokasi..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 h-12 text-base border-2 focus:border-gallery-primary"
+            />
           </div>
 
-          {/* Search Bar */}
-          <Card className="shadow-lg rounded-xl mb-6 border-0">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                  <Input
-                    type="text"
-                    placeholder="Cari berdasarkan judul kegiatan..."
-                    className="pl-10 py-2 rounded-xl border-gray-200 focus:border-blue-500 text-sm"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-                <div className="relative flex-1">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                  <Input
-                    type="text"
-                    placeholder="Cari berdasarkan tanggal (Contoh: September 2024)"
-                    className="pl-10 py-2 rounded-xl border-gray-200 focus:border-blue-500"
-                    value={searchDate}
-                    onChange={(e) => setSearchDate(e.target.value)}
-                  />
-                </div>
-                <Button className="bg-blue-600 hover:bg-blue-700 rounded-xl">
-                  <Filter size={18} className="mr-2" />
-                  Filter
+          {/* Filters and View Toggle */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="flex flex-wrap gap-3">
+              {/* Category Filter */}
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+                  className="border-2 hover:border-gallery-primary"
+                >
+                  <Filter className="h-4 w-4 mr-2" />
+                  {categoryFilter === 'semua' ? 'Semua' : categoryFilter === 'foto' ? 'Foto' : 'Video'}
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+                {showCategoryDropdown && (
+                  <div className="absolute top-full mt-1 left-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                    {['semua', 'foto', 'video'].map((category) => (
+                      <button
+                        key={category}
+                        className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
+                        onClick={() => handleCategoryChange(category as any)}
+                      >
+                        {category === 'semua' ? 'Semua' : category}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Sort Filter */}
+              <div className="relative">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowSortDropdown(!showSortDropdown)}
+                  className="border-2 hover:border-gallery-primary"
+                >
+                  {sortOrder === 'terbaru' ? 'Terbaru' : 'Terlama'}
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+                {showSortDropdown && (
+                  <div className="absolute top-full mt-1 left-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                    {['terbaru', 'terlama'].map((sort) => (
+                      <button
+                        key={sort}
+                        className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
+                        onClick={() => {
+                          setSortOrder(sort as any);
+                          setShowSortDropdown(false);
+                        }}
+                      >
+                        {sort === 'terbaru' ? 'Terbaru' : 'Terlama'}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* View Toggle - Hidden on mobile */}
+            {!isMobile && (
+              <div className="flex gap-2">
+                <Button
+                  variant={viewMode === 'grid' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('grid')}
+                  className="border-2"
+                >
+                  <Grid3X3 className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === 'list' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('list')}
+                  className="border-2"
+                >
+                  <List className="h-4 w-4" />
                 </Button>
               </div>
-            </CardContent>
-          </Card>
+            )}
+          </div>
+        </div>
 
-          {/* Filter & Kategori */}
-          <Card className="shadow-lg rounded-xl mb-8 border-0">
-            <CardContent className="p-4">
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category, index) => (
-                  <Button 
-                    key={index}
-                    variant={selectedCategory === category ? "default" : "outline"} 
-                    size="sm"
-                    className={`rounded-lg ${selectedCategory === category ? 'bg-blue-600' : 'text-blue-600 border-blue-200 hover:bg-blue-50'}`}
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category}
-                  </Button>
-                ))}
+        {/* Foto Section */}
+        {(categoryFilter === 'semua' || categoryFilter === 'foto') && fotoAlbums.length > 0 && (
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border-2 border-gallery-primary">
+                <Image className="h-5 w-5 text-gallery-primary" />
+                <h2 className="text-xl font-semibold text-gallery-text-primary">Foto</h2>
+                <Badge variant="outline" className="text-gallery-primary border-gallery-primary">
+                  {fotoAlbums.length}
+                </Badge>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          {/* View Toggle */}
-          <div className="flex justify-end mb-4">
-            <div className="flex bg-blue-100 rounded-lg p-1">
-              <Button 
-                variant={viewMode === "grid" ? "default" : "ghost"} 
-                size="sm"
-                className={viewMode === "grid" ? "bg-blue-600" : ""}
-                onClick={() => setViewMode("grid")}
-              >
-                Grid
-              </Button>
-              <Button 
-                variant={viewMode === "list" ? "default" : "ghost"} 
-                size="sm"
-                className={viewMode === "list" ? "bg-blue-600" : ""}
-                onClick={() => setViewMode("list")}
-              >
-                List
-              </Button>
+            {viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedFotoAlbums.map(renderAlbumCard)}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {paginatedFotoAlbums.map(renderAlbumListItem)}
+              </div>
+            )}
+
+            {renderPagination(fotoCurrentPage, fotoTotalPages, setFotoCurrentPage)}
+          </div>
+        )}
+
+        {/* Video Section */}
+        {(categoryFilter === 'semua' || categoryFilter === 'video') && videoAlbums.length > 0 && (
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border-2 border-gallery-primary">
+                <Video className="h-5 w-5 text-gallery-primary" />
+                <h2 className="text-xl font-semibold text-gallery-text-primary">Video</h2>
+                <Badge variant="outline" className="text-gallery-primary border-gallery-primary">
+                  {videoAlbums.length}
+                </Badge>
+              </div>
+            </div>
+
+            {viewMode === 'grid' ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedVideoAlbums.map(renderAlbumCard)}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {paginatedVideoAlbums.map(renderAlbumListItem)}
+              </div>
+            )}
+
+            {renderPagination(videoCurrentPage, videoTotalPages, setVideoCurrentPage)}
+          </div>
+        )}
+
+        {/* No Results Message */}
+        {((categoryFilter === 'foto' && fotoAlbums.length === 0) || 
+          (categoryFilter === 'video' && videoAlbums.length === 0) ||
+          (categoryFilter === 'semua' && filteredAlbums.length === 0)) && (
+          <div className="text-center py-12">
+            <div className="text-gallery-text-secondary text-lg">
+              Tidak ada album yang ditemukan untuk kriteria pencarian Anda.
             </div>
           </div>
+        )}
+      </div>
 
-          {/* Hasil Pencarian */}
-          {filteredAlbums.length === 0 ? (
-            <Card className="shadow-lg rounded-xl border-0 text-center py-12">
-              <CardContent>
-                <div className="text-blue-800 mb-2">Tidak ada hasil ditemukan</div>
-                <p className="text-gray-600">Coba gunakan kata kunci atau tanggal yang berbeda</p>
-              </CardContent>
-            </Card>
-          ) : (
-            <>
-              {/* Album Media - Grid View */}
-              {viewMode === "grid" && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {filteredAlbums.map((album) => (
-                    <Card key={album.id} className="shadow-lg rounded-xl overflow-hidden border-0 group hover:shadow-xl transition-all duration-300 cursor-pointer">
-                      <div className="relative">
-                        <img
-                          src={album.cover}
-                          alt={album.judul}
-                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        <div className="absolute top-2 right-2">
-                          <Badge className="bg-blue-600">{album.kategori}</Badge>
-                        </div>
-                        <div className="absolute bottom-2 left-2">
-                          <Badge variant="secondary" className="bg-white text-blue-600">
-                            {album.jumlahMedia} {album.kategori === "Video" ? "Video" : "Media"}
-                          </Badge>
-                        </div>
-                        {/* Icon Play untuk album video */}
-                        {album.kategori === "Video" && (
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="bg-black bg-opacity-50 rounded-full p-3">
-                              <Play size={32} className="text-white fill-white" />
-                            </div>
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
-                          <Button 
-                            className="bg-white text-blue-600 hover:bg-blue-600 hover:text-white"
-                            onClick={() => openAlbum(album)}
-                          >
-                            <Eye size={16} className="mr-2" />
-                            Lihat {album.kategori === "Video" ? "Video" : "Album"}
-                          </Button>
-                        </div>
-                      </div>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-lg text-blue-800 group-hover:text-blue-600 transition-colors line-clamp-2">
-                          {album.judul}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2 text-sm text-gray-600">
-                          <div className="flex items-center gap-2">
-                            <Calendar size={16} className="text-blue-600" />
-                            <span>{album.tanggal}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin size={16} className="text-blue-600" />
-                            <span>{album.lokasi}</span>
-                          </div>
-                        </div>
-                        <Button 
-                          variant="outline" 
-                          className="w-full mt-3 rounded-lg border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
-                          onClick={() => openAlbum(album)}
-                        >
-                          <Eye size={16} className="mr-2" />
-                          Lihat {album.kategori === "Video" ? "Video" : "Album"}
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              )}
-
-              {/* Album Media - List View */}
-              {viewMode === "list" && (
-                <div className="space-y-6 mb-8">
-                  {filteredAlbums.map((album) => (
-                    <Card key={album.id} className="shadow-lg rounded-xl overflow-hidden border-0 group hover:shadow-xl transition-all duration-300">
-                      <div className="flex flex-col md:flex-row">
-                        <div className="md:w-1/3 relative">
-                          <img
-                            src={album.cover}
-                            alt={album.judul}
-                            className="w-full h-48 md:h-full object-cover"
-                          />
-                          <div className="absolute top-2 right-2">
-                            <Badge className="bg-blue-600">{album.kategori}</Badge>
-                          </div>
-                          <div className="absolute bottom-2 left-2">
-                            <Badge variant="secondary" className="bg-white text-blue-600">
-                              {album.jumlahMedia} {album.kategori === "Video" ? "Video" : "Media"}
-                            </Badge>
-                          </div>
-                          {/* Icon Play untuk album video */}
-                          {album.kategori === "Video" && (
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="bg-black bg-opacity-50 rounded-full p-3">
-                                <Play size={32} className="text-white fill-white" />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                        <div className="md:w-2/3 p-6">
-                          <h3 className="text-xl font-bold text-blue-800 mb-2">{album.judul}</h3>
-                          <div className="space-y-2 text-sm text-gray-600 mb-4">
-                            <div className="flex items-center gap-2">
-                              <Calendar size={16} className="text-blue-600" />
-                              <span>{album.tanggal}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <MapPin size={16} className="text-blue-600" />
-                              <span>{album.lokasi}</span>
-                            </div>
-                          </div>
-                          <p className="text-gray-600 mb-4">Koleksi ini berisi dokumentasi {album.kategori === "Video" ? "video" : "foto"} kegiatan {album.judul.toLowerCase()} yang diselenggarakan oleh Dinas Pendidikan Sulawesi Tenggara.</p>
-                          <Button 
-                            className="bg-blue-600 hover:bg-blue-700 rounded-lg"
-                            onClick={() => openAlbum(album)}
-                          >
-                            <Eye size={16} className="mr-2" />
-                            Lihat {album.kategori === "Video" ? "Video" : "Album"}
-                          </Button>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Modal View Album */}
+      {/* Modal */}
+      <Dialog open={!!selectedAlbum} onOpenChange={() => setSelectedAlbum(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           {selectedAlbum && (
-            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-              <div className="bg-white rounded-xl max-w-4xl w-full max-h-screen overflow-hidden flex flex-col">
-                <div className="flex justify-between items-center p-4 border-b">
-                  <h3 className="text-xl font-bold text-blue-800">{selectedAlbum.judul}</h3>
-                  <Button variant="ghost" onClick={closeAlbum}>
-                    <X size={24} />
-                  </Button>
-                </div>
-                
-                <div className="relative flex-grow flex items-center justify-center p-4 bg-black">
-                  {renderMedia(selectedAlbum.media[currentMediaIndex])}
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-gallery-text-primary">{selectedAlbum.title}</DialogTitle>
+              </DialogHeader>
+              
+              <div className="space-y-6">
+                {/* Main Media Display */}
+                <div className="relative">
+                  {selectedAlbum.media[selectedMediaIndex]?.type === 'video' ? (
+                    <video
+                      src={selectedAlbum.media[selectedMediaIndex].url}
+                      controls
+                      className="w-full h-64 sm:h-80 object-cover rounded-lg"
+                    />
+                  ) : (
+                    <img
+                      src={selectedAlbum.media[selectedMediaIndex]?.url}
+                      alt={selectedAlbum.media[selectedMediaIndex]?.title}
+                      className="w-full h-64 sm:h-80 object-cover rounded-lg"
+                    />
+                  )}
                   
-                  <Button 
-                    variant="outline" 
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-                    onClick={prevMedia}
-                  >
-                    <ChevronLeft size={24} />
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-                    onClick={nextMedia}
-                  >
-                    <ChevronRight size={24} />
-                  </Button>
+                  {/* Navigation Buttons */}
+                  {selectedAlbum.media.length > 1 && (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 hover:bg-opacity-100"
+                        onClick={handlePrevMedia}
+                        disabled={selectedMediaIndex === 0}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 hover:bg-opacity-100"
+                        onClick={handleNextMedia}
+                        disabled={selectedMediaIndex === selectedAlbum.media.length - 1}
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </>
+                  )}
                 </div>
-                
-                <div className="p-4 bg-gray-50">
-                  <div className="flex items-center mb-2">
-                    <h4 className="font-semibold text-blue-800 mr-2">{selectedAlbum.media[currentMediaIndex].judul}</h4>
-                    {selectedAlbum.media[currentMediaIndex].type === "video" && (
-                      <Badge variant="outline" className="bg-red-100 text-red-700 border-red-300">
-                        <Video size={14} className="mr-1" />
-                        Video
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-gray-600 text-sm">{selectedAlbum.media[currentMediaIndex].deskripsi}</p>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-sm text-gray-500">{currentMediaIndex + 1} dari {selectedAlbum.media.length}</span>
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                      <Download size={16} className="mr-2" />
+
+                {/* Media Info */}
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <h3 className="font-semibold text-lg text-gallery-text-primary mb-2">
+                        {selectedAlbum.media[selectedMediaIndex]?.title}
+                      </h3>
+                      <div className="flex gap-2 mb-2">
+                        {selectedAlbum.media[selectedMediaIndex]?.type === 'video' && (
+                          <Badge className="bg-gallery-primary hover:bg-gallery-primary-dark">
+                            Video
+                          </Badge>
+                        )}
+                        <Badge variant="outline">
+                          {selectedMediaIndex + 1} dari {selectedAlbum.media.length}
+                        </Badge>
+                      </div>
+                      <p className="text-gallery-text-secondary">
+                        {selectedAlbum.media[selectedMediaIndex]?.description}
+                      </p>
+                    </div>
+                    <Button className="bg-gallery-primary hover:bg-gallery-primary-dark">
+                      <Download className="h-4 w-4 mr-2" />
                       Download
                     </Button>
                   </div>
-                </div>
-                
-                <div className="p-4 border-t overflow-x-auto">
-                  <div className="flex space-x-2">
-                    {selectedAlbum.media.map((media, index) => (
-                      <div 
-                        key={media.id} 
-                        className={`flex-shrink-0 w-16 h-16 cursor-pointer border-2 rounded ${currentMediaIndex === index ? 'border-blue-600' : 'border-transparent'}`}
-                        onClick={() => setCurrentMediaIndex(index)}
-                      >
-                        {media.type === "image" ? (
-                          <img 
-                            src={media.url} 
-                            alt={media.judul} 
-                            className="w-full h-full object-cover rounded"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center relative">
-                            <div className="absolute inset-0 bg-black opacity-30 rounded"></div>
-                            <Play size={20} className="text-white fill-white z-10" />
+
+                  {/* Media Thumbnails */}
+                  {selectedAlbum.media.length > 1 && (
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-gallery-text-primary">Media Lainnya</h4>
+                      <div className="flex gap-2 overflow-x-auto pb-2">
+                        {selectedAlbum.media.map((media, index) => (
+                          <div
+                            key={media.id}
+                            className={`relative flex-shrink-0 cursor-pointer rounded-lg overflow-hidden ${
+                              index === selectedMediaIndex ? 'ring-2 ring-gallery-primary' : ''
+                            }`}
+                            onClick={() => handleMediaSelect(index)}
+                          >
+                            <img
+                              src={media.thumbnail}
+                              alt={media.title}
+                              className="w-16 h-16 object-cover"
+                            />
+                            {media.type === 'video' && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                                <Play className="h-3 w-3 text-white" />
+                              </div>
+                            )}
                           </div>
-                        )}
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
+            </>
           )}
-
-        </div>
-      </main>
-      
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
