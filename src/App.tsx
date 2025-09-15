@@ -12,17 +12,6 @@ import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
 import StrukturOrganisasi from "./pages/profil/StrukturOrganisasiChart.js";
 
-// Pelayanan pages
-import VisiMisiPelayanan from "./pages/pelayanan/VisiMisiPelayanan";
-import MottoPelayanan from "./pages/pelayanan/MottoPelayanan";
-import PinjamRuang from "./pages/pelayanan/PinjamRuang";
-import SOP from "./pages/pelayanan/SOP";
-import SaranaPrasarana from "./pages/pelayanan/SaranaPrasarana";
-import StandarPelayanan from "./pages/pelayanan/StandarPelayanan";
-import Pengaduan from "./pages/pelayanan/Pengaduan";
-import Prestasi from "./pages/pelayanan/Prestasi";
-import KlinikPendidikan from "./pages/pelayanan/KlinikPendidikan";
-
 // PPID page
 import PPID from "./pages/PPID";
 
@@ -56,26 +45,6 @@ const App = () => (
               path="/profil/struktur-organisasi"
               element={<StrukturOrganisasi />}
             />
-
-            {/* Pelayanan Routes */}
-            <Route
-              path="/pelayanan/visi-misi"
-              element={<VisiMisiPelayanan />}
-            />
-            <Route path="/pelayanan/motto" element={<MottoPelayanan />} />
-            <Route path="/pelayanan/pinjam-ruang" element={<PinjamRuang />} />
-            <Route path="/pelayanan/sop" element={<SOP />} />
-            <Route
-              path="/pelayanan/sarana-prasarana"
-              element={<SaranaPrasarana />}
-            />
-            <Route
-              path="/pelayanan/standar-pelayanan"
-              element={<StandarPelayanan />}
-            />
-            <Route path="/pelayanan/pengaduan" element={<Pengaduan />} />
-            <Route path="/pelayanan/prestasi" element={<Prestasi />} />
-            <Route path="/pelayanan/klinik" element={<KlinikPendidikan />} />
 
             {/* PPID Route */}
             <Route path="/ppid" element={<PPID />} />
