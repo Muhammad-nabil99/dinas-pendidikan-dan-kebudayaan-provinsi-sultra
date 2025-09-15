@@ -103,12 +103,14 @@ const NewsSection = () => {
               </p>
 
               <div className="mt-2">
-                <Button
-                  variant="default"
-                  className="bg-gradient-to-r from-blue-600 to-green-400"
-                >
-                  Selengkapnya
-                </Button>
+                <Link to={`/berita/${news[0].id}`}>
+                  <Button
+                    variant="default"
+                    className="bg-gradient-to-r from-blue-600 to-green-400"
+                  >
+                    Selengkapnya
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card>
@@ -127,9 +129,11 @@ const NewsSection = () => {
                   className="w-full h-32 rounded-md object-cover mb-3"
                 />
                 <div className="flex-1">
-                  <h4 className="font-medium text-sm line-clamp-2 mb-1">
-                    {item.title}
-                  </h4>
+                  <Link to={`/berita/${item.id}`}>
+                    <h4 className="font-medium text-sm line-clamp-2 mb-1">
+                      {item.title}
+                    </h4>
+                  </Link>
                   <p className="text-xs text-muted-foreground mb-1">
                     {item.date}
                   </p>
