@@ -61,78 +61,74 @@ const NewsSection = () => {
         </div>
 
         {/* Featured News */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-  {/* Berita utama - ambil 2 kolom */}
-  <Card className="lg:col-span-2 shadow-md rounded-2xl overflow-hidden">
-    <div className="w-full h-64 overflow-hidden">
-      <img
-        src={news[0].image}
-        alt={news[0].title}
-        className="w-full h-full object-cover"
-      />
-    </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        {/* Berita Utama */}
+          <Card className="lg:col-span-3 shadow-md rounded-2xl overflow-hidden">
+            {/* Gambar besar */}
+            <div className="w-full h-96 relative overflow-hidden">
+              <img
+                src={news[0].image}
+                alt={news[0].title}
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-2 line-clamp-2">
-        {news[0].title}
-      </h2>
+            {/* Konten menempel rapat di bawah gambar */}
+            <div className="p-4 flex flex-col gap-2">
+              <h2 className="text-2xl font-bold line-clamp-2">
+                {news[0].title}
+              </h2>
 
-      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-        <span className="flex items-center gap-1">
-          <Timer className="w-4 h-4" /> {news[0].time}
-        </span>
-        <span className="flex items-center gap-1">📅 {news[0].date}</span>
-      </div>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Timer className="w-4 h-4" /> {news[0].time}
+                </span>
+                <span className="flex items-center gap-1">📅 {news[0].date}</span>
+              </div>
 
-      <p className="text-muted-foreground mb-4 line-clamp-3">
-        {news[0].excerpt}
-      </p>
+              <p className="text-muted-foreground line-clamp-3">
+                {news[0].excerpt}
+              </p>
 
-      <div className="flex items-center gap-3">
-        <Button variant="default" className="bg-gradient-to-r from-blue-600 to-green-400">
-          Selengkapnya
-        </Button>
-      </div>
-    </div>
-  </Card>
+              <div className="mt-2">
+                <Button variant="default" className="bg-gradient-to-r from-blue-600 to-green-400">
+                  Selengkapnya
+                </Button>
+              </div>
+            </div>
+          </Card>
 
-  {/* Berita lainnya */}
-  <div className="space-y-4">
-    <h3 className="text-lg font-semibold">Berita Lainnya</h3>
-    {news.slice(1, 4).map((item) => (
-      <Card
-        key={item.id}
-        className="flex items-start gap-3 p-4 shadow-sm rounded-xl"
-      >
-        <img
-          src={item.image}
-          alt={item.title}
-          className="w-16 h-16 rounded-md object-cover"
-        />
-        <div>
-          <h4 className="font-medium text-sm line-clamp-2">
-            {item.title}
-          </h4>
-          <p className="text-xs text-muted-foreground mb-1">{item.date}</p>
-          <p className="text-xs text-muted-foreground line-clamp-2">
-            {item.excerpt}
-          </p>
+           {/* Berita Lainnya */}
+          <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+            {news.slice(1, 5).map((item) => (
+              <Card
+                key={item.id}
+                // className="flex flex-col p-4 shadow-sm rounded-xl h-full"
+                className="flex flex-col p-4 shadow-sm rounded-xl h-full bg-white/20 backdrop-blur-md border border-blue/30"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-32 rounded-md object-cover mb-3"
+                />
+                <div className="flex-1">
+                  <h4 className="font-medium text-sm line-clamp-2 mb-1">{item.title}</h4>
+                  <p className="text-xs text-muted-foreground mb-1">{item.date}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{item.excerpt}</p>
+                </div>
+              </Card>
+            ))}
+
+            <Button
+              asChild
+              className="col-span-2 w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90 mt-2"
+            >
+              <Link to="/news">
+                Lihat Semua Berita
+              </Link>
+            </Button>
+          </div>
         </div>
-      </Card>
-    ))}
-<div className="">
-    <Button
-      asChild
-      className="w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90"
-    >
-      <Link to="/news">
-        Lihat Semua Berita
-      </Link>
-    </Button>
-  </div>
-  </div>
-</div>
-
       </div>
     </section>
   );
