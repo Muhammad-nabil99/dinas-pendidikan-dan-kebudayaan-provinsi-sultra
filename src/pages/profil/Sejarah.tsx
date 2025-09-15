@@ -1,5 +1,3 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { History, Landmark, MapPin } from "lucide-react";
 import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";

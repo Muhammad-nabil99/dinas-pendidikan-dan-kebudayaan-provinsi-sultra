@@ -5,85 +5,120 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const PPID = () => {
   return (
-    <main className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-government-blue mb-4">PPID</h1>
-          <h2 className="text-2xl font-semibold text-education-green mb-2">
-            Pejabat Pengelola Informasi dan Dokumentasi
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Dinas Pendidikan Provinsi Sulawesi Tenggara
-          </p>
-        </div>
+    <main className="min-h-screen bg-background">
+      {/* Header Section */}
+      <section
+          className="relative py-20 text-white bg-cover bg-center"
+          style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+        >
+          {/* Overlay warna biru dengan opacity */}
+          <div className="absolute inset-0 bg-blue-900/70"></div>
 
-        <div className="grid gap-6">
-          {/* Tentang PPID */}
-          <Card className="shadow-elegant border-l-4 border-government-blue">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-government-blue">
-                <span className="text-2xl">ℹ️</span>
-                Tentang PPID
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-semibold text-government-blue mb-3">
-                    Pengertian
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    [Template - PPID adalah pejabat yang bertanggung jawab di
-                    bidang penyimpanan, pendokumentasian, penyediaan, dan/atau
-                    pelayanan informasi di badan publik.]
-                  </p>
-                  <h3 className="font-semibold text-government-blue mb-3">
-                    Dasar Hukum
-                  </h3>
-                  <ul className="space-y-1 text-sm text-muted-foreground">
-                    <li>
-                      • UU No. 14 Tahun 2008 tentang Keterbukaan Informasi
-                      Publik
-                    </li>
-                    <li>
-                      • Peraturan Komisi Informasi tentang Standar Layanan
-                      Informasi Publik
-                    </li>
-                    <li>
-                      • Peraturan Gubernur tentang PPID Provinsi Sulawesi
-                      Tenggara
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-government-blue mb-3">
-                    Visi PPID
-                  </h3>
-                  <p className="text-muted-foreground mb-4 italic">
-                    "[Template - Mewujudkan pelayanan informasi publik yang
-                    transparan, akuntabel, dan berkualitas]"
-                  </p>
-                  <h3 className="font-semibold text-government-blue mb-3">
-                    Misi PPID
-                  </h3>
-                  <ul className="space-y-1 text-sm text-muted-foreground">
-                    <li>
-                      • Memberikan pelayanan informasi yang cepat dan akurat
-                    </li>
-                    <li>• Mengelola dokumentasi informasi secara sistematis</li>
-                    <li>
-                      • Meningkatkan transparansi penyelenggaraan pemerintahan
-                    </li>
-                  </ul>
-                </div>
+          {/* Konten */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center mb-6">
+              <Link to="/">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <span className="hidden sm:inline">Kembali ke Beranda</span>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="text-center">
+              <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                <span className="text-xs sm:text-sm font-medium">
+                  PPID
+                </span>
               </div>
-            </CardContent>
-          </Card>
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
+                Pejabat Pengelola Informasi dan Dokumentasi
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
+                Dinas Pendidikan Provinsi Sulawesi Tenggara
+              </p>
+            </div>
+          </div>
+        </section>
 
-          {/* Jenis Informasi */}
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid gap-6">
+            {/* Tentang PPID */}
+            <Card className="shadow-elegant border-l-4 border-government-blue">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-government-blue">
+                  <span className="text-2xl">ℹ️</span>
+                  Tentang PPID
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="font-semibold text-government-blue mb-3">
+                      Pengertian
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      [Template - PPID adalah pejabat yang bertanggung jawab di
+                      bidang penyimpanan, pendokumentasian, penyediaan, dan/atau
+                      pelayanan informasi di badan publik.]
+                    </p>
+                    <h3 className="font-semibold text-government-blue mb-3">
+                      Dasar Hukum
+                    </h3>
+                    <ul className="space-y-1 text-sm text-muted-foreground">
+                      <li>
+                        • UU No. 14 Tahun 2008 tentang Keterbukaan Informasi
+                        Publik
+                      </li>
+                      <li>
+                        • Peraturan Komisi Informasi tentang Standar Layanan
+                        Informasi Publik
+                      </li>
+                      <li>
+                        • Peraturan Gubernur tentang PPID Provinsi Sulawesi
+                        Tenggara
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-government-blue mb-3">
+                      Visi PPID
+                    </h3>
+                    <p className="text-muted-foreground mb-4 italic">
+                      "[Template - Mewujudkan pelayanan informasi publik yang
+                      transparan, akuntabel, dan berkualitas]"
+                    </p>
+                    <h3 className="font-semibold text-government-blue mb-3">
+                      Misi PPID
+                    </h3>
+                    <ul className="space-y-1 text-sm text-muted-foreground">
+                      <li>
+                        • Memberikan pelayanan informasi yang cepat dan akurat
+                      </li>
+                      <li>
+                        • Mengelola dokumentasi informasi secara sistematis
+                      </li>
+                      <li>
+                        • Meningkatkan transparansi penyelenggaraan pemerintahan
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="shadow-elegant">
               <CardHeader>
@@ -484,6 +519,8 @@ const PPID = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+            
           </div>
         </div>
       </div>
