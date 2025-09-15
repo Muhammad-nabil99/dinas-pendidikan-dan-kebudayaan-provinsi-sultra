@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Link } from "react-router-dom";
+
 import { 
   Search, 
   Grid3X3, 
@@ -18,7 +20,9 @@ import {
   ChevronDown,
   Filter,
   Image,
-  Video
+  Video,
+  ArrowLeft
+
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -477,18 +481,46 @@ const Galeri: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gallery-bg-light">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gallery-text-primary mb-4">Galeri Media</h1>
-            <p className="text-lg text-gallery-text-secondary max-w-3xl mx-auto">
-              Dokumentasi Foto dan Video Kegiatan Dinas Pendidikan Sulawesi Tenggara
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gallery-bg-light pt-219">
+      {/* Hero Section */}
+  <section
+    className="relative py-20 text-white bg-cover bg-center"
+    style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+  >
+    {/* Overlay warna biru dengan opacity */}
+    <div className="absolute inset-0 bg-blue-900/70"></div>
+
+    {/* Konten */}
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex items-center mb-6">
+        <Link to="/">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            <span className="hidden sm:inline">Kembali ke Beranda</span>
+          </Button>
+        </Link>
       </div>
+
+      <div className="text-center">
+        <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
+          <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+          <span className="text-xs sm:text-sm font-medium">
+            Galeri
+          </span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
+          Dokumentasi Foto & Vidio
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
+          "Rangkaian Dokumentasi Perjalanan Pendidikan Sultra."
+        </p>
+      </div>
+    </div>
+  </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search and Filters */}
