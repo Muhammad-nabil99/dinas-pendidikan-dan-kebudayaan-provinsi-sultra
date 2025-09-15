@@ -10,18 +10,7 @@ import AppLayout from "./layout/AppLayout.js";
 import Sejarah from "./pages/profil/Sejarah";
 import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
-import StrukturOrganisasi from "./pages/profil/StrukturOrganisasi";
-
-// Pelayanan pages
-import VisiMisiPelayanan from "./pages/pelayanan/VisiMisiPelayanan";
-import MottoPelayanan from "./pages/pelayanan/MottoPelayanan";
-import PinjamRuang from "./pages/pelayanan/PinjamRuang";
-import SOP from "./pages/pelayanan/SOP";
-import SaranaPrasarana from "./pages/pelayanan/SaranaPrasarana";
-import StandarPelayanan from "./pages/pelayanan/StandarPelayanan";
-import Pengaduan from "./pages/pelayanan/Pengaduan";
-import Prestasi from "./pages/pelayanan/Prestasi";
-import KlinikPendidikan from "./pages/pelayanan/KlinikPendidikan";
+import StrukturOrganisasi from "./pages/profil/StrukturOrganisasiChart.js";
 
 // PPID page
 import PPID from "./pages/PPID";
@@ -32,6 +21,7 @@ import Galery from "./pages/Galery";
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 
 import News from "./pages/News";
+import DetailBerita from "./pages/Detail/DetailBerita.js";
 
 const queryClient = new QueryClient();
 
@@ -57,26 +47,6 @@ const App = () => (
               element={<StrukturOrganisasi />}
             />
 
-            {/* Pelayanan Routes */}
-            <Route
-              path="/pelayanan/visi-misi"
-              element={<VisiMisiPelayanan />}
-            />
-            <Route path="/pelayanan/motto" element={<MottoPelayanan />} />
-            <Route path="/pelayanan/pinjam-ruang" element={<PinjamRuang />} />
-            <Route path="/pelayanan/sop" element={<SOP />} />
-            <Route
-              path="/pelayanan/sarana-prasarana"
-              element={<SaranaPrasarana />}
-            />
-            <Route
-              path="/pelayanan/standar-pelayanan"
-              element={<StandarPelayanan />}
-            />
-            <Route path="/pelayanan/pengaduan" element={<Pengaduan />} />
-            <Route path="/pelayanan/prestasi" element={<Prestasi />} />
-            <Route path="/pelayanan/klinik" element={<KlinikPendidikan />} />
-
             {/* PPID Route */}
             <Route path="/ppid" element={<PPID />} />
 
@@ -85,7 +55,8 @@ const App = () => (
             
 
             {/* News Routes */}
-            <Route path="/news" element={<News />} />
+            <Route path="/berita" element={<News />} />
+            <Route path="/berita/:id" element={<DetailBerita />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
