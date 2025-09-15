@@ -12,10 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-<<<<<<< HEAD
 import { Link } from "react-router-dom";
-=======
->>>>>>> 6c47b00c7a5b828480bb2ea0224bc5feac903d50
 
 const News = () => {
   const allNews = [
@@ -144,7 +141,6 @@ const News = () => {
 
       <main>
         {/* Header Section */}
-<<<<<<< HEAD
         <section className="py-20 bg-gradient-primary text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center mb-6">
@@ -158,22 +154,6 @@ const News = () => {
                   Kembali ke Beranda
                 </Button>
               </Link>
-=======
-        <section
-          className="relative py-12 sm:py-16 md:py-20 pt-20 text-white bg-cover bg-center"
-          style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 to-blue-600/60"></div>
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center mb-4 sm:mb-6">
-              <button
-                onClick={() => window.history.back()}
-                className="flex items-center bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span className="hidden sm:inline ml-2">Kembali ke Beranda</span>
-              </button>
->>>>>>> 6c47b00c7a5b828480bb2ea0224bc5feac903d50
             </div>
 
             <div className="text-center">
@@ -264,13 +244,11 @@ const News = () => {
                       <span className="text-sm text-muted-foreground">
                         {item.date}
                       </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-government-blue hover:text-government-blue/80"
-                      >
-                        Baca Selengkapnya
-                      </Button>
+                      <Link to={`/berita/${item.id}`}>
+                        <Button variant="ghost" size="sm" className="text-government-blue hover:text-government-blue/80">
+                          Baca Selengkapnya
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
