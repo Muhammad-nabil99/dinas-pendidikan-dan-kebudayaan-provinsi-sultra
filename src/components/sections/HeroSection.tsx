@@ -22,7 +22,8 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-government-blue/90 via-government-blue/70 to-transparent"></div>
       </div>
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"> */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 pt-60 md:pt-20 lg:pt-40">
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center">
@@ -34,15 +35,19 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
             Dinas Pendidikan
             <span className="block text-gold">Sulawesi Tenggara</span>
           </h1>
 
-          <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Membangun pendidikan berkualitas untuk masa depan yang gemilang.
-            Melayani masyarakat dengan dedikasi dan inovasi dalam mengembangkan
-            sistem pendidikan di Sulawesi Tenggara.
+          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+            Selamat Datang
+          </p>
+          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+            #WargaSultra
+          </p>
+          <p className="text-lg md:text-2xl text-white/90 mb-6 leading-relaxed max-w-2xl mx-auto">
+            "Pendidikan Hebat, Masa Depan Kuat!"
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -63,18 +68,18 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/20">
+          <div className="grid grid-cols-3 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/20">
             <div className="text-center">
-              <div className="text-3xl font-bold text-gold mb-1">1,200+</div>
-              <div className="text-white/80 text-sm">Sekolah Binaan</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">1,200+</div>
+              <div className="text-white/80 text-xs sm:text-sm">Sekolah Binaan</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gold mb-1">150,000+</div>
-              <div className="text-white/80 text-sm">Siswa Aktif</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">150,000+</div>
+              <div className="text-white/80 text-xs sm:text-sm">Siswa Aktif</div>
             </div>
-            <div className="text-center col-span-2 md:col-span-1">
-              <div className="text-3xl font-bold text-gold mb-1">12,000+</div>
-              <div className="text-white/80 text-sm">Tenaga Pendidik</div>
+            <div className="text-center">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">12,000+</div>
+              <div className="text-white/80 text-xs sm:text-sm">Tenaga Pendidik</div>
             </div>
           </div>
         </div>

@@ -31,6 +31,8 @@ import Foto from "./pages/galeri/Foto";
 import Video from "./pages/galeri/Video";
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 
+import News from "./pages/News";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -81,6 +83,9 @@ const App = () => (
             {/* Galeri Routes */}
             <Route path="/galeri/foto" element={<Foto />} />
             <Route path="/galeri/video" element={<Video />} />
+
+            {/* News Routes */}
+            <Route path="/news" element={<News />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

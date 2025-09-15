@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Clock } from "lucide-react";
+import { CalendarDays, ArrowRight, Timer } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NewsSection = () => {
   const news = [
@@ -48,7 +49,7 @@ const NewsSection = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-government-blue/10 rounded-full mb-4">
-            <Calendar className="w-4 h-4 text-government-blue mr-2" />
+            <CalendarDays className="w-4 h-4 text-government-blue mr-2" />
             <span className="text-sm font-medium text-government-blue">Berita Terbaru</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -60,79 +61,73 @@ const NewsSection = () => {
         </div>
 
         {/* Featured News */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <Card className="group hover:shadow-medium transition-all duration-300 overflow-hidden">
-            <div className="aspect-video overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        {/* Berita Utama */}
+          <Card className="lg:col-span-3 shadow-md rounded-2xl overflow-hidden">
+            {/* Gambar besar */}
+            <div className="w-full h-96 relative overflow-hidden">
               <img
                 src={news[0].image}
                 alt={news[0].title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover"
               />
             </div>
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <span className="inline-block px-3 py-1 bg-government-blue/10 text-government-blue text-xs font-medium rounded-full">
-                  {news[0].category}
-                </span>
-                <div className="flex items-center text-muted-foreground text-sm">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {news[0].time}
-                </div>
-              </div>
-              <CardTitle className="text-xl mb-2 group-hover:text-government-blue transition-colors">
+
+            {/* Konten menempel rapat di bawah gambar */}
+            <div className="p-4 flex flex-col gap-2">
+              <h2 className="text-2xl font-bold line-clamp-2">
                 {news[0].title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">{news[0].excerpt}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">{news[0].date}</span>
-                <Button variant="ghost" size="sm" className="group/btn">
-                  <span>Selengkapnya</span>
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
+              </h2>
+
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Timer className="w-4 h-4" /> {news[0].time}
+                </span>
+                <span className="flex items-center gap-1">📅 {news[0].date}</span>
+              </div>
+
+              <p className="text-muted-foreground line-clamp-3">
+                {news[0].excerpt}
+              </p>
+
+              <div className="mt-2">
+                <Button variant="default" className="bg-gradient-to-r from-blue-600 to-green-400">
+                  Selengkapnya
                 </Button>
               </div>
-            </CardContent>
+            </div>
           </Card>
 
-          <div className="space-y-6">
-            {news.slice(1, 4).map((item) => (
-              <Card key={item.id} className="group hover:shadow-soft transition-all duration-300">
-                <div className="flex">
-                  <div className="w-32 h-24 flex-shrink-0 overflow-hidden rounded-l-lg">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="flex-1 p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="inline-block px-2 py-1 bg-education-green/10 text-education-green text-xs font-medium rounded">
-                        {item.category}
-                      </span>
-                      <span className="text-xs text-muted-foreground">{item.time}</span>
-                    </div>
-                    <h3 className="font-semibold text-sm mb-2 group-hover:text-government-blue transition-colors line-clamp-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
-                      {item.excerpt}
-                    </p>
-                    <span className="text-xs text-muted-foreground">{item.date}</span>
-                  </div>
+           {/* Berita Lainnya */}
+          <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+            {news.slice(1, 5).map((item) => (
+              <Card
+                key={item.id}
+                // className="flex flex-col p-4 shadow-sm rounded-xl h-full"
+                className="flex flex-col p-4 shadow-sm rounded-xl h-full bg-white/20 backdrop-blur-md border border-blue/30"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-32 rounded-md object-cover mb-3"
+                />
+                <div className="flex-1">
+                  <h4 className="font-medium text-sm line-clamp-2 mb-1">{item.title}</h4>
+                  <p className="text-xs text-muted-foreground mb-1">{item.date}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{item.excerpt}</p>
                 </div>
               </Card>
             ))}
-          </div>
-        </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <Button className="bg-gradient-primary hover:bg-gradient-primary/90">
-            <span>Lihat Semua Berita</span>
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+            <Button
+              asChild
+              className="col-span-2 w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90 mt-2"
+            >
+              <Link to="/news">
+                Lihat Semua Berita
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

@@ -97,14 +97,12 @@ const GallerySection = () => {
                   </div>
                 </div>
 
-                {/* Play Icon for Videos */}
-                {item.type === "video" && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                      <Play className="w-6 h-6 text-white ml-1" />
-                    </div>
+                {/* Play Icon */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                    <Play className="w-6 h-6 text-white ml-1" />
                   </div>
-                )}
+                </div>
 
                 {/* Type Badge */}
                 <div className="absolute top-3 left-3">
