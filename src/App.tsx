@@ -2,11 +2,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AppLayout from "./layout/AppLayout.js";
-
 // Profil pages
 import Sejarah from "./pages/profil/Sejarah";
 import VisiMisi from "./pages/profil/VisiMisi";
@@ -48,11 +47,13 @@ const App = () => (
             <Route path="/profil/visi-misi" element={<VisiMisi />} />
             <Route path="/profil/tugas-fungsi" element={<TugasFungsi />} />
             <Route
+              path="/profil/tugas-fungsi/:id"
+              element={<DetailTugasFungsi />}
+            />
+            <Route
               path="/profil/struktur-organisasi"
               element={<StrukturOrganisasi />}
-            >
-              {/* <Route path="/:id" element={<DetailTugasFungsi />} /> */}
-            </Route>
+            />
 
             {/* Pelayanan Routes */}
             <Route

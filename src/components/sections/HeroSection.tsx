@@ -1,14 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, GraduationCap } from "lucide-react";
-import heroImage from "@/assets/hero-education.jpg";
+import heroImage1 from "@/assets/hero-1.jpg";
+import heroImage2 from "@/assets/hero-2.png";
+import heroImage3 from "@/assets/hero-3.png";
+
+const heroImage = [heroImage1, heroImage2, heroImage3];
 
 const HeroSection = () => {
   return (
-    <section id="hero" className="relative h-screen flex items-center overflow-hidden ">
+    <section
+      id="hero"
+      className="relative h-screen flex items-center overflow-hidden "
+    >
       {/* Background Image */}
       <div className="absolute inset-0 z-0 ">
         <img
-          src={heroImage}
+          src={heroImage1}
           alt="Dinas Pendidikan Sulawesi Tenggara"
           className="w-full h-full object-cover"
         />
@@ -77,7 +84,6 @@ const HeroSection = () => {
       <div className="absolute top-20 right-20 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
       <div className="absolute bottom-40 right-40 w-20 h-20 bg-gold/20 rounded-full blur-lg"></div>
     </section>
-
   );
 };
 

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Car } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const fungsiDinas = [
   "Perumusan kebijakan teknis dan operasional di bidang pendidikan dan kebudayaan sesuai dengan kewenangan",
@@ -61,6 +62,47 @@ const unitKerja: UnitKerja[] = [
 ];
 
 const TugasFungsi = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const carouselSpeed = 3000; // 3 detik
+  const unitsToShow = 3;
+
+  // Duplikat 3 item pertama untuk menciptakan efek loop yang mulus.
+  const displayedUnits = [...unitKerja, ...unitKerja.slice(0, unitsToShow)];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // Tingkatkan indeks tanpa operator modulo
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }, carouselSpeed);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleTransitionEnd = () => {
+    // Ketika transisi selesai dan indeks mencapai akhir dari array unitKerja asli,
+    // segera kembali ke awal tanpa transisi.
+    if (currentIndex >= unitKerja.length) {
+      setIsTransitioning(false);
+      setCurrentIndex(0);
+    }
+  };
+
+  useEffect(() => {
+    // Setelah reset, aktifkan kembali transisi untuk animasi berikutnya.
+    if (!isTransitioning) {
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 50);
+    }
+  }, [isTransitioning]);
+
+  const carouselTransformStyle = {
+    transform: `translateX(-${(100 / unitsToShow) * currentIndex}%)`,
+    transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none',
+    width: `${(displayedUnits.length / unitsToShow) * 27}%`,
+  };
+
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="max-w-6xl mx-auto">
@@ -71,7 +113,6 @@ const TugasFungsi = () => {
           <p className=" text-muted-foreground text-md my-1.5">
             Peran dan Tanggung Jawab Dinas Pendidikan
           </p>
-
           <p className="my-5">
             Dinas Pendidikan Dan Kebudayaan Provinsi Sulawesi Tenggara adalah
             salah satu Dinas Daerah di lingkungan Pemerintah Provinsi Sulawesi
@@ -85,7 +126,6 @@ const TugasFungsi = () => {
           <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
             Tugas
           </h1>
-
           <p className="text-center">
             Berdasarkan Peraturan Daerah Provinsi Sulawesi Tenggara nomor 13
             Tahun 2016, tentang Pembentukan dan Susunan Perangkat Daerah
@@ -103,7 +143,6 @@ const TugasFungsi = () => {
             Untuk menyelenggarakan tugas sebagaimana dimaksud di atas Dinas
             Pendidikan Dan Kebudayaan Provinsi Sulawesi Tenggara memiliki fungsi
           </p>
-
           <ol className="my-5 ml-10">
             {fungsiDinas?.map((item, index) => (
               <li key={index} className="py-1">
@@ -114,158 +153,29 @@ const TugasFungsi = () => {
         </div>
 
         <div>
-          <h1 className="my-20 text-2xl text-center capitalize font-bold text-government-blue mb-4">
+          <h1 className="my-20 text-4xl text-center capitalize font-bold text-government-blue mb-4">
             Tugas pokok dan fungsi masing – masing unit kerja
           </h1>
-
-          <div className="flex">
-            {unitKerja?.map((item, index) => (
-              <Link
-                to={`/profil/tugas-fungsi/${item.link}`}
-                key={index}
-                className="text-center flex flex-col gap-2 flex-1"
-              >
-                <div className="w-32  h-32 rounded-md  bg-gray-300"></div>
-                <h1 className="font-bold capitalize">{item.nama}</h1>
-                <h2>{item.unit}</h2>
-              </Link>
-            ))}
+          <div className="overflow-hidden">
+            <div
+              className="flex"
+              style={carouselTransformStyle}
+              onTransitionEnd={handleTransitionEnd}
+            >
+              {displayedUnits.map((item, index) => (
+                <Link
+                  to={`/profil/tugas-fungsi/${item.id}`}
+                  key={`${item.id}-${index}`} // Menggunakan kunci unik untuk menghindari masalah duplikasi
+                  className="text-center flex-shrink-0 flex-grow-0 basis-1/3 flex flex-col gap-2 p-4"
+                >
+                  <div className="w-full h-60 rounded-md bg-gray-300"></div>
+                  <h1 className="font-bold capitalize">{item.nama}</h1>
+                  <h2>{item.unit}</h2>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* <Tabs defaultValue="tugas" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="tugas">Tugas Pokok</TabsTrigger>
-              <TabsTrigger value="fungsi">Fungsi</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="tugas">
-              <Card className="shadow-elegant">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-government-blue">
-                    <span className="text-2xl">📋</span>
-                    Tugas Pokok Dinas Pendidikan
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    {[
-                      {
-                        title: "Perumusan Kebijakan",
-                        items: [
-                          "Merumuskan kebijakan teknis pendidikan",
-                          "Menyusun rencana strategis pendidikan",
-                          "Mengembangkan standar pendidikan"
-                        ]
-                      },
-                      {
-                        title: "Pelaksanaan Program",
-                        items: [
-                          "Melaksanakan program pendidikan dasar dan menengah",
-                          "Menyelenggarakan pendidikan non formal",
-                          "Mengkoordinasikan program pendidikan"
-                        ]
-                      },
-                      {
-                        title: "Pembinaan dan Pengawasan",
-                        items: [
-                          "Melakukan pembinaan satuan pendidikan",
-                          "Mengawasi pelaksanaan standar pendidikan",
-                          "Mengevaluasi kinerja pendidikan"
-                        ]
-                      }
-                    ].map((section, index) => (
-                      <div key={index} className="border-l-4 border-government-blue pl-6">
-                        <h3 className="text-xl font-semibold text-government-blue mb-3">{section.title}</h3>
-                        <ul className="space-y-2">
-                          {section.items.map((item, itemIndex) => (
-                            <li key={itemIndex} className="flex items-start gap-2">
-                              <span className="text-education-green mt-1">•</span>
-                              <span className="text-muted-foreground">[Template - {item}]</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="fungsi">
-              <div className="grid gap-6">
-                <Card className="shadow-elegant">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-government-blue">
-                      <span className="text-2xl">⚙️</span>
-                      Fungsi Utama
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      {[
-                        {
-                          icon: "🎓",
-                          title: "Pendidikan Formal",
-                          functions: [
-                            "Pengelolaan pendidikan dasar",
-                            "Pembinaan pendidikan menengah",
-                            "Pengembangan kurikulum"
-                          ]
-                        },
-                        {
-                          icon: "📚",
-                          title: "Pendidikan Non Formal",
-                          functions: [
-                            "Program keaksaraan",
-                            "Pendidikan keterampilan",
-                            "Pendidikan kesetaraan"
-                          ]
-                        },
-                        {
-                          icon: "👨‍🏫",
-                          title: "Tenaga Pendidik",
-                          functions: [
-                            "Pengembangan kompetensi guru",
-                            "Sertifikasi pendidik",
-                            "Penilaian kinerja guru"
-                          ]
-                        },
-                        {
-                          icon: "🏫",
-                          title: "Sarana Prasarana",
-                          functions: [
-                            "Pembangunan gedung sekolah",
-                            "Pengadaan peralatan",
-                            "Pemeliharaan fasilitas"
-                          ]
-                        }
-                      ].map((item, index) => (
-                        <Card key={index} className="bg-gradient-primary/5">
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2 text-lg">
-                              <span className="text-2xl">{item.icon}</span>
-                              {item.title}
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {item.functions.map((func, funcIndex) => (
-                                <li key={funcIndex} className="flex items-start gap-2">
-                                  <span className="text-education-green mt-1">•</span>
-                                  <span className="text-sm text-muted-foreground">[Template - {func}]</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          </Tabs> */}
       </div>
     </main>
   );
