@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Clock } from "lucide-react";
+import { CalendarDays, ArrowRight, Timer } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NewsSection = () => {
   const news = [
@@ -48,7 +49,7 @@ const NewsSection = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-government-blue/10 rounded-full mb-4">
-            <Calendar className="w-4 h-4 text-government-blue mr-2" />
+            <CalendarDays className="w-4 h-4 text-government-blue mr-2" />
             <span className="text-sm font-medium text-government-blue">Berita Terbaru</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -75,7 +76,7 @@ const NewsSection = () => {
                   {news[0].category}
                 </span>
                 <div className="flex items-center text-muted-foreground text-sm">
-                  <Clock className="w-4 h-4 mr-1" />
+                  <Timer className="w-4 h-4 mr-1" />
                   {news[0].time}
                 </div>
               </div>
@@ -129,10 +130,12 @@ const NewsSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button className="bg-gradient-primary hover:bg-gradient-primary/90">
-            <span>Lihat Semua Berita</span>
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <Link to="/news">
+            <Button className="bg-gradient-primary hover:bg-gradient-primary/90">
+              <span>Lihat Semua Berita</span>
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
