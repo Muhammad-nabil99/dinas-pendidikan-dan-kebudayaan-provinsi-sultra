@@ -32,10 +32,14 @@ const HeroSection = () => {
             <span className="block text-gold">Sulawesi Tenggara</span>
           </h1>
 
-          <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Membangun pendidikan berkualitas untuk masa depan yang gemilang.
-            Melayani masyarakat dengan dedikasi dan inovasi dalam mengembangkan
-            sistem pendidikan di Sulawesi Tenggara.
+          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+            Selamat Datang
+          </p>
+          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+            #WargaSultra
+          </p>
+          <p className="text-lg md:text-2xl text-white/90 mb-6 leading-relaxed max-w-2xl mx-auto">
+            "Pendidikan Hebat, Masa Depan Kuat!"
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

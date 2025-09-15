@@ -61,82 +61,78 @@ const NewsSection = () => {
         </div>
 
         {/* Featured News */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          <Card className="group hover:shadow-medium transition-all duration-300 overflow-hidden">
-            <div className="aspect-video overflow-hidden">
-              <img
-                src={news[0].image}
-                alt={news[0].title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <span className="inline-block px-3 py-1 bg-government-blue/10 text-government-blue text-xs font-medium rounded-full">
-                  {news[0].category}
-                </span>
-                <div className="flex items-center text-muted-foreground text-sm">
-                  <Timer className="w-4 h-4 mr-1" />
-                  {news[0].time}
-                </div>
-              </div>
-              <CardTitle className="text-xl mb-2 group-hover:text-government-blue transition-colors">
-                {news[0].title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">{news[0].excerpt}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">{news[0].date}</span>
-                <Button variant="ghost" size="sm" className="group/btn">
-                  <span>Selengkapnya</span>
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  {/* Berita utama - ambil 2 kolom */}
+  <Card className="lg:col-span-2 shadow-md rounded-2xl overflow-hidden">
+    <div className="w-full h-64 overflow-hidden">
+      <img
+        src={news[0].image}
+        alt={news[0].title}
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-          <div className="space-y-6">
-            {news.slice(1, 4).map((item) => (
-              <Card key={item.id} className="group hover:shadow-soft transition-all duration-300">
-                <div className="flex">
-                  <div className="w-32 h-24 flex-shrink-0 overflow-hidden rounded-l-lg">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="flex-1 p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="inline-block px-2 py-1 bg-education-green/10 text-education-green text-xs font-medium rounded">
-                        {item.category}
-                      </span>
-                      <span className="text-xs text-muted-foreground">{item.time}</span>
-                    </div>
-                    <h3 className="font-semibold text-sm mb-2 group-hover:text-government-blue transition-colors line-clamp-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
-                      {item.excerpt}
-                    </p>
-                    <span className="text-xs text-muted-foreground">{item.date}</span>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-2 line-clamp-2">
+        {news[0].title}
+      </h2>
 
-        {/* CTA */}
-        <div className="text-center">
-          <Link to="/news">
-            <Button className="bg-gradient-primary hover:bg-gradient-primary/90">
-              <span>Lihat Semua Berita</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
+      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+        <span className="flex items-center gap-1">
+          <Timer className="w-4 h-4" /> {news[0].time}
+        </span>
+        <span className="flex items-center gap-1">📅 {news[0].date}</span>
+      </div>
+
+      <p className="text-muted-foreground mb-4 line-clamp-3">
+        {news[0].excerpt}
+      </p>
+
+      <div className="flex items-center gap-3">
+        <Button variant="default" className="bg-gradient-to-r from-blue-600 to-green-400">
+          Selengkapnya
+        </Button>
+      </div>
+    </div>
+  </Card>
+
+  {/* Berita lainnya */}
+  <div className="space-y-4">
+    <h3 className="text-lg font-semibold">Berita Lainnya</h3>
+    {news.slice(1, 4).map((item) => (
+      <Card
+        key={item.id}
+        className="flex items-start gap-3 p-4 shadow-sm rounded-xl"
+      >
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-16 h-16 rounded-md object-cover"
+        />
+        <div>
+          <h4 className="font-medium text-sm line-clamp-2">
+            {item.title}
+          </h4>
+          <p className="text-xs text-muted-foreground mb-1">{item.date}</p>
+          <p className="text-xs text-muted-foreground line-clamp-2">
+            {item.excerpt}
+          </p>
         </div>
+      </Card>
+    ))}
+<div className="">
+    <Button
+      asChild
+      className="w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90"
+    >
+      <Link to="/news">
+        Lihat Semua Berita
+      </Link>
+    </Button>
+  </div>
+  </div>
+</div>
+
       </div>
     </section>
   );
