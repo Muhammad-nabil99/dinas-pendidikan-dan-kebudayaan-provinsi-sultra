@@ -2,19 +2,53 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import OrganizationChart from "@/components/ui/StrukturOrganisasi";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
+
 
 const StrukturOrganisasi = () => {
   return (
-    <main className="container mx-auto px-4 py-8 pt-24">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-government-blue mb-4">
-            Struktur Organisasi
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Susunan Organisasi Dinas Pendidikan Sulawesi Tenggara
-          </p>
-        </div>
+    <main>
+        <section
+          className="relative py-20 text-white bg-cover bg-center"
+          style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+        >
+          {/* Overlay warna biru dengan opacity */}
+          <div className="absolute inset-0 bg-blue-900/70"></div>
+
+          {/* Konten */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center mb-6">
+              <Link to="/">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  <span className="hidden sm:inline">Kembali ke Beranda</span>
+                </Button>
+              </Link>
+            </div>
+
+            <div className="text-center">
+              <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                <span className="text-xs sm:text-sm font-medium">
+                  Struktur Organisasi
+                </span>
+              </div>
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
+                Struktur Organisasi
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
+                Susunan Organisasi Dinas Pendidikan Sulawesi Tenggara
+              </p>
+            </div>
+          </div>
+        </section>
+      <div>
         <OrganizationChart />
       </div>
     </main>
