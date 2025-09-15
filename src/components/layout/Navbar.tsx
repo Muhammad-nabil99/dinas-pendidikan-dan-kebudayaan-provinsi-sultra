@@ -67,14 +67,8 @@ const Navbar = () => {
       ],
     },
     { href: "/ppid", label: "PPID" },
-    {
-      label: "Galeri",
-      subItems: [
-        { href: "/galeri/foto", label: "Foto" },
-        { href: "/galeri/video", label: "Video" },
-      ],
-    },
-  ];
+    { href: "/galery", label: "Galeri" },
+   ];
 
   return (
     <nav

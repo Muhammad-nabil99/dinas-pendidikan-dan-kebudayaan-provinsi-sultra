@@ -27,8 +27,8 @@ import KlinikPendidikan from "./pages/pelayanan/KlinikPendidikan";
 import PPID from "./pages/PPID";
 
 // Galeri pages
-import Foto from "./pages/galeri/Foto";
-import Video from "./pages/galeri/Video";
+import Galery from "./pages/Galery";
+
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 
 import News from "./pages/News";
@@ -81,8 +81,8 @@ const App = () => (
             <Route path="/ppid" element={<PPID />} />
 
             {/* Galeri Routes */}
-            <Route path="/galeri/foto" element={<Foto />} />
-            <Route path="/galeri/video" element={<Video />} />
+            <Route path="/Galery" element={<Galery />} />
+            
 
             {/* News Routes */}
             <Route path="/news" element={<News />} />

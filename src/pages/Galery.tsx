@@ -13,34 +13,36 @@ import {
   ChevronLeft, 
   ChevronRight,
   X,
-  Eye
+  Eye,
+  Play,
+  Video
 } from "lucide-react";
 
-const Foto = () => {
+const Galeri = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [filteredAlbums, setFilteredAlbums] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Semua Foto");
+  const [selectedCategory, setSelectedCategory] = useState("Semua Media");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [viewMode, setViewMode] = useState("grid"); // grid or list
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const [viewMode, setViewMode] = useState("grid");
 
-  // Data album dengan foto-foto
+  // Data album dengan foto dan video
   const albums = [
     {
       id: 1,
       judul: "Rapat Koordinasi Kepala Sekolah",
       tanggal: "15 September 2024",
       lokasi: "Aula Dinas Pendidikan",
-      jumlahFoto: 25,
+      jumlahMedia: 28,
       kategori: "Kegiatan Resmi",
       cover: "https://picsum.photos/seed/album1/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo1-1/800/600", judul: "Pembukaan Rapat", deskripsi: "Sambutan oleh kepala dinas" },
-        { id: 2, url: "https://picsum.photos/seed/photo1-2/800/600", judul: "Sesi Diskusi", deskripsi: "Diskusi antar kepala sekolah" },
-        { id: 3, url: "https://picsum.photos/seed/photo1-3/800/600", judul: "Penyampaian Materi", deskripsi: "Pemaparan agenda pendidikan" },
-        { id: 4, url: "https://picsum.photos/seed/photo1-4/800/600", judul: "Sesi Tanya Jawab", deskripsi: "Interaksi dengan peserta" },
-        { id: 5, url: "https://picsum.photos/seed/photo1-5/800/600", judul: "Penutupan", deskripsi: "Foto bersama peserta rapat" },
+      media: [
+        { id: 1, type: "image", url: "https://picsum.photos/seed/photo1-1/800/600", judul: "Pembukaan Rapat", deskripsi: "Sambutan oleh kepala dinas" },
+        { id: 2, type: "image", url: "https://picsum.photos/seed/photo1-2/800/600", judul: "Sesi Diskusi", deskripsi: "Diskusi antar kepala sekolah" },
+        { id: 3, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", judul: "Video Dokumentasi Rapat", deskripsi: "Cuplikan kegiatan rapat" },
+        { id: 4, type: "image", url: "https://picsum.photos/seed/photo1-4/800/600", judul: "Sesi Tanya Jawab", deskripsi: "Interaksi dengan peserta" },
+        { id: 5, type: "image", url: "https://picsum.photos/seed/photo1-5/800/600", judul: "Penutupan", deskripsi: "Foto bersama peserta rapat" },
       ]
     },
     {
@@ -48,15 +50,15 @@ const Foto = () => {
       judul: "Workshop Kurikulum Merdeka",
       tanggal: "10 September 2024", 
       lokasi: "Hotel Santika Kendari",
-      jumlahFoto: 40,
+      jumlahMedia: 45,
       kategori: "Pelatihan",
       cover: "https://picsum.photos/seed/album2/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo2-1/800/600", judul: "Sambutan", deskripsi: "Pembukaan workshop" },
-        { id: 2, url: "https://picsum.photos/seed/photo2-2/800/600", judul: "Peserta Workshop", deskripsi: "Para guru antusias mengikuti" },
-        { id: 3, url: "https://picsum.photos/seed/photo2-3/800/600", judul: "Sesi Praktik", deskripsi: "Praktik penerapan kurikulum" },
-        { id: 4, url: "https://picsum.photos/seed/photo2-4/800/600", judul: "Diskusi Kelompok", deskripsi: "Peserta berdiskusi dalam kelompok" },
-        { id: 5, url: "https://picsum.photos/seed/photo2-5/800/600", judul: "Penyerahan Sertifikat", deskripsi: "Penyerahan sertifikat peserta" },
+      media: [
+        { id: 1, type: "image", url: "https://picsum.photos/seed/photo2-1/800/600", judul: "Sambutan", deskripsi: "Pembukaan workshop" },
+        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", judul: "Video Workshop", deskripsi: "Cuplikan kegiatan workshop" },
+        { id: 3, type: "image", url: "https://picsum.photos/seed/photo2-3/800/600", judul: "Sesi Praktik", deskripsi: "Praktik penerapan kurikulum" },
+        { id: 4, type: "image", url: "https://picsum.photos/seed/photo2-4/800/600", judul: "Diskusi Kelompok", deskripsi: "Peserta berdiskusi dalam kelompok" },
+        { id: 5, type: "image", url: "https://picsum.photos/seed/photo2-5/800/600", judul: "Penyerahan Sertifikat", deskripsi: "Penyerahan sertifikat peserta" },
       ]
     },
     {
@@ -64,15 +66,15 @@ const Foto = () => {
       judul: "Kunjungan Menteri Pendidikan",
       tanggal: "5 September 2024",
       lokasi: "SMAN 1 Kendari",
-      jumlahFoto: 35,
+      jumlahMedia: 38,
       kategori: "Kunjungan",
       cover: "https://picsum.photos/seed/album3/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo3-1/800/600", judul: "Kedatangan", deskripsi: "Menteri tiba di lokasi" },
-        { id: 2, url: "https://picsum.photos/seed/photo3-2/800/600", judul: "Tur Sekolah", deskripsi: "Melihat fasilitas sekolah" },
-        { id: 3, url: "https://picsum.photos/seed/photo3-3/800/600", judul: "Interaksi dengan Siswa", deskripsi: "Berkomunikasi dengan siswa" },
-        { id: 4, url: "https://picsum.photos/seed/photo3-4/800/600", judul: "Demo Kelas", deskripsi: "Menonton demonstrasi kelas" },
-        { id: 5, url: "https://picsum.photos/seed/photo3-5/800/600", judul: "Sesi Foto", deskripsi: "Foto bersama dengan staf sekolah" },
+      media: [
+        { id: 1, type: "image", url: "https://picsum.photos/seed/photo3-1/800/600", judul: "Kedatangan", deskripsi: "Menteri tiba di lokasi" },
+        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", judul: "Video Kunjungan", deskripsi: "Dokumentasi kunjungan menteri" },
+        { id: 3, type: "image", url: "https://picsum.photos/seed/photo3-3/800/600", judul: "Interaksi dengan Siswa", deskripsi: "Berkomunikasi dengan siswa" },
+        { id: 4, type: "image", url: "https://picsum.photos/seed/photo3-4/800/600", judul: "Demo Kelas", deskripsi: "Menonton demonstrasi kelas" },
+        { id: 5, type: "image", url: "https://picsum.photos/seed/photo3-5/800/600", judul: "Sesi Foto", deskripsi: "Foto bersama dengan staf sekolah" },
       ]
     },
     {
@@ -80,76 +82,43 @@ const Foto = () => {
       judul: "Upacara HUT RI ke-79",
       tanggal: "17 Agustus 2024",
       lokasi: "Lapangan Kantor Gubernur",
-      jumlahFoto: 20,
+      jumlahMedia: 25,
       kategori: "Upacara",
       cover: "https://picsum.photos/seed/album4/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo4-1/800/600", judul: "Pengibaran Bendera", deskripsi: "Detik-detik pengibaran bendera" },
-        { id: 2, url: "https://picsum.photos/seed/photo4-2/800/600", judul: "Pembacaan Teks Proklamasi", deskripsi: "Pembacaan naskah proklamasi" },
-        { id: 3, url: "https://picsum.photos/seed/photo4-3/800/600", judul: "Pasukan Upacara", deskripsi: "Pasukan pengibar bendera" },
-        { id: 4, url: "https://picsum.photos/seed/photo4-4/800/600", judul: "Peserta Upacara", deskripsi: "Seluruh peserta upacara" },
-        { id: 5, url: "https://picsum.photos/seed/photo4-5/800/600", judul: "Tumpeng Kemerdekaan", deskripsi: "Pemotongan tumpeng kemerdekaan" },
+      media: [
+        { id: 1, type: "image", url: "https://picsum.photos/seed/photo4-1/800/600", judul: "Pengibaran Bendera", deskripsi: "Detik-detik pengibaran bendera" },
+        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", judul: "Video Upacara", deskripsi: "Dokumentasi upacara bendera" },
+        { id: 3, type: "image", url: "https://picsum.photos/seed/photo4-3/800/600", judul: "Pasukan Upacara", deskripsi: "Pasukan pengibar bendera" },
+        { id: 4, type: "image", url: "https://picsum.photos/seed/photo4-4/800/600", judul: "Peserta Upacara", deskripsi: "Seluruh peserta upacara" },
+        { id: 5, type: "image", url: "https://picsum.photos/seed/photo4-5/800/600", judul: "Tumpeng Kemerdekaan", deskripsi: "Pemotongan tumpeng kemerdekaan" },
       ]
     },
     {
       id: 5,
-      judul: "Sosialisasi Program Sekolah Penggerak",
-      tanggal: "12 Agustus 2024",
-      lokasi: "Gedung Serba Guna",
-      jumlahFoto: 30,
-      kategori: "Pendidikan",
-      cover: "https://picsum.photos/seed/album5/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo5-1/800/600", judul: "Pemaparan Materi", deskripsi: "Penjelasan program sekolah penggerak" },
-        { id: 2, url: "https://picsum.photos/seed/photo5-2/800/600", judul: "Audien", deskripsi: "Peserta sosialisasi" },
-        { id: 3, url: "https://picsum.photos/seed/photo5-3/800/600", judul: "Sesi Tanya Jawab", deskripsi: "Peserta mengajukan pertanyaan" },
-        { id: 4, url: "https://picsum.photos/seed/photo5-4/800/600", judul: "Diskusi", deskripsi: "Diskusi tentang implementasi" },
-        { id: 5, url: "https://picsum.photos/seed/photo5-5/800/600", judul: "Penutupan", deskripsi: "Foto bersama peserta" },
-      ]
-    },
-    {
-      id: 6,
-      judul: "Pelatihan Guru Digital",
-      tanggal: "8 Agustus 2024",
-      lokasi: "Lab Komputer Dinas",
-      jumlahFoto: 18,
-      kategori: "Pelatihan",
-      cover: "https://picsum.photos/seed/album6/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo6-1/800/600", judul: "Instruktur", deskripsi: "Pemateri sedang menjelaskan" },
-        { id: 2, url: "https://picsum.photos/seed/photo6-2/800/600", judul: "Sesi Praktik", deskripsi: "Peserta mencoba tools digital" },
-        { id: 3, url: "https://picsum.photos/seed/photo6-3/800/600", judul: "Diskusi", deskripsi: "Tanya jawab dengan instruktur" },
-        { id: 4, url: "https://picsum.photos/seed/photo6-4/800/600", judul: "Kelompok Kerja", deskripsi: "Peserta bekerja dalam kelompok" },
-        { id: 5, url: "https://picsum.photos/seed/photo6-5/800/600", judul: "Penyerahan Sertifikat", deskripsi: "Peserta menerima sertifikat" },
-      ]
-    },
-    {
-      id: 7,
-      judul: "Pelatihan Guru Digital",
-      tanggal: "8 Agustus 2024",
-      lokasi: "Lab Komputer Dinas",
-      jumlahFoto: 18,
-      kategori: "Pelatihan",
-      cover: "https://picsum.photos/seed/album6/600/400",
-      photos: [
-        { id: 1, url: "https://picsum.photos/seed/photo6-1/800/600", judul: "Instruktur", deskripsi: "Pemateri sedang menjelaskan" },
-        { id: 2, url: "https://picsum.photos/seed/photo6-2/800/600", judul: "Sesi Praktik", deskripsi: "Peserta mencoba tools digital" },
-        { id: 3, url: "https://picsum.photos/seed/photo6-3/800/600", judul: "Diskusi", deskripsi: "Tanya jawab dengan instruktur" },
-        { id: 4, url: "https://picsum.photos/seed/photo6-4/800/600", judul: "Kelompok Kerja", deskripsi: "Peserta bekerja dalam kelompok" },
-        { id: 5, url: "https://picsum.photos/seed/photo6-5/800/600", judul: "Penyerahan Sertifikat", deskripsi: "Peserta menerima sertifikat" },
+      judul: "Video Dokumentasi Pendidikan",
+      tanggal: "20 September 2024",
+      lokasi: "Berbagai Lokasi",
+      jumlahMedia: 8,
+      kategori: "Video",
+      cover: "https://picsum.photos/seed/video-cover/600/400",
+      media: [
+        { id: 1, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", judul: "Proses Belajar Mengajar", deskripsi: "Aktivitas belajar di kelas" },
+        { id: 2, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", judul: "Ekstrakurikuler", deskripsi: "Kegiatan ekstrakurikuler siswa" },
+        { id: 3, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", judul: "Pelatihan Guru", deskripsi: "Peningkatan kompetensi guru" },
+        { id: 4, type: "video", url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", judul: "Infrastruktur Sekolah", deskripsi: "Fasilitas pendukung pendidikan" },
       ]
     }
   ];
 
   // Kategori unik
-  const categories = ["Semua Foto", ...new Set(albums.map(album => album.kategori))];
+  const categories = ["Semua Media", ...new Set(albums.map(album => album.kategori))];
 
   // Filter album berdasarkan pencarian dan kategori
   useEffect(() => {
     let results = albums;
     
     // Filter berdasarkan kategori
-    if (selectedCategory !== "Semua Foto") {
+    if (selectedCategory !== "Semua Media") {
       results = results.filter(album => album.kategori === selectedCategory);
     }
     
@@ -173,7 +142,7 @@ const Foto = () => {
   // Fungsi untuk membuka album
   const openAlbum = (album) => {
     setSelectedAlbum(album);
-    setCurrentPhotoIndex(0);
+    setCurrentMediaIndex(0);
   };
 
   // Fungsi untuk menutup album
@@ -181,18 +150,42 @@ const Foto = () => {
     setSelectedAlbum(null);
   };
 
-  // Fungsi untuk foto berikutnya
-  const nextPhoto = () => {
-    setCurrentPhotoIndex(prev => 
-      prev < selectedAlbum.photos.length - 1 ? prev + 1 : 0
+  // Fungsi untuk media berikutnya
+  const nextMedia = () => {
+    setCurrentMediaIndex(prev => 
+      prev < selectedAlbum.media.length - 1 ? prev + 1 : 0
     );
   };
 
-  // Fungsi untuk foto sebelumnya
-  const prevPhoto = () => {
-    setCurrentPhotoIndex(prev => 
-      prev > 0 ? prev - 1 : selectedAlbum.photos.length - 1
+  // Fungsi untuk media sebelumnya
+  const prevMedia = () => {
+    setCurrentMediaIndex(prev => 
+      prev > 0 ? prev - 1 : selectedAlbum.media.length - 1
     );
+  };
+
+  // Render media berdasarkan type (image atau video)
+  const renderMedia = (media) => {
+    if (media.type === "image") {
+      return (
+        <img 
+          src={media.url} 
+          alt={media.judul}
+          className="max-h-[60vh] object-contain"
+        />
+      );
+    } else {
+      return (
+        <video 
+          controls 
+          className="max-h-[60vh] max-w-min"
+          poster={selectedAlbum.cover}
+        >
+          <source src={media.url} type="video/mp4" />
+          Browser Anda tidak mendukung pemutar video.
+        </video>
+      );
+    }
   };
 
   return (
@@ -200,8 +193,8 @@ const Foto = () => {
       <main className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-blue-800 mb-4">Galeri Foto</h1>
-            <p className="text-gray-600 text-lg">Dokumentasi Kegiatan Dinas Pendidikan Sulawesi Tenggara</p>
+            <h1 className="text-4xl font-bold text-blue-800 mb-4">Galeri Media</h1>
+            <p className="text-gray-600 text-lg">Dokumentasi Foto dan Video Kegiatan Dinas Pendidikan Sulawesi Tenggara</p>
           </div>
 
           {/* Search Bar */}
@@ -287,7 +280,7 @@ const Foto = () => {
             </Card>
           ) : (
             <>
-              {/* Album Foto - Grid View */}
+              {/* Album Media - Grid View */}
               {viewMode === "grid" && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                   {filteredAlbums.map((album) => (
@@ -303,16 +296,24 @@ const Foto = () => {
                         </div>
                         <div className="absolute bottom-2 left-2">
                           <Badge variant="secondary" className="bg-white text-blue-600">
-                            {album.jumlahFoto} Foto
+                            {album.jumlahMedia} {album.kategori === "Video" ? "Video" : "Media"}
                           </Badge>
                         </div>
+                        {/* Icon Play untuk album video */}
+                        {album.kategori === "Video" && (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="bg-black bg-opacity-50 rounded-full p-3">
+                              <Play size={32} className="text-white fill-white" />
+                            </div>
+                          </div>
+                        )}
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity flex items-center justify-center opacity-0 group-hover:opacity-100">
                           <Button 
                             className="bg-white text-blue-600 hover:bg-blue-600 hover:text-white"
                             onClick={() => openAlbum(album)}
                           >
                             <Eye size={16} className="mr-2" />
-                            Lihat Album
+                            Lihat {album.kategori === "Video" ? "Video" : "Album"}
                           </Button>
                         </div>
                       </div>
@@ -337,7 +338,8 @@ const Foto = () => {
                           className="w-full mt-3 rounded-lg border-blue-200 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
                           onClick={() => openAlbum(album)}
                         >
-                          Lihat Album
+                          <Eye size={16} className="mr-2" />
+                          Lihat {album.kategori === "Video" ? "Video" : "Album"}
                         </Button>
                       </CardContent>
                     </Card>
@@ -345,7 +347,7 @@ const Foto = () => {
                 </div>
               )}
 
-              {/* Album Foto - List View */}
+              {/* Album Media - List View */}
               {viewMode === "list" && (
                 <div className="space-y-6 mb-8">
                   {filteredAlbums.map((album) => (
@@ -362,9 +364,17 @@ const Foto = () => {
                           </div>
                           <div className="absolute bottom-2 left-2">
                             <Badge variant="secondary" className="bg-white text-blue-600">
-                              {album.jumlahFoto} Foto
+                              {album.jumlahMedia} {album.kategori === "Video" ? "Video" : "Media"}
                             </Badge>
                           </div>
+                          {/* Icon Play untuk album video */}
+                          {album.kategori === "Video" && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="bg-black bg-opacity-50 rounded-full p-3">
+                                <Play size={32} className="text-white fill-white" />
+                              </div>
+                            </div>
+                          )}
                         </div>
                         <div className="md:w-2/3 p-6">
                           <h3 className="text-xl font-bold text-blue-800 mb-2">{album.judul}</h3>
@@ -378,13 +388,13 @@ const Foto = () => {
                               <span>{album.lokasi}</span>
                             </div>
                           </div>
-                          <p className="text-gray-600 mb-4">Album ini berisi dokumentasi kegiatan {album.judul.toLowerCase()} yang diselenggarakan oleh Dinas Pendidikan Sulawesi Tenggara.</p>
+                          <p className="text-gray-600 mb-4">Koleksi ini berisi dokumentasi {album.kategori === "Video" ? "video" : "foto"} kegiatan {album.judul.toLowerCase()} yang diselenggarakan oleh Dinas Pendidikan Sulawesi Tenggara.</p>
                           <Button 
                             className="bg-blue-600 hover:bg-blue-700 rounded-lg"
                             onClick={() => openAlbum(album)}
                           >
                             <Eye size={16} className="mr-2" />
-                            Lihat Album
+                            Lihat {album.kategori === "Video" ? "Video" : "Album"}
                           </Button>
                         </div>
                       </div>
@@ -406,17 +416,13 @@ const Foto = () => {
                   </Button>
                 </div>
                 
-                <div className="relative flex-grow flex items-center justify-center p-4">
-                  <img 
-                    src={selectedAlbum.photos[currentPhotoIndex].url} 
-                    alt={selectedAlbum.photos[currentPhotoIndex].judul}
-                    className="max-h-[60vh] object-contain"
-                  />
+                <div className="relative flex-grow flex items-center justify-center p-4 bg-black">
+                  {renderMedia(selectedAlbum.media[currentMediaIndex])}
                   
                   <Button 
                     variant="outline" 
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-                    onClick={prevPhoto}
+                    onClick={prevMedia}
                   >
                     <ChevronLeft size={24} />
                   </Button>
@@ -424,17 +430,25 @@ const Foto = () => {
                   <Button 
                     variant="outline" 
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-                    onClick={nextPhoto}
+                    onClick={nextMedia}
                   >
                     <ChevronRight size={24} />
                   </Button>
                 </div>
                 
                 <div className="p-4 bg-gray-50">
-                  <h4 className="font-semibold text-blue-800">{selectedAlbum.photos[currentPhotoIndex].judul}</h4>
-                  <p className="text-gray-600 text-sm">{selectedAlbum.photos[currentPhotoIndex].deskripsi}</p>
+                  <div className="flex items-center mb-2">
+                    <h4 className="font-semibold text-blue-800 mr-2">{selectedAlbum.media[currentMediaIndex].judul}</h4>
+                    {selectedAlbum.media[currentMediaIndex].type === "video" && (
+                      <Badge variant="outline" className="bg-red-100 text-red-700 border-red-300">
+                        <Video size={14} className="mr-1" />
+                        Video
+                      </Badge>
+                    )}
+                  </div>
+                  <p className="text-gray-600 text-sm">{selectedAlbum.media[currentMediaIndex].deskripsi}</p>
                   <div className="flex justify-between items-center mt-2">
-                    <span className="text-sm text-gray-500">{currentPhotoIndex + 1} dari {selectedAlbum.photos.length}</span>
+                    <span className="text-sm text-gray-500">{currentMediaIndex + 1} dari {selectedAlbum.media.length}</span>
                     <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
                       <Download size={16} className="mr-2" />
                       Download
@@ -444,17 +458,24 @@ const Foto = () => {
                 
                 <div className="p-4 border-t overflow-x-auto">
                   <div className="flex space-x-2">
-                    {selectedAlbum.photos.map((photo, index) => (
+                    {selectedAlbum.media.map((media, index) => (
                       <div 
-                        key={photo.id} 
-                        className={`flex-shrink-0 w-16 h-16 cursor-pointer border-2 rounded ${currentPhotoIndex === index ? 'border-blue-600' : 'border-transparent'}`}
-                        onClick={() => setCurrentPhotoIndex(index)}
+                        key={media.id} 
+                        className={`flex-shrink-0 w-16 h-16 cursor-pointer border-2 rounded ${currentMediaIndex === index ? 'border-blue-600' : 'border-transparent'}`}
+                        onClick={() => setCurrentMediaIndex(index)}
                       >
-                        <img 
-                          src={photo.url} 
-                          alt={photo.judul} 
-                          className="w-full h-full object-cover rounded"
-                        />
+                        {media.type === "image" ? (
+                          <img 
+                            src={media.url} 
+                            alt={media.judul} 
+                            className="w-full h-full object-cover rounded"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center relative">
+                            <div className="absolute inset-0 bg-black opacity-30 rounded"></div>
+                            <Play size={20} className="text-white fill-white z-10" />
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -463,67 +484,6 @@ const Foto = () => {
             </div>
           )}
 
-          {/* Statistik Galeri */}
-          <div className="grid md:grid-cols-4 gap-4 mb-8">
-            {[
-              { label: "Total Album", nilai: "156", icon: "📁", warna: "bg-blue-600" },
-              { label: "Total Foto", nilai: "2,847", icon: "📸", warna: "bg-green-500" },
-              { label: "Album Tahun Ini", nilai: "48", icon: "📅", warna: "bg-yellow-500" },
-              { label: "Unduhan", nilai: "5,432", icon: "⬇️", warna: "bg-purple-500" }
-            ].map((stat, index) => (
-              <Card key={index} className="shadow-lg rounded-xl border-0 overflow-hidden">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-gray-600">{stat.label}</p>
-                      <p className="text-2xl font-bold text-blue-800">{stat.nilai}</p>
-                    </div>
-                    <div className={`text-white p-3 rounded-lg ${stat.warna}`}>
-                      <span className="text-2xl">{stat.icon}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Kontribusi Foto */}
-          <Card className="shadow-lg rounded-xl border-0 bg-gradient-to-r from-blue-50 to-blue-100 mb-8">
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-blue-800">
-                <Upload className="text-blue-600" size={24} />
-                Kontribusi Foto
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <p className="text-gray-600 mb-6">
-                  Punya foto kegiatan Dinas Pendidikan? Bagikan dengan kami!
-                </p>
-                <div className="grid md:grid-cols-3 gap-4 mb-6">
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
-                    <div className="text-blue-600 mb-2 text-2xl">📧</div>
-                    <h4 className="font-semibold text-blue-800 mb-1">Email</h4>
-                    <p className="text-sm text-gray-600">foto@disdik.sultra.go.id</p>
-                  </div>
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
-                    <div className="text-blue-600 mb-2 text-2xl">💬</div>
-                    <h4 className="font-semibold text-blue-800 mb-1">WhatsApp</h4>
-                    <p className="text-sm text-gray-600">+62 812-3456-7890</p>
-                  </div>
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
-                    <div className="text-blue-600 mb-2 text-2xl">📱</div>
-                    <h4 className="font-semibold text-blue-800 mb-1">Upload Online</h4>
-                    <p className="text-sm text-gray-600">Form Upload</p>
-                  </div>
-                </div>
-                <Button className="bg-blue-600 hover:bg-blue-700 rounded-lg">
-                  <Upload size={18} className="mr-2" />
-                  Kirim Foto Sekarang
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </main>
       
@@ -531,4 +491,4 @@ const Foto = () => {
   );
 };
 
-export default Foto;
+export default Galeri;
