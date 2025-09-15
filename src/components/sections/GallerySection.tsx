@@ -60,58 +60,83 @@ const GallerySection = () => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {galleryItems.map((item) => (
-            <Card key={item.id} className="group overflow-hidden hover:shadow-medium transition-all duration-300">
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-semibold text-sm mb-2">
-                      {item.title}
-                    </h3>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+  {/* KIRI: FOTO */}
+  <div className="lg:col-span-2 grid grid-cols-3 gap-4">
+    {galleryItems
+      .filter((item) => item.type === "image")
+      .slice(0, 6)
+      .map((item) => (
+        <Card key={item.id} className="group relative overflow-hidden hover:shadow-lg transition-all duration-300">
+          <div className="relative h-48 overflow-hidden"> {/* tinggi disamakan dengan video */}
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
 
-                {/* Play Icon for Videos */}
-                {item.type === "video" && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
-                      <Play className="w-6 h-6 text-white ml-1" />
-                    </div>
-                  </div>
-                )}
-
-                {/* Type Badge */}
-                <div className="absolute top-3 left-3">
-                  <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
-                    item.type === "video" 
-                      ? "bg-red-500/80 text-white" 
-                      : "bg-blue-500/80 text-white"
-                  }`}>
-                    {item.type === "video" ? (
-                      <>
-                        <Play className="w-3 h-3 mr-1" />
-                        Video
-                      </>
-                    ) : (
-                      <>
-                        <Camera className="w-3 h-3 mr-1" />
-                        Foto
-                      </>
-                    )}
-                  </span>
-                </div>
+            {/* Overlay judul */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-2 left-2 right-2">
+                <h3 className="text-white font-semibold text-sm line-clamp-2">
+                  {item.title}
+                </h3>
               </div>
-            </Card>
-          ))}
-        </div>
+            </div>
+
+            {/* Label Foto */}
+            <div className="absolute top-3 left-3">
+              <span className="inline-flex items-center px-2 py-1 rounded bg-blue-500/80 text-white text-xs font-medium">
+                <Camera className="w-3 h-3 mr-1" /> Foto
+              </span>
+            </div>
+          </div>
+        </Card>
+      ))}
+  </div>
+
+  {/* KANAN: VIDEO */}
+  <div className="lg:col-span-1 flex flex-col gap-4">
+    {galleryItems
+      .filter((item) => item.type === "video")
+      .slice(0, 3)
+      .map((item) => (
+        <Card key={item.id} className="group relative overflow-hidden hover:shadow-lg transition-all duration-300">
+          <div className="relative h-48 overflow-hidden"> {/* tinggi sama dengan foto */}
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+
+            {/* Overlay judul */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-2 left-2 right-2">
+                <h3 className="text-white font-semibold text-sm line-clamp-2">
+                  {item.title}
+                </h3>
+              </div>
+            </div>
+
+            {/* Play Icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                <Play className="w-6 h-6 text-white ml-1" />
+              </div>
+            </div>
+
+            {/* Label Video */}
+            <div className="absolute top-3 left-3">
+              <span className="inline-flex items-center px-2 py-1 rounded bg-red-500/80 text-white text-xs font-medium">
+                <Play className="w-3 h-3 mr-1" /> Video
+              </span>
+            </div>
+          </div>
+        </Card>
+      ))}
+  </div>
+</div>
+
 
         {/* CTA */}
         <div className="text-center">
