@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Play } from "lucide-react";
 import gallery from "@/assets/galery.png";
+import { Link } from "react-router-dom";
 
 type GalleryItems = {
   id: number;
@@ -135,13 +136,15 @@ const GallerySection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button
-            variant="outline"
-            className="border-education-green text-education-green hover:bg-education-green hover:text-white"
-          >
-            <span>Lihat Galeri Lengkap</span>
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <Link to="/Galery">
+            <Button
+              variant="outline"
+              className="border-education-green text-education-green hover:bg-education-green hover:text-white"
+            >
+              <span>Lihat Galeri Lengkap</span>
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
