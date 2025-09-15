@@ -49,23 +49,6 @@ const Navbar = () => {
         { href: "/profil/struktur-organisasi", label: "Struktur Organisasi" },
       ],
     },
-    {
-      label: "Pelayanan",
-      subItems: [
-        { href: "/pelayanan/visi-misi", label: "Visi Misi Pelayanan" },
-        { href: "/pelayanan/motto", label: "Motto Pelayanan" },
-        { href: "/pelayanan/pinjam-ruang", label: "Pinjam Ruang & Agenda" },
-        { href: "/pelayanan/sop", label: "Standar Operasional Prosedur" },
-        { href: "/pelayanan/sarana-prasarana", label: "Sarana Prasarana" },
-        {
-          href: "/pelayanan/standar-pelayanan",
-          label: "Standar Pelayanan Publik",
-        },
-        { href: "/pelayanan/pengaduan", label: "Pengaduan" },
-        { href: "/pelayanan/prestasi", label: "Prestasi Kinerja Layanan" },
-        { href: "/pelayanan/klinik", label: "Klinik Pendidikan" },
-      ],
-    },
     { href: "/ppid", label: "PPID" },
     {
       label: "Galeri",
