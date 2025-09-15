@@ -83,6 +83,7 @@ const App = () => (
             <Route path="/galeri/foto" element={<Foto />} />
             <Route path="/galeri/video" element={<Video />} />
 
+            {/* News Routes */}
             <Route path="/news" element={<News />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
