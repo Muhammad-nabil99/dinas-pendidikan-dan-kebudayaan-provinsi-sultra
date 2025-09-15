@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, Divide } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const [openMenu, setOpenMenu] = useState(null);
+
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -177,47 +179,62 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-md border-t">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <div key={item.label}>
-                  {item.subItems ? (
-                    <div className="space-y-1">
-                      <div className="px-3 py-2 text-sm font-medium text-government-blue">
-                        {item.label}
-                      </div>
-                      <div className="ml-4 space-y-1">
-                        {item.subItems.map((subItem) => (
-                          <Link
-                            key={subItem.href}
-                            to={subItem.href}
-                            className="block px-3 py-2 text-sm text-foreground hover:text-government-blue"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <Link
-                      to={item.href}
-                      className={`block px-3 py-2 rounded-md text-sm font-medium ${
-                        isActive(item.href)
-                          ? "text-gold bg-white/10"
-                          : "text-government-blue hover:text-gold"
+    {isOpen && (
+      <div className="lg:hidden bg-government-blue/95 backdrop-blur-md border-t border-blue-800">
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          {navItems.map((item, index) => (
+            <div key={item.label}>
+              {item.subItems ? (
+                <div>
+                  {/* Trigger utama */}
+                  <button
+                    className="w-full flex justify-between items-center px-3 py-2 text-sm font-medium text-white hover:text-gold"
+                    onClick={() =>
+                      setOpenMenu(openMenu === index ? null : index)
+                    }
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transform transition-transform ${
+                        openMenu === index ? "rotate-180" : ""
                       }`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
+                    />
+                  </button>
+
+                  {/* Submenu, hanya muncul kalau openMenu === index */}
+                  {openMenu === index && (
+                    <div className="ml-4 space-y-1">
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          key={subItem.href}
+                          to={subItem.href}
+                          className="block px-3 py-2 text-sm text-white hover:text-gold"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
                   )}
                 </div>
-              ))}
+              ) : (
+                <Link
+                  to={item.href}
+                  className={`block px-3 py-2 rounded-md text-sm font-medium ${
+                    isActive(item.href)
+                      ? "text-gold bg-blue-900/40"
+                      : "text-white hover:text-gold"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              )}
             </div>
-          </div>
-        )}
+          ))}
+        </div>
+      </div>
+    )}
       </div>
     </nav>
   );
