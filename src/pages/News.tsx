@@ -79,8 +79,7 @@ const News = () => {
     {
       id: 6,
       title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
-      excerpt:
-        "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
+      excerpt: "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
       date: "1 Desember 2024",
       time: "2 minggu yang lalu",
       category: "Ujian",
@@ -137,8 +136,6 @@ const News = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
-
       <main>
         {/* Header Section */}
         <section
@@ -174,7 +171,8 @@ const News = () => {
                 Semua Berita Terbaru
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
-                Ikuti perkembangan terbaru seputar pendidikan di Sulawesi Tenggara
+                Ikuti perkembangan terbaru seputar pendidikan di Sulawesi
+                Tenggara
               </p>
             </div>
           </div>
@@ -252,13 +250,15 @@ const News = () => {
                       <span className="text-sm text-muted-foreground">
                         {item.date}
                       </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-government-blue hover:text-government-blue/80"
-                      >
-                        Baca Selengkapnya
-                      </Button>
+                      <Link to={`/berita/${item.id}`}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-government-blue hover:text-government-blue/80"
+                        >
+                          Baca Selengkapnya
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
