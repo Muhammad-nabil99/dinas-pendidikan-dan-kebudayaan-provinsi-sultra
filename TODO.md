@@ -1,0 +1,2 @@
+- [ ] Change the first list from <ul> to <ol> with proper Tailwind classes for numbering and remove manual numbering
+- [ ] Add Tailwind classes to the second <ul> for bullet points

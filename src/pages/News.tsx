@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import MoveBack from "@/hooks/MoveBack";
 
 const News = () => {
   const allNews = [
@@ -136,13 +135,16 @@ const News = () => {
         <section className="py-20 bg-gradient-primary text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center mb-6">
-              {/* <Link to="/">
-                <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+              <Link to="/">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Kembali ke Beranda
                 </Button>
-              </Link> */}
-              <MoveBack />
+              </Link>
             </div>
 
             <div className="text-center">

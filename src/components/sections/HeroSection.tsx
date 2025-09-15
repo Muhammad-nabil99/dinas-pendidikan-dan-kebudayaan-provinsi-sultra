@@ -3,6 +3,7 @@ import { ArrowRight, GraduationCap } from "lucide-react";
 import heroImage1 from "@/assets/hero-1.jpg";
 import heroImage2 from "@/assets/hero-2.png";
 import heroImage3 from "@/assets/hero-3.png";
+import { Link } from "react-router-dom";
 
 const heroImage = [heroImage1, heroImage2, heroImage3];
 
@@ -58,28 +59,42 @@ const HeroSection = () => {
               <span>Layanan Publik</span>
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white hover:text-white bg-white/10 text-white border-2"
-            >
-              Profil Dinas
-            </Button>
+            <Link to="/profil/sejarah">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white hover:text-white bg-white/10 text-white border-2"
+              >
+                Profil Dinas
+              </Button>
+            </Link>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-3 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/20">
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">1,200+</div>
-              <div className="text-white/80 text-xs sm:text-sm">Sekolah Binaan</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">
+                1,200+
+              </div>
+              <div className="text-white/80 text-xs sm:text-sm">
+                Sekolah Binaan
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">150,000+</div>
-              <div className="text-white/80 text-xs sm:text-sm">Siswa Aktif</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">
+                150,000+
+              </div>
+              <div className="text-white/80 text-xs sm:text-sm">
+                Siswa Aktif
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">12,000+</div>
-              <div className="text-white/80 text-xs sm:text-sm">Tenaga Pendidik</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold mb-1">
+                12,000+
+              </div>
+              <div className="text-white/80 text-xs sm:text-sm">
+                Tenaga Pendidik
+              </div>
             </div>
           </div>
         </div>

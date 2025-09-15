@@ -10,7 +10,7 @@ import AppLayout from "./layout/AppLayout.js";
 import Sejarah from "./pages/profil/Sejarah";
 import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
-import StrukturOrganisasi from "./pages/profil/StrukturOrganisasi";
+import StrukturOrganisasi from "./pages/profil/StrukturOrganisasiChart.js";
 
 // Pelayanan pages
 import VisiMisiPelayanan from "./pages/pelayanan/VisiMisiPelayanan";
