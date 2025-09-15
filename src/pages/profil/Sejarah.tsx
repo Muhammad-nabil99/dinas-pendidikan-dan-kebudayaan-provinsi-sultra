@@ -6,8 +6,6 @@ import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-
-
 const Sejarah = () => {
   return (
     <main>
