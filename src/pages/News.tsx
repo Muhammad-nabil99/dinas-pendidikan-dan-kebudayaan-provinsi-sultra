@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
+=======
+>>>>>>> 6c47b00c7a5b828480bb2ea0224bc5feac903d50
 
 const News = () => {
   const allNews = [
@@ -19,7 +23,7 @@ const News = () => {
       id: 1,
       title: "Peluncuran Program Digitalisasi Sekolah 2024",
       excerpt:
-        "Dinas Pendidikan Sultra meluncurkan program digitalisasi untuk 500 sekolah dalam rangka meningkatkan kualitas pembelajaran di era modern. Program ini mencakup pelatihan guru, penyediaan infrastruktur teknologi, dan pengembangan kurikulum digital.",
+        "Dinas Pendidikan Sultra meluncurkan program digitalisasi untuk 500 sekolah...",
       date: "15 Desember 2024",
       time: "2 hari yang lalu",
       category: "Program",
@@ -31,7 +35,7 @@ const News = () => {
       id: 2,
       title: "Raih Prestasi Nasional, Siswa Sultra Juara Olimpiade Sains",
       excerpt:
-        "Tim olimpiade sains dari Sulawesi Tenggara berhasil meraih medali emas pada kompetisi tingkat nasional yang berlangsung di Jakarta. Prestasi membanggakan ini merupakan hasil dari pembinaan intensif selama 6 bulan.",
+        "Tim olimpiade sains dari Sulawesi Tenggara berhasil meraih medali emas...",
       date: "12 Desember 2024",
       time: "5 hari yang lalu",
       category: "Prestasi",
@@ -43,7 +47,7 @@ const News = () => {
       id: 3,
       title: "Workshop Peningkatan Kompetensi Guru di Era Digital",
       excerpt:
-        "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi dalam memanfaatkan teknologi untuk pembelajaran modern. Workshop berlangsung selama 3 hari dengan materi praktis dan aplikatif.",
+        "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi...",
       date: "10 Desember 2024",
       time: "1 minggu yang lalu",
       category: "Pelatihan",
@@ -55,7 +59,7 @@ const News = () => {
       id: 4,
       title: "Pembangunan 50 Ruang Kelas Baru di Kabupaten Konawe",
       excerpt:
-        "Infrastruktur pendidikan terus ditingkatkan dengan pembangunan ruang kelas baru untuk mengatasi kekurangan fasilitas pembelajaran. Total investasi mencapai 15 miliar rupiah.",
+        "Infrastruktur pendidikan terus ditingkatkan dengan pembangunan ruang kelas...",
       date: "8 Desember 2024",
       time: "1 minggu yang lalu",
       category: "Infrastruktur",
@@ -67,7 +71,7 @@ const News = () => {
       id: 5,
       title: "Beasiswa Unggulan 2024 untuk Siswa Berprestasi",
       excerpt:
-        "Program beasiswa unggulan kembali dibuka untuk siswa berprestasi di Sulawesi Tenggara. Total beasiswa yang tersedia mencapai 500 kuota dengan berbagai jenjang pendidikan.",
+        "Program beasiswa unggulan kembali dibuka untuk siswa berprestasi...",
       date: "5 Desember 2024",
       time: "2 minggu yang lalu",
       category: "Beasiswa",
@@ -79,7 +83,7 @@ const News = () => {
       id: 6,
       title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
       excerpt:
-        "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan di seluruh sekolah di Sulawesi Tenggara dengan tingkat partisipasi 98%. Pelaksanaan berjalan lancar tanpa kendala teknis berarti.",
+        "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
       date: "1 Desember 2024",
       time: "2 minggu yang lalu",
       category: "Ujian",
@@ -89,10 +93,9 @@ const News = () => {
     },
     {
       id: 7,
-      title:
-        "Kerja Sama dengan Universitas Terkemuka untuk Program Dual Degree",
+      title: "Kerja Sama dengan Universitas Terkemuka untuk Dual Degree",
       excerpt:
-        "Dinas Pendidikan Sultra menjalin kerja sama dengan beberapa universitas terkemuka untuk program dual degree bagi siswa berprestasi. Program ini memberikan kesempatan melanjutkan pendidikan tinggi.",
+        "Dinas Pendidikan Sultra menjalin kerja sama dengan beberapa universitas...",
       date: "28 November 2024",
       time: "3 minggu yang lalu",
       category: "Kerjasama",
@@ -104,7 +107,7 @@ const News = () => {
       id: 8,
       title: "Festival Seni dan Budaya Sekolah Se-Sulawesi Tenggara",
       excerpt:
-        "Festival seni dan budaya tingkat provinsi diikuti oleh 200 sekolah se-Sulawesi Tenggara. Acara ini bertujuan melestarikan budaya lokal dan mengembangkan kreativitas siswa.",
+        "Festival seni dan budaya tingkat provinsi diikuti oleh 200 sekolah...",
       date: "25 November 2024",
       time: "3 minggu yang lalu",
       category: "Event",
@@ -126,12 +129,22 @@ const News = () => {
     "Event",
   ];
 
+  // --- Pagination setup ---
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const totalPages = Math.ceil(allNews.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentNews = allNews.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
       <main>
         {/* Header Section */}
+<<<<<<< HEAD
         <section className="py-20 bg-gradient-primary text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center mb-6">
@@ -145,19 +158,36 @@ const News = () => {
                   Kembali ke Beranda
                 </Button>
               </Link>
+=======
+        <section
+          className="relative py-12 sm:py-16 md:py-20 pt-20 text-white bg-cover bg-center"
+          style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 to-blue-600/60"></div>
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center mb-4 sm:mb-6">
+              <button
+                onClick={() => window.history.back()}
+                className="flex items-center bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span className="hidden sm:inline ml-2">Kembali ke Beranda</span>
+              </button>
+>>>>>>> 6c47b00c7a5b828480bb2ea0224bc5feac903d50
             </div>
 
             <div className="text-center">
-              <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full mb-4">
-                <Calendar className="w-4 h-4 mr-2" />
-                <span className="text-sm font-medium">Berita & Informasi</span>
+              <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                <span className="text-xs sm:text-sm font-medium">
+                  Berita & Informasi
+                </span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
                 Semua Berita Terbaru
               </h1>
-              <p className="text-xl text-white/90 max-w-2xl mx-auto">
-                Ikuti perkembangan terbaru seputar pendidikan di Sulawesi
-                Tenggara
+              <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
+                Ikuti perkembangan terbaru seputar pendidikan di Sulawesi Tenggara
               </p>
             </div>
           </div>
@@ -187,7 +217,7 @@ const News = () => {
                 </Select>
               </div>
               <div className="text-sm text-muted-foreground">
-                Menampilkan {allNews.length} berita
+                Menampilkan {currentNews.length} dari {allNews.length} berita
               </div>
             </div>
           </div>
@@ -197,7 +227,7 @@ const News = () => {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {allNews.map((item) => (
+              {currentNews.map((item) => (
                 <Card
                   key={item.id}
                   className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
@@ -247,11 +277,18 @@ const News = () => {
               ))}
             </div>
 
-            {/* Load More */}
-            <div className="text-center mt-12">
-              <Button variant="outline" className="px-8">
-                Muat Lebih Banyak
-              </Button>
+            {/* Pagination */}
+            <div className="flex justify-center mt-12 gap-2">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <Button
+                  key={index}
+                  variant={currentPage === index + 1 ? "default" : "outline"}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className="px-4"
+                >
+                  {index + 1}
+                </Button>
+              ))}
             </div>
           </div>
         </section>
