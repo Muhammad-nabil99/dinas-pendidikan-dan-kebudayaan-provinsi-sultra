@@ -71,7 +71,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/Galery"
+                  to="/galeri"
                   className="text-blue-200 hover:text-white transition-colors"
                 >
                   Galeri
