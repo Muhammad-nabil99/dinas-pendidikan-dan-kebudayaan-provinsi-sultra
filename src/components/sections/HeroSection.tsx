@@ -11,11 +11,12 @@ const heroImage = [heroImage1, heroImage2, heroImage3];
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Ganti gambar setiap 5 detik
+  // Change image every 1 second
   useEffect(() => {
     const interval = setInterval(() => {
+      // Loop back to the first image when the last one is reached
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
-    }, 15000);
+    }, 2000); // 1 second as requested
     return () => clearInterval(interval);
   }, []);
 
@@ -25,7 +26,7 @@ const HeroSection = () => {
       className="relative h-screen flex items-center overflow-hidden"
     >
       {/* Background Slideshow */}
-      <div className="absolute inset-0 z-0">
+       <div className="absolute inset-0 z-0">
         {heroImage.map((image, index) => (
           <img
             key={index}
@@ -36,7 +37,7 @@ const HeroSection = () => {
             }`}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-government-blue/90 via-government-blue/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-blue-900/70 to-transparent"></div>
       </div>
 
       {/* Content */}
