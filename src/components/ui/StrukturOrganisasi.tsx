@@ -18,7 +18,7 @@ const OrganizationChart = () => {
   // Head of Department
   const kepalaDinas: PersonData = {
     id: "kepala-dinas",
-    name: "Yusmrin, S.Pd., M.H",
+    name: "Prof. Dr. H. Aris Badara, S.Pd., M.Hum",
     title: "Kepala Dinas",
     nip: "NIP. 19750503 200003 1 003",
   };
