@@ -13,32 +13,31 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import berita1 from "../assets/berita-1.png";
+import berita2 from "../assets/berita-2.png";
 
 const News = () => {
   const allNews = [
     {
       id: 1,
-      title: "Peluncuran Program Digitalisasi Sekolah 2024",
+      title: "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
       excerpt:
-        "Dinas Pendidikan Sultra meluncurkan program digitalisasi untuk 500 sekolah...",
+        "Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024...",
       date: "15 Desember 2024",
       time: "2 hari yang lalu",
       category: "Program",
-      image:
-        "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=300&fit=crop",
+      image: berita1,
       featured: true,
     },
     {
       id: 2,
-      title: "Raih Prestasi Nasional, Siswa Sultra Juara Olimpiade Sains",
+      title: "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
       excerpt:
-        "Tim olimpiade sains dari Sulawesi Tenggara berhasil meraih medali emas...",
+        "Ribuan pelajar dari berbagai Sekolah Menengah Atas (SMA) dan Sekolah Menengah Kejuruan (SMK) di Sulawesi Tenggara mengambil bagian dalam aksi patriotik",
       date: "12 Desember 2024",
       time: "5 hari yang lalu",
       category: "Prestasi",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=300&fit=crop",
-      featured: true,
+      image: berita2,
     },
     {
       id: 3,
