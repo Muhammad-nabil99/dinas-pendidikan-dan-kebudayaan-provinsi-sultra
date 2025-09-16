@@ -7,7 +7,7 @@ import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 
 const ContactSection = () => {
   return (
-    <section className="py-20">
+    <section className="py-20" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -37,8 +37,7 @@ const ContactSection = () => {
                     <div>
                       <h4 className="font-semibold mb-2">Alamat Kantor</h4>
                       <p className="text-muted-foreground">
-                        Jl. Mayjen Sutoyo No. 1, Kendari<br />
-                        Sulawesi Tenggara 93117<br />
+                        Jalan Ahmad Yani No. 2, Kendari, Sulawesi Tenggara 93117<br />
                         Indonesia
                       </p>
                     </div>
