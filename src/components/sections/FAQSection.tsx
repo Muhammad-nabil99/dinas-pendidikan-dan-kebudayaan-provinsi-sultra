@@ -91,11 +91,16 @@ const FAQSection = () => {
             Tim kami siap membantu menjawab pertanyaan spesifik Anda
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="contact">
-              <button className="inline-flex items-center justify-center px-6 py-2 bg-government-blue text-white rounded-md hover:bg-government-blue-dark transition-colors">
-                Hubungi Kami
-              </button>
-            </a>
+            <button
+              onClick={() => {
+                document.getElementById("contact")?.scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
+              className="inline-flex items-center justify-center px-6 py-2 bg-government-blue text-white rounded-md hover:bg-government-blue-dark transition-colors"
+            >
+              Hubungi Kami
+            </button>
           </div>
         </div>
       </div>
