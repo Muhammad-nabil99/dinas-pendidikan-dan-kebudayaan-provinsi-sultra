@@ -9,7 +9,8 @@ const NewsSection = () => {
   const news = [
     {
       id: 1,
-      title: "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
+      title:
+        "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
       excerpt:
         "Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024...",
       date: "15 Desember 2024",
@@ -19,7 +20,8 @@ const NewsSection = () => {
     },
     {
       id: 2,
-      title: "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
+      title:
+        "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
       excerpt:
         "Ribuan pelajar dari berbagai Sekolah Menengah Atas (SMA) dan Sekolah Menengah Kejuruan (SMK) di Sulawesi Tenggara mengambil bagian dalam aksi patriotik",
       date: "12 Desember 2024",
@@ -39,15 +41,13 @@ const NewsSection = () => {
         "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=240&fit=crop",
     },
     {
-      id: 4,
-      title: "Pembangunan 50 Ruang Kelas Baru di Kabupaten Konawe",
-      excerpt:
-        "Infrastruktur pendidikan terus ditingkatkan dengan pembangunan ruang kelas baru untuk mengatasi kekurangan fasilitas pembelajaran...",
-      date: "8 Desember 2024",
-      time: "1 minggu yang lalu",
-      category: "Infrastruktur",
-      image:
-        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=240&fit=crop",
+      id: 6,
+      title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
+      excerpt: "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
+      date: "1 Desember 2024",
+      time: "2 minggu yang lalu",
+      category: "Ujian",
+      image:"https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=240&fit=crop",
     },
     {
       id: 5,

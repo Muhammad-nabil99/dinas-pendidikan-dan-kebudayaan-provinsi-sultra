@@ -1,44 +1,80 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Play, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { dummyAlbums } from "@/pages/Galery";
+import ReactDOM from "react-dom";
+
+// Define the type for a single album/gallery item
+export interface GalleryItem {
+  id: number;
+  title: string;
+  coverImage: string;
+  description: string;
+  category: "foto" | "video"; // Use literal types for known categories
+  media?: { url: string }[];
+}
 
 const GallerySection = () => {
-  const galleryItems = dummyAlbums.slice(0, 6);
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const galleryItems: GalleryItem[] = dummyAlbums.slice(0, 6);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  // 🔑 State untuk modal
-  const [selectedItem, setSelectedItem] = useState<typeof dummyAlbums[0] | null>(
-    null
-  );
+  const openModal = (item: GalleryItem) => {
+    setSelectedItem(item);
+  };
+
+  const closeModal = () => {
+    setSelectedItem(null);
+  };
+
+  // Menutup modal saat klik di luar area modal
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal();
+      }
+    };
+
+    if (selectedItem) {
+      document.addEventListener("mousedown", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [selectedItem]);
 
   return (
-    <section className="py-20">
+    <section className="bg-white py-20 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-education-green/10 rounded-full mb-4">
-            <Camera className="w-4 h-4 text-education-green mr-2" />
-            <span className="text-sm font-medium text-education-green">
+          <div className="inline-flex items-center px-4 py-2 bg-green-100 rounded-full mb-4">
+            <Camera className="w-4 h-4 text-green-600 mr-2" />
+            <span className="text-sm font-medium text-green-600">
               Galeri Kegiatan
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Dokumentasi Kegiatan
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Kumpulan foto dan video kegiatan pendidikan di Sulawesi Tenggara
           </p>
         </div>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {galleryItems.map((item) => (
-            <Card
+          {galleryItems.map((item: GalleryItem) => (
+            <div
               key={item.id}
-              onClick={() => setSelectedItem(item)} // 👈 ketika klik, buka modal
-              className="group overflow-hidden hover:shadow-medium transition-all duration-300 cursor-pointer"
+              onClick={() => openModal(item)}
+              className="group overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
               <div className="relative aspect-video overflow-hidden">
                 <img
@@ -50,13 +86,13 @@ const GallerySection = () => {
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-semibold text-sm mb-2">
+                    <h3 className="capitalize text-white font-semibold text-sm mb-2">
                       {item.title}
                     </h3>
                   </div>
                 </div>
 
-                {/* Play Icon */}
+                {/* Play Icon (jika video) */}
                 {item.category === "video" && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
@@ -68,7 +104,7 @@ const GallerySection = () => {
                 {/* Type Badge */}
                 <div className="absolute top-3 left-3">
                   <span
-                    className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
+                    className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                       item.category === "video"
                         ? "bg-red-500/80 text-white"
                         : "bg-blue-500/80 text-white"
@@ -88,7 +124,7 @@ const GallerySection = () => {
                   </span>
                 </div>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
 
@@ -97,7 +133,7 @@ const GallerySection = () => {
           <Link to="/Galery">
             <Button
               variant="outline"
-              className="border-education-green text-education-green hover:bg-education-green hover:text-white"
+              className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
             >
               <span>Lihat Galeri Lengkap</span>
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -107,34 +143,44 @@ const GallerySection = () => {
       </div>
 
       {/* Modal */}
-      {selectedItem && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl max-w-3xl w-full relative p-4">
-            <button
-              onClick={() => setSelectedItem(null)}
-              className="absolute top-3 right-3 text-gray-700 hover:text-red-500"
+      {selectedItem &&
+        ReactDOM.createPortal(
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm">
+            <div
+              ref={modalRef}
+              className=" bg-white rounded-2xl shadow-2xl overflow-hidden max-w-3xl w-full relative"
             >
-              <X className="w-6 h-6" />
-            </button>
-
-            <h2 className="text-lg font-semibold mb-3">{selectedItem.title}</h2>
-
-            {selectedItem.category === "video" ? (
-              <video
-                src={selectedItem.media[0].url}
-                controls
-                className="w-full rounded-lg"
-              />
-            ) : (
-              <img
-                src={selectedItem.coverImage}
-                alt={selectedItem.title}
-                className="w-full rounded-lg"
-              />
-            )}
-          </div>
-        </div>
-      )}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-gray-700 hover:text-red-500 transition-colors z-10"
+              >
+                <X className="w-8 h-8" />
+              </button>
+              <div className="p-3">
+                {selectedItem.category === "video" ? (
+                  <video
+                    src={selectedItem.media?.[0]?.url}
+                    controls
+                    className="w-full rounded-lg max-h-[60vh] object-cover"
+                  />
+                ) : (
+                  <img
+                    src={selectedItem.coverImage}
+                    alt={selectedItem.title}
+                    className="w-full rounded-lg max-h-[60vh] object-cover"
+                  />
+                )}
+                <h2 className="capitalize my-2 text-2xl font-bold text-gray-900 mb-4">
+                  {selectedItem.title}
+                </h2>
+                <p className="mt-4 text-gray-700">
+                  {selectedItem.media[0].description}
+                </p>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </section>
   );
 };

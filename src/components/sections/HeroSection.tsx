@@ -16,7 +16,7 @@ const HeroSection = () => {
     const interval = setInterval(() => {
       // Loop back to the first image when the last one is reached
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
-    }, 120000); // 1 second as requested
+    }, 2000); // 1 second as requested
     return () => clearInterval(interval);
   }, []);
 

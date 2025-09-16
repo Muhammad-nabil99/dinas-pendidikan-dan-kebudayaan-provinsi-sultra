@@ -17,112 +17,153 @@ import berita2 from "../../assets/berita-2.png";
 
 const DetailBerita = () => {
   const { id } = useParams();
-  console.log("this is detaiol", id);
 
   // Sample news data (in real app, this would come from API/database)
   const allNews = [
     {
       id: 1,
-      title: "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
+      title:
+        "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
       excerpt:
         "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital.",
       content: `
-        <p>Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024, Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi (Kemendikbudristek) melalui Balai Layanan Platform Teknologi (BLPT), Pusat Data dan Teknologi Informasi (Pusdatin) menyelenggarakan rapat koordinasi bertajuk “Berkobar (Berkolaborasi dan Berbagi) Membangun Sinergi Ekosistem Digital Pendidikan BLPT x Pemerintah Daerah” pada 28 s.d. 31 Mei di Bandung, Jawa Barat.
-        <br><br>  
-        Adapun unsur pemerintah daerah yang terlibat dalam kegiatan, yaitu Dinas Pendidikan di 38 provinsi, Unit Pelaksana Teknis Daerah (UPTD) di lingkungan Kemendikbudristek, dan Balai Teknologi Informasi Komunikasi Pendidikan (BTIKP) di masing-masing daerah.
-        <br><br>
-        Salah satu pilar dalam menyediakan akses pendidikan berkualitas adalah ekosistem pendidikan digital. Untuk itu, Kemendikbudristek berkomitmen penuh dalam optimalisasi pemanfaatan platform teknologi pendidikan, di antaranya akun belajar.id, Platform Merdeka Mengajar (PMM), Rapor Pendidikan, SIPLah dan ARKAS untuk pengelolaan sumber daya sekolah, dan Platform Kampus Merdeka untuk pendidikan tinggi.
-        <br><br>
-        Kegiatan secara resmi dibuka oleh Sekretaris Jenderal Kemendikbudristek, Suharti. Ia mendorong agar sinergi ini dapat berfungsi sebagai media eksplorasi dan kolaborasi terhadap pemetaan program pendidikan Indonesia. “Dengan mengoptimalkan pemanfaatan platform teknologi dan data pendidikan, kita dapat meningkatkan kualitas pendidikan. Semangat Berkobar (berkolaborasi dan berbagi) ini menjadi bahan bakar untuk meningkatkan pemanfaatan teknologi secara efektif, sehingga dapat meningkatkan kualitas pendidikan di seluruh provinsi di Indonesia, memastikan bahwa setiap siswa mendapatkan kesempatan yang sama untuk meraih pendidikan yang berkualitas. Mari bersinergi untuk mewujudkan Merdeka Belajar, yakni kesempatan bagi anak-anak Indonesia untuk merdeka dalam belajar apa pun dan terlepas dari berbagai hambatan yang melatarbelakangi mereka,” ucap Suharti, di Bandung, Selasa (28/5)
-        <br><br>
-        Berbagai transformasi pendidikan yang dilakukan oleh Kemendikbudristek ditujukan untuk meningkatkan kinerja pendidikan, baik itu pemerataan akses, peningkatan kualitas, dan peningkatan tata kelola. Ketiga hal tersebut perlu didukung oleh penguatan platform teknologi untuk mengakselerasi pencapaian target-target pendidikan yang begitu tinggi.
-        <br><br>
-        Suharti pun menambahkan, “Untuk itu, kolaborasi dan partisipasi yang berkelanjutan dari semua stakeholder, baik pemerintah pusat, pemerintah daerah, dan peran mitra teknologi pendidikan, sangat krusial dalam keberhasilan transformasi digital pendidikan.”
-        Senada dengan itu, Pelaksana tugas (Plt.) Kepala Pusat Data dan Teknologi Informasi, Wibowo Mukti, mengatakan bahwa untuk meningkatkan pemerataan platform teknologi pendidikan di seluruh wilayah Indonesia, BLPT memerlukan dukungan dan kerja sama berbagai pihak untuk dapat mempercepat distribusi dan pemanfaatan platform secara luas.
-        <br><br>
-        “Kegiatan ini bertujuan untuk merumuskan strategi sinergitas Pusdatin, BLPT, dan pemerintah daerah dalam pemanfaatan dan pendayagunaan teknologi informasi dan komunikasi. Kami berharap berbagai platform yang telah dikembangkan oleh Kemendikbudristek dapat dimanfaatkan dengan baik di level daerah,” ucap Wibowo.
-        <br><br>
-        Pada kesempatan tersebut, Kepala Balai Teknologi Informasi Komunikasi Pendidikan Jawa Barat, Firman Oktora, pun menyambut baik inisiatif BLPT dan Pusdatin untuk melakukan kolaborasi bersama. Menurutnya, hal tersebut selaras dengan empat nilai transformasi pendidikan di Jawa Barat, yaitu 1) kolaborasi; 2) integrasi teknologi informasi dan kualitas pendidikan; 3) pemerataan akses pendidikan; dan 4) satu guru, satu sertifikat kompetensi.
-        <br><br>
-        Dalam pelaksanaannya, kegiatan ini menghadirkan sejumlah narasumber yang berkaitan dengan kebijakan transformasi digital, data pendidikan, dan rapor pendidikan daerah, serta mitra platform teknologi pendidikan seperti Canva dan Quizizz. Hadir pula para Duta Teknologi sebagai mitra BLPT di daerah yang akan berbagi praktik baik terkait pelaksanaan Pembelajaran Berbasis TIK (PembaTIK) dan Kita Harus Belajar (Kihajar) di provinsinya masing-masing.</p>
-      `,
+      <p>Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024, Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi (Kemendikbudristek) melalui Balai Layanan Platform Teknologi (BLPT), Pusat Data dan Teknologi Informasi (Pusdatin) menyelenggarakan rapat koordinasi bertajuk “Berkobar (Berkolaborasi dan Berbagi) Membangun Sinergi Ekosistem Digital Pendidikan BLPT x Pemerintah Daerah” pada 28 s.d. 31 Mei di Bandung, Jawa Barat.</p>
+      <p>Adapun unsur pemerintah daerah yang terlibat dalam kegiatan, yaitu Dinas Pendidikan di 38 provinsi, Unit Pelaksana Teknis Daerah (UPTD) di lingkungan Kemendikbudristek, dan Balai Teknologi Informasi Komunikasi Pendidikan (BTIKP) di masing-masing daerah.</p>
+      <p>Salah satu pilar dalam menyediakan akses pendidikan berkualitas adalah ekosistem pendidikan digital. Untuk itu, Kemendikbudristek berkomitmen penuh dalam optimalisasi pemanfaatan platform teknologi pendidikan, di antaranya akun belajar.id, Platform Merdeka Mengajar (PMM), Rapor Pendidikan, SIPLah dan ARKAS, serta Platform Kampus Merdeka untuk pendidikan tinggi.</p>
+      <p>Kegiatan secara resmi dibuka oleh Sekretaris Jenderal Kemendikbudristek, Suharti. Ia menekankan pentingnya sinergi ini untuk pemetaan program pendidikan Indonesia. “Dengan mengoptimalkan pemanfaatan platform teknologi dan data pendidikan, kita dapat meningkatkan kualitas pendidikan...,” ujar Suharti.</p>
+      <p>Berbagai transformasi pendidikan yang dilakukan oleh Kemendikbudristek ditujukan untuk pemerataan akses, peningkatan kualitas, dan tata kelola. Hal tersebut perlu dukungan penguatan platform teknologi.</p>
+    `,
       date: "15 Desember 2024",
       time: "2 hari yang lalu",
       category: "Program",
-      image:
-        berita1,
+      image: berita1,
       author: "Tim Redaksi Disdik Sultra",
+      featured: true,
     },
     {
       id: 2,
-      title: "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
+      title:
+        "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
       excerpt:
-        "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78.",
+        "Ribuan pelajar SMA dan SMK Sulawesi Tenggara membentangkan bendera merah putih sepanjang 17 kilometer untuk memperingati kemerdekaan RI ke-78.",
       content: `
-        <p>Ribuan pelajar dari berbagai Sekolah Menengah Atas (SMA) dan Sekolah Menengah Kejuruan (SMK) di Sulawesi Tenggara mengambil bagian dalam aksi patriotik dengan membentangkan bendera merah putih sepanjang 17 kilometer sebagai bagian dari perayaan Hari Kemerdekaan Republik Indonesia yang ke-78. Pembentangan bendera merah putih ini menjadi bukti semangat nasionalisme dan cinta tanah air yang berkobar di kalangan generasi muda.
-        <br><br>
-        Aksi pembentangan bendera merah putih ini merupakan kolaborasi yang luar biasa antara ribuan pelajar yang berasal dari berbagai sekolah di wilayah Sulawesi Tenggara. Dengan semangat kebersamaan dan gotong royong, mereka membawa bendera merah putih sepanjang 17 kilometer melintasi jalan-jalan utama Kota Kendari dan Kabupaten Konawe Selatan menunjukkan komitmen mereka terhadap nilai-nilai kebangsaan dan perjuangan para pahlawan.
-        <br><br>
-        Kegiatan yang dimulai pada pagi hari, dengan antusiasme yang tinggi dari para pelajar yang datang mengenakan seragam sekolah, mereka membawa bendera merah putih dengan semangat dan harapan untuk mengenang jasa para pejuang kemerdekaan serta meneruskan semangat perjuangan dalam menghadapi berbagai tantangan yang dihadapi bangsa Indonesia saat ini.
-        Gubernur Sulawesi Tenggara (Sultra), H. Ali Mazi S.H, mengatakan sepanjang Sulawesi Tenggara menjadi provinsi, momentum ini baru pertama kali dilakukan dengan mengejar rekor muri Indonesia.
-        <br><br>
-        "Kemerdekaan yang kita nikmati ini adalah hasil perjuangan para leluhur kita. Bendera adalah simbol negara yang dapat terus berkibar di Bumi Pertiwi, pengibaran ini harus kita apresiasi sebagai bagian dari memperingati kemerdekaan 17 Agustus 1945," kata Ali Mazi di Kendari, Selasa 15 Agustus 2023.
-        Sementara Kepala Dinas Pendidikan dan Kebudayaan Provinsi Sulawesi Tenggara, H. Yusmin,S.Pd.,M.H., menyampaikan apresiasi yang tinggi atas partisipasi aktif para pelajar dalam kegiatan ini. "Aksi pembentangan bendera merah putih sepanjang 17 kilometer ini melibatkan 17 ribu siswa dan siswi yang berasal dari sekolah SMA dan SMK baik negeri maupun swasta dari Kota Kendari dan Kabupaten Konawe Selatan dan rencananya akan memecahkan Rekor Muri,”.
-        <br><br>
-        "Bendera ini dijahit oleh semua SMK kita yang ada di Kendari, Kolaka, Konawe, Muna dan Kota Baubau sejak dua minggu yang lalu," Ujarnya
-        <br><br>
-        Peringatan kemerdekaan Republik Indonesia yang ke-78 di Sulawesi Tenggara ini diharapkan dapat memberikan inspirasi bagi generasi muda untuk terus menghargai perjuangan para pahlawan dan berkontribusi dalam membangun bangsa yang lebih baik.
-        </p>
-      `,
+      <p>Ribuan pelajar dari SMA dan SMK di Sulawesi Tenggara mengambil bagian dalam aksi patriotik dengan membentangkan bendera merah putih sepanjang 17 kilometer. Kegiatan ini menjadi bukti semangat nasionalisme generasi muda.</p>
+      <p>Dengan semangat kebersamaan, bendera dibentangkan melintasi Kota Kendari hingga Konawe Selatan. Gubernur Sultra H. Ali Mazi menyebut momentum ini sebagai sejarah baru untuk daerah.</p>
+      <p>Kepala Dinas Pendidikan Sultra, H. Yusmin, menyampaikan apresiasi atas partisipasi siswa yang terlibat. Kegiatan ini juga diharapkan memecahkan Rekor MURI dengan melibatkan 17 ribu siswa.</p>
+    `,
       date: "12 Desember 2024",
       time: "5 hari yang lalu",
       category: "Prestasi",
-      image:
-        berita2,
+      image: berita2,
       author: "Humas Disdik Sultra",
+      featured: false,
     },
     {
       id: 3,
       title: "Workshop Peningkatan Kompetensi Guru di Era Digital",
       excerpt:
-        "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi dalam memanfaatkan teknologi untuk pembelajaran modern.",
+        "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi dalam memanfaatkan teknologi pembelajaran modern.",
       content: `
-        <p>Dinas Pendidikan Sulawesi Tenggara menyelenggarakan Workshop Peningkatan Kompetensi Guru di Era Digital yang diikuti oleh lebih dari 1.000 guru dari seluruh kabupaten/kota di provinsi ini. Workshop berlangsung selama 3 hari, 8-10 Desember 2024, di Hotel Santika Kendari.</p>
-        
-        <h2>Tujuan Workshop</h2>
-        <p>Workshop ini bertujuan untuk:</p>
-        <ul>
-          <li>Meningkatkan kemampuan guru dalam menggunakan teknologi digital</li>
-          <li>Memberikan pemahaman tentang metode pembelajaran abad 21</li>
-          <li>Memperkenalkan platform dan tools pembelajaran online</li>
-          <li>Mengembangkan kreativitas guru dalam merancang pembelajaran interaktif</li>
-        </ul>
-        
-        <h2>Materi Workshop</h2>
-        <p>Materi workshop mencakup berbagai aspek pembelajaran digital:</p>
-        <ul>
-          <li><strong>Hari Pertama:</strong> Pengenalan teknologi pendidikan dan platform e-learning</li>
-          <li><strong>Hari Kedua:</strong> Pembuatan konten digital dan multimedia pembelajaran</li>
-          <li><strong>Hari Ketiga:</strong> Evaluasi digital dan assessment online</li>
-        </ul>
-        
-        <h2>Narasumber</h2>
-        <p>Workshop menghadirkan narasumber berkompeten dari berbagai institusi:</p>
-        <ul>
-          <li>Prof. Dr. Ir. Bambang Suharjo, M.Sc. (Universitas Halu Oleo)</li>
-          <li>Dr. Siti Rahma, M.Pd. (Praktisi Pendidikan Digital)</li>
-          <li>Ahmad Fauzi, S.Kom., M.T. (Developer Platform E-Learning)</li>
-        </ul>
-        
-        <h2>Hasil dan Komitmen</h2>
-        <p>Peserta workshop menunjukkan antusiasme tinggi dan berkomitmen untuk menerapkan ilmu yang diperoleh dalam pembelajaran di kelas. Diharapkan workshop ini dapat meningkatkan kualitas pendidikan di Sulawesi Tenggara secara keseluruhan.</p>
-      `,
+      <p>Dinas Pendidikan Sulawesi Tenggara menggelar workshop 8-10 Desember 2024 di Hotel Santika Kendari. Lebih dari 1000 guru hadir untuk meningkatkan kompetensi digital.</p>
+      <h2>Materi</h2>
+      <ul>
+        <li>Pengenalan teknologi pendidikan</li>
+        <li>Pembuatan konten digital interaktif</li>
+        <li>Evaluasi dan assessment online</li>
+      </ul>
+      <p>Workshop menghadirkan narasumber dari akademisi dan praktisi pendidikan digital. Guru berkomitmen menerapkan hasil workshop di sekolah masing-masing.</p>
+    `,
       date: "10 Desember 2024",
       time: "1 minggu yang lalu",
       category: "Pelatihan",
       image:
         "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=400&fit=crop",
       author: "Tim Redaksi Disdik Sultra",
+      featured: false,
+    },
+    {
+      id: 4,
+      title: "Pembangunan 50 Ruang Kelas Baru di Kabupaten Konawe",
+      excerpt:
+        "Infrastruktur pendidikan ditingkatkan dengan pembangunan 50 ruang kelas baru di Kabupaten Konawe.",
+      content: `
+      <p>Pemerintah daerah bersama Dinas Pendidikan Sulawesi Tenggara membangun 50 ruang kelas baru di Kabupaten Konawe. Langkah ini dilakukan untuk mengurangi ketimpangan sarana pendidikan.</p>
+      <p>Dengan tambahan ruang kelas, kapasitas belajar meningkat dan diharapkan kualitas pembelajaran semakin baik.</p>
+    `,
+      date: "8 Desember 2024",
+      time: "1 minggu yang lalu",
+      category: "Infrastruktur",
+      image:
+        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=400&fit=crop",
+      author: "Tim Infrastruktur Disdik Sultra",
+      featured: false,
+    },
+    {
+      id: 5,
+      title: "Beasiswa Unggulan 2024 untuk Siswa Berprestasi",
+      excerpt:
+        "Program Beasiswa Unggulan 2024 kembali dibuka untuk mendukung siswa berprestasi.",
+      content: `
+      <p>Kementerian Pendidikan melalui Dinas Pendidikan Sultra membuka pendaftaran Beasiswa Unggulan 2024. Beasiswa ini ditujukan bagi siswa SMA/SMK berprestasi baik akademik maupun non-akademik.</p>
+      <p>Pendaftaran dilakukan secara online melalui website resmi Dinas Pendidikan. Penerima beasiswa akan mendapatkan biaya pendidikan penuh.</p>
+    `,
+      date: "5 Desember 2024",
+      time: "2 minggu yang lalu",
+      category: "Beasiswa",
+      image:
+        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=400&fit=crop",
+      author: "Tim Beasiswa Disdik Sultra",
+      featured: false,
+    },
+    {
+      id: 6,
+      title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
+      excerpt:
+        "Ujian Nasional Berbasis Komputer (UNBK) 2024 telah terlaksana dengan sukses di seluruh Sulawesi Tenggara.",
+      content: `
+      <p>Pelaksanaan Ujian Nasional Berbasis Komputer (UNBK) 2024 di Sulawesi Tenggara berjalan lancar tanpa kendala teknis yang berarti. Ribuan siswa SMA dan SMK berpartisipasi.</p>
+      <p>Dinas Pendidikan memastikan jaringan internet dan perangkat komputer siap digunakan di seluruh sekolah pelaksana.</p>
+    `,
+      date: "1 Desember 2024",
+      time: "2 minggu yang lalu",
+      category: "Ujian",
+      author: "Tim Evaluasi Disdik Sultra",
+      image:
+        "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600&h=300&fit=crop",
+      featured: false,
+    },
+    {
+      id: 7,
+      title: "Kerja Sama dengan Universitas Terkemuka untuk Dual Degree",
+      excerpt:
+        "Dinas Pendidikan Sultra menjalin kerja sama dengan universitas terkemuka untuk program dual degree.",
+      content: `
+      <p>Dinas Pendidikan Sultra resmi menandatangani MoU dengan beberapa universitas di dalam dan luar negeri untuk penyelenggaraan program dual degree. Program ini ditargetkan untuk meningkatkan daya saing lulusan pendidikan tinggi di Sultra.</p>
+    `,
+      date: "28 November 2024",
+      time: "3 minggu yang lalu",
+      category: "Kerjasama",
+      image:
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=400&fit=crop",
+      author: "Tim Kerja Sama Disdik Sultra",
+      featured: false,
+    },
+    {
+      id: 8,
+      title: "Festival Seni dan Budaya Sekolah Se-Sulawesi Tenggara",
+      excerpt:
+        "Festival seni dan budaya tingkat provinsi diikuti oleh lebih dari 200 sekolah di Sultra.",
+      content: `
+      <p>Dinas Pendidikan dan Kebudayaan Sulawesi Tenggara menyelenggarakan Festival Seni dan Budaya tingkat provinsi. Lebih dari 200 sekolah menampilkan karya seni, tari tradisional, musik daerah, dan drama.</p>
+      <p>Festival ini menjadi ajang pelestarian budaya sekaligus meningkatkan kreativitas siswa di bidang seni.</p>
+    `,
+      date: "25 November 2024",
+      time: "3 minggu yang lalu",
+      category: "Event",
+      image:
+        "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=400&fit=crop",
+      author: "Tim Kebudayaan Disdik Sultra",
+      featured: false,
     },
   ];
 
@@ -134,7 +175,6 @@ const DetailBerita = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      
       <main>
         {/* Header Section */}
         <section className="py-8 bg-muted/30">
