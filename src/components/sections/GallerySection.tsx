@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Play, X, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -47,20 +48,6 @@ const GallerySection = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [selectedItem]);
-
-
-  useEffect(() => {
-  if (selectedItem) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-
-  // Cleanup when component unmounts
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [selectedItem]);
 
   return (
     <section className="bg-white py-20 font-sans">
@@ -141,7 +128,7 @@ const GallerySection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/Galery">
+          <Link to="/galeri">
             <Button
               variant="outline"
               className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
