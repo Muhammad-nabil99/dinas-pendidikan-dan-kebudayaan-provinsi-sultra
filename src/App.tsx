@@ -51,7 +51,7 @@ const App = () => (
             <Route path="/ppid" element={<PPID />} />
 
             {/* Galeri Routes */}
-            <Route path="/Galery" element={<Galery />} />
+            <Route path="/gallery" element={<Galery />} />
             
 
             {/* News Routes */}
