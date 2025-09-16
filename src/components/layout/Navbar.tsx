@@ -15,7 +15,6 @@ const Navbar = () => {
   const location = useLocation();
   const [openMenu, setOpenMenu] = useState(null);
 
-
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
@@ -50,8 +49,8 @@ const Navbar = () => {
       ],
     },
     { href: "/ppid", label: "PPID" },
-    { href: "/galery", label: "Galeri" },
-   ];
+    { href: "/gallery", label: "Gallery" },
+  ];
 
   return (
     <nav
@@ -150,68 +149,72 @@ const Navbar = () => {
               aria-label="Toggle menu"
               className={scrolled ? "text-government-blue" : "text-white"}
             >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-    {isOpen && (
-      <div className="lg:hidden bg-government-blue/95 backdrop-blur-md border-t border-blue-800">
-        <div className="px-2 pt-2 pb-3 space-y-1">
-          {navItems.map((item, index) => (
-            <div key={item.label}>
-              {item.subItems ? (
-                <div>
-                  {/* Trigger utama */}
-                  <button
-                    className="w-full flex justify-between items-center px-3 py-2 text-sm font-medium text-white hover:text-gold"
-                    onClick={() =>
-                      setOpenMenu(openMenu === index ? null : index)
-                    }
-                  >
-                    <span>{item.label}</span>
-                    <ChevronDown
-                      className={`w-4 h-4 transform transition-transform ${
-                        openMenu === index ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
+        {isOpen && (
+          <div className="lg:hidden bg-government-blue/95 backdrop-blur-md border-t border-blue-800">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navItems.map((item, index) => (
+                <div key={item.label}>
+                  {item.subItems ? (
+                    <div>
+                      {/* Trigger utama */}
+                      <button
+                        className="w-full flex justify-between items-center px-3 py-2 text-sm font-medium text-white hover:text-gold"
+                        onClick={() =>
+                          setOpenMenu(openMenu === index ? null : index)
+                        }
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 transform transition-transform ${
+                            openMenu === index ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
 
-                  {/* Submenu, hanya muncul kalau openMenu === index */}
-                  {openMenu === index && (
-                    <div className="ml-4 space-y-1">
-                      {item.subItems.map((subItem) => (
-                        <Link
-                          key={subItem.href}
-                          to={subItem.href}
-                          className="block px-3 py-2 text-sm text-white hover:text-gold"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {subItem.label}
-                        </Link>
-                      ))}
+                      {/* Submenu, hanya muncul kalau openMenu === index */}
+                      {openMenu === index && (
+                        <div className="ml-4 space-y-1">
+                          {item.subItems.map((subItem) => (
+                            <Link
+                              key={subItem.href}
+                              to={subItem.href}
+                              className="block px-3 py-2 text-sm text-white hover:text-gold"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`block px-3 py-2 rounded-md text-sm font-medium ${
+                        isActive(item.href)
+                          ? "text-gold bg-blue-900/40"
+                          : "text-white hover:text-gold"
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
                   )}
                 </div>
-              ) : (
-                <Link
-                  to={item.href}
-                  className={`block px-3 py-2 rounded-md text-sm font-medium ${
-                    isActive(item.href)
-                      ? "text-gold bg-blue-900/40"
-                      : "text-white hover:text-gold"
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )}
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    )}
+          </div>
+        )}
       </div>
     </nav>
   );
