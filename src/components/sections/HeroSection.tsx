@@ -69,13 +69,15 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link to='/ppid'>
             <Button
               size="lg"
               className="bg-white text-government-blue hover:bg-white/90 shadow-medium"
             >
-              <span>Layanan Publik</span>
+              <span>PPID</span>
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
+            </Link>
             <Link to="/profil/sejarah">
               <Button
                 variant="outline"
