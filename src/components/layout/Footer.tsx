@@ -88,7 +88,7 @@ const Footer = () => {
                 <MapPin className="w-5 h-5 text-blue-300 mt-0.5 flex-shrink-0" />
                 <div className="text-blue-200">
                   <p className="text-sm">
-                    Jl. Mayjen Sutoyo No. 1, Kendari
+                    Jalan Ahmad Yani No. 2, Kendari, Sulawesi Tenggara 93117
                     <br />
                     Sulawesi Tenggara 93117
                   </p>
