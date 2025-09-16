@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import berita1 from "../../assets/berita-1.png";
-import berita2 from "../assets/berita-2.png";
+import berita2 from "../../assets/berita-2.png";
 
 const DetailBerita = () => {
   const { id } = useParams();
@@ -78,7 +78,7 @@ const DetailBerita = () => {
       time: "5 hari yang lalu",
       category: "Prestasi",
       image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop",
+        berita2,
       author: "Humas Disdik Sultra",
     },
     {
