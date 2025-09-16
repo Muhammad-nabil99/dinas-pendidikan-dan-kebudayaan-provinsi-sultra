@@ -53,28 +53,28 @@ const Footer = () => {
                   Profil
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   to="/pelayanan/visi-misi"
                   className="text-blue-200 hover:text-white transition-colors"
                 >
                   Pelayanan
                 </Link>
-              </li>
-              <li>
-                <Link
-                  to="/galeri/foto"
-                  className="text-blue-200 hover:text-white transition-colors"
-                >
-                  Galeri
-                </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   to="/ppid"
                   className="text-blue-200 hover:text-white transition-colors"
                 >
                   PPID
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/Galery"
+                  className="text-blue-200 hover:text-white transition-colors"
+                >
+                  Galeri
                 </Link>
               </li>
             </ul>
