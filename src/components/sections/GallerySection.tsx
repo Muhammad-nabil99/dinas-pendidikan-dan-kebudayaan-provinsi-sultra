@@ -1,7 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Play } from "lucide-react";
-import gallery from "@/assets/galery.png";
+import gallery1 from "@/assets/gallery-1.png";
+import gallery2 from "@/assets/gallery-2.png";
+import gallery3 from "@/assets/gallery-3.png";
+import gallery4 from "@/assets/gallery-4.png";
+import gallery5 from "@/assets/gallery-5.png";
+import gallery6 from "@/assets/gallery-6.png";
 import { Link } from "react-router-dom";
 
 type GalleryItems = {
@@ -17,42 +22,37 @@ const GallerySection = () => {
       id: 1,
       type: "image",
       title: "PPBD 2024 sulawesi tenggara ",
-      image: gallery,
+      image: gallery1,
     },
     {
       id: 2,
-      type: "video",
+      type: "image",
       title: "Profil Sekolah Unggulan",
-      image:
-        "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop",
+      image: gallery2,
     },
     {
       id: 3,
       type: "image",
       title: "Workshop Guru Digital",
-      image:
-        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=300&fit=crop",
+      image: gallery3,
     },
     {
       id: 4,
       type: "image",
       title: "Pembangunan Gedung Sekolah",
-      image:
-        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=300&fit=crop",
+      image: gallery4,
     },
     {
       id: 5,
-      type: "video",
+      type: "image",
       title: "Lomba Olimpiade Sains",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+      image: gallery5,
     },
     {
       id: 6,
       type: "image",
       title: "Kegiatan Ekstrakurikuler",
-      image:
-        "https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400&h=300&fit=crop",
+      image: gallery6,
     },
   ];
 
