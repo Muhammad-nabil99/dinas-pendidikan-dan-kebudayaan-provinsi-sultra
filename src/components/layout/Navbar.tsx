@@ -49,7 +49,7 @@ const Navbar = () => {
       ],
     },
     { href: "/ppid", label: "PPID" },
-    { href: "/gallery", label: "Gallery" },
+    { href: "/galeri", label: "Galeri" },
   ];
 
   return (

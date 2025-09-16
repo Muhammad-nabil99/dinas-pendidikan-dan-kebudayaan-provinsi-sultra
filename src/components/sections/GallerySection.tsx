@@ -130,7 +130,7 @@ const GallerySection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Link to="/gallery">
+          <Link to="/galeri">
             <Button
               variant="outline"
               className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
