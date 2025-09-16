@@ -38,8 +38,6 @@ import gallery4 from "@/assets/gallery-4.png";
 import gallery5 from "@/assets/gallery-5.png";
 import gallery6 from "@/assets/gallery-6.png";
 import gallery7 from "@/assets/gallery-7.png";
-import educationBuilding from "@/assets/education-building.jpg";
-import studentsActivity from "@/assets/students-activity.jpg";
 import teacherMeeting from "@/assets/teacher-meeting.jpg";
 import graduation from "@/assets/graduation.jpg";
 
@@ -83,6 +81,24 @@ interface Album {
         description:
           "Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi",
       },
+      {
+        id: "1",
+        type: "foto",
+        url: gallery3,
+        thumbnail: gallery3,
+        title: "Gedung Utama Dinas Pendidikan",
+        description:
+          "Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi",
+      },
+      {
+        id: "1",
+        type: "foto",
+        url: gallery4,
+        thumbnail: gallery4,
+        title: "Gedung Utama Dinas Pendidikan",
+        description:
+          "Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi",
+      },
     ],
   },
   {
@@ -117,7 +133,7 @@ interface Album {
       {
         id: "3",
         type: "video",
-        url: "/sample-video.mp4",
+        url: "Rapat Koordinasi Pendidikan Sultra Bahas Kompetensi, Sarana, dan Visi Pendidikan Daerah",
         thumbnail: gallery4,
         title: "Video Rapat Koordinasi",
         description:
@@ -156,8 +172,8 @@ interface Album {
       {
         id: "5",
         type: "video",
-        url: "/sample-video2.mp4",
-        thumbnail: teacherMeeting,
+        url: "https://youtu.be/QMURiddbVpU?si=C8FfZlbGLZXgjufT",
+        thumbnail: gallery2,
         title: "Workshop Digital Learning",
         description: "Pelatihan penggunaan teknologi dalam pembelajaran modern",
       },
@@ -186,7 +202,7 @@ interface Album {
     id: "7",
     title: "Pelatihan Guru PAUD",
     category: "video",
-    coverImage: studentsActivity,
+    coverImage: gallery3,
     mediaCount: 5,
     date: "2024-02-25",
     location: "PAUD Terpadu Kendari",
@@ -195,7 +211,7 @@ interface Album {
         id: "7",
         type: "video",
         url: "/sample-video3.mp4",
-        thumbnail: studentsActivity,
+        thumbnail: gallery7,
         title: "Pelatihan PAUD",
         description:
           "Workshop pengembangan metode pembelajaran untuk guru PAUD",
@@ -225,7 +241,7 @@ interface Album {
     id: "9",
     title: "Seminar Pendidikan Digital",
     category: "video",
-    coverImage: teacherMeeting,
+    coverImage: gallery3,
     mediaCount: 4,
     date: "2024-02-15",
     location: "Hotel Santika Kendari",
@@ -239,101 +255,6 @@ interface Album {
         description: "Seminar tentang transformasi pendidikan digital",
       },
     ],
-  },
-  {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
-    coverImage: teacherMeeting,
-    mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
-    media: [
-      {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
-        thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
-      },
-    ]
-  },
-  {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
-    coverImage: teacherMeeting,
-    mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
-    media: [
-      {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
-        thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
-      },
-    ]
-  },
-  {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
-    coverImage: teacherMeeting,
-    mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
-    media: [
-      {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
-        thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
-      },
-    ]
-  },
-  {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
-    coverImage: teacherMeeting,
-    mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
-    media: [
-      {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
-        thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
-      },
-    ]
-  },
-  {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
-    coverImage: teacherMeeting,
-    mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
-    media: [
-      {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
-        thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
-      },
-    ]
   },
 ];
 
@@ -853,15 +774,10 @@ const Galeri: React.FC = () => {
         open={!!selectedAlbum}
         onOpenChange={() => setSelectedAlbum(null)}
       >
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-4">
           {selectedAlbum && (
             <>
-              <DialogHeader>
-                <DialogTitle className="text-gallery-text-primary">
-                  {selectedAlbum.title}
-                </DialogTitle>
-              </DialogHeader>
-
+              
               <div className="space-y-6">
                 {/* Main Media Display */}
                 <div className="relative">
@@ -875,13 +791,14 @@ const Galeri: React.FC = () => {
                     <img
                       src={selectedAlbum.media[selectedMediaIndex]?.url}
                       alt={selectedAlbum.media[selectedMediaIndex]?.title}
-                      className="w-full h-64 sm:h-80 object-cover rounded-lg"
+                      className="w-full h-64 sm:h-80 object-cover  object-center rounded-lg"
                     />
                   )}
 
                   {/* Navigation Buttons */}
                   {selectedAlbum.media.length > 1 && (
                     <>
+                    
                       <Button
                         variant="outline"
                         size="sm"
@@ -929,10 +846,7 @@ const Galeri: React.FC = () => {
                         {selectedAlbum.media[selectedMediaIndex]?.description}
                       </p>
                     </div>
-                    <Button className="bg-gallery-primary hover:bg-gallery-primary-dark">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </Button>
+                    
                   </div>
 
                   {/* Media Thumbnails */}
