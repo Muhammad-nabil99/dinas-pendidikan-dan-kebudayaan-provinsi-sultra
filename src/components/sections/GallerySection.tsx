@@ -49,6 +49,20 @@ const GallerySection = () => {
     };
   }, [selectedItem]);
 
+
+  useEffect(() => {
+  if (selectedItem) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
+  // Cleanup when component unmounts
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [selectedItem]);
+
   return (
     <section className="bg-white py-20 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,7 +98,7 @@ const GallerySection = () => {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute  inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="capitalize text-white font-semibold text-sm mb-2">
                       {item.title}

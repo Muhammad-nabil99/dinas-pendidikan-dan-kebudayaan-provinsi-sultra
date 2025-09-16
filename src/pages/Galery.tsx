@@ -929,10 +929,6 @@ const Galeri: React.FC = () => {
                         {selectedAlbum.media[selectedMediaIndex]?.description}
                       </p>
                     </div>
-                    <Button className="bg-gallery-primary hover:bg-gallery-primary-dark">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </Button>
                   </div>
 
                   {/* Media Thumbnails */}

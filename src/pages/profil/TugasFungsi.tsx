@@ -175,7 +175,7 @@ const TugasFungsi = () => {
             <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
               Tugas
             </h1>
-            <p className="text-center">
+            <p >
               Berdasarkan Peraturan Daerah Provinsi Sulawesi Tenggara nomor 13
               Tahun 2016, tentang Pembentukan dan Susunan Perangkat Daerah
               Provinsi Sulawesi Tenggara, didalamnya menyebutkan bahwa “Dinas
@@ -210,7 +210,7 @@ const TugasFungsi = () => {
             <div className="flex items-center justify-center">
               <button
                 onClick={handlePrevClick}
-                className="w-20 h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg "
+                className="w-10 h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg "
               >
                 &lt;
               </button>
@@ -235,7 +235,7 @@ const TugasFungsi = () => {
               </div>
               <button
                 onClick={handleNextClick}
-                className=" w-20 h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg "
+                className=" w-10 h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg "
               >
                 &gt;
               </button>
