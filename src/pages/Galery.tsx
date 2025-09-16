@@ -53,7 +53,7 @@ interface Album {
 }
 
 // Dummy data
-const dummyAlbums: Album[] = [
+ export const dummyAlbums: Album[] = [
   {
     id: '1',
     title: 'Gedung Dinas Pendidikan',
@@ -203,6 +203,101 @@ const dummyAlbums: Album[] = [
         thumbnail: graduation,
         title: 'Pembelajaran Outdoor',
         description: 'Kegiatan pembelajaran di alam terbuka'
+      },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Seminar Pendidikan Digital',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 4,
+    date: '2024-02-15',
+    location: 'Hotel Santika Kendari',
+    media: [
+      {
+        id: '9',
+        type: 'video',
+        url: '/sample-video4.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Seminar Digital',
+        description: 'Seminar tentang transformasi pendidikan digital'
+      },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Seminar Pendidikan Digital',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 4,
+    date: '2024-02-15',
+    location: 'Hotel Santika Kendari',
+    media: [
+      {
+        id: '9',
+        type: 'video',
+        url: '/sample-video4.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Seminar Digital',
+        description: 'Seminar tentang transformasi pendidikan digital'
+      },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Seminar Pendidikan Digital',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 4,
+    date: '2024-02-15',
+    location: 'Hotel Santika Kendari',
+    media: [
+      {
+        id: '9',
+        type: 'video',
+        url: '/sample-video4.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Seminar Digital',
+        description: 'Seminar tentang transformasi pendidikan digital'
+      },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Seminar Pendidikan Digital',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 4,
+    date: '2024-02-15',
+    location: 'Hotel Santika Kendari',
+    media: [
+      {
+        id: '9',
+        type: 'video',
+        url: '/sample-video4.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Seminar Digital',
+        description: 'Seminar tentang transformasi pendidikan digital'
+      },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Seminar Pendidikan Digital',
+    category: 'video',
+    coverImage: teacherMeeting,
+    mediaCount: 4,
+    date: '2024-02-15',
+    location: 'Hotel Santika Kendari',
+    media: [
+      {
+        id: '9',
+        type: 'video',
+        url: '/sample-video4.mp4',
+        thumbnail: teacherMeeting,
+        title: 'Seminar Digital',
+        description: 'Seminar tentang transformasi pendidikan digital'
       },
     ]
   },
