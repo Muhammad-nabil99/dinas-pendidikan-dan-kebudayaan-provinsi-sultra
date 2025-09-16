@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Camera, Play, ChevronLeft, ChevronRight, Download } from "lucide-react";
+import { ArrowRight, Camera, Play, X, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { dummyAlbums } from "@/pages/Galery";
 import ReactDOM from "react-dom";
