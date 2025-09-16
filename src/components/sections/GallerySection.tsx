@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Play, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
