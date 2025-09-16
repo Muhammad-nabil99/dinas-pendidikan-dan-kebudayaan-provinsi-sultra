@@ -49,6 +49,17 @@ const NewsSection = () => {
       image:
         "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=240&fit=crop",
     },
+    {
+      id: 5,
+      title: "Beasiswa Unggulan 2024 untuk Siswa Berprestasi",
+      excerpt:
+        "Program beasiswa unggulan kembali dibuka untuk siswa berprestasi...",
+      date: "5 Desember 2024",
+      time: "2 minggu yang lalu",
+      category: "Beasiswa",
+      image:
+        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=300&fit=crop",
+    },
   ];
 
   return (
