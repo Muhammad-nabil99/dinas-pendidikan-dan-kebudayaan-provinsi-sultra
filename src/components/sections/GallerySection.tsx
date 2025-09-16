@@ -1,17 +1,39 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Camera, Play, X } from "lucide-react";
+import { ArrowRight, Camera, Play, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { dummyAlbums } from "@/pages/Galery";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
 const GallerySection = () => {
   const galleryItems = dummyAlbums.slice(0, 6);
 
-  // 🔑 State untuk modal
-  const [selectedItem, setSelectedItem] = useState<typeof dummyAlbums[0] | null>(
-    null
-  );
+  // State untuk modal
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
+
+  const handlePrevMedia = () => {
+    if (selectedMediaIndex > 0) {
+      setSelectedMediaIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleNextMedia = () => {
+    if (selectedAlbum && selectedMediaIndex < selectedAlbum.media.length - 1) {
+      setSelectedMediaIndex((prev) => prev + 1);
+    }
+  };
+
+  const handleMediaSelect = (index) => {
+    setSelectedMediaIndex(index);
+  };
 
   return (
     <section className="py-20">
@@ -37,7 +59,10 @@ const GallerySection = () => {
           {galleryItems.map((item) => (
             <Card
               key={item.id}
-              onClick={() => setSelectedItem(item)} // 👈 ketika klik, buka modal
+              onClick={() => {
+                setSelectedAlbum(item);
+                setSelectedMediaIndex(0);
+              }}
               className="group overflow-hidden hover:shadow-medium transition-all duration-300 cursor-pointer"
             >
               <div className="relative aspect-video overflow-hidden">
@@ -46,7 +71,6 @@ const GallerySection = () => {
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4 right-4">
@@ -55,7 +79,6 @@ const GallerySection = () => {
                     </h3>
                   </div>
                 </div>
-
                 {/* Play Icon */}
                 {item.category === "video" && (
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -64,7 +87,6 @@ const GallerySection = () => {
                     </div>
                   </div>
                 )}
-
                 {/* Type Badge */}
                 <div className="absolute top-3 left-3">
                   <span
@@ -106,35 +128,127 @@ const GallerySection = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      {selectedItem && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl max-w-3xl w-full relative p-4">
-            <button
-              onClick={() => setSelectedItem(null)}
-              className="absolute top-3 right-3 text-gray-700 hover:text-red-500"
-            >
-              <X className="w-6 h-6" />
-            </button>
+      {/* Modal dari kode pertama */}
+      <Dialog
+        open={!!selectedAlbum}
+        onOpenChange={() => setSelectedAlbum(null)}
+      >
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedAlbum && (
+            <>
+             
 
-            <h2 className="text-lg font-semibold mb-3">{selectedItem.title}</h2>
+              <div className="space-y-6">
+                {/* Main Media Display */}
+                <div className="relative">
+                  {selectedAlbum.media[selectedMediaIndex]?.type === "video" ? (
+                    <video
+                      src={selectedAlbum.media[selectedMediaIndex].url}
+                      controls
+                      className="w-full h-64 sm:h-80 object-cover rounded-lg"
+                    />
+                  ) : (
+                    <img
+                      src={selectedAlbum.media[selectedMediaIndex]?.url}
+                      alt={selectedAlbum.media[selectedMediaIndex]?.title}
+                      className="w-full h-64 sm:h-80 object-cover rounded-lg"
+                    />
+                  )}
 
-            {selectedItem.category === "video" ? (
-              <video
-                src={selectedItem.media[0].url}
-                controls
-                className="w-full rounded-lg"
-              />
-            ) : (
-              <img
-                src={selectedItem.coverImage}
-                alt={selectedItem.title}
-                className="w-full rounded-lg"
-              />
-            )}
-          </div>
-        </div>
-      )}
+                  {/* Navigation Buttons */}
+                  {selectedAlbum.media.length > 1 && (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 hover:bg-opacity-100"
+                        onClick={handlePrevMedia}
+                        disabled={selectedMediaIndex === 0}
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-90 hover:bg-opacity-100"
+                        onClick={handleNextMedia}
+                        disabled={
+                          selectedMediaIndex === selectedAlbum.media.length - 1
+                        }
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </Button>
+                    </>
+                  )}
+                </div>
+
+                {/* Media Info */}
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <h3 className="font-semibold text-lg text-gallery-text-primary mb-2">
+                        {selectedAlbum.media[selectedMediaIndex]?.title}
+                      </h3>
+                      <div className="flex gap-2 mb-2">
+                        {selectedAlbum.media[selectedMediaIndex]?.type ===
+                          "video" && (
+                          <Badge className="bg-gallery-primary hover:bg-gallery-primary-dark">
+                            Video
+                          </Badge>
+                        )}
+                        <Badge variant="outline">
+                          {selectedMediaIndex + 1} dari{" "}
+                          {selectedAlbum.media.length}
+                        </Badge>
+                      </div>
+                      <p className="text-gallery-text-secondary">
+                        {selectedAlbum.media[selectedMediaIndex]?.description}
+                      </p>
+                    </div>
+                    <Button className="bg-gallery-primary hover:bg-gallery-primary-dark">
+                      <Download className="h-4 w-4 mr-2" />
+                      Download
+                    </Button>
+                  </div>
+
+                  {/* Media Thumbnails */}
+                  {selectedAlbum.media.length > 1 && (
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-gallery-text-primary">
+                        Media Lainnya
+                      </h4>
+                      <div className="flex gap-2 overflow-x-auto pb-2">
+                        {selectedAlbum.media.map((media, index) => (
+                          <div
+                            key={media.id}
+                            className={`relative flex-shrink-0 cursor-pointer rounded-lg overflow-hidden ${
+                              index === selectedMediaIndex
+                                ? "ring-2 ring-gallery-primary"
+                                : ""
+                            }`}
+                            onClick={() => handleMediaSelect(index)}
+                          >
+                            <img
+                              src={media.thumbnail}
+                              alt={media.title}
+                              className="w-16 h-16 object-cover"
+                            />
+                            {media.type === "video" && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                                <Play className="h-3 w-3 text-white" />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
