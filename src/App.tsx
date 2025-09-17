@@ -22,48 +22,73 @@ import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFung
 
 import News from "./pages/News";
 import DetailBerita from "./pages/Detail/DetailBerita.js";
+import LoadingSpinner from "./components/LoadingSpinner.js";
+import { useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<Index />} />
-            {/* Profil Routes */}
-            <Route path="/profil/sejarah" element={<Sejarah />} />
-            <Route path="/profil/visi-misi" element={<VisiMisi />} />
-            <Route path="/profil/tugas-fungsi" element={<TugasFungsi />} />
-            <Route
-              path="/profil/tugas-fungsi/:id"
-              element={<DetailTugasFungsi />}
-            />
-            <Route
-              path="/profil/struktur-organisasi"
-              element={<StrukturOrganisasi />}
-            />
+const App = () => {
+  const [loading, setLoading] = useState(true);
 
-            {/* PPID Route */}
-            <Route path="/ppid" element={<PPID />} />
+  useEffect(() => {
+    // wait for page + assets to load
+    const handleLoad = () => {
+      setTimeout(() => setLoading(false), 1000); // add delay for nicer UX
+    };
 
-            {/* Galeri Routes */}
-            <Route path="/galeri" element={<Galery />} />
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+    }
 
-            {/* News Routes */}
-            <Route path="/berita" element={<News />} />
-            <Route path="/berita/:id" element={<DetailBerita />} />
+    return () => window.removeEventListener("load", handleLoad);
+  }, []);
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
 
+  if (loading) {
+    return <LoadingSpinner loading={loading} />; // full-screen loader
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<Index />} />
+              {/* Profil Routes */}
+              <Route path="/profil/sejarah" element={<Sejarah />} />
+              <Route path="/profil/visi-misi" element={<VisiMisi />} />
+              <Route path="/profil/tugas-fungsi" element={<TugasFungsi />} />
+              <Route
+                path="/profil/tugas-fungsi/:id"
+                element={<DetailTugasFungsi />}
+              />
+              <Route
+                path="/profil/struktur-organisasi"
+                element={<StrukturOrganisasi />}
+              />
+
+              {/* PPID Route */}
+              <Route path="/ppid" element={<PPID />} />
+
+              {/* Galeri Routes */}
+              <Route path="/galeri" element={<Galery />} />
+
+              {/* News Routes */}
+              <Route path="/berita" element={<News />} />
+              <Route path="/berita/:id" element={<DetailBerita />} />
+
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 export default App;

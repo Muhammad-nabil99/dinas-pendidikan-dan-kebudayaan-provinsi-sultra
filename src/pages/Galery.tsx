@@ -62,7 +62,7 @@ interface Album {
 }
 
 // Dummy data
- export const dummyAlbums: Album[] = [
+export const dummyAlbums: Album[] = [
   {
     id: "1",
     title: "PPBD 2024 sulawesi tenggara",
@@ -371,6 +371,7 @@ const Galeri: React.FC = () => {
     >
       <div className="relative overflow-hidden">
         <img
+          loading="lazy"
           src={album.coverImage}
           alt={album.title}
           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
@@ -438,6 +439,7 @@ const Galeri: React.FC = () => {
         <div className="flex gap-4">
           <div className="relative flex-shrink-0">
             <img
+              loading="lazy"
               src={album.coverImage}
               alt={album.title}
               className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg"
@@ -789,6 +791,7 @@ const Galeri: React.FC = () => {
                     />
                   ) : (
                     <img
+                      loading="lazy"
                       src={selectedAlbum.media[selectedMediaIndex]?.url}
                       alt={selectedAlbum.media[selectedMediaIndex]?.title}
                       className="w-full h-64 sm:h-80 object-cover  object-center rounded-lg"
@@ -867,6 +870,7 @@ const Galeri: React.FC = () => {
                             onClick={() => handleMediaSelect(index)}
                           >
                             <img
+                              loading="lazy"
                               src={media.thumbnail}
                               alt={media.title}
                               className="w-16 h-16 object-cover"

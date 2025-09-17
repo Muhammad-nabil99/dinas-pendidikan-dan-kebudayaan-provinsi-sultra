@@ -26,9 +26,10 @@ const HeroSection = () => {
       className="relative h-screen flex items-center overflow-hidden"
     >
       {/* Background Slideshow */}
-       <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0">
         {heroImage.map((image, index) => (
           <img
+            loading="lazy"
             key={index}
             src={image}
             alt={`Slide ${index}`}
@@ -45,7 +46,11 @@ const HeroSection = () => {
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center">
-              <img src="../../../public/logo.png" alt="logo sultra" />
+              <img
+                loading="lazy"
+                src="../../../public/logo.png"
+                alt="logo sultra"
+              />
             </div>
             <div className="text-white/90">
               <p className="text-sm font-medium">Pemerintah Provinsi</p>
@@ -69,14 +74,14 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to='/ppid'>
-            <Button
-              size="lg"
-              className="bg-white text-government-blue hover:bg-white/90 shadow-medium"
-            >
-              <span>PPID</span>
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link to="/ppid">
+              <Button
+                size="lg"
+                className="bg-white text-government-blue hover:bg-white/90 shadow-medium"
+              >
+                <span>PPID</span>
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
             </Link>
             <Link to="/profil/sejarah">
               <Button
@@ -127,5 +132,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-      
