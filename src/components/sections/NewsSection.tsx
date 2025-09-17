@@ -47,7 +47,8 @@ const NewsSection = () => {
       date: "1 Desember 2024",
       time: "2 minggu yang lalu",
       category: "Ujian",
-      image:"https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=240&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=240&fit=crop",
     },
   ];
 
@@ -77,6 +78,7 @@ const NewsSection = () => {
             {/* Gambar besar */}
             <div className="w-full h-96 relative overflow-hidden">
               <img
+                loading="lazy"
                 src={news[0].image}
                 alt={news[0].title}
                 className="w-full h-full object-cover"
@@ -124,6 +126,7 @@ const NewsSection = () => {
                 className="flex flex-col p-4 shadow-sm rounded-xl h-full bg-white/20 backdrop-blur-md border border-blue/30"
               >
                 <img
+                  loading="lazy"
                   src={item.image}
                   alt={item.title}
                   className="w-full h-32 rounded-md object-cover mb-3"

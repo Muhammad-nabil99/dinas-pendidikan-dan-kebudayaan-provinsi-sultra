@@ -78,6 +78,7 @@ const GallerySection = () => {
             >
               <div className="relative aspect-video overflow-hidden">
                 <img
+                  loading="lazy"
                   src={item.coverImage}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -165,6 +166,7 @@ const GallerySection = () => {
                   />
                 ) : (
                   <img
+                    loading="lazy"
                     src={selectedItem.coverImage}
                     alt={selectedItem.title}
                     className="w-full rounded-lg max-h-[60vh] object-cover"

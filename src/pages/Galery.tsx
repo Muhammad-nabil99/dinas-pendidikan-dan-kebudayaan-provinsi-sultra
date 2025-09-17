@@ -64,7 +64,7 @@ interface Album {
 }
 
 // Dummy data
- export const dummyAlbums: Album[] = [
+export const dummyAlbums: Album[] = [
   {
     id: "1",
     title: "PPBD 2024 sulawesi tenggara",
@@ -241,99 +241,99 @@ interface Album {
     ],
   },
   {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
+    id: "9",
+    title: "Seminar Pendidikan Digital",
+    category: "video",
     coverImage: teacherMeeting,
     mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
+    date: "2024-02-15",
+    location: "Hotel Santika Kendari",
     media: [
       {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
+        id: "9",
+        type: "video",
+        url: "/sample-video4.mp4",
         thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
+        title: "Seminar Digital",
+        description: "Seminar tentang transformasi pendidikan digital",
       },
-    ]
+    ],
   },
   {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
+    id: "9",
+    title: "Seminar Pendidikan Digital",
+    category: "video",
     coverImage: teacherMeeting,
     mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
+    date: "2024-02-15",
+    location: "Hotel Santika Kendari",
     media: [
       {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
+        id: "9",
+        type: "video",
+        url: "/sample-video4.mp4",
         thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
+        title: "Seminar Digital",
+        description: "Seminar tentang transformasi pendidikan digital",
       },
-    ]
+    ],
   },
   {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
+    id: "9",
+    title: "Seminar Pendidikan Digital",
+    category: "video",
     coverImage: teacherMeeting,
     mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
+    date: "2024-02-15",
+    location: "Hotel Santika Kendari",
     media: [
       {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
+        id: "9",
+        type: "video",
+        url: "/sample-video4.mp4",
         thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
+        title: "Seminar Digital",
+        description: "Seminar tentang transformasi pendidikan digital",
       },
-    ]
+    ],
   },
   {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
+    id: "9",
+    title: "Seminar Pendidikan Digital",
+    category: "video",
     coverImage: teacherMeeting,
     mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
+    date: "2024-02-15",
+    location: "Hotel Santika Kendari",
     media: [
       {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
+        id: "9",
+        type: "video",
+        url: "/sample-video4.mp4",
         thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
+        title: "Seminar Digital",
+        description: "Seminar tentang transformasi pendidikan digital",
       },
-    ]
+    ],
   },
   {
-    id: '9',
-    title: 'Seminar Pendidikan Digital',
-    category: 'video',
+    id: "9",
+    title: "Seminar Pendidikan Digital",
+    category: "video",
     coverImage: teacherMeeting,
     mediaCount: 4,
-    date: '2024-02-15',
-    location: 'Hotel Santika Kendari',
+    date: "2024-02-15",
+    location: "Hotel Santika Kendari",
     media: [
       {
-        id: '9',
-        type: 'video',
-        url: '/sample-video4.mp4',
+        id: "9",
+        type: "video",
+        url: "/sample-video4.mp4",
         thumbnail: teacherMeeting,
-        title: 'Seminar Digital',
-        description: 'Seminar tentang transformasi pendidikan digital'
+        title: "Seminar Digital",
+        description: "Seminar tentang transformasi pendidikan digital",
       },
-    ]
+    ],
   },
 ];
 
@@ -450,6 +450,7 @@ const Galeri: React.FC = () => {
     >
       <div className="relative overflow-hidden">
         <img
+          loading="lazy"
           src={album.coverImage}
           alt={album.title}
           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
@@ -517,6 +518,7 @@ const Galeri: React.FC = () => {
         <div className="flex gap-4">
           <div className="relative flex-shrink-0">
             <img
+              loading="lazy"
               src={album.coverImage}
               alt={album.title}
               className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg"
@@ -873,6 +875,7 @@ const Galeri: React.FC = () => {
                     />
                   ) : (
                     <img
+                      loading="lazy"
                       src={selectedAlbum.media[selectedMediaIndex]?.url}
                       alt={selectedAlbum.media[selectedMediaIndex]?.title}
                       className="w-full h-64 sm:h-80 object-cover rounded-lg"
@@ -949,6 +952,7 @@ const Galeri: React.FC = () => {
                             onClick={() => handleMediaSelect(index)}
                           >
                             <img
+                              loading="lazy"
                               src={media.thumbnail}
                               alt={media.title}
                               className="w-16 h-16 object-cover"
