@@ -12,7 +12,7 @@ import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
 import StrukturOrganisasi from "./pages/profil/StrukturOrganisasiChart.js";
 import ProdukHukum from "./pages/profil/ProdukHukum";
-// import LaporanKegiatan from "./pages/profil/LaporanKegiatan";
+import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan";
 
 // PPID page
 import PPID from "./pages/PPID";
@@ -47,7 +47,6 @@ const App = () => {
     return () => window.removeEventListener("load", handleLoad);
   }, []);
 
-
   if (loading) {
     return <LoadingSpinner loading={loading} />; // full-screen loader
   }
@@ -72,6 +71,10 @@ const App = () => {
               <Route
                 path="/profil/struktur-organisasi"
                 element={<StrukturOrganisasi />}
+              />
+              <Route
+                path="/profil/laporan-kegiatan"
+                element={<LaporanKegiatan />}
               />
               <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
               {/* <Route path="/profil/laporan-kegiatan" element={<LaporanKegiatan />}     */}
