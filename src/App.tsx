@@ -12,7 +12,7 @@ import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
 import StrukturOrganisasi from "./pages/profil/StrukturOrganisasiChart.js";
 import ProdukHukum from "./pages/profil/ProdukHukum";
-import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan";
+import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan.js";
 
 // PPID page
 import PPID from "./pages/PPID";
