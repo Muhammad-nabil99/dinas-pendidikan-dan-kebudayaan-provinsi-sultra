@@ -1,24 +1,61 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import heroImage1 from "@/assets/hero-1.jpg";
 import heroImage2 from "@/assets/hero-2.png";
 import heroImage3 from "@/assets/hero-3.png";
-import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
+// The array of hero background images
 const heroImage = [heroImage1, heroImage2, heroImage3];
+
+// The array of texts to be displayed with a typing animation
+const heroTexts = ["Selamat Datang", "Selamat Leu", "Selamat Ngka"];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(true);
 
-  // Change image every 1 second
+  // Effect to change the background image every 2 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Loop back to the first image when the last one is reached
+    const imageInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
-    }, 2000); // 1 second as requested
-    return () => clearInterval(interval);
+    }, 2000); // Change image every 2 seconds
+    return () => clearInterval(imageInterval);
   }, []);
+
+  // Effect to handle the typing and deleting animation of the text
+  useEffect(() => {
+    let timeout;
+    const fullText = heroTexts[currentTextIndex];
+
+    if (isTyping) {
+      // Typing logic
+      if (displayedText.length < fullText.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(fullText.slice(0, displayedText.length + 1));
+        }, 80); // Adjust typing speed here
+      } else {
+        // Full text is displayed, switch to deleting after a delay
+        timeout = setTimeout(() => {
+          setIsTyping(false);
+        }, 1500); // Delay before deleting
+      }
+    } else {
+      // Deleting logic
+      if (displayedText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayedText(fullText.slice(0, displayedText.length - 1));
+        }, 50); // Adjust deleting speed here
+      } else {
+        // Text is fully deleted, move to the next text and restart typing
+        setCurrentTextIndex((prev) => (prev + 1) % heroTexts.length);
+        setIsTyping(true);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, isTyping, currentTextIndex]);
 
   return (
     <section
@@ -59,35 +96,32 @@ const HeroSection = () => {
             <span className="block text-gold">Sulawesi Tenggara</span>
           </h1>
 
-          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
-            Selamat Datang
-          </p>
-          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
-            #WargaSultra
-          </p>
-          <p className="text-lg md:text-2xl text-white/90 mb-6 leading-relaxed max-w-2xl mx-auto">
+          {/* Animated Text Section */}
+          <div className="relative h-5 mb-6 flex items-center justify-center">
+            <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+              {displayedText}
+              <span className="animate-pulse">|</span> {/* Blinking cursor */}
+            </p>
+          </div>
+
+          <p className="text-lg md:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto mb-6">
             "Pendidikan Hebat, Masa Depan Kuat!"
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/ppid">
-              <Button
-                size="lg"
-                className="bg-white text-government-blue hover:bg-white/90 shadow-medium"
-              >
-                <span>PPID</span>
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <Link to="/profil/sejarah">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white hover:text-white bg-white/10 text-white border-2"
-              >
-                Profil Dinas
-              </Button>
-            </Link>
+            <a
+              href="/ppid"
+              className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 bg-white text-blue-900 hover:bg-white/90 shadow-md"
+            >
+              <span>PPID</span>
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </a>
+            <a
+              href="/profil/sejarah"
+              className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 border-2 border-white hover:text-white bg-white/10 text-white"
+            >
+              Profil Dinas
+            </a>
           </div>
 
           {/* Stats */}

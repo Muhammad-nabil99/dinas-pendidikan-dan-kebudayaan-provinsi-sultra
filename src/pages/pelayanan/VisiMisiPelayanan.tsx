@@ -11,7 +11,7 @@ const VisiMisiPelayanan = () => {
       {/* Hero Section */}
       <section
         className="relative py-12 sm:py-16 md:py-20 pt-20 text-white bg-cover bg-center"
-        style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+        style={{ backgroundImage: "url('./tracking.jpg')" }}
       >
         {/* Overlay gradient biru transparan */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 to-blue-600/60"></div>

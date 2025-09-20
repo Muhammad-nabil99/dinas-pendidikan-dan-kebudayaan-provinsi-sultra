@@ -1,5 +1,4 @@
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Search, Download, Calendar, FileText, MapPin, Users, TrendingUp, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 
 
 const LaporanKegiatan = () => {
@@ -154,7 +154,7 @@ const LaporanKegiatan = () => {
           {/* Header */}
           <section
                 className="relative py-20 text-white bg-cover bg-center"
-                style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+                style={{ backgroundImage: "url('./tracking.jpg')" }}
               >
                 {/* Overlay warna biru dengan opacity */}
                 <div className="absolute inset-0 bg-blue-900/70"></div>
