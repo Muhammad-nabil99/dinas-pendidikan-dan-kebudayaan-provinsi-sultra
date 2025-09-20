@@ -12,7 +12,7 @@ const Footer = () => {
               <div className="w-12 h-12  rounded-lg flex items-center justify-center">
                 <img
                 loading="lazy"
-                  src="../../../public/logo.png"
+                  src="./logo.png"
                   alt="logo dinas pendidikan"
                 />
               </div>

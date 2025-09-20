@@ -172,7 +172,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "5",
         type: "video",
-        url: "https://youtu.be/QMURiddbVpU?si=C8FfZlbGLZXgjufT",
+        url: "https://www.youtube.com/watch?v=4UozJ8X7-x8",
         thumbnail: gallery2,
         title: "Workshop Digital Learning",
         description: "Pelatihan penggunaan teknologi dalam pembelajaran modern",
@@ -210,7 +210,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "7",
         type: "video",
-        url: "/sample-video3.mp4",
+        url: "https://www.youtube.com/watch?v=4UozJ8X7-x8",
         thumbnail: gallery7,
         title: "Pelatihan PAUD",
         description:
@@ -249,7 +249,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "9",
         type: "video",
-        url: "/sample-video4.mp4",
+        url: "https://www.youtube.com/watch?v=4UozJ8X7-x8",
         thumbnail: teacherMeeting,
         title: "Seminar Digital",
         description: "Seminar tentang transformasi pendidikan digital",
@@ -287,7 +287,7 @@ const Galeri: React.FC = () => {
     .filter((album) => {
       const matchesSearch =
         album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        album.location.toLowerCase().includes(searchTerm.toLowerCase());
+        album.date.includes(searchTerm);
       const matchesCategory =
         categoryFilter === "semua" || album.category === categoryFilter;
       return matchesSearch && matchesCategory;

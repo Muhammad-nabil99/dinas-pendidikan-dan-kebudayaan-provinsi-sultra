@@ -68,7 +68,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-              <img loading="lazy" src="../../../public/logo.png" alt="logo dinas pendidikan" />
+              <img loading="lazy" src="./logo.png" alt="logo dinas pendidikan" />
             </div>
             <div className="hidden sm:block">
               <h1

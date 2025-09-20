@@ -46,11 +46,7 @@ const HeroSection = () => {
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center">
-              <img
-                loading="lazy"
-                src="../../../public/logo.png"
-                alt="logo sultra"
-              />
+              <img loading="lazy" src="./logo.png" alt="logo sultra" />
             </div>
             <div className="text-white/90">
               <p className="text-sm font-medium">Pemerintah Provinsi</p>
@@ -58,8 +54,8 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-            Dinas Pendidikan
+          <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            Dinas Pendidikan dan Kebudayaan
             <span className="block text-gold">Sulawesi Tenggara</span>
           </h1>
 
