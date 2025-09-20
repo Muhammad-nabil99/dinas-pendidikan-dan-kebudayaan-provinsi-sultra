@@ -11,6 +11,8 @@ import Sejarah from "./pages/profil/Sejarah";
 import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
 import StrukturOrganisasi from "./pages/profil/StrukturOrganisasiChart.js";
+import ProdukHukum from "./pages/profil/ProdukHukum";
+// import LaporanKegiatan from "./pages/profil/LaporanKegiatan";
 
 // PPID page
 import PPID from "./pages/PPID";
@@ -71,6 +73,8 @@ const App = () => {
                 path="/profil/struktur-organisasi"
                 element={<StrukturOrganisasi />}
               />
+              <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
+              {/* <Route path="/profil/laporan-kegiatan" element={<LaporanKegiatan />}     */}
 
               {/* PPID Route */}
               <Route path="/ppid" element={<PPID />} />

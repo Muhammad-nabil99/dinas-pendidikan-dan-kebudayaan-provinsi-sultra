@@ -51,7 +51,7 @@ const Navbar = () => {
       ],
     },
     { href: "/ppid", label: "PPID" },
-    { href: "/ppid", label: "Inovasi" },
+    { href: "/inovasi", label: "Inovasi" },
     { href: "/galeri", label: "Galeri" },
   ];
 
