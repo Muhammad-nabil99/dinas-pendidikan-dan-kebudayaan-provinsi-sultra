@@ -61,7 +61,7 @@ interface Album {
   media: Media[];
 }
 
-// Dummy data
+// Dummy data dengan perbaikan URL video
 export const dummyAlbums: Album[] = [
   {
     id: "1",
@@ -133,7 +133,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "3",
         type: "video",
-        url: "Rapat Koordinasi Pendidikan Sultra Bahas Kompetensi, Sarana, dan Visi Pendidikan Daerah",
+        url: "https://www.youtube.com/embed/S_T0zR_qX_4",
         thumbnail: gallery4,
         title: "Video Rapat Koordinasi",
         description:
@@ -172,7 +172,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "5",
         type: "video",
-        url: "https://www.youtube.com/watch?v=4UozJ8X7-x8",
+        url: "https://www.youtube.com/embed/S_T0zR_qX_4",
         thumbnail: gallery2,
         title: "Workshop Digital Learning",
         description: "Pelatihan penggunaan teknologi dalam pembelajaran modern",
@@ -210,7 +210,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "7",
         type: "video",
-        url: "https://www.youtube.com/watch?v=4UozJ8X7-x8",
+        url: "https://www.youtube.com/embed/4UozJ8X7-x8",
         thumbnail: gallery7,
         title: "Pelatihan PAUD",
         description:
@@ -249,7 +249,7 @@ export const dummyAlbums: Album[] = [
       {
         id: "9",
         type: "video",
-        url: "https://www.youtube.com/watch?v=4UozJ8X7-x8",
+        url: "https://www.youtube.com/embed/4UozJ8X7-x8",
         thumbnail: teacherMeeting,
         title: "Seminar Digital",
         description: "Seminar tentang transformasi pendidikan digital",
@@ -360,6 +360,57 @@ const Galeri: React.FC = () => {
     setFotoCurrentPage(1);
     setVideoCurrentPage(1);
     setShowCategoryDropdown(false);
+  };
+
+  // Fungsi untuk mengecek apakah URL adalah video YouTube
+  const isYouTubeUrl = (url: string) => {
+    return url.includes('youtube.com') || url.includes('youtu.be');
+  };
+
+  // Fungsi untuk mendapatkan ID video YouTube dari URL
+  const getYouTubeId = (url: string) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+  };
+
+  // Render media content berdasarkan jenis media
+  const renderMediaContent = (media: Media) => {
+    if (media.type === "foto") {
+      return (
+        <img
+          loading="lazy"
+          src={media.url}
+          alt={media.title}
+          className="w-full h-64 sm:h-80 object-cover object-center rounded-lg"
+        />
+      );
+    } else {
+      // Jika video YouTube, gunakan iframe
+      if (isYouTubeUrl(media.url)) {
+        const videoId = getYouTubeId(media.url);
+        if (videoId) {
+          return (
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}`}
+              className="w-full h-64 sm:h-80 rounded-lg"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          );
+        }
+      }
+      
+      // Jika video biasa, gunakan tag video
+      return (
+        <video
+          src={media.url}
+          controls
+          className="w-full h-64 sm:h-80 object-cover rounded-lg"
+        />
+      );
+    }
   };
 
   // Render album cards component
@@ -776,32 +827,23 @@ const Galeri: React.FC = () => {
         open={!!selectedAlbum}
         onOpenChange={() => setSelectedAlbum(null)}
       >
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-4">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-">
           {selectedAlbum && (
             <>
+              <DialogHeader>
+                <DialogTitle className="text-xl text-gallery-text-primary">
+                  {selectedAlbum.title}
+                </DialogTitle>
+              </DialogHeader>
               
               <div className="space-y-6">
                 {/* Main Media Display */}
                 <div className="relative">
-                  {selectedAlbum.media[selectedMediaIndex]?.type === "video" ? (
-                    <video
-                      src={selectedAlbum.media[selectedMediaIndex].url}
-                      controls
-                      className="w-full h-64 sm:h-80 object-cover rounded-lg"
-                    />
-                  ) : (
-                    <img
-                      loading="lazy"
-                      src={selectedAlbum.media[selectedMediaIndex]?.url}
-                      alt={selectedAlbum.media[selectedMediaIndex]?.title}
-                      className="w-full h-64 sm:h-80 object-cover  object-center rounded-lg"
-                    />
-                  )}
+                  {renderMediaContent(selectedAlbum.media[selectedMediaIndex])}
 
                   {/* Navigation Buttons */}
                   {selectedAlbum.media.length > 1 && (
                     <>
-                    
                       <Button
                         variant="outline"
                         size="sm"
@@ -861,7 +903,7 @@ const Galeri: React.FC = () => {
                       <div className="flex gap-2 overflow-x-auto pb-2">
                         {selectedAlbum.media.map((media, index) => (
                           <div
-                            key={media.id}
+                            key={`${media.id}-${index}`}
                             className={`relative flex-shrink-0 cursor-pointer rounded-lg overflow-hidden ${
                               index === selectedMediaIndex
                                 ? "ring-2 ring-gallery-primary"
