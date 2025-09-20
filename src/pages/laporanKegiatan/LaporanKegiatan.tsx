@@ -156,7 +156,7 @@ const LaporanKegiatan = () => {
           {/* Header */}
           <section
                 className="relative py-20 text-white bg-cover bg-center"
-                style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+                style={{ backgroundImage: "url('./tracking.jpg')" }}
               >
                 {/* Overlay warna biru dengan opacity */}
                 <div className="absolute inset-0 bg-blue-900/70"></div>
