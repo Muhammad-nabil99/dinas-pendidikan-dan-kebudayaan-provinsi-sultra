@@ -1,5 +1,4 @@
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Search, Download, Calendar, FileText, MapPin, Users, TrendingUp, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 
 
 const LaporanKegiatan = () => {
@@ -149,7 +149,6 @@ const LaporanKegiatan = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
-      <Navbar />
       
       <main>
         {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> */}
