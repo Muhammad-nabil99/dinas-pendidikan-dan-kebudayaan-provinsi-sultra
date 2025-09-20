@@ -29,7 +29,7 @@ const LaporanKegiatan = () => {
       organizer: "Bidang Pendidikan Dasar"
     },
     {
-      id: 2,
+    id: 2,
       title: "Laporan Monitoring Akreditasi Sekolah",
       category: "monitoring",
       date: "2024-02-20",
