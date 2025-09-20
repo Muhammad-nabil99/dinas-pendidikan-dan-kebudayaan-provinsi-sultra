@@ -23,7 +23,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative  flex items-center overflow-hidden"
+      className="relative h-screen flex items-center overflow-hidden"
     >
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0">
@@ -46,11 +46,7 @@ const HeroSection = () => {
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center">
-              <img
-                loading="lazy"
-                src="./logo.png"
-                alt="logo sultra"
-              />
+              <img loading="lazy" src="./logo.png" alt="logo sultra" />
             </div>
             <div className="text-white/90">
               <p className="text-sm font-medium">Pemerintah Provinsi</p>
