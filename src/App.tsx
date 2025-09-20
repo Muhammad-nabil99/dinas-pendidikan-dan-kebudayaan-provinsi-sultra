@@ -26,6 +26,7 @@ import News from "./pages/News";
 import DetailBerita from "./pages/Detail/DetailBerita.js";
 import LoadingSpinner from "./components/LoadingSpinner.js";
 import { useEffect, useState } from "react";
+import Inovasi from "./pages/Inovasi.js";
 
 const queryClient = new QueryClient();
 
@@ -76,11 +77,13 @@ const App = () => {
                 path="/profil/laporan-kegiatan"
                 element={<LaporanKegiatan />}
               />
-              <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
-              {/* <Route path="/profil/laporan-kegiatan" element={<LaporanKegiatan />}     */}
+              <Route path="/profil/produk-hukum" element={<ProdukHukum />} />   
 
               {/* PPID Route */}
               <Route path="/ppid" element={<PPID />} />
+
+              {/* Inovasi Route */}
+              <Route path="/inovasi" element={<Inovasi />} /> 
 
               {/* Galeri Routes */}
               <Route path="/galeri" element={<Galery />} />
