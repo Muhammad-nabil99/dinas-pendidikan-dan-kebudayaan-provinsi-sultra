@@ -8,6 +8,7 @@ import { Search, Filter, Lightbulb, Users, TrendingUp, Award, Calendar, ArrowRig
 import Navbar from "@/components/layout/Navbar";
 import { Link } from "react-router-dom";
 import Footer from "@/components/layout/Footer";
+import BgImage from '../assets/tracking.jpg';
 
 const Inovasi = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -88,12 +89,11 @@ const Inovasi = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
       
       {/* Hero Section */}
       <section
                 className="relative py-20 text-white bg-cover bg-center"
-                style={{ backgroundImage: "url('/src/assets/tracking.jpg')" }}
+                style={{ backgroundImage: `url(${BgImage})` }}
               >
                 {/* Overlay warna biru dengan opacity */}
                 <div className="absolute inset-0 bg-blue-900/70"></div>

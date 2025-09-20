@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
+import BgImage from '../assets/tracking.jpg';
 
 const PPID = () => {
   return (
@@ -14,7 +15,7 @@ const PPID = () => {
       {/* Header Section */}
       <section
           className="relative py-20 text-white bg-cover bg-center"
-          style={{ backgroundImage: "url('./tracking.jpg')" }}
+          style={{ backgroundImage: `url(${BgImage})`  }}
         >
           {/* Overlay warna biru dengan opacity */}
           <div className="absolute inset-0 bg-blue-900/70"></div>

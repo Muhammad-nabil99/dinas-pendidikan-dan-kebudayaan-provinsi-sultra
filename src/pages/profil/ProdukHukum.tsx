@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Download, Calendar, FileText, Scale, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import BgImage from '@/assets/tracking.jpg';
 
 const ProdukHukum = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -109,7 +110,7 @@ const ProdukHukum = () => {
             {/* Header */}
             <section
                 className="relative py-20 text-white bg-cover bg-center"
-                style={{ backgroundImage: "url('./tracking.jpg')" }}
+                style={{ backgroundImage: `url(${BgImage})`  }}
               >
                 {/* Overlay warna biru dengan opacity */}
                 <div className="absolute inset-0 bg-blue-900/70"></div>

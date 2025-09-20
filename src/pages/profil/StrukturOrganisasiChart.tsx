@@ -5,14 +5,14 @@ import OrganizationChart from "@/components/ui/StrukturOrganisasi";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
-
+import BgImage from '@/assets/tracking.jpg';
 
 const StrukturOrganisasi = () => {
   return (
     <main>
         <section
           className="relative py-20 text-white bg-cover bg-center"
-          style={{ backgroundImage: "url('./tracking.jpg')" }}
+          style={{ backgroundImage: `url(${BgImage})`  }}
         >
           {/* Overlay warna biru dengan opacity */}
           <div className="absolute inset-0 bg-blue-900/70"></div>

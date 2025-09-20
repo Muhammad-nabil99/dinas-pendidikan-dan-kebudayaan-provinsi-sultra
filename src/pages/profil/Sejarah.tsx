@@ -3,6 +3,7 @@ import { History, Landmark, MapPin } from "lucide-react";
 import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import BgImage from '@/assets/tracking.jpg';
 
 const Sejarah = () => {
   return (
@@ -10,7 +11,7 @@ const Sejarah = () => {
   {/* Hero Section */}
   <section
     className="relative py-20 text-white bg-cover bg-center"
-    style={{ backgroundImage: "url('./tracking.jpg')" }}
+    style={{ backgroundImage: `url(${BgImage})`  }}
   >
     {/* Overlay warna biru dengan opacity */}
     <div className="absolute inset-0 bg-blue-900/70"></div>
