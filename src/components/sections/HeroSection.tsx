@@ -3,6 +3,7 @@ import heroImage2 from "@/assets/hero-2.png";
 import heroImage3 from "@/assets/hero-3.png";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // The array of hero background images
 const heroImage = [heroImage1, heroImage2, heroImage3];
@@ -109,13 +110,13 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="laporan-kegiatan"
+            <Link
+              to="/laporan-kegiatan"
               className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 bg-white text-blue-900 hover:bg-white/90 shadow-md"
             >
               <span>Laporan Kegiatan</span>
               <ArrowRight className="w-5 h-5 ml-2" />
-            </a>
+            </Link>
             <a
               href="/profil/sejarah"
               className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 border-2 border-white hover:text-white bg-white/10 text-white"
