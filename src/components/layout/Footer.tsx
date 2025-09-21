@@ -56,7 +56,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/profil/laporan-kegiatan"
+                  to="/laporan-kegiatan"
                   className="text-blue-200 hover:text-white transition-colors"
                 >
                   Laporan Kegiatan
