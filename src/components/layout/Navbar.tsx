@@ -76,11 +76,11 @@ const Navbar = () => {
             </div>
             <div className="hidden sm:block">
               <h1
-                className={`text-lg font-bold ${
+                className={`text-md font-bold ${
                   scrolled ? "text-government-blue" : "text-white"
                 }`}
               >
-                Dinas Pendidikan
+                Dinas Pendidikan dan Kebudayaan
               </h1>
               <p
                 className={`text-sm ${

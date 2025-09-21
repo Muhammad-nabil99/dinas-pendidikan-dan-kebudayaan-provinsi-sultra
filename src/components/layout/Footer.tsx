@@ -17,7 +17,7 @@ const Footer = () => {
                 />
               </div>
               <div>
-                <h2 className="text-xl font-bold">Dinas Pendidikan</h2>
+                <h2 className="text-lg font-bold">Dinas Pendidikan dan Kebudayaan</h2>
                 <p className="text-blue-200">Provinsi Sulawesi Tenggara</p>
               </div>
             </div>
