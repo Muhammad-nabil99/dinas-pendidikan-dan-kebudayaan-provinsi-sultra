@@ -47,9 +47,9 @@ const App = () => {
     return () => window.removeEventListener("load", handleLoad);
   }, []);
 
-  if (loading) {
-    return <LoadingSpinner loading={loading} />; // full-screen loader
-  }
+  // if (loading) {
+  //   return <LoadingSpinner loading={loading} />; // full-screen loader
+  // }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -73,7 +73,7 @@ const App = () => {
                 element={<StrukturOrganisasi />}
               />
               <Route
-                path="/profil/laporan-kegiatan"
+                path="/laporan-kegiatan"
                 element={<LaporanKegiatan />}
               />
               <Route path="/profil/produk-hukum" element={<ProdukHukum />} />

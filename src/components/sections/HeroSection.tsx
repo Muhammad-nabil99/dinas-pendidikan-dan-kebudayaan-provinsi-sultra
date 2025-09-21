@@ -110,10 +110,10 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/ppid"
+              href="laporan-kegiatan"
               className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 bg-white text-blue-900 hover:bg-white/90 shadow-md"
             >
-              <span>PPID</span>
+              <span>Laporan Kegiatan</span>
               <ArrowRight className="w-5 h-5 ml-2" />
             </a>
             <a
