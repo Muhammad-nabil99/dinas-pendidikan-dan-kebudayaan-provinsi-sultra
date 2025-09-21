@@ -54,7 +54,8 @@ interface Media {
 interface Album {
   id: string;
   title: string;
-  category: "foto" | "video";
+  category: "foto" | "video" ;
+  instansi: "SMA" | "SMK"  | "SLB";
   coverImage: string;
   mediaCount: number;
   date: string;
@@ -68,6 +69,7 @@ export const dummyAlbums: Album[] = [
     id: "1",
     title: "PPBD 2024 sulawesi tenggara",
     category: "foto",
+    instansi: "SMK" ,
     coverImage: gallery1,
     mediaCount: 5,
     date: "2024-03-15",
@@ -106,6 +108,7 @@ export const dummyAlbums: Album[] = [
     id: "2",
     title: "Kegiatan Pembelajaran Siswa",
     category: "foto",
+    instansi: "SMK" ,
     coverImage: gallery3,
     mediaCount: 8,
     date: "2024-03-10",
@@ -126,6 +129,7 @@ export const dummyAlbums: Album[] = [
     id: "3",
     title: "Rapat Koordinasi Guru",
     category: "video",
+    instansi: "SMA" ,
     coverImage: gallery4,
     mediaCount: 3,
     date: "2024-03-08",
@@ -146,6 +150,7 @@ export const dummyAlbums: Album[] = [
     id: "4",
     title: "Upacara Wisuda",
     category: "foto",
+    instansi: "SMA" ,
     coverImage: gallery5,
     mediaCount: 12,
     date: "2024-03-05",
@@ -165,6 +170,7 @@ export const dummyAlbums: Album[] = [
     id: "5",
     title: "Workshop Teknologi Pendidikan",
     category: "video",
+    instansi: "SMA" ,
     coverImage: teacherMeeting,
     mediaCount: 6,
     date: "2024-03-01",
@@ -184,6 +190,7 @@ export const dummyAlbums: Album[] = [
     id: "6",
     title: "Kunjungan Kerja Kepala Dinas",
     category: "foto",
+    instansi: "SMA" ,
     coverImage: gallery6,
     mediaCount: 4,
     date: "2024-02-28",
@@ -203,6 +210,7 @@ export const dummyAlbums: Album[] = [
     id: "7",
     title: "Pelatihan Guru PAUD",
     category: "video",
+    instansi: "SLB" ,
     coverImage: gallery3,
     mediaCount: 5,
     date: "2024-02-25",
@@ -223,6 +231,7 @@ export const dummyAlbums: Album[] = [
     id: "8",
     title: "Dokumentasi Sekolah Alam",
     category: "foto",
+    instansi: "SLB" ,
     coverImage: gallery7,
     mediaCount: 7,
     date: "2024-02-20",
@@ -242,6 +251,7 @@ export const dummyAlbums: Album[] = [
     id: "9",
     title: "Seminar Pendidikan Digital",
     category: "video",
+    instansi: "SMK" ,
     coverImage: gallery3,
     mediaCount: 4,
     date: "2024-02-15",
@@ -264,6 +274,10 @@ const Galeri: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState<
     "semua" | "foto" | "video"
   >("semua");
+  const [instansiFilter, setInstansiFilter] = useState<
+    "semua" | "SMA" | "SMK" | "SLB"
+  >("semua");
+  const [showInstansiDropdown, setShowInstansiDropdown] = useState(false);
   const [sortOrder, setSortOrder] = useState<"terbaru" | "terlama">("terbaru");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
@@ -287,11 +301,12 @@ const Galeri: React.FC = () => {
   const filteredAlbums = dummyAlbums
     .filter((album) => {
       const matchesSearch =
-        album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        album.date.includes(searchTerm);
+        album.title.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory =
         categoryFilter === "semua" || album.category === categoryFilter;
-      return matchesSearch && matchesCategory;
+      const matchesInstansi =
+        instansiFilter === "semua" || album.instansi === instansiFilter;
+      return matchesSearch && matchesCategory && matchesInstansi;
     })
     .sort((a, b) => {
       const dateA = new Date(a.date);
@@ -356,7 +371,7 @@ const Galeri: React.FC = () => {
   };
 
   // Reset pagination when category filter changes
-  const handleCategoryChange = (category: "semua" | "foto" | "video") => {
+  const handleCategoryChange = (category: "semua" | "foto" | "video"  ) => {
     setCategoryFilter(category);
     setFotoCurrentPage(1);
     setVideoCurrentPage(1);
@@ -683,6 +698,7 @@ const Galeri: React.FC = () => {
                   </div>
                 )}
               </div>
+          
 
               {/* Sort Filter */}
               <div className="relative">
@@ -711,6 +727,35 @@ const Galeri: React.FC = () => {
                   </div>
                 )}
               </div>
+
+              <div className="relative">
+              <Button
+                variant="outline"
+                onClick={() => setShowInstansiDropdown(!showInstansiDropdown)}
+                className="border-2 hover:border-gallery-primary"
+              >
+                <Filter className="h-4 w-4 mr-2" />
+                {instansiFilter === "semua" ? "Semua Instansi" : instansiFilter}
+                <ChevronDown className="h-4 w-4 ml-2" />
+              </Button>
+              {showInstansiDropdown && (
+                <div className="absolute top-full mt-1 left-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                  {["semua", "SMA", "SMK", "SLB"].map((instansi) => (
+                    <button
+                      key={instansi}
+                      className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
+                      onClick={() => {
+                        setInstansiFilter(instansi as any);
+                        setShowInstansiDropdown(false);
+                      }}
+                    >
+                      {instansi === "semua" ? "Semua Instansi" : instansi}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             </div>
 
             {/* View Toggle - Hidden on mobile */}
