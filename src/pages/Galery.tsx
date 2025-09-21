@@ -628,7 +628,7 @@ const Galeri: React.FC = () => {
               <span className="text-xs sm:text-sm font-medium">Galeri</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-              Dokumentasi Foto & Vidio
+              Dokumentasi Foto & Video
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
               "Rangkaian Dokumentasi Perjalanan Pendidikan Sultra."
