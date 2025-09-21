@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Download, Calendar, FileText, Scale, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import BgImage from '@/assets/tracking.jpg';
 
 const ProdukHukum = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -109,7 +110,7 @@ const ProdukHukum = () => {
             {/* Header */}
             <section
                 className="relative py-20 text-white bg-cover bg-center"
-                style={{ backgroundImage: "url('./tracking.jpg')" }}
+                style={{ backgroundImage: `url(${BgImage})`  }}
               >
                 {/* Overlay warna biru dengan opacity */}
                 <div className="absolute inset-0 bg-blue-900/70"></div>
@@ -137,14 +138,14 @@ const ProdukHukum = () => {
                       </span>
                     </div>
                     <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-                      Produk Hukum Dinas Pendidikan
+                      Produk Hukum
                     </h1>
                     <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
-                      Perjalanan Panjang Membangun Pendidikan Sulawesi Tenggara
+                      Kumpulan peraturan, keputusan, dan dokumen hukum resmi yang dikeluarkan oleh Dinas Pendidikan Provinsi Sulawesi Tenggara
                     </p>
                   </div>
                 </div>
-              </section>
+            </section>
 
             <section className="container mx-auto px-4 py-12">
             {/* Search and Filter */}

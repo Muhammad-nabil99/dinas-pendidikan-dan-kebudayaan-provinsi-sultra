@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
+import BgImage from '@/assets/tracking.jpg';
 
 const misi: string[] = [
   "Meningkatkan kualitas hidup masyarakat agar dapat berdaulat dan aman dalam bidang ekonomi, pangan, pendidikan, kesehatan, lingkungan, politik, serta iman dan taqwa",
@@ -16,7 +17,7 @@ const VisiMisi = () => {
   {/* Hero Section */}
   <section
     className="relative py-20 text-white bg-cover bg-center"
-    style={{ backgroundImage: "url('./tracking.jpg')" }}
+    style={{ backgroundImage: `url(${BgImage})`  }}
   >
     {/* Overlay warna biru dengan opacity */}
     <div className="absolute inset-0 bg-blue-900/70"></div>
@@ -39,7 +40,7 @@ const VisiMisi = () => {
       <div className="text-center">
         <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
           <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
-          <span className="text-xs sm:text-sm font-medium">Profil</span>
+          <span className="text-xs sm:text-sm font-medium">Visi & Misi</span>
         </div>
         <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
           Visi & Misi

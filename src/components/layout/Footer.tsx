@@ -54,6 +54,14 @@ const Footer = () => {
                   Profil
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/profil/laporan-kegiatan"
+                  className="text-blue-200 hover:text-white transition-colors"
+                >
+                  Laporan Kegiatan
+                </Link>
+              </li>
               {/* <li>
                 <Link
                   to="/pelayanan/visi-misi"
@@ -68,6 +76,14 @@ const Footer = () => {
                   className="text-blue-200 hover:text-white transition-colors"
                 >
                   PPID
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/inovasi"
+                  className="text-blue-200 hover:text-white transition-colors"
+                >
+                  Inovasi
                 </Link>
               </li>
               <li>

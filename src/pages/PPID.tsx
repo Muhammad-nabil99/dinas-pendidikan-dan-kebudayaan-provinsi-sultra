@@ -7,17 +7,18 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
+import BgImage from '../assets/tracking.jpg';
 
 const PPID = () => {
   return (
     <main className="min-h-screen bg-background">
       {/* Header Section */}
       <section
-        className="relative py-20 text-white bg-cover bg-center"
-        style={{ backgroundImage: "url('./tracking.jpg')" }}
-      >
-        {/* Overlay warna biru dengan opacity */}
-        <div className="absolute inset-0 bg-blue-900/70"></div>
+          className="relative py-20 text-white bg-cover bg-center"
+          style={{ backgroundImage: `url(${BgImage})`  }}
+        >
+          {/* Overlay warna biru dengan opacity */}
+          <div className="absolute inset-0 bg-blue-900/70"></div>
 
         {/* Konten */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

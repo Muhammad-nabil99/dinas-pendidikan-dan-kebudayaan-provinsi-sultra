@@ -38,6 +38,7 @@ import gallery4 from "@/assets/gallery-4.png";
 import gallery5 from "@/assets/gallery-5.png";
 import gallery6 from "@/assets/gallery-6.png";
 import gallery7 from "@/assets/gallery-7.png";
+import BgImage from '../assets/tracking.jpg';
 import teacherMeeting from "@/assets/teacher-meeting.jpg";
 import graduation from "@/assets/graduation.jpg";
 
@@ -601,7 +602,7 @@ const Galeri: React.FC = () => {
       {/* Hero Section */}
       <section
         className="relative py-20 text-white bg-cover bg-center"
-        style={{ backgroundImage: "url('./tracking.jpg')" }}
+        style={{ backgroundImage: `url(${BgImage})`  }}
       >
         {/* Overlay warna biru dengan opacity */}
         <div className="absolute inset-0 bg-blue-900/70"></div>
@@ -627,7 +628,7 @@ const Galeri: React.FC = () => {
               <span className="text-xs sm:text-sm font-medium">Galeri</span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-              Dokumentasi Foto & Vidio
+              Dokumentasi Foto & Video
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
               "Rangkaian Dokumentasi Perjalanan Pendidikan Sultra."
