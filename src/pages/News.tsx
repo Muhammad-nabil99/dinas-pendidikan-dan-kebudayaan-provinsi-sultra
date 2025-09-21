@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import berita1 from "../assets/berita-1.png";
 import berita2 from "../assets/berita-2.png";
+import BgImage from '../assets/tracking.jpg';
 
 const News = () => {
   const allNews = [
@@ -139,7 +140,7 @@ const News = () => {
         {/* Header Section */}
         <section
           className="relative py-20 text-white bg-cover bg-center"
-          style={{ backgroundImage: "url('./tracking.jpg')" }}
+          style={{ backgroundImage: `url(${BgImage})`  }}
         >
           {/* Overlay warna biru dengan opacity */}
           <div className="absolute inset-0 bg-blue-900/70"></div>
