@@ -69,9 +69,8 @@ const PPID = () => {
                       Pengertian
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      [Template - PPID adalah pejabat yang bertanggung jawab di
-                      bidang penyimpanan, pendokumentasian, penyediaan, dan/atau
-                      pelayanan informasi di badan publik.]
+                      PPID adalah pejabat yang bertanggung jawab di bidang penyimpanan pendokumentasian, penyediaan, dan/atau
+                      pelayanan informasi di badan publik.
                     </p>
                     <h3 className="font-semibold text-government-blue mb-3">
                       Dasar Hukum
@@ -96,8 +95,7 @@ const PPID = () => {
                       Visi PPID
                     </h3>
                     <p className="text-muted-foreground mb-4 italic">
-                      "[Template - Mewujudkan pelayanan informasi publik yang
-                      transparan, akuntabel, dan berkualitas]"
+                      "Mewujudkan pelayanan informasi publik yang transparan, akuntabel, dan berkualitas."
                     </p>
                     <h3 className="font-semibold text-government-blue mb-3">
                       Misi PPID
