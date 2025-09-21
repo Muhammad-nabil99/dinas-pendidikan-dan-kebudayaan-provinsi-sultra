@@ -153,10 +153,10 @@ const Inovasi = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Tabs defaultValue="innovations" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="innovations">Inovasi Terbaru</TabsTrigger>
               <TabsTrigger value="achievements">Pencapaian</TabsTrigger>
-              <TabsTrigger value="roadmap">Roadmap</TabsTrigger>
+              {/* <TabsTrigger value="roadmap">Roadmap</TabsTrigger> */}
             </TabsList>
 
             <TabsContent value="innovations" className="space-y-6">
@@ -247,7 +247,7 @@ const Inovasi = () => {
               </div>
             </TabsContent>
 
-            <TabsContent value="roadmap" className="space-y-6">
+            {/* <TabsContent value="roadmap" className="space-y-6">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold mb-4">Roadmap Inovasi</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -295,7 +295,7 @@ const Inovasi = () => {
                   </Card>
                 ))}
               </div>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
       </section>
