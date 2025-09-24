@@ -1,6 +1,6 @@
-import heroImage1 from "@/assets/hero-1.jpg";
-import heroImage2 from "@/assets/hero-2.png";
-import heroImage3 from "@/assets/hero-3.png";
+import heroImage1 from "@/assets/alt-1.png";
+import heroImage2 from "@/assets/alt-2.png";
+import heroImage3 from "@/assets/alt-3.png";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const heroTexts = ["Selamat Datang", "Selama Leu", "Selamat Ngka"];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
 
