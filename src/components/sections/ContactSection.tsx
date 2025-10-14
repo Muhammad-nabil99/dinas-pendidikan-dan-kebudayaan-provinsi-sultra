@@ -3,9 +3,48 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { useState } from "react";
 
 const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    judul: '',
+    deskripsi: '',
+    bidang: '',
+    namaPengirim: '',
+    emailPengirim: '',
+    dokumen: null as File | null,
+    foto: null as File | null,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    const name = e.target.name;
+    setFormData(prev => ({ ...prev, [name]: file }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form Data:', formData);
+    alert('Pesan berhasil dikirim!');
+    // Reset form
+    setFormData({
+      judul: '',
+      deskripsi: '',
+      bidang: '',
+      namaPengirim: '',
+      emailPengirim: '',
+      dokumen: null,
+      foto: null,
+    });
+  };
+
   return (
     <section className="py-20" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,72 +147,110 @@ const ContactSection = () => {
                 </p>
               </CardHeader>
               <CardContent className="px-0 pb-0">
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName">Nama Depan*</Label>
-                      <Input 
-                        id="firstName" 
-                        placeholder="Masukkan nama depan"
-                        className="mt-2"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">Nama Belakang*</Label>
-                      <Input 
-                        id="lastName" 
-                        placeholder="Masukkan nama belakang"
-                        className="mt-2"
-                      />
-                    </div>
-                  </div>
-                  
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
-                    <Label htmlFor="email">Email*</Label>
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      placeholder="nama@email.com"
+                    <Label htmlFor="judul">Judul*</Label>
+                    <Input
+                      id="judul"
+                      name="judul"
+                      placeholder="Masukkan judul"
                       className="mt-2"
+                      value={formData.judul}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
-                  
+
                   <div>
-                    <Label htmlFor="phone">Nomor Telepon</Label>
-                    <Input 
-                      id="phone" 
-                      type="tel" 
-                      placeholder="08xxxxxxxxxx"
-                      className="mt-2"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="subject">Subjek*</Label>
-                    <Input 
-                      id="subject" 
-                      placeholder="Subjek pesan"
-                      className="mt-2"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="message">Pesan*</Label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Tulis pesan Anda di sini..."
+                    <Label htmlFor="deskripsi">Deskripsi*</Label>
+                    <Textarea
+                      id="deskripsi"
+                      name="deskripsi"
+                      placeholder="Tulis deskripsi Anda di sini..."
                       rows={5}
                       className="mt-2 resize-none"
+                      value={formData.deskripsi}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="bidang">Bidang*</Label>
+                    <Select value={formData.bidang} onValueChange={(value) => setFormData(prev => ({ ...prev, bidang: value }))}>
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Pilih bidang" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="bidang_sma">Bidang SMA</SelectItem>
+                        <SelectItem value="bidang_smk">Bidang SMK</SelectItem>
+                        <SelectItem value="bidang_pklk">Bidang Pembinaan PK-LK</SelectItem>
+                        <SelectItem value="bidang_gtk">Bidang GTK</SelectItem>
+                        <SelectItem value="bidang_perencanaan">Bidang Perencanaan dan Penganggaran</SelectItem>
+                        <SelectItem value="bidang_kebudayaan  ">Bidang Kebudayaan</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="namaPengirim">Nama Lengkap*</Label>
+                    <Input
+                      id="namaPengirim"
+                      name="namaPengirim"
+                      placeholder="Masukkan nama lengkap"
+                      className="mt-2"
+                      value={formData.namaPengirim}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="emailPengirim">Email*</Label>
+                    <Input
+                      id="emailPengirim"
+                      name="emailPengirim"
+                      type="email"
+                      placeholder="nama@email.com"
+                      className="mt-2"
+                      value={formData.emailPengirim}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="foto">Foto</Label>
+                    <Input
+                      id="foto"
+                      name="foto"
+                      type="file"
+                      accept="image/*"
+                      className="mt-2"
+                      onChange={handleFileChange}
                     />
                   </div>
                   
-                  <Button className="w-full bg-gradient-primary hover:bg-gradient-primary/90">
+                  <div>
+                    <Label htmlFor="dokumen">Dokumen (PDF)</Label>
+                    <Input
+                      id="dokumen"
+                      name="dokumen"
+                      type="file"
+                      accept=".pdf"
+                      className="mt-2"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+
+
+                  <Button className="w-full bg-gradient-primary hover:bg-gradient-primary/90" type="submit">
                     <Send className="w-4 h-4 mr-2" />
                     Kirim Pesan
                   </Button>
-                  
+
                   <p className="text-sm text-muted-foreground text-center">
-                    Pesan akan direspon dalam 1-2 hari kerja. Untuk keperluan mendesak, 
+                    Pesan akan direspon dalam 1-2 hari kerja. Untuk keperluan mendesak,
                     hubungi langsung melalui telepon.
                   </p>
                 </form>
