@@ -8,8 +8,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useGetDashboard from "@/features/dashboard/useGetDashboard";
 
 const Navbar = () => {
+  const { dashboard, isLoading } = useGetDashboard();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -18,7 +20,6 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
-    // Jalankan logika scroll hanya jika berada di halaman beranda (/)
     if (location.pathname === "/") {
       const handleScroll = () => {
         const heroSection = document.getElementById("hero"); // Pastikan Hero Section punya id="hero"
@@ -68,11 +69,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-              <img
-                loading="lazy"
-                src="./logo.png"
-                alt="logo dinas pendidikan"
-              />
+              <img loading="lazy" src={dashboard?.logo?.url} alt="logo dinas pendidikan" />
             </div>
             <div className="hidden sm:block">
               <h1

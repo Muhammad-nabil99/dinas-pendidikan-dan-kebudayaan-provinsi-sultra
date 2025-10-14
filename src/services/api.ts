@@ -1,0 +1,104 @@
+export const getDashboard = async () => {
+  try {
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/dashboard"
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getBerita = async () => {
+  try {
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/api/berita");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const postApiLayanan = async (data) => {
+  try {
+    console.log("📦 Data yang dikirim ke API:", data);
+
+    const formData = new FormData();
+    formData.append("judul", data.judul);
+    formData.append("deskripsi", data.deskripsi);
+    formData.append("bidang", data.bidang);
+    formData.append("email_pengirim", data.email);
+    formData.append("nama_pengirim", data.nama);
+    if (data.dokumen) {
+      formData.append("dokumen", data.dokumen);
+    }
+
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/layanan", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("✅ Respons dari server:", result);
+    return result;
+  } catch (error) {
+    console.error("❌ Gagal mengirim data:", error);
+    throw error;
+  }
+};
+
+export const getProdukHukum = async () => {
+  try {
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/produk-hukum");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getAgenda = async () => {
+  try {
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/agenda");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getPengumuman = async () => {
+  try {
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/pengumuman");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getLaporanKegiatan = async () => {
+  try {
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/laporan-kegiatan");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getInovasi = async () => {
+  try {
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/invoasi");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
