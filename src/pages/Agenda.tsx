@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
+import { Calendar, ArrowLeft, Clock, Search, Filter, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -20,6 +20,7 @@ import useGetAgenda from "@/features/agenda/useGetAgenda";
 
 const Agenda = () => {
   const { agenda, isLoading } = useGetAgenda();
+
   // const agenda = [
   //   {
   //     id: 1,
@@ -235,10 +236,10 @@ const Agenda = () => {
                       >
                         {item.category}
                       </Badge>
-                      {/* <div className="flex items-center text-muted-foreground text-sm">
+                      <div className="flex items-center text-muted-foreground text-sm">
                         <Clock className="w-4 h-4 mr-1" />
                         {new Date(item?.created_at).toLocaleDateString()}
-                      </div> */}
+                      </div>
                     </div>
                     <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
                       {item?.judul}
@@ -249,8 +250,9 @@ const Agenda = () => {
                       {item?.deskripsi}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">
-                        {new Date(item?.created_at).toLocaleDateString()}
+                      <span className="text-sm flex items-center gap-2 text-muted-foreground">
+                        <MapPin className={"w-4 h-4"}/>
+                        {item?.lokasi}
                       </span>
                       <Link to={`/berita/${item?.id}`}>
                         <Button

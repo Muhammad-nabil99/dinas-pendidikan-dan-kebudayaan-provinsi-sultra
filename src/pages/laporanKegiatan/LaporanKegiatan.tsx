@@ -28,10 +28,9 @@ import useGetLaporanKegiatan from "@/features/laporanKegiatan/useGetLaporanKegia
 const LaporanKegiatan = () => {
   const { laporanKegiatan, isLoading } = useGetLaporanKegiatan();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedYear, setSelectedYear] = useState("2024");
+  const [selectedYear, setSelectedYear] = useState(Number(new Date().getFullYear()));
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  console.log("ini laporanKegiatan ya", laporanKegiatan);
 
   const categories = [
     { value: "all", label: "Semua Kategori" },

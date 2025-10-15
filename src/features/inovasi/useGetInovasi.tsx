@@ -1,12 +1,12 @@
-import { getInovasi, getNews } from "@/services/api";
+import { getInovasi } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
 function useGetInovasi() {
-  const { data, isLoading } = useQuery({
+  const { data: inovasi, isLoading } = useQuery({
     queryKey: ["inovasi"],
     queryFn: getInovasi,
   });
 
-  return { data, isLoading };
+  return { inovasi, isLoading };
 }
 export default useGetInovasi;
