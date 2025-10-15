@@ -12,7 +12,7 @@ export const getDashboard = async () => {
 };
 export const getBerita = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/api/berita");
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/berita");
     const data = await response.json();
     return data;
   } catch (error) {
