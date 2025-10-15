@@ -82,6 +82,9 @@ const App = () => {
               {/* PPID Route */}
               <Route path="/ppid" element={<PPID />} />
 
+              {/* agenda Route */}
+              <Route path="/agenda" element={<Inovasi />} /> 
+              
               {/* Inovasi Route */}
               <Route path="/inovasi" element={<Inovasi />} /> 
 

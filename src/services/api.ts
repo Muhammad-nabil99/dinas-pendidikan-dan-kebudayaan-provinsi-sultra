@@ -84,7 +84,7 @@ export const getPengumuman = async () => {
 };
 export const getLaporanKegiatan = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/laporan-kegiatan");
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/laporan");
     const data = await response.json();
     return data;
   } catch (error) {
