@@ -27,6 +27,7 @@ import DetailBerita from "./pages/Detail/DetailBerita.js";
 import LoadingSpinner from "./components/LoadingSpinner.js";
 import { useEffect, useState } from "react";
 import Inovasi from "./pages/Inovasi.js";
+import Agenda from "./pages/Agenda.js";
 
 const queryClient = new QueryClient();
 
@@ -82,8 +83,11 @@ const App = () => {
               {/* PPID Route */}
               <Route path="/ppid" element={<PPID />} />
 
-              {/* agenda Route */}
-              <Route path="/agenda" element={<Inovasi />} /> 
+              {/* Agenda Route */}
+              <Route path="/agenda" element={<Agenda />} /> 
+              
+              {/* Agenda Route */}
+              <Route path="/agenda" element={<Agenda />} /> 
               
               {/* Inovasi Route */}
               <Route path="/inovasi" element={<Inovasi />} /> 
