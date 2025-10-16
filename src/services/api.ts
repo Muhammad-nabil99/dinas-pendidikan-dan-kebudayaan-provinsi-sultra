@@ -51,6 +51,24 @@ export const postApiLayanan = async (data) => {
     throw error;
   }
 };
+export const getTrackingStatus = async (kodeTracking: string) => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/layanan/status/${kodeTracking}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Gagal mengambil status laporan (${response.status})`);
+    }
+
+    const data = await response.json();
+    console.log("✅ Status laporan:", data);
+    return data;
+  } catch (error: any) {
+    console.error("❌ Gagal mengambil status laporan:", error);
+    throw error;
+  }
+};
 
 export const getProdukHukum = async () => {
   try {
@@ -102,3 +120,4 @@ export const getInovasi = async () => {
     console.log(error.message);
   }
 };
+

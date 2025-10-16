@@ -1,6 +1,3 @@
-import heroImage1 from "@/assets/alt-1.png";
-import heroImage2 from "@/assets/alt-2.png";
-import heroImage3 from "@/assets/alt-3.png";
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -61,9 +58,11 @@ const HeroSection = () => {
 
     return () => clearTimeout(timeout);
   }, []);
+  
   // }, [displayedText, isTyping, currentTextIndex]);
 
   if (isLoading) return "loading...";
+  // console.log('dashboard')
   return (
     <section
       id="hero"
