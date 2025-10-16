@@ -1,4 +1,4 @@
-import { getAgenda, getNews } from "@/services/api";
+import { getAgenda } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
 function useGetAgenda() {

@@ -24,13 +24,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import BgImage from "../../assets/tracking.jpg";
 import useGetLaporanKegiatan from "@/features/laporanKegiatan/useGetLaporanKegiatan";
+import ActivityListLoadingSkeleton from "@/components/ActivityListLoadingSkeleton";
 
 const LaporanKegiatan = () => {
   const { laporanKegiatan, isLoading } = useGetLaporanKegiatan();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedYear, setSelectedYear] = useState(Number(new Date().getFullYear()));
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedCategory, setSelectedCategory] = useState("all");
-
 
   const categories = [
     { value: "all", label: "Semua Kategori" },
@@ -138,62 +138,71 @@ const LaporanKegiatan = () => {
           </div>
         </section>
 
-        <section className="container mx-auto px-4 py-12">
-          {/* Search and Filter */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Search className="w-5 h-5" />
-                Pencarian Laporan Kegiatan
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col lg:flex-row gap-4">
-                <div className="flex-1">
-                  <Input
-                    placeholder="Cari berdasarkan judul atau deskripsi kegiatan..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full"
-                  />
+        {isLoading ? (
+          <ActivityListLoadingSkeleton />
+        ) : (
+          <section className="container mx-auto px-4 py-12">
+            {/* Search and Filter */}
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Search className="w-5 h-5" />
+                  Pencarian Laporan Kegiatan
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col lg:flex-row gap-4">
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Cari berdasarkan judul atau deskripsi kegiatan..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="w-full lg:w-48">
+                    <Select
+                      value={selectedYear}
+                      onValueChange={setSelectedYear}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih tahun" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {years.map((year) => (
+                          <SelectItem key={year} value={year}>
+                            {year}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="w-full lg:w-56">
+                    <Select
+                      value={selectedCategory}
+                      onValueChange={setSelectedCategory}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih kategori" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map((category) => (
+                          <SelectItem
+                            key={category.value}
+                            value={category.value}
+                          >
+                            {category.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-                <div className="w-full lg:w-48">
-                  <Select value={selectedYear} onValueChange={setSelectedYear}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih tahun" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {years.map((year) => (
-                        <SelectItem key={year} value={year}>
-                          {year}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="w-full lg:w-56">
-                  <Select
-                    value={selectedCategory}
-                    onValueChange={setSelectedCategory}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih kategori" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category.value} value={category.value}>
-                          {category.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Statistics Cards */}
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* Statistics Cards */}
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card>
               <CardContent className="p-6 text-center">
                 <div className="text-3xl font-bold text-government-blue mb-2">
@@ -220,93 +229,91 @@ const LaporanKegiatan = () => {
             </Card>
           </div> */}
 
-          {/* Results */}
-          <div className="grid gap-6">
-            {isLoading ? (
-              <p className="text-center text-muted-foreground">
-                Memuat data laporan...
-              </p>
-            ) : filteredLaporan?.length > 0 ? (
-              filteredLaporan?.map((item) => (
-                <Card
-                  key={item.id}
-                  className="hover:shadow-elegant transition-shadow"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-start gap-3 mb-4">
-                          {/* {getCategoryIcon(item?.category || "default")} */}
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-2">
-                              <h3 className="text-xl font-semibold text-foreground">
-                                {item?.judul}
-                              </h3>
-                              {/* {getStatusBadge(item?.status || "completed")} */}
-                            </div>
+            {/* Results */}
+            <div className="grid gap-6">
+              {filteredLaporan?.length > 0 ? (
+                filteredLaporan?.map((item) => (
+                  <Card
+                    key={item.id}
+                    className="hover:shadow-elegant transition-shadow"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-start gap-3 mb-4">
+                            {/* {getCategoryIcon(item?.category || "default")} */}
+                            <div className="flex-1">
+                              <div className="flex items-start justify-between mb-2">
+                                <h3 className="text-xl font-semibold text-foreground">
+                                  {item?.judul}
+                                </h3>
+                                {/* {getStatusBadge(item?.status || "completed")} */}
+                              </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3 text-sm text-muted-foreground">
-                              <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4" />
-                                <span>{formatDate(item?.created_at)}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4" />
-                                <span>{item?.lokasi}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Users className="w-4 h-4" />
-                                <span>{item?.peserta} peserta</span>
-                              </div>
-                              {/* <div className="flex items-center gap-2">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3 text-sm text-muted-foreground">
+                                <div className="flex items-center gap-2">
+                                  <Calendar className="w-4 h-4" />
+                                  <span>{formatDate(item?.created_at)}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <MapPin className="w-4 h-4" />
+                                  <span>{item?.lokasi}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <Users className="w-4 h-4" />
+                                  <span>{item?.peserta} peserta</span>
+                                </div>
+                                {/* <div className="flex items-center gap-2">
                                 <TrendingUp className="w-4 h-4" />
                                 <span>{item.budget || "-"}</span>
                               </div> */}
+                              </div>
+
+                              <p className="text-muted-foreground mb-2">
+                                {item.deskripsi}
+                              </p>
+
+                              <p className="text-sm text-government-blue font-medium">
+                                Penyelenggara: {item.penyelenggara}
+                              </p>
                             </div>
-
-                            <p className="text-muted-foreground mb-2">
-                              {item.deskripsi}
-                            </p>
-
-                            <p className="text-sm text-government-blue font-medium">
-                              Penyelenggara: {item.penyelenggara}
-                            </p>
                           </div>
                         </div>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() =>
+                              window.open(
+                                `https://dashboard.btikpsultra.my.id/storage/${item.dokumens?.dokumen}`,
+                                "_blank"
+                              )
+                            }
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            Download
+                          </Button>
+                        </div>
                       </div>
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        <Button
-                          size="sm"
-                          onClick={() =>
-                            window.open(
-                              `https://dashboard.btikpsultra.my.id/storage/${item.dokumens?.dokumen}`,
-                              "_blank"
-                            )
-                          }
-                        >
-                          <Download className="w-4 h-4 mr-2" />
-                          Download
-                        </Button>
-                      </div>
-                    </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <Card>
+                  <CardContent className="p-8 text-center">
+                    <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      Tidak ada laporan kegiatan ditemukan
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Coba ubah kata kunci pencarian, tahun, atau filter
+                      kategori
+                    </p>
                   </CardContent>
                 </Card>
-              ))
-            ) : (
-              <Card>
-                <CardContent className="p-8 text-center">
-                  <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    Tidak ada laporan kegiatan ditemukan
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Coba ubah kata kunci pencarian, tahun, atau filter kategori
-                  </p>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </section>
+              )}
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );

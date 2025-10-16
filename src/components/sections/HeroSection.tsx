@@ -93,7 +93,6 @@ const HeroSection = () => {
               <img
                 loading="lazy"
                 src={dashboard?.logo?.url}
-                alt="logo sultra"
               />
             </div>
             <div className="text-white/90">

@@ -22,64 +22,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BgImage from "@/assets/tracking.jpg";
 import useGetProdukHukum from "@/features/produkHukum/useGetProdukHukum";
+import ActivityListLoadingSkeleton from "@/components/ActivityListLoadingSkeleton";
 
 const ProdukHukum = () => {
   const { produkHukum, isLoading } = useGetProdukHukum();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-
-  console.log("produk", produkHukum);
-
-  // const produkHukum = [
-  //     {
-  //     id: 1,
-  //     title: "Peraturan Daerah No. 5 Tahun 2023",
-  //     subtitle: "Tentang Penyelenggaraan Pendidikan di Provinsi Sulawesi Tenggara",
-  //     category: "perda",
-  //     date: "2023-06-15",
-  //     description: "Peraturan daerah yang mengatur penyelenggaraan pendidikan formal dan non-formal di wilayah Provinsi Sulawesi Tenggara."
-  //     },
-  //     {
-  //     id: 2,
-  //     title: "Keputusan Kepala Dinas No. 123/2023",
-  //     subtitle: "Tentang Penetapan Standar Pelayanan Publik Bidang Pendidikan",
-  //     category: "keputusan",
-  //     date: "2023-08-20",
-  //     description: "Keputusan yang menetapkan standar pelayanan publik untuk meningkatkan kualitas layanan pendidikan."
-  //     },
-  //     {
-  //     id: 3,
-  //     title: "Surat Edaran No. 045/SE/2023",
-  //     subtitle: "Tentang Pelaksanaan Ujian Akhir Semester Ganjil TA 2023/2024",
-  //     category: "surat-edaran",
-  //     date: "2023-11-10",
-  //     description: "Surat edaran yang mengatur teknis pelaksanaan ujian akhir semester ganjil tahun ajaran 2023/2024."
-  //     },
-  //     {
-  //     id: 4,
-  //     title: "Instruksi Kepala Dinas No. 78/2023",
-  //     subtitle: "Tentang Percepatan Implementasi Kurikulum Merdeka",
-  //     category: "instruksi",
-  //     date: "2023-09-05",
-  //     description: "Instruksi untuk mempercepat implementasi kurikulum merdeka di seluruh satuan pendidikan."
-  //     },
-  //     {
-  //     id: 5,
-  //     title: "Pedoman Teknis Bantuan Operasional Sekolah 2024",
-  //     subtitle: "Panduan Penggunaan dan Pertanggungjawaban BOS",
-  //     category: "pedoman",
-  //     date: "2024-01-15",
-  //     description: "Pedoman teknis penggunaan dan pertanggungjawaban dana bantuan operasional sekolah."
-  //     },
-  //     {
-  //     id: 6,
-  //     title: "Peraturan Kepala Dinas No. 234/2023",
-  //     subtitle: "Tentang Sistem Informasi Manajemen Pendidikan",
-  //     category: "peraturan",
-  //     date: "2023-12-01",
-  //     description: "Peraturan yang mengatur implementasi sistem informasi manajemen pendidikan di lingkungan Dinas Pendidikan."
-  //     }
-  // ];
 
   const categories = [
     { value: "all", label: "Semua Kategori" },
@@ -164,154 +112,161 @@ const ProdukHukum = () => {
           </div>
         </section>
 
-        <section className="container mx-auto px-4 py-12">
-          {/* Search and Filter */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Search className="w-5 h-5" />
-                Pencarian Produk Hukum
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1">
-                  <Input
-                    placeholder="Cari berdasarkan judul atau deskripsi..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full"
-                  />
+        {isLoading ? (
+          <ActivityListLoadingSkeleton />
+        ) : (
+          <section className="container mx-auto px-4 py-12">
+            {/* Search and Filter */}
+            <Card className="mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Search className="w-5 h-5" />
+                  Pencarian Produk Hukum
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Cari berdasarkan judul atau deskripsi..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
+                  <div className="w-full md:w-64">
+                    <Select
+                      value={selectedCategory}
+                      onValueChange={setSelectedCategory}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih kategori" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {categories.map((category) => (
+                          <SelectItem
+                            key={category.value}
+                            value={category.value}
+                          >
+                            {category.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-                <div className="w-full md:w-64">
-                  <Select
-                    value={selectedCategory}
-                    onValueChange={setSelectedCategory}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pilih kategori" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem key={category.value} value={category.value}>
-                          {category.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          {/* Results */}
-          <div className="grid gap-6">
-            {filteredProduk?.length > 0 ? (
-              filteredProduk?.map((item) => (
-                <Card
-                  key={item.dokumens_id}
-                  className="hover:shadow-elegant transition-shadow"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-start gap-3 mb-3">
-                          {getCategoryIcon(item?.category)}
-                          <div>
-                            <h3 className="text-xl font-semibold text-foreground mb-1">
-                              {item.judul}
-                            </h3>
-                            <p className="text-lg text-government-blue font-medium mb-2">
-                              {item.deskripsi}
-                            </p>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                              <Calendar className="w-4 h-4" />
-                              <span>{formatDate(item.created_at)}</span>
+            {/* Results */}
+            <div className="grid gap-6">
+              {filteredProduk?.length > 0 ? (
+                filteredProduk?.map((item) => (
+                  <Card
+                    key={item.dokumens_id}
+                    className="hover:shadow-elegant transition-shadow"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-start gap-3 mb-3">
+                            {getCategoryIcon(item?.category)}
+                            <div>
+                              <h3 className="text-xl font-semibold text-foreground mb-1">
+                                {item.judul}
+                              </h3>
+                              <p className="text-lg text-government-blue font-medium mb-2">
+                                {item.deskripsi}
+                              </p>
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                                <Calendar className="w-4 h-4" />
+                                <span>{formatDate(item.created_at)}</span>
+                              </div>
+                              <p className="text-muted-foreground">
+                                {item.deskripsi}
+                              </p>
                             </div>
-                            <p className="text-muted-foreground">
-                              {item.deskripsi}
-                            </p>
                           </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        {/* View Document */}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
-                            window.open(fileUrl, "_blank");
-                          }}
-                        >
-                          <FileText className="w-4 h-4 mr-2" />
-                          Lihat Detail
-                        </Button>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          {/* View Document */}
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
+                              window.open(fileUrl, "_blank");
+                            }}
+                          >
+                            <FileText className="w-4 h-4 mr-2" />
+                            Lihat Detail
+                          </Button>
 
-                        {/* Download Document */}
-                        <Button
-                          size="sm"
-                          onClick={() => {
-                            const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
-                            const link = document.createElement("a");
-                            link.href = fileUrl;
-                            link.download = item.judul || "dokumen.pdf";
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                          }}
-                        >
-                          <Download className="w-4 h-4 mr-2" />
-                          Download
-                        </Button>
+                          {/* Download Document */}
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
+                              const link = document.createElement("a");
+                              link.href = fileUrl;
+                              link.download = item.judul || "dokumen.pdf";
+                              document.body.appendChild(link);
+                              link.click();
+                              document.body.removeChild(link);
+                            }}
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            Download
+                          </Button>
+                        </div>
                       </div>
-                    </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <Card>
+                  <CardContent className="p-8 text-center">
+                    <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-foreground mb-2">
+                      Tidak ada produk hukum ditemukan
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Coba ubah kata kunci pencarian atau filter kategori
+                    </p>
                   </CardContent>
                 </Card>
-              ))
-            ) : (
+              )}
+            </div>
+
+            {/* Summary Stats */}
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
-                <CardContent className="p-8 text-center">
-                  <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    Tidak ada produk hukum ditemukan
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Coba ubah kata kunci pencarian atau filter kategori
-                  </p>
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-bold text-government-blue mb-2">
+                    {produkHukum?.length}
+                  </div>
+                  <p className="text-muted-foreground">Total Produk Hukum</p>
                 </CardContent>
               </Card>
-            )}
-          </div>
-
-          {/* Summary Stats */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl font-bold text-government-blue mb-2">
-                  {produkHukum?.length}
-                </div>
-                <p className="text-muted-foreground">Total Produk Hukum</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl font-bold text-green-600 mb-2">
-                  {new Date().getFullYear()}
-                </div>
-                <p className="text-muted-foreground">Tahun Terkini</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6 text-center">
-                <div className="text-3xl font-bold text-orange-600 mb-2">
-                  {categories.length - 1}
-                </div>
-                <p className="text-muted-foreground">Kategori Dokumen</p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-bold text-green-600 mb-2">
+                    {new Date().getFullYear()}
+                  </div>
+                  <p className="text-muted-foreground">Tahun Terkini</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <div className="text-3xl font-bold text-orange-600 mb-2">
+                    {categories.length - 1}
+                  </div>
+                  <p className="text-muted-foreground">Kategori Dokumen</p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );

@@ -7,12 +7,18 @@ import TrackingSection from "@/components/sections/TrackingSection";
 import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
 import useGetAgenda from "@/features/agenda/useGetAgenda";
+import useGetPengumuman from "@/features/pengumuman/useGetPengumuman";
+import PengumumanSection from "@/components/sections/PengumumanSection";
 
 const Index = () => {
+  const { pengumuman, isLoading } = useGetPengumuman();
+
+  console.log("pengumuman", pengumuman?.[0]);
 
   return (
     <main>
       <HeroSection />
+      {pengumuman?.length > 0 && <PengumumanSection />}
       <NewsSection />
       <GallerySection />
       <TrackingSection />

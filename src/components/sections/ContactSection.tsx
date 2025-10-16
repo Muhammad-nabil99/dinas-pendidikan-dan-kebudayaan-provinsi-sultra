@@ -3,43 +3,46 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { useState } from "react";
-import usePostLayanan from "@/features/layanan/usePostLayanan";
 
 const ContactSection = () => {
-  const { postLayanan, isLoading } = usePostLayanan();
+  const [formData, setFormData] = useState({
+    judul: '',
+    deskripsi: '',
+    bidang: '',
+    namaPengirim: '',
+    emailPengirim: '',
+    dokumen: null as File | null,
+    foto: null as File | null,
+  });
 
-  const [judul, setJudul] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [bidang, setBidang] = useState("");
-  const [email, setEmailPengirim] = useState("");
-  const [nama, setNamaPengirim] = useState("");
-  const [dokumen, setDokumen] = useState<File | null>(null);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-  const handleSubmitLayanan = async (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    const name = e.target.name;
+    setFormData(prev => ({ ...prev, [name]: file }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Optional validation
-    // if (!judul || !deskripsi || !bidang || !email || !nama) {
-    //   alert("Mohon isi semua kolom yang wajib diisi.");
-    //   return;
-    // }
-
-    try {
-      await postLayanan({
-        judul,
-        deskripsi,
-        bidang,
-        email,
-        nama,
-        dokumen,
-      });
-      alert("Pesan berhasil dikirim!");
-    } catch (error) {
-      console.error(error);
-      alert("Terjadi kesalahan saat mengirim pesan.");
-    }
+    console.log('Form Data:', formData);
+    alert('Pesan berhasil dikirim!');
+    // Reset form
+    setFormData({
+      judul: '',
+      deskripsi: '',
+      bidang: '',
+      namaPengirim: '',
+      emailPengirim: '',
+      dokumen: null,
+      foto: null,
+    });
   };
 
   return (
@@ -49,9 +52,7 @@ const ContactSection = () => {
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-education-green/10 rounded-full mb-4">
             <Mail className="w-4 h-4 text-education-green mr-2" />
-            <span className="text-sm font-medium text-education-green">
-              Hubungi Kami
-            </span>
+            <span className="text-sm font-medium text-education-green">Hubungi Kami</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Kontak & Informasi
@@ -62,7 +63,79 @@ const ContactSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left side omitted for brevity */}
+          {/* Contact Information */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-2xl font-semibold mb-6">Informasi Kontak</h3>
+              <div className="space-y-4">
+                <Card className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-government-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-government-blue" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Alamat Kantor</h4>
+                      <p className="text-muted-foreground">
+                        Jalan Ahmad Yani No. 2, Kendari, Sulawesi Tenggara 93117<br />
+                        Indonesia
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-education-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-6 h-6 text-education-green" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Telepon & Fax</h4>
+                      <p className="text-muted-foreground">
+                        Telepon: (0401) 321234<br />
+                        Fax: (0401) 321235<br />
+                        Hotline: 0800-1234-5678
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-gold/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-gold" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Email</h4>
+                      <p className="text-muted-foreground">
+                        info@disdik.sultraprov.go.id<br />
+                        pengaduan@disdik.sultraprov.go.id<br />
+                        ppid@disdik.sultraprov.go.id
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Jam Pelayanan</h4>
+                      <div className="text-muted-foreground space-y-1">
+                        <p>Senin - Kamis: 08:00 - 16:00 WITA</p>
+                        <p>Jumat: 08:00 - 16:30 WITA</p>
+                        <p>Istirahat: 12:00 - 13:00 WITA</p>
+                        <p className="text-sm text-red-600 mt-2">
+                          *Sabtu, Minggu dan hari libur nasional tutup
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
 
           {/* Contact Form */}
           <div>
@@ -73,95 +146,113 @@ const ContactSection = () => {
                   Sampaikan pertanyaan, saran, atau pengaduan Anda
                 </p>
               </CardHeader>
-
               <CardContent className="px-0 pb-0">
-                <form className="space-y-6" onSubmit={handleSubmitLayanan}>
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
-                    <Label htmlFor="firstName">Nama*</Label>
+                    <Label htmlFor="judul">Judul*</Label>
                     <Input
-                      id="firstName"
-                      value={'nabil'}
-                      placeholder="Masukkan nama"
+                      id="judul"
+                      name="judul"
+                      placeholder="Masukkan judul"
                       className="mt-2"
-                      onChange={(e) => setNamaPengirim(e.target.value)}
+                      value={formData.judul}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="email">Email*</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={'nabil@gmail.com'}
-                      placeholder="nama@email.com"
-                      className="mt-2"
-                      onChange={(e) => setEmailPengirim(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="flex flex-col">
-                    <Label htmlFor="bidang">Bidang*</Label>
-                    <select
-                      id="bidang"
-                      value={bidang}
-                      onChange={(e) => setBidang(e.target.value)}
-                      className="mt-2 rounded-md border border-gray-300 p-2"
-                    >
-                      <option value="">Pilih Bidang</option>
-                      <option selected value="bidang_sma">Bidang Pembinaan SMA</option>
-                      <option value="bidang_smk">Bidang Pembinaan SMK</option>
-                      <option value="bidang_pklk">Bidang Pembinaan PK-LK</option>
-                      <option value="bidang_gtk">Bidang GTK</option>
-                      <option value="bidang_perencanaan">
-                        Bidang Perencanaan dan Penganggaran
-                      </option>
-                      <option value="bidang_kebudayaan">Bidang Kebudayaan</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="subject">Judul*</Label>
-                    <Input
-                      id="subject"
-                      value={'judul'}
-                      placeholder="Judul pesan"
-                      className="mt-2"
-                      onChange={(e) => setJudul(e.target.value)}
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message">Pesan*</Label>
+                    <Label htmlFor="deskripsi">Deskripsi*</Label>
                     <Textarea
-                      id="message"
-                      value={'pesan'}
-                      placeholder="Tulis pesan Anda di sini..."
+                      id="deskripsi"
+                      name="deskripsi"
+                      placeholder="Tulis deskripsi Anda di sini..."
                       rows={5}
                       className="mt-2 resize-none"
-                      onChange={(e) => setDeskripsi(e.target.value)}
+                      value={formData.deskripsi}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="dokumen">Dokumen (opsional)</Label>
+                    <Label htmlFor="bidang">Bidang*</Label>
+                    <Select value={formData.bidang} onValueChange={(value) => setFormData(prev => ({ ...prev, bidang: value }))}>
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Pilih bidang" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="bidang_sma">Bidang SMA</SelectItem>
+                        <SelectItem value="bidang_smk">Bidang SMK</SelectItem>
+                        <SelectItem value="bidang_pklk">Bidang Pembinaan PK-LK</SelectItem>
+                        <SelectItem value="bidang_gtk">Bidang GTK</SelectItem>
+                        <SelectItem value="bidang_perencanaan">Bidang Perencanaan dan Penganggaran</SelectItem>
+                        <SelectItem value="bidang_kebudayaan  ">Bidang Kebudayaan</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="namaPengirim">Nama Lengkap*</Label>
                     <Input
-                      id="dokumen"
-                      type="file"
-                      accept=".pdf,.docx"
+                      id="namaPengirim"
+                      name="namaPengirim"
+                      placeholder="Masukkan nama lengkap"
                       className="mt-2"
-                      onChange={(e) =>
-                        setDokumen(e.target.files ? e.target.files[0] : null)
-                      }
+                      value={formData.namaPengirim}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full bg-gradient-primary hover:bg-gradient-primary/90"
-                  >
+                  <div>
+                    <Label htmlFor="emailPengirim">Email*</Label>
+                    <Input
+                      id="emailPengirim"
+                      name="emailPengirim"
+                      type="email"
+                      placeholder="nama@email.com"
+                      className="mt-2"
+                      value={formData.emailPengirim}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="foto">Foto</Label>
+                    <Input
+                      id="foto"
+                      name="foto"
+                      type="file"
+                      accept="image/*"
+                      className="mt-2"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="dokumen">Dokumen (PDF)</Label>
+                    <Input
+                      id="dokumen"
+                      name="dokumen"
+                      type="file"
+                      accept=".pdf"
+                      className="mt-2"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+
+
+                  <Button className="w-full bg-gradient-primary hover:bg-gradient-primary/90" type="submit">
+                    <Send className="w-4 h-4 mr-2" />
                     Kirim Pesan
                   </Button>
+
+                  <p className="text-sm text-muted-foreground text-center">
+                    Pesan akan direspon dalam 1-2 hari kerja. Untuk keperluan mendesak,
+                    hubungi langsung melalui telepon.
+                  </p>
                 </form>
               </CardContent>
             </Card>
