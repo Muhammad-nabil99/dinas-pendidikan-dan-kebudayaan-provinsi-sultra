@@ -1,148 +1,175 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Filter, Lightbulb, Users, TrendingUp, Award, Calendar, ArrowRight, Target, Zap, Globe, ArrowLeft } from "lucide-react";
-import Navbar from "@/components/layout/Navbar";
+import {
+  Search,
+  Filter,
+  Lightbulb,
+  Users,
+  TrendingUp,
+  Award,
+  Calendar,
+  Target,
+  ArrowLeft,
+  Clock,
+  MapPin,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import Footer from "@/components/layout/Footer";
-import BgImage from '../assets/tracking.jpg';
+import BgImage from "../assets/tracking.jpg";
+import useGetInovasi from "@/features/inovasi/useGetInovasi";
 
 const Inovasi = () => {
+  const { inovasi, isLoading } = useGetInovasi();
   const [searchTerm, setSearchTerm] = useState("");
+  console.log("inovasi", inovasi);
 
   const innovations = [
     {
       id: 1,
       title: "E-Learning Platform Terpadu",
-      description: "Platform pembelajaran digital yang mengintegrasikan semua materi pembelajaran dari berbagai jenjang pendidikan",
+      description:
+        "Platform pembelajaran digital yang mengintegrasikan semua materi pembelajaran dari berbagai jenjang pendidikan",
       category: "Digital",
       status: "Aktif",
       impact: "15,000+ siswa terbantu",
       year: "2024",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
     },
     {
       id: 2,
       title: "Smart School Management System",
-      description: "Sistem manajemen sekolah pintar untuk administrasi, absensi, dan monitoring kinerja secara real-time",
+      description:
+        "Sistem manajemen sekolah pintar untuk administrasi, absensi, dan monitoring kinerja secara real-time",
       category: "Teknologi",
       status: "Implementasi",
       impact: "250+ sekolah",
       year: "2024",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
     },
     {
       id: 3,
       title: "Program Guru Digital",
-      description: "Pelatihan dan sertifikasi guru dalam penggunaan teknologi digital untuk pembelajaran modern",
+      description:
+        "Pelatihan dan sertifikasi guru dalam penggunaan teknologi digital untuk pembelajaran modern",
       category: "Pelatihan",
       status: "Berlangsung",
       impact: "5,000+ guru terlatih",
       year: "2023",
-      image: "/placeholder.svg"
+      image: "/placeholder.svg",
     },
     {
       id: 4,
       title: "Mobile Learning App",
-      description: "Aplikasi mobile untuk pembelajaran offline dan online yang dapat diakses kapan saja",
+      description:
+        "Aplikasi mobile untuk pembelajaran offline dan online yang dapat diakses kapan saja",
       category: "Mobile",
       status: "Beta Testing",
       impact: "10,000+ download",
       year: "2024",
-      image: "/placeholder.svg"
-    }
+      image: "/placeholder.svg",
+    },
   ];
 
   const achievements = [
     {
       title: "Penghargaan Inovasi Terbaik",
       year: "2024",
-      description: "Dari Kementerian Pendidikan dan Kebudayaan"
+      description: "Dari Kementerian Pendidikan dan Kebudayaan",
     },
     {
       title: "Best Digital Innovation",
       year: "2023",
-      description: "Kategori Pendidikan Regional Sulawesi"
+      description: "Kategori Pendidikan Regional Sulawesi",
     },
     {
       title: "Smart City Award",
       year: "2023",
-      description: "Kontribusi dalam Smart Education"
-    }
+      description: "Kontribusi dalam Smart Education",
+    },
   ];
 
   const stats = [
     { label: "Inovasi Aktif", value: "25+", icon: Lightbulb },
     { label: "Sekolah Terdampak", value: "350+", icon: Target },
     { label: "Siswa Terbantu", value: "50K+", icon: Users },
-    { label: "Guru Terlatih", value: "8K+", icon: TrendingUp }
+    { label: "Guru Terlatih", value: "8K+", icon: TrendingUp },
   ];
 
-  const filteredInnovations = innovations.filter(innovation =>
-    innovation.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    innovation.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    innovation.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredInnovations = inovasi?.filter(
+    (innovation) =>
+      innovation?.judul?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      innovation.deskripsi.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      innovation.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="min-h-screen bg-background">
-      
       {/* Hero Section */}
       <section
-                className="relative py-20 text-white bg-cover bg-center"
-                style={{ backgroundImage: `url(${BgImage})` }}
+        className="relative py-20 text-white bg-cover bg-center"
+        style={{ backgroundImage: `url(${BgImage})` }}
+      >
+        {/* Overlay warna biru dengan opacity */}
+        <div className="absolute inset-0 bg-blue-900/70"></div>
+
+        {/* Konten */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center mb-6">
+            <Link to="/">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20"
               >
-                {/* Overlay warna biru dengan opacity */}
-                <div className="absolute inset-0 bg-blue-900/70"></div>
-            
-                {/* Konten */}
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="flex items-center mb-6">
-                    <Link to="/">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      >
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        <span className="hidden sm:inline">Kembali ke Beranda</span>
-                      </Button>
-                    </Link>
-                  </div>
-            
-                  <div className="text-center">
-                    <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
-                      <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
-                      <span className="text-xs sm:text-sm font-medium">
-                        Inovasi
-                      </span>
-                    </div>
-                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-                      Inovasi Pendidikan
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
-                      Membangun masa depan pendidikan melalui inovasi dan teknologi terdepan
-                    </p>
-                  </div>
-                </div>
-          </section>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">Kembali ke Beranda</span>
+              </Button>
+            </Link>
+          </div>
+
+          <div className="text-center">
+            <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 rounded-full mb-3 sm:mb-4">
+              <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+              <span className="text-xs sm:text-sm font-medium">Inovasi</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
+              Inovasi Pendidikan
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
+              Membangun masa depan pendidikan melalui inovasi dan teknologi
+              terdepan
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
       <section className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {stats?.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="flex justify-center mb-4">
                   <div className="p-3 bg-government-blue/10 rounded-full">
                     <stat.icon className="w-8 h-8 text-government-blue" />
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-government-blue mb-2">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-3xl font-bold text-government-blue mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -179,40 +206,57 @@ const Inovasi = () => {
 
               {/* Innovations Grid */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredInnovations.map((innovation) => (
-                  <Card key={innovation.id} className="group hover:shadow-elegant transition-all duration-300">
-                    <CardHeader className="pb-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <Badge variant="secondary">{innovation.category}</Badge>
-                        <Badge 
-                          variant={innovation.status === "Aktif" ? "default" : "outline"}
-                          className={innovation.status === "Aktif" ? "bg-green-100 text-green-800" : ""}
+                {filteredInnovations?.map((innovation) => (
+                  <Card
+                    key={innovation.id}
+                    className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
+                  >
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        loading="lazy"
+                        src={`https://dashboard.btikpsultra.my.id/storage/${innovation?.coverImage}`}
+                        alt={innovation?.judul}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between mb-3">
+                        <Badge
+                          variant="secondary"
+                          className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
                         >
-                          {innovation.status}
+                          {innovation?.category || innovation?.tabel}
                         </Badge>
+                        <div className="flex items-center text-muted-foreground text-sm">
+                          <Clock className="w-4 h-4 mr-1" />
+                          {new Date(
+                            innovation?.created_at
+                          ).toLocaleDateString()}
+                        </div>
                       </div>
-                      <CardTitle className="group-hover:text-government-blue transition-colors">
-                        {innovation.title}
+                      <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
+                        {innovation?.judul}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="mb-4 line-clamp-3">
-                        {innovation.description}
-                      </CardDescription>
-                      <div className="space-y-2 text-sm text-muted-foreground">
-                        <div className="flex items-center">
-                          <TrendingUp className="w-4 h-4 mr-2" />
-                          {innovation.impact}
-                        </div>
-                        <div className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-2" />
-                          {innovation.year}
-                        </div>
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                        {innovation?.deskripsi}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="flex  items-center gap-1 text-sm text-muted-foreground">
+                          <MapPin className={"w-4 h-4"} />
+                          <p className="capitalize">{innovation?.lokasi}</p>
+                        </span>
+                        <Link to={`/inovasi/${innovation.id}`}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-government-blue hover:text-government-blue/80"
+                          >
+                            Baca Selengkapnya
+                          </Button>
+                        </Link>
                       </div>
-                      <Button variant="ghost" className="w-full mt-4 group-hover:bg-government-blue group-hover:text-white transition-colors">
-                        Pelajari Lebih Lanjut
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -221,26 +265,36 @@ const Inovasi = () => {
 
             <TabsContent value="achievements" className="space-y-6">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Pencapaian & Penghargaan</h2>
+                <h2 className="text-3xl font-bold mb-4">
+                  Pencapaian & Penghargaan
+                </h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Berbagai penghargaan dan pengakuan atas inovasi dalam bidang pendidikan
+                  Berbagai penghargaan dan pengakuan atas inovasi dalam bidang
+                  pendidikan
                 </p>
               </div>
-              
+
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {achievements.map((achievement, index) => (
-                  <Card key={index} className="text-center hover:shadow-elegant transition-shadow">
+                {achievements?.map((achievement, index) => (
+                  <Card
+                    key={index}
+                    className="text-center hover:shadow-elegant transition-shadow"
+                  >
                     <CardHeader>
                       <div className="flex justify-center mb-4">
                         <div className="p-3 bg-yellow-100 rounded-full">
                           <Award className="w-8 h-8 text-yellow-600" />
                         </div>
                       </div>
-                      <CardTitle className="text-lg">{achievement.title}</CardTitle>
+                      <CardTitle className="text-lg">
+                        {achievement.title}
+                      </CardTitle>
                       <Badge variant="outline">{achievement.year}</Badge>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription>{achievement.description}</CardDescription>
+                      <CardDescription>
+                        {achievement.description}
+                      </CardDescription>
                     </CardContent>
                   </Card>
                 ))}
@@ -299,7 +353,6 @@ const Inovasi = () => {
           </Tabs>
         </div>
       </section>
-    
     </div>
   );
 };

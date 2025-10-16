@@ -15,103 +15,108 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import berita1 from "../assets/berita-1.png";
 import berita2 from "../assets/berita-2.png";
-import BgImage from '../assets/tracking.jpg';
+import BgImage from "../assets/tracking.jpg";
+import useGetBerita from "@/features/news/useGetBerita";
 
 const News = () => {
-  const allNews = [
-    {
-      id: 1,
-      title: "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
-      excerpt:
-        "Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024...",
-      date: "15 Desember 2024",
-      time: "2 hari yang lalu",
-      category: "Program",
-      image: berita1,
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
-      excerpt:
-        "Ribuan pelajar dari berbagai Sekolah Menengah Atas (SMA) dan Sekolah Menengah Kejuruan (SMK) di Sulawesi Tenggara mengambil bagian dalam aksi patriotik",
-      date: "12 Desember 2024",
-      time: "5 hari yang lalu",
-      category: "Prestasi",
-      image: berita2,
-    },
-    {
-      id: 3,
-      title: "Workshop Peningkatan Kompetensi Guru di Era Digital",
-      excerpt:
-        "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi...",
-      date: "10 Desember 2024",
-      time: "1 minggu yang lalu",
-      category: "Pelatihan",
-      image:
-        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=300&fit=crop",
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "Pembangunan 50 Ruang Kelas Baru di Kabupaten Konawe",
-      excerpt:
-        "Infrastruktur pendidikan terus ditingkatkan dengan pembangunan ruang kelas...",
-      date: "8 Desember 2024",
-      time: "1 minggu yang lalu",
-      category: "Infrastruktur",
-      image:
-        "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=600&h=300&fit=crop",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Beasiswa Unggulan 2024 untuk Siswa Berprestasi",
-      excerpt:
-        "Program beasiswa unggulan kembali dibuka untuk siswa berprestasi...",
-      date: "5 Desember 2024",
-      time: "2 minggu yang lalu",
-      category: "Beasiswa",
-      image:
-        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=300&fit=crop",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
-      excerpt: "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
-      date: "1 Desember 2024",
-      time: "2 minggu yang lalu",
-      category: "Ujian",
-      image:
-        "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600&h=300&fit=crop",
-      featured: false,
-    },
-    {
-      id: 7,
-      title: "Kerja Sama dengan Universitas Terkemuka untuk Dual Degree",
-      excerpt:
-        "Dinas Pendidikan Sultra menjalin kerja sama dengan beberapa universitas...",
-      date: "28 November 2024",
-      time: "3 minggu yang lalu",
-      category: "Kerjasama",
-      image:
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=300&fit=crop",
-      featured: false,
-    },
-    {
-      id: 8,
-      title: "Festival Seni dan Budaya Sekolah Se-Sulawesi Tenggara",
-      excerpt:
-        "Festival seni dan budaya tingkat provinsi diikuti oleh 200 sekolah...",
-      date: "25 November 2024",
-      time: "3 minggu yang lalu",
-      category: "Event",
-      image:
-        "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=300&fit=crop",
-      featured: false,
-    },
-  ];
+  const { berita, isLoading } = useGetBerita();
+
+  // const berita = [
+  //   {
+  //     id: 1,
+  //     title:
+  //       "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
+  //     excerpt:
+  //       "Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024...",
+  //     date: "15 Desember 2024",
+  //     time: "2 hari yang lalu",
+  //     category: "Program",
+  //     image: berita1,
+  //     featured: true,
+  //   },
+  //   {
+  //     id: 2,
+  //     title:
+  //       "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
+  //     excerpt:
+  //       "Ribuan pelajar dari berbagai Sekolah Menengah Atas (SMA) dan Sekolah Menengah Kejuruan (SMK) di Sulawesi Tenggara mengambil bagian dalam aksi patriotik",
+  //     date: "12 Desember 2024",
+  //     time: "5 hari yang lalu",
+  //     category: "Prestasi",
+  //     image: berita2,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Workshop Peningkatan Kompetensi Guru di Era Digital",
+  //     excerpt:
+  //       "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi...",
+  //     date: "10 Desember 2024",
+  //     time: "1 minggu yang lalu",
+  //     category: "Pelatihan",
+  //     image:
+  //       "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=300&fit=crop",
+  //     featured: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Pembangunan 50 Ruang Kelas Baru di Kabupaten Konawe",
+  //     excerpt:
+  //       "Infrastruktur pendidikan terus ditingkatkan dengan pembangunan ruang kelas...",
+  //     date: "8 Desember 2024",
+  //     time: "1 minggu yang lalu",
+  //     category: "Infrastruktur",
+  //     image:
+  //       "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=600&h=300&fit=crop",
+  //     featured: false,
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Beasiswa Unggulan 2024 untuk Siswa Berprestasi",
+  //     excerpt:
+  //       "Program beasiswa unggulan kembali dibuka untuk siswa berprestasi...",
+  //     date: "5 Desember 2024",
+  //     time: "2 minggu yang lalu",
+  //     category: "Beasiswa",
+  //     image:
+  //       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=300&fit=crop",
+  //     featured: false,
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
+  //     excerpt: "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
+  //     date: "1 Desember 2024",
+  //     time: "2 minggu yang lalu",
+  //     category: "Ujian",
+  //     image:
+  //       "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600&h=300&fit=crop",
+  //     featured: false,
+  //   },
+  //   {
+  //     id: 7,
+  //     title: "Kerja Sama dengan Universitas Terkemuka untuk Dual Degree",
+  //     excerpt:
+  //       "Dinas Pendidikan Sultra menjalin kerja sama dengan beberapa universitas...",
+  //     date: "28 November 2024",
+  //     time: "3 minggu yang lalu",
+  //     category: "Kerjasama",
+  //     image:
+  //       "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=300&fit=crop",
+  //     featured: false,
+  //   },
+  //   {
+  //     id: 8,
+  //     title: "Festival Seni dan Budaya Sekolah Se-Sulawesi Tenggara",
+  //     excerpt:
+  //       "Festival seni dan budaya tingkat provinsi diikuti oleh 200 sekolah...",
+  //     date: "25 November 2024",
+  //     time: "3 minggu yang lalu",
+  //     category: "Event",
+  //     image:
+  //       "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=300&fit=crop",
+  //     featured: false,
+  //   },
+  // ];
 
   const categories = [
     "Semua",
@@ -129,10 +134,10 @@ const News = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  const totalPages = Math.ceil(allNews.length / itemsPerPage);
+  const totalPages = Math.ceil(berita?.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentNews = allNews.slice(indexOfFirstItem, indexOfLastItem);
+  const currentNews = berita?.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="min-h-screen bg-background">
@@ -140,7 +145,7 @@ const News = () => {
         {/* Header Section */}
         <section
           className="relative py-20 text-white bg-cover bg-center"
-          style={{ backgroundImage: `url(${BgImage})`  }}
+          style={{ backgroundImage: `url(${BgImage})` }}
         >
           {/* Overlay warna biru dengan opacity */}
           <div className="absolute inset-0 bg-blue-900/70"></div>
@@ -178,7 +183,6 @@ const News = () => {
           </div>
         </section>
 
-
         {/* Filter Section */}
         <section className="py-8 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -194,7 +198,7 @@ const News = () => {
                     <SelectValue placeholder="Kategori" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map((category) => (
+                    {categories?.map((category) => (
                       <SelectItem key={category} value={category}>
                         {category}
                       </SelectItem>
@@ -203,7 +207,7 @@ const News = () => {
                 </Select>
               </div>
               <div className="text-sm text-muted-foreground">
-                Menampilkan {currentNews.length} dari {allNews.length} berita
+                Menampilkan {currentNews?.length} dari {berita?.length} berita
               </div>
             </div>
           </div>
@@ -213,16 +217,16 @@ const News = () => {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {currentNews.map((item) => (
+              {currentNews?.map((item) => (
                 <Card
                   key={item.id}
                   className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
-                    loading="lazy"
-                      src={item.image}
-                      alt={item.title}
+                      loading="lazy"
+                      src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                      alt={item.judul}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
@@ -236,20 +240,20 @@ const News = () => {
                       </Badge>
                       <div className="flex items-center text-muted-foreground text-sm">
                         <Clock className="w-4 h-4 mr-1" />
-                        {item.time}
+                        {new Date(item?.created_at).toLocaleDateString()}
                       </div>
                     </div>
                     <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
-                      {item.title}
+                      {item.judul}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                      {item.excerpt}
+                      {item.deskripsi}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">
-                        {item.date}
+                        {new Date(item?.created_at).toLocaleDateString()}
                       </span>
                       <Link to={`/berita/${item.id}`}>
                         <Button

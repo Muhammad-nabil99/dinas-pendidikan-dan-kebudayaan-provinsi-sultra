@@ -12,7 +12,7 @@ export const getDashboard = async () => {
 };
 export const getBerita = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/api/berita");
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/berita");
     const data = await response.json();
     return data;
   } catch (error) {
@@ -84,7 +84,7 @@ export const getPengumuman = async () => {
 };
 export const getLaporanKegiatan = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/laporan-kegiatan");
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/laporan");
     const data = await response.json();
     return data;
   } catch (error) {
@@ -94,7 +94,7 @@ export const getLaporanKegiatan = async () => {
 };
 export const getInovasi = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/invoasi");
+    const response = await fetch("https://dashboard.btikpsultra.my.id/api/inovasi");
     const data = await response.json();
     return data;
   } catch (error) {
