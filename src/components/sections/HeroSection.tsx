@@ -1,24 +1,28 @@
 import heroImage1 from "@/assets/alt-1.png";
 import heroImage2 from "@/assets/alt-2.png";
 import heroImage3 from "@/assets/alt-3.png";
+import useGetDashboard from "@/features/dashboard/useGetDashboard";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // The array of hero background images
-const heroImage = [heroImage1, heroImage2, heroImage3];
+// const heroImage = [heroImage1, heroImage2, heroImage3];
 
 // The array of texts to be displayed with a typing animation
 const heroTexts = ["Selamat Datang", "Selama Leu", "Selamat Ngka"];
 
 const HeroSection = () => {
+  const { dashboard, isLoading } = useGetDashboard();
+  const heroImage = dashboard?.heroes;
   const [currentIndex, setCurrentIndex] = useState(0);
-const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
 
   // Effect to change the background image every 2 seconds
   useEffect(() => {
+    if (!heroImage || heroImage.length === 0) return;
     const imageInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
     }, 2000); // Change image every 2 seconds
@@ -56,8 +60,10 @@ const [currentTextIndex, setCurrentTextIndex] = useState(0);
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedText, isTyping, currentTextIndex]);
+  }, []);
+  // }, [displayedText, isTyping, currentTextIndex]);
 
+  if (isLoading) return "loading...";
   return (
     <section
       id="hero"
@@ -65,11 +71,11 @@ const [currentTextIndex, setCurrentTextIndex] = useState(0);
     >
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0">
-        {heroImage.map((image, index) => (
+        {heroImage?.map((image, index) => (
           <img
             loading="lazy"
             key={index}
-            src={image}
+            src={image.url}
             alt={`Slide ${index}`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentIndex ? "opacity-100" : "opacity-0"
@@ -84,7 +90,11 @@ const [currentTextIndex, setCurrentTextIndex] = useState(0);
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center">
-              <img loading="lazy" src="./logo.png" alt="logo sultra" />
+              <img
+                loading="lazy"
+                src={dashboard?.logo?.url}
+                alt="logo sultra"
+              />
             </div>
             <div className="text-white/90">
               <p className="text-sm font-medium">Pemerintah Provinsi</p>

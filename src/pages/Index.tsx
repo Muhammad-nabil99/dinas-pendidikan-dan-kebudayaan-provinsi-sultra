@@ -6,8 +6,10 @@ import GallerySection from "@/components/sections/GallerySection";
 import TrackingSection from "@/components/sections/TrackingSection";
 import FAQSection from "@/components/sections/FAQSection";
 import ContactSection from "@/components/sections/ContactSection";
+import useGetAgenda from "@/features/agenda/useGetAgenda";
 
 const Index = () => {
+
   return (
     <main>
       <HeroSection />
