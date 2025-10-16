@@ -18,6 +18,7 @@ const Index = () => {
       <ContactSection />
     </main>
   );
+  
 };
 
 export default Index;
