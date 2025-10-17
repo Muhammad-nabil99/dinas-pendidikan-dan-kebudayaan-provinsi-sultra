@@ -170,3 +170,15 @@ export const getDetailInovasi = async (id: number) => {
     console.log(error.message);
   }
 };
+export const getGaleri = async () => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/galeri`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};

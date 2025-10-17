@@ -11,13 +11,19 @@ import {
   Share2,
   Bookmark,
 } from "lucide-react";
+import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 
 const DetailBerita = () => {
   const { id } = useParams();
   const { berita, isLoading: isLoadingBerita } = useGetBerita();
   const { detailBerita, isLoading } = useGetDetailBerita(Number(id));
 
-  if (isLoading || isLoadingBerita) return "loading...";
+  if (isLoading || isLoadingBerita)
+    return (
+      <div className="min-h-screen bg-background">
+        <DetailLoadingSkeleton />
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,10 +70,6 @@ const DetailBerita = () => {
                   <div className="flex items-center">
                     <User className="w-4 h-4 mr-1" />
                     {detailBerita?.penyelenggara}
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(detailBerita?.created_at).toLocaleDateString()}
                   </div>
                 </div>
 

@@ -11,13 +11,19 @@ import {
 } from "lucide-react";
 import useGetAgenda from "@/features/agenda/useGetAgenda";
 import useGetDetailAgenda from "@/features/agenda/useGetDetailAgenda";
+import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 
 function DetailAgenda() {
   const { id } = useParams();
   const { agenda, isLoading: isLoadingBerita } = useGetAgenda();
   const { detailAgenda, isLoading } = useGetDetailAgenda(Number(id));
 
-  if (isLoading || isLoadingBerita) return "loading...";
+  if (isLoading || isLoadingBerita)
+    return (
+      <div className="min-h-screen bg-background">
+        <DetailLoadingSkeleton />
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-background">
@@ -64,10 +70,6 @@ function DetailAgenda() {
                   <div className="flex items-center">
                     <User className="w-4 h-4 mr-1" />
                     {detailAgenda?.penyelenggara}
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(detailAgenda?.created_at).toLocaleDateString()}
                   </div>
                 </div>
 

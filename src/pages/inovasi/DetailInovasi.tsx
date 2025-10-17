@@ -12,6 +12,7 @@ import {
 
 import useGetDetailInovasi from "@/features/inovasi/useGetDetailInovasi";
 import useGetInovasi from "@/features/inovasi/useGetInovasi";
+import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 
 const DetailInovasi = () => {
   const { id } = useParams();
@@ -19,12 +20,16 @@ const DetailInovasi = () => {
   const { inovasi, isLoading: isLoadingBerita } = useGetInovasi();
   const { detailInovasi, isLoading } = useGetDetailInovasi(Number(id));
 
-  if (isLoading || isLoadingBerita) return "loading...";
+  if (isLoading || isLoadingBerita)
+    return (
+      <div className="min-h-screen bg-background">
+        <DetailLoadingSkeleton />
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-background">
       <main>
-        
         {/* Header Section */}
         <section className="py-8 bg-muted/30 mt-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,10 +72,6 @@ const DetailInovasi = () => {
                   <div className="flex items-center">
                     <User className="w-4 h-4 mr-1" />
                     {detailInovasi?.penyelenggara}
-                  </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {new Date(detailInovasi?.created_at).toLocaleDateString()}
                   </div>
                 </div>
 

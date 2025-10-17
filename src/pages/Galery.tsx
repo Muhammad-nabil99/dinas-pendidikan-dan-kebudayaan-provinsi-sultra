@@ -31,16 +31,9 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Import images
-import gallery1 from "@/assets/gallery-1.png";
-import gallery2 from "@/assets/gallery-2.png";
-import gallery3 from "@/assets/gallery-3.png";
-import gallery4 from "@/assets/gallery-4.png";
-import gallery5 from "@/assets/gallery-5.png";
-import gallery6 from "@/assets/gallery-6.png";
-import gallery7 from "@/assets/gallery-7.png";
-import BgImage from '../assets/tracking.jpg';
-import teacherMeeting from "@/assets/teacher-meeting.jpg";
-import graduation from "@/assets/graduation.jpg";
+import BgImage from "../assets/tracking.jpg";
+import useGetGaleri from "@/features/galeri/useGetGaleri";
+import { transformGaleriToAlbums } from "@/utils/help";
 
 interface Media {
   id: string;
@@ -54,222 +47,20 @@ interface Media {
 interface Album {
   id: string;
   title: string;
-  category: "foto" | "video" ;
-  instansi: "SMA" | "SMK"  | "SLB";
+  category: "foto" | "video";
+  instansi: "SMA" | "SMK" | "SLB";
   coverImage: string;
   mediaCount: number;
   date: string;
   location: string;
+  description: string;
   media: Media[];
 }
 
-// Dummy data dengan perbaikan URL video
-export const dummyAlbums: Album[] = [
-  {
-    id: "1",
-    title: "PPBD 2024 sulawesi tenggara",
-    category: "foto",
-    instansi: "SMK" ,
-    coverImage: gallery1,
-    mediaCount: 5,
-    date: "2024-03-15",
-    location: "Kendari, Sulawesi Tenggara",
-    media: [
-      {
-        id: "1",
-        type: "foto",
-        url: gallery2,
-        thumbnail: gallery2,
-        title: "Gedung Utama Dinas Pendidikan",
-        description:
-          "Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi",
-      },
-      {
-        id: "1",
-        type: "foto",
-        url: gallery3,
-        thumbnail: gallery3,
-        title: "Gedung Utama Dinas Pendidikan",
-        description:
-          "Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi",
-      },
-      {
-        id: "1",
-        type: "foto",
-        url: gallery4,
-        thumbnail: gallery4,
-        title: "Gedung Utama Dinas Pendidikan",
-        description:
-          "Gedung kantor utama Dinas Pendidikan Sulawesi Tenggara yang baru direnovasi",
-      },
-    ],
-  },
-  {
-    id: "2",
-    title: "Kegiatan Pembelajaran Siswa",
-    category: "foto",
-    instansi: "SMK" ,
-    coverImage: gallery3,
-    mediaCount: 8,
-    date: "2024-03-10",
-    location: "SMA Negeri 1 Kendari",
-    media: [
-      {
-        id: "2",
-        type: "foto",
-        url: gallery3,
-        thumbnail: gallery3,
-        title: "Aktivitas Siswa di Kelas",
-        description:
-          "Siswa-siswa sedang aktif belajar dalam suasana kelas yang kondusif",
-      },
-    ],
-  },
-  {
-    id: "3",
-    title: "Rapat Koordinasi Guru",
-    category: "video",
-    instansi: "SMA" ,
-    coverImage: gallery4,
-    mediaCount: 3,
-    date: "2024-03-08",
-    location: "Aula Dinas Pendidikan",
-    media: [
-      {
-        id: "3",
-        type: "video",
-        url: "https://www.youtube.com/embed/S_T0zR_qX_4",
-        thumbnail: gallery4,
-        title: "Video Rapat Koordinasi",
-        description:
-          "Dokumentasi rapat koordinasi antara guru dan pengawas pendidikan",
-      },
-    ],
-  },
-  {
-    id: "4",
-    title: "Upacara Wisuda",
-    category: "foto",
-    instansi: "SMA" ,
-    coverImage: gallery5,
-    mediaCount: 12,
-    date: "2024-03-05",
-    location: "Universitas Halu Oleo",
-    media: [
-      {
-        id: "4",
-        type: "foto",
-        url: gallery5,
-        thumbnail: gallery5,
-        title: "Upacara Wisuda Sarjana",
-        description: "Momen sakral wisuda lulusan program studi pendidikan",
-      },
-    ],
-  },
-  {
-    id: "5",
-    title: "Workshop Teknologi Pendidikan",
-    category: "video",
-    instansi: "SMA" ,
-    coverImage: teacherMeeting,
-    mediaCount: 6,
-    date: "2024-03-01",
-    location: "Lab Komputer SMAN 2",
-    media: [
-      {
-        id: "5",
-        type: "video",
-        url: "https://www.youtube.com/embed/S_T0zR_qX_4",
-        thumbnail: gallery2,
-        title: "Workshop Digital Learning",
-        description: "Pelatihan penggunaan teknologi dalam pembelajaran modern",
-      },
-    ],
-  },
-  {
-    id: "6",
-    title: "Kunjungan Kerja Kepala Dinas",
-    category: "foto",
-    instansi: "SMA" ,
-    coverImage: gallery6,
-    mediaCount: 4,
-    date: "2024-02-28",
-    location: "SD Negeri 5 Kendari",
-    media: [
-      {
-        id: "6",
-        type: "foto",
-        url: gallery6,
-        thumbnail: gallery6,
-        title: "Monitoring Sekolah",
-        description: "Kunjungan monitoring dan evaluasi fasilitas sekolah",
-      },
-    ],
-  },
-  {
-    id: "7",
-    title: "Pelatihan Guru PAUD",
-    category: "video",
-    instansi: "SLB" ,
-    coverImage: gallery3,
-    mediaCount: 5,
-    date: "2024-02-25",
-    location: "PAUD Terpadu Kendari",
-    media: [
-      {
-        id: "7",
-        type: "video",
-        url: "https://www.youtube.com/embed/4UozJ8X7-x8",
-        thumbnail: gallery7,
-        title: "Pelatihan PAUD",
-        description:
-          "Workshop pengembangan metode pembelajaran untuk guru PAUD",
-      },
-    ],
-  },
-  {
-    id: "8",
-    title: "Dokumentasi Sekolah Alam",
-    category: "foto",
-    instansi: "SLB" ,
-    coverImage: gallery7,
-    mediaCount: 7,
-    date: "2024-02-20",
-    location: "Sekolah Alam Kendari",
-    media: [
-      {
-        id: "8",
-        type: "foto",
-        url: gallery7,
-        thumbnail: graduation,
-        title: "Pembelajaran Outdoor",
-        description: "Kegiatan pembelajaran di alam terbuka",
-      },
-    ],
-  },
-  {
-    id: "9",
-    title: "Seminar Pendidikan Digital",
-    category: "video",
-    instansi: "SMK" ,
-    coverImage: gallery3,
-    mediaCount: 4,
-    date: "2024-02-15",
-    location: "Hotel Santika Kendari",
-    media: [
-      {
-        id: "9",
-        type: "video",
-        url: "https://www.youtube.com/embed/4UozJ8X7-x8",
-        thumbnail: teacherMeeting,
-        title: "Seminar Digital",
-        description: "Seminar tentang transformasi pendidikan digital",
-      },
-    ],
-  },
-];
-
 const Galeri: React.FC = () => {
+  const { galeri, isLoading } = useGetGaleri();
+  const album = transformGaleriToAlbums(galeri);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<
     "semua" | "foto" | "video"
@@ -279,6 +70,10 @@ const Galeri: React.FC = () => {
   >("semua");
   const [showInstansiDropdown, setShowInstansiDropdown] = useState(false);
   const [sortOrder, setSortOrder] = useState<"terbaru" | "terlama">("terbaru");
+
+  type CategoryType = "semua" | "foto" | "video";
+  type InstansiType = "semua" | "SMA" | "SMK" | "SLB";
+  type SortType = "terbaru" | "terlama";
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
@@ -298,14 +93,15 @@ const Galeri: React.FC = () => {
   }, [isMobile]);
 
   // Filter and sort albums
-  const filteredAlbums = dummyAlbums
-    .filter((album) => {
-      const matchesSearch =
-        album.title.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredAlbums = album
+    ?.filter((album) => {
+      const matchesSearch = album?.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
       const matchesCategory =
-        categoryFilter === "semua" || album.category === categoryFilter;
+        categoryFilter === "semua" || album?.category === categoryFilter;
       const matchesInstansi =
-        instansiFilter === "semua" || album.instansi === instansiFilter;
+        instansiFilter === "semua" || album?.instansi === instansiFilter;
       return matchesSearch && matchesCategory && matchesInstansi;
     })
     .sort((a, b) => {
@@ -341,7 +137,22 @@ const Galeri: React.FC = () => {
   );
 
   const handleAlbumClick = (album: Album) => {
-    setSelectedAlbum(album);
+    const albums = {
+      ...album,
+      media: [
+        {
+          description: album?.description,
+          id: album?.id,
+          url: album?.coverImage,
+          thumbnail: album?.coverImage,
+          title: album?.title,
+          type: album?.category,
+        },
+        ...album.media,
+      ],
+    };
+
+    setSelectedAlbum(albums);
     setSelectedMediaIndex(0);
   };
 
@@ -371,7 +182,7 @@ const Galeri: React.FC = () => {
   };
 
   // Reset pagination when category filter changes
-  const handleCategoryChange = (category: "semua" | "foto" | "video"  ) => {
+  const handleCategoryChange = (category: "semua" | "foto" | "video") => {
     setCategoryFilter(category);
     setFotoCurrentPage(1);
     setVideoCurrentPage(1);
@@ -380,14 +191,15 @@ const Galeri: React.FC = () => {
 
   // Fungsi untuk mengecek apakah URL adalah video YouTube
   const isYouTubeUrl = (url: string) => {
-    return url.includes('youtube.com') || url.includes('youtu.be');
+    return url.includes("youtube.com") || url.includes("youtu.be");
   };
 
   // Fungsi untuk mendapatkan ID video YouTube dari URL
   const getYouTubeId = (url: string) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+    return match && match[2].length === 11 ? match[2] : null;
   };
 
   // Render media content berdasarkan jenis media
@@ -417,7 +229,7 @@ const Galeri: React.FC = () => {
           );
         }
       }
-      
+
       // Jika video biasa, gunakan tag video
       return (
         <video
@@ -432,7 +244,7 @@ const Galeri: React.FC = () => {
   // Render album cards component
   const renderAlbumCard = (album: Album) => (
     <Card
-      key={album.id}
+      key={album.id + Math.random() * 100}
       className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => handleAlbumClick(album)}
     >
@@ -464,7 +276,7 @@ const Galeri: React.FC = () => {
         </div>
         <div className="absolute bottom-3 left-3">
           <Badge variant="outline" className="bg-white bg-opacity-90">
-            {album.mediaCount} Media
+            {album.mediaCount > 0 ? album.mediaCount : 1} Media
           </Badge>
         </div>
       </div>
@@ -498,7 +310,7 @@ const Galeri: React.FC = () => {
   // Render album list item component
   const renderAlbumListItem = (album: Album) => (
     <Card
-      key={album.id}
+      key={album.id + Math.random() * 100}
       className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => handleAlbumClick(album)}
     >
@@ -591,7 +403,7 @@ const Galeri: React.FC = () => {
             onClick={() => setCurrentPage(page)}
             className={`border-2 ${
               page === currentPage
-                ? "bg-gallery-primary hover:bg-gallery-primary-dark"
+                ? "bg-gallery-primary bg-blue-500 hover:bg-gallery-primary-dark"
                 : ""
             }`}
           >
@@ -617,7 +429,7 @@ const Galeri: React.FC = () => {
       {/* Hero Section */}
       <section
         className="relative py-20 text-white bg-cover bg-center"
-        style={{ backgroundImage: `url(${BgImage})`  }}
+        style={{ backgroundImage: `url(${BgImage})` }}
       >
         {/* Overlay warna biru dengan opacity */}
         <div className="absolute inset-0 bg-blue-900/70"></div>
@@ -690,7 +502,9 @@ const Galeri: React.FC = () => {
                       <button
                         key={category}
                         className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
-                        onClick={() => handleCategoryChange(category as any)}
+                        onClick={() =>
+                          handleCategoryChange(category as CategoryType)
+                        }
                       >
                         {category === "semua" ? "Semua" : category}
                       </button>
@@ -698,7 +512,6 @@ const Galeri: React.FC = () => {
                   </div>
                 )}
               </div>
-          
 
               {/* Sort Filter */}
               <div className="relative">
@@ -717,7 +530,7 @@ const Galeri: React.FC = () => {
                         key={sort}
                         className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
                         onClick={() => {
-                          setSortOrder(sort as any);
+                          setSortOrder(sort as SortType);
                           setShowSortDropdown(false);
                         }}
                       >
@@ -729,33 +542,34 @@ const Galeri: React.FC = () => {
               </div>
 
               <div className="relative">
-              <Button
-                variant="outline"
-                onClick={() => setShowInstansiDropdown(!showInstansiDropdown)}
-                className="border-2 hover:border-gallery-primary"
-              >
-                <Filter className="h-4 w-4 mr-2" />
-                {instansiFilter === "semua" ? "Semua Instansi" : instansiFilter}
-                <ChevronDown className="h-4 w-4 ml-2" />
-              </Button>
-              {showInstansiDropdown && (
-                <div className="absolute top-full mt-1 left-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
-                  {["semua", "SMA", "SMK", "SLB"].map((instansi) => (
-                    <button
-                      key={instansi}
-                      className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
-                      onClick={() => {
-                        setInstansiFilter(instansi as any);
-                        setShowInstansiDropdown(false);
-                      }}
-                    >
-                      {instansi === "semua" ? "Semua Instansi" : instansi}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
+                <Button
+                  variant="outline"
+                  onClick={() => setShowInstansiDropdown(!showInstansiDropdown)}
+                  className="border-2 hover:border-gallery-primary"
+                >
+                  <Filter className="h-4 w-4 mr-2" />
+                  {instansiFilter === "semua"
+                    ? "Semua Instansi"
+                    : instansiFilter}
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+                {showInstansiDropdown && (
+                  <div className="absolute top-full mt-1 left-0 bg-white border-2 border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                    {["semua", "SMA", "SMK", "SLB"].map((instansi) => (
+                      <button
+                        key={instansi}
+                        className="w-full text-left px-4 py-2 hover:bg-gallery-bg-light capitalize"
+                        onClick={() => {
+                          setInstansiFilter(instansi as InstansiType);
+                          setShowInstansiDropdown(false);
+                        }}
+                      >
+                        {instansi === "semua" ? "Semua Instansi" : instansi}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* View Toggle - Hidden on mobile */}
@@ -881,12 +695,11 @@ const Galeri: React.FC = () => {
                   {selectedAlbum.title}
                 </DialogTitle>
               </DialogHeader>
-              
+
               <div className="space-y-6">
                 {/* Main Media Display */}
                 <div className="relative">
                   {renderMediaContent(selectedAlbum.media[selectedMediaIndex])}
-
                   {/* Navigation Buttons */}
                   {selectedAlbum.media.length > 1 && (
                     <>
@@ -937,7 +750,6 @@ const Galeri: React.FC = () => {
                         {selectedAlbum.media[selectedMediaIndex]?.description}
                       </p>
                     </div>
-                    
                   </div>
 
                   {/* Media Thumbnails */}
