@@ -83,7 +83,7 @@ const FAQSection = () => {
         </Accordion>
 
         {/* CTA */}
-        <div className="text-center mt-12 p-8 bg-gradient-to-r from-government-blue/5 to-education-green/5 rounded-lg">
+        {/* <div className="text-center mt-12 p-8 bg-gradient-to-r from-government-blue/5 to-education-green/5 rounded-lg">
           <h3 className="text-xl font-semibold mb-2">
             Tidak menemukan jawaban?
           </h3>
@@ -102,7 +102,7 @@ const FAQSection = () => {
               Hubungi Kami
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

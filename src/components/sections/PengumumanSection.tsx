@@ -43,6 +43,7 @@ const PengumumanSection = () => {
               />
             </div>
 
+            {/* Konten menempel rapat di bawah gambar */}
             <div className="p-4 flex flex-col gap-2">
               <h2 className="text-2xl font-bold line-clamp-2">
                 {pengumuman?.[0]?.judul}
