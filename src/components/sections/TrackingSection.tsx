@@ -3,26 +3,39 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, MessageSquare } from "lucide-react";
+import { Search, MessageSquare, AlertCircle } from "lucide-react";
 import TrackingBg from "@/assets/tracking.jpg";
 import TrackingModal from "@/components/TrackingModal";
 import TrackingStatusList from "@/components/TrackingStatusList";
-import { getTrackingStatus } from "@/services/api"; // API kamu
+
+import { getTrackingStatus } from "@/services/api";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function TrackingSection() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trackingData, setTrackingData] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleTrack = async () => {
-    const data = await getTrackingStatus(trackingNumber);
-    if (data) {
-      setTrackingData(data);
-      setIsModalOpen(true);
+    if (!trackingNumber.trim()) {
+      setErrorMessage("Nomor tracking tidak boleh kosong.");
+      return;
+    }
+
+    try {
+      const data = await getTrackingStatus(trackingNumber);
+      if (data) {
+        setTrackingData(data);
+        setIsModalOpen(true);
+      } else {
+        setErrorMessage("❌ Nomor tracking tidak valid. Silakan periksa kembali.");
+      }
+    } catch (error) {
+      setErrorMessage("❌ Nomor tracking tidak valid. Silakan periksa kembali.");
     }
   };
 
-  // Contoh data list status
   const sampleStatusList = [
     { kode_tracking: "TRK2024001234", status: "Selesai", judul: "Legalisasi ijazah selesai" },
     { kode_tracking: "TRK2024001235", status: "Dalam Proses", judul: "Pengaduan fasilitas" },
@@ -70,13 +83,23 @@ export default function TrackingSection() {
                       placeholder="Masukkan nomor tracking (contoh: TRK2024001234)"
                       value={trackingNumber}
                       onChange={(e) => setTrackingNumber(e.target.value)}
-                      className="flex-1 bg-white/20 backdrop-blur-md border border-white/30 text-white"
+                      className="flex-1 bg-white/20 backdrop-blur-md border border-white/30 text-white placeholder:text-white/70"
                     />
                     <Button onClick={handleTrack} className="bg-gradient-primary">
                       <Search className="w-4 h-4 mr-2" />
                       Lacak
                     </Button>
                   </div>
+
+                  {/* Tampilkan pesan error jika nomor tracking tidak valid */}
+                  {errorMessage && (
+                    <Alert variant="destructive" className="mt-3 bg-red-500/10 border-red-500/30">
+                      <AlertCircle className="h-4 w-4 text-red-500" />
+                      <AlertDescription className="text-sm text-red-300">
+                        {errorMessage}
+                      </AlertDescription>
+                    </Alert>
+                  )}
                 </div>
               </div>
             </Card>

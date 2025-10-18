@@ -16,11 +16,9 @@ interface TrackingModalProps {
     status: string;
     judul: string;
     bidang: string;
-    created_at: string; // waktu laporan
+    created_at: string;
   } | null;
 }
-
-
 
 const getStatusIcon = (status: string) => {
   switch (status) {
@@ -52,20 +50,37 @@ const getStatusColor = (status: string) => {
   }
 };
 
-const isOutsideWorkingHours = (createdAt: string) => {
-  const date = new Date(createdAt);
-  const hour = date.getHours();
-  return hour >= 17 || hour < 8; // di luar jam kerja 08.00–17.00
-};
-
 export default function TrackingModal({
   isOpen,
   onClose,
   trackingData,
 }: TrackingModalProps) {
-  if (!trackingData) return null;
+  // Jika kode tracking tidak ditemukan
+  if (!trackingData) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-lg rounded-2xl shadow-xl bg-white p-6">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-900">
+              Status Laporan
+            </DialogTitle>
+            <DialogDescription className="text-gray-500">
+              Informasi status terbaru dari laporan Anda
+            </DialogDescription>
+          </DialogHeader>
 
-  const laporMalam = isOutsideWorkingHours(trackingData.created_at);
+          <Alert variant="destructive" className="mt-4">
+            <AlertCircle className="h-5 w-5 text-red-600" />
+            <AlertTitle>Nomor Tracking Tidak Valid</AlertTitle>
+            <AlertDescription>
+              Nomor tracking yang Anda masukkan tidak ditemukan.
+              Silakan periksa kembali nomor tracking dan coba lagi.
+            </AlertDescription>
+          </Alert>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -81,10 +96,16 @@ export default function TrackingModal({
 
         {/* Status */}
         <div className="mt-4 flex items-start space-x-4 border-b pb-4">
-          <div className="flex-shrink-0">{getStatusIcon(trackingData.status)}</div>
+          <div className="flex-shrink-0">
+            {getStatusIcon(trackingData.status)}
+          </div>
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
-              <span className={`text-lg font-semibold ${getStatusColor(trackingData.status)}`}>
+              <span
+                className={`text-lg font-semibold ${getStatusColor(
+                  trackingData.status
+                )}`}
+              >
                 {trackingData.status}
               </span>
               <span className="text-sm text-gray-500 font-mono">
@@ -93,30 +114,31 @@ export default function TrackingModal({
             </div>
             <p className="text-gray-800">{trackingData.judul}</p>
             <p className="text-sm text-gray-500 mt-1">
-              Bidang: <span className="font-medium capitalize">{trackingData.bidang}</span>
+              Bidang:{" "}
+              <span className="font-medium capitalize">
+                {trackingData.bidang}
+              </span>
             </p>
           </div>
         </div>
 
-
-
         <div className="mt-4 text-sm text-gray-600 space-y-2">
-          {/* <p>
-            📌 <span className="font-semibold">Catatan:</span> Jika belum ada perubahan status,
-            silakan cek kembali beberapa waktu kemudian.
-          </p> */}
           <p>
-            ⏰ <span className="font-semibold">Jam Kerja:</span> Laporan yang masuk di luar jam kerja 
-            atau pada hari Sabtu dan Minggu akan <span className="font-medium">diproses pada hari dan jam kerja berikutnya</span>.
-            Laporan Anda tetap tercatat dan akan segera ditindaklanjuti.
+            ⏰ <span className="font-semibold">Jam Kerja:</span> Laporan yang
+            masuk di luar jam kerja atau pada hari Sabtu dan Minggu akan{" "}
+            <span className="font-medium">
+              diproses pada hari dan jam kerja berikutnya
+            </span>
+            . Laporan Anda tetap tercatat dan akan segera ditindaklanjuti.
           </p>
           <p>
-            📧 <span className="font-semibold">Tips:</span> Pastikan email Anda aktif dan periksa
-            folder <span className="font-medium">Inbox</span> maupun <span className="font-medium">Spam</span> 
-            secara rutin untuk menghindari notifikasi yang terlewat.
+            📧 <span className="font-semibold">Tips:</span> Pastikan email Anda
+            aktif dan periksa folder{" "}
+            <span className="font-medium">Inbox</span> maupun{" "}
+            <span className="font-medium">Spam</span> secara rutin untuk
+            menghindari notifikasi yang terlewat.
           </p>
         </div>
-
       </DialogContent>
     </Dialog>
   );
