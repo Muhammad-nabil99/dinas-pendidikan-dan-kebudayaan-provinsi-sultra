@@ -1,20 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  Camera,
-  Play,
-  X,
-  ChevronLeft,
-  ChevronRight,
-  Download,
-} from "lucide-react";
+import { ArrowRight, Camera, Play, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { dummyAlbums } from "@/pages/Galery";
 import ReactDOM from "react-dom";
 import useGetGaleri from "@/features/galeri/useGetGaleri";
 import { transformGaleriToAlbums } from "@/utils/help";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Define the type for a single album/gallery item
 export interface GalleryItem {
@@ -99,7 +90,8 @@ const GallerySection = () => {
               className="group overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
               <div className="relative aspect-video overflow-hidden">
-                <img
+                <LazyLoadImage
+                  effect={isLoading && "true"}
                   loading="lazy"
                   src={item.coverImage}
                   alt={item.title}
@@ -186,7 +178,8 @@ const GallerySection = () => {
                     className="w-full rounded-lg max-h-[60vh] object-cover"
                   />
                 ) : (
-                  <img
+                  <LazyLoadImage
+                    effect={isLoading && "blur"}
                     loading="lazy"
                     src={selectedItem.coverImage}
                     alt={selectedItem.title}

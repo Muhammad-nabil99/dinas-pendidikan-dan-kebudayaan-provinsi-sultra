@@ -3,13 +3,9 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import {
   Search,
@@ -58,7 +54,8 @@ interface Album {
 }
 
 const Galeri: React.FC = () => {
-  const { galeri, isLoading } = useGetGaleri();
+  const { galeri,isLoading } = useGetGaleri();
+
   const album = transformGaleriToAlbums(galeri);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -137,20 +134,24 @@ const Galeri: React.FC = () => {
   );
 
   const handleAlbumClick = (album: Album) => {
-    const albums = {
-      ...album,
-      media: [
-        {
-          description: album?.description,
-          id: album?.id,
-          url: album?.coverImage,
-          thumbnail: album?.coverImage,
-          title: album?.title,
-          type: album?.category,
-        },
-        ...album.media,
-      ],
-    };
+    const isVideo = album?.category == "video";
+
+    const albums = isVideo
+      ? album
+      : {
+          ...album,
+          media: [
+            {
+              description: album?.description,
+              id: album?.id,
+              url: album?.coverImage,
+              thumbnail: album?.coverImage,
+              title: album?.title,
+              type: album?.category,
+            },
+            ...album.media,
+          ],
+        };
 
     setSelectedAlbum(albums);
     setSelectedMediaIndex(0);
@@ -206,11 +207,11 @@ const Galeri: React.FC = () => {
   const renderMediaContent = (media: Media) => {
     if (media.type === "foto") {
       return (
-        <img
+        <LazyLoadImage
           loading="lazy"
           src={media.url}
           alt={media.title}
-          className="w-full h-64 sm:h-80 object-cover object-center rounded-lg"
+          className="w-full h-64 sm:h-96 object-cover object-center rounded-lg"
         />
       );
     } else {
@@ -249,7 +250,8 @@ const Galeri: React.FC = () => {
       onClick={() => handleAlbumClick(album)}
     >
       <div className="relative overflow-hidden">
-        <img
+        <LazyLoadImage
+          effect={isLoading && "blur"}
           loading="lazy"
           src={album.coverImage}
           alt={album.title}
@@ -317,7 +319,8 @@ const Galeri: React.FC = () => {
       <CardContent className="p-4">
         <div className="flex gap-4">
           <div className="relative flex-shrink-0">
-            <img
+            <LazyLoadImage
+              effect={isLoading && "blur"}
               loading="lazy"
               src={album.coverImage}
               alt={album.title}
@@ -691,9 +694,9 @@ const Galeri: React.FC = () => {
           {selectedAlbum && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-xl text-gallery-text-primary">
-                  {selectedAlbum.title}
-                </DialogTitle>
+                {/* <DialogTitle className="text-xl text-gallery-text-primary">
+                  {selectedAlbum.title} 
+                </DialogTitle> */}
               </DialogHeader>
 
               <div className="space-y-6">
@@ -731,27 +734,26 @@ const Galeri: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
-                      <h3 className="font-semibold text-lg text-gallery-text-primary mb-2">
-                        {selectedAlbum.media[selectedMediaIndex]?.title}
+                      <h3 className="font-semibold text-lg text-gallery-text-primary">
+                        {selectedAlbum?.title}
                       </h3>
-                      <div className="flex gap-2 mb-2">
+                      <div className="flex gap-2">
                         {selectedAlbum.media[selectedMediaIndex]?.type ===
                           "video" && (
                           <Badge className="bg-gallery-primary hover:bg-gallery-primary-dark">
                             Video
                           </Badge>
                         )}
-                        <Badge variant="outline">
+                        {/* <Badge variant="outline">
                           {selectedMediaIndex + 1} dari{" "}
                           {selectedAlbum.media.length}
-                        </Badge>
+                        </Badge> */}
                       </div>
-                      <p className="text-gallery-text-secondary">
+                      <p className="text-sm text-gallery-text-secondary">
                         {selectedAlbum.media[selectedMediaIndex]?.description}
                       </p>
                     </div>
                   </div>
-
                   {/* Media Thumbnails */}
                   {selectedAlbum.media.length > 1 && (
                     <div className="space-y-2">
@@ -769,7 +771,8 @@ const Galeri: React.FC = () => {
                             }`}
                             onClick={() => handleMediaSelect(index)}
                           >
-                            <img
+                            <LazyLoadImage
+                              effect={isLoading && "blur"}
                               loading="lazy"
                               src={media.thumbnail}
                               alt={media.title}

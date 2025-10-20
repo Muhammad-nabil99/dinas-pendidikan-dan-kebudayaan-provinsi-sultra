@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import BgImage from "../../assets/tracking.jpg";
 import useGetBerita from "@/features/news/useGetBerita";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const News = () => {
   const [searchItem, setSearchItem] = useState("");
@@ -137,7 +138,8 @@ const News = () => {
                     className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
                   >
                     <div className="aspect-video overflow-hidden">
-                      <img
+                      <LazyLoadImage
+                        effect={isLoading && "blur"}
                         loading="lazy"
                         src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
                         alt={item.judul}

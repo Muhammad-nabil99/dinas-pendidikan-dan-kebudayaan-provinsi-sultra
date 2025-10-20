@@ -24,13 +24,14 @@ import {
   MapPin,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Footer from "@/components/layout/Footer";
 import BgImage from "../../assets/tracking.jpg";
 import useGetInovasi from "@/features/inovasi/useGetInovasi";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Inovasi = () => {
   const { inovasi, isLoading } = useGetInovasi();
+  const [filter, setFilter] = useState("semua");
   const [searchTerm, setSearchTerm] = useState("");
 
   const achievements = [
@@ -50,7 +51,6 @@ const Inovasi = () => {
       description: "Kontribusi dalam Smart Education",
     },
   ];
-
   const stats = [
     { label: "Inovasi Aktif", value: "25+", icon: Lightbulb },
     { label: "Sekolah Terdampak", value: "350+", icon: Target },
@@ -107,7 +107,7 @@ const Inovasi = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-muted/30">
+      {/* <section className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats?.map((stat, index) => (
@@ -127,7 +127,7 @@ const Inovasi = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Main Content */}
       {isLoading ? (
@@ -136,22 +136,22 @@ const Inovasi = () => {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Tabs defaultValue="innovations" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="innovations">Inovasi Terbaru</TabsTrigger>
-                <TabsTrigger value="achievements">Pencapaian</TabsTrigger>
-                {/* <TabsTrigger value="roadmap">Roadmap</TabsTrigger> */}
-              </TabsList>
+              {/* <TabsList className="grid w-full grid-cols-2"> */}
+              {/* <TabsTrigger value="innovations">Inovasi Terbaru</TabsTrigger>
+                <TabsTrigger value="achievements">Pencapaian</TabsTrigger> */}
+              {/* <TabsTrigger value="roadmap">Roadmap</TabsTrigger> */}
+              {/* </TabsList> */}
 
               <TabsContent value="innovations" className="space-y-6">
                 {/* Search and Filter */}
                 <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                  <div className="relative flex-1 max-w-md">
+                  <div className="relative flex-1 ">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                     <Input
                       placeholder="Cari inovasi..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 w-full"
                     />
                   </div>
                   <Button variant="outline">
@@ -168,7 +168,8 @@ const Inovasi = () => {
                       className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
                     >
                       <div className="aspect-video overflow-hidden">
-                        <img
+                        <LazyLoadImage
+                          effect={isLoading && "blur"}
                           loading="lazy"
                           src={`https://dashboard.btikpsultra.my.id/storage/${innovation?.coverImage}`}
                           alt={innovation?.judul}

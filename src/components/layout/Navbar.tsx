@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Navbar = () => {
   const { dashboard, isLoading } = useGetDashboard();
@@ -51,7 +52,7 @@ const Navbar = () => {
       ],
     },
     { href: "/laporan-kegiatan", label: "Laporan Kegiatan" },
-    { href: "/ppid", label: "PPID" },
+    // { href: "/ppid", label: "PPID" },
     { href: "/inovasi", label: "Inovasi" },
     { href: "/galeri", label: "Galeri" },
   ];
@@ -69,7 +70,11 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-              <img loading="lazy" src={dashboard?.logo?.url} />
+              <LazyLoadImage
+                effect={isLoading && "blur"}
+                loading="lazy"
+                src={dashboard?.logo?.url}
+              />
             </div>
 
             <div className="hidden sm:block">

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Navbar from "@/components/layout/Navbar";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   Calendar,
   ArrowLeft,
@@ -20,8 +20,6 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import berita1 from "../assets/berita-1.png";
-import berita2 from "../assets/berita-2.png";
 import BgImage from "../../assets/tracking.jpg";
 import useGetAgenda from "@/features/agenda/useGetAgenda";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
@@ -29,103 +27,7 @@ import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
 const Agenda = () => {
   const [searchItem, setSearchItem] = useState("");
   const { agenda, isLoading } = useGetAgenda();
-
-  // const agenda = [
-  //   {
-  //     id: 1,
-  //     title:
-  //       "Sinergi Kemendikbudristek dan Pemerintah Daerah dalam Membangun Ekosistem Pendidikan Digital",
-  //     excerpt:
-  //       "Dalam rangka memperkuat sinergi dengan pemerintah daerah terkait pemanfaatan platform teknologi pendidikan di tahun 2024...",
-  //     date: "15 Desember 2024",
-  //     time: "2 hari yang lalu",
-  //     category: "Program",
-  //     image: berita1,
-  //     featured: true,
-  //   },
-  //   {
-  //     id: 2,
-  //     title:
-  //       "Ribuan Pelajar SMA dan SMK Sulawesi Tenggara Bentangkan Bendera Merah Putih sepanjang 17 Kilometer untuk Memperingati Kemerdekaan RI ke-78",
-  //     excerpt:
-  //       "Ribuan pelajar dari berbagai Sekolah Menengah Atas (SMA) dan Sekolah Menengah Kejuruan (SMK) di Sulawesi Tenggara mengambil bagian dalam aksi patriotik",
-  //     date: "12 Desember 2024",
-  //     time: "5 hari yang lalu",
-  //     category: "Prestasi",
-  //     image: berita2,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Workshop Peningkatan Kompetensi Guru di Era Digital",
-  //     excerpt:
-  //       "Lebih dari 1000 guru mengikuti workshop peningkatan kompetensi...",
-  //     date: "10 Desember 2024",
-  //     time: "1 minggu yang lalu",
-  //     category: "Pelatihan",
-  //     image:
-  //       "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=300&fit=crop",
-  //     featured: false,
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Pembangunan 50 Ruang Kelas Baru di Kabupaten Konawe",
-  //     excerpt:
-  //       "Infrastruktur pendidikan terus ditingkatkan dengan pembangunan ruang kelas...",
-  //     date: "8 Desember 2024",
-  //     time: "1 minggu yang lalu",
-  //     category: "Infrastruktur",
-  //     image:
-  //       "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=600&h=300&fit=crop",
-  //     featured: false,
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "Beasiswa Unggulan 2024 untuk Siswa Berprestasi",
-  //     excerpt:
-  //       "Program beasiswa unggulan kembali dibuka untuk siswa berprestasi...",
-  //     date: "5 Desember 2024",
-  //     time: "2 minggu yang lalu",
-  //     category: "Beasiswa",
-  //     image:
-  //       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=300&fit=crop",
-  //     featured: false,
-  //   },
-  //   {
-  //     id: 6,
-  //     title: "Pelaksanaan Ujian Nasional Berbasis Komputer 2024",
-  //     excerpt: "Ujian Nasional Berbasis Komputer (UNBK) telah dilaksanakan...",
-  //     date: "1 Desember 2024",
-  //     time: "2 minggu yang lalu",
-  //     category: "Ujian",
-  //     image:
-  //       "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=600&h=300&fit=crop",
-  //     featured: false,
-  //   },
-  //   {
-  //     id: 7,
-  //     title: "Kerja Sama dengan Universitas Terkemuka untuk Dual Degree",
-  //     excerpt:
-  //       "Dinas Pendidikan Sultra menjalin kerja sama dengan beberapa universitas...",
-  //     date: "28 November 2024",
-  //     time: "3 minggu yang lalu",
-  //     category: "Kerjasama",
-  //     image:
-  //       "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=300&fit=crop",
-  //     featured: false,
-  //   },
-  //   {
-  //     id: 8,
-  //     title: "Festival Seni dan Budaya Sekolah Se-Sulawesi Tenggara",
-  //     excerpt:
-  //       "Festival seni dan budaya tingkat provinsi diikuti oleh 200 sekolah...",
-  //     date: "25 November 2024",
-  //     time: "3 minggu yang lalu",
-  //     category: "Event",
-  //     image:
-  //       "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=300&fit=crop",
-  //     featured: false,
-  //   },
-  // ];
+  const [selectedSchool, SetSelectedSchool] = useState("Semua");
 
   const categories = [
     "Semua",
@@ -138,12 +40,17 @@ const Agenda = () => {
     "Kerjasama",
     "Event",
   ];
+  const schools = ["Semua", "SMA", "SMK", "SLB"];
 
   // search item agenda
   const filterAgenda = agenda?.filter((item) => {
     if (item?.judul?.trim() === "") return;
     return item?.judul?.toLowerCase().includes(searchItem.toLowerCase());
   });
+  useEffect(() => {
+    // console.log("testing");
+    console.log(selectedSchool);
+  }, [selectedSchool, filterAgenda, SetSelectedSchool]);
 
   // --- Pagination setup ---
   const [currentPage, setCurrentPage] = useState(1);
@@ -216,8 +123,29 @@ const Agenda = () => {
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
+                      <SelectItem
+                        key={category}
+                        onChange={() => SetSelectedSchool(category)}
+                        value={category}
+                      >
                         {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select defaultValue="Semua">
+                  <SelectTrigger className="w-full sm:w-48">
+                    <Filter className="w-4 h-4 mr-2" />
+                    <SelectValue placeholder="Kategori" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {schools.map((school) => (
+                      <SelectItem
+                        key={school}
+                        onChange={() => SetSelectedSchool(school)}
+                        value={school}
+                      >
+                        {school}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -243,7 +171,8 @@ const Agenda = () => {
                     className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
                   >
                     <div className="aspect-video overflow-hidden">
-                      <img
+                      <LazyLoadImage
+                        effect={isLoading && "blue"}
                         loading="lazy"
                         src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
                         alt={item.judul}
