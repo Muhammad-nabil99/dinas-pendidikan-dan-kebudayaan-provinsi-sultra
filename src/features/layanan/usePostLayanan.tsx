@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function usePostLayanan() {
   const queryClient = useQueryClient();
-  const { mutateAsync: postLayanan, isPending : isLoading } = useMutation({
+  const { mutateAsync: postLayanan, isPending: isLoading } = useMutation({
     mutationFn: postApiLayanan,
     mutationKey: ["layanan"],
     onSuccess: () => {

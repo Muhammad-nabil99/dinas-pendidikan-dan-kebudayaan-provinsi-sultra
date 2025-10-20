@@ -12,7 +12,21 @@ export const getDashboard = async () => {
 };
 export const getBerita = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/berita");
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/berita"
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getDetailBerita = async (id: number) => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/berita/${id}`
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -34,10 +48,13 @@ export const postApiLayanan = async (data) => {
       formData.append("dokumen", data.dokumen);
     }
 
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/layanan", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/layanan",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,10 +86,11 @@ export const getTrackingStatus = async (kodeTracking: string) => {
     throw error;
   }
 };
-
 export const getProdukHukum = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/produk-hukum");
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/produk-hukum"
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -82,7 +100,21 @@ export const getProdukHukum = async () => {
 };
 export const getAgenda = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/agenda");
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/agenda"
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getDetailAgenda = async (id: number) => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/agenda/${id}`
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -92,7 +124,9 @@ export const getAgenda = async () => {
 };
 export const getPengumuman = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/pengumuman");
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/pengumuman"
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -102,7 +136,9 @@ export const getPengumuman = async () => {
 };
 export const getLaporanKegiatan = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/laporan");
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/laporan"
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -112,7 +148,9 @@ export const getLaporanKegiatan = async () => {
 };
 export const getInovasi = async () => {
   try {
-    const response = await fetch("https://dashboard.btikpsultra.my.id/api/inovasi");
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/inovasi"
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -120,4 +158,27 @@ export const getInovasi = async () => {
     console.log(error.message);
   }
 };
-
+export const getDetailInovasi = async (id: number) => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/inovasi/${id}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
+export const getGaleri = async () => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/galeri`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};

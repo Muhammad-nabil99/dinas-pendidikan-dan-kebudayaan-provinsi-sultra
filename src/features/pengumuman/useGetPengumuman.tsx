@@ -2,11 +2,11 @@ import { getAgenda, getLaporanKegiatan, getNews, getPengumuman } from "@/service
 import { useQuery } from "@tanstack/react-query";
 
 function useGetPengumuman() {
-  const { data, isLoading } = useQuery({
+  const { data : pengumuman, isLoading } = useQuery({
     queryKey: ["pengumuman"],
     queryFn: getPengumuman,
   });
 
-  return { data, isLoading };
+  return { pengumuman, isLoading };
 }
 export default useGetPengumuman;
