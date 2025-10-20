@@ -57,9 +57,8 @@ const HeroSection = () => {
     }
 
     return () => clearTimeout(timeout);
-  }, []);
-  
-  // }, [displayedText, isTyping, currentTextIndex]);
+  // }, []);
+  }, [displayedText, isTyping, currentTextIndex]);
 
   if (isLoading) return "loading...";
   // console.log('dashboard')

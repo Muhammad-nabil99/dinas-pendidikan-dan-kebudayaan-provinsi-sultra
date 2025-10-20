@@ -20,7 +20,7 @@ import {
   TrendingUp,
   ArrowLeft,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BgImage from "../../assets/tracking.jpg";
 import useGetLaporanKegiatan from "@/features/laporanKegiatan/useGetLaporanKegiatan";
@@ -29,7 +29,9 @@ import ActivityListLoadingSkeleton from "@/components/ActivityListLoadingSkeleto
 const LaporanKegiatan = () => {
   const { laporanKegiatan, isLoading } = useGetLaporanKegiatan();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = useState(
+    String(new Date().getFullYear())
+  );
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categories = [
