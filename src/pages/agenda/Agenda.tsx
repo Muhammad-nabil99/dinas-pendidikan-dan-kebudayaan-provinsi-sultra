@@ -27,30 +27,26 @@ import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
 const Agenda = () => {
   const [searchItem, setSearchItem] = useState("");
   const { agenda, isLoading } = useGetAgenda();
-  const [selectedSchool, SetSelectedSchool] = useState("Semua");
-
-  const categories = [
-    "Semua",
-    "Program",
-    "Prestasi",
-    "Pelatihan",
-    "Infrastruktur",
-    "Beasiswa",
-    "Ujian",
-    "Kerjasama",
-    "Event",
-  ];
+  const [selectedSchool, SetSelectedSchool] = useState("semua");
   const schools = ["Semua", "SMA", "SMK", "SLB"];
 
   // search item agenda
   const filterAgenda = agenda?.filter((item) => {
-    if (item?.judul?.trim() === "") return;
-    return item?.judul?.toLowerCase().includes(searchItem.toLowerCase());
+    // Search filter
+    const searchMatch =
+      searchItem === "" ||
+      item?.judul?.toLowerCase().includes(searchItem.toLowerCase());
+
+    // School filter
+    const schoolMatch =
+      selectedSchool === "" ||
+      selectedSchool.toLowerCase() === "semua" ||
+      item?.instansi?.toLowerCase().includes(selectedSchool.toLowerCase());
+
+
+    // All conditions must be true
+    return searchMatch && schoolMatch ;
   });
-  useEffect(() => {
-    // console.log("testing");
-    console.log(selectedSchool);
-  }, [selectedSchool, filterAgenda, SetSelectedSchool]);
 
   // --- Pagination setup ---
   const [currentPage, setCurrentPage] = useState(1);
@@ -116,35 +112,14 @@ const Agenda = () => {
                     className="pl-10"
                   />
                 </div>
-                <Select defaultValue="Semua">
+                <Select onValueChange={(value) => SetSelectedSchool(value)}>
                   <SelectTrigger className="w-full sm:w-48">
                     <Filter className="w-4 h-4 mr-2" />
-                    <SelectValue placeholder="Kategori" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem
-                        key={category}
-                        onChange={() => SetSelectedSchool(category)}
-                        value={category}
-                      >
-                        {category}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select defaultValue="Semua">
-                  <SelectTrigger className="w-full sm:w-48">
-                    <Filter className="w-4 h-4 mr-2" />
-                    <SelectValue placeholder="Kategori" />
+                    <SelectValue placeholder="Sekolah" />
                   </SelectTrigger>
                   <SelectContent>
                     {schools.map((school) => (
-                      <SelectItem
-                        key={school}
-                        onChange={() => SetSelectedSchool(school)}
-                        value={school}
-                      >
+                      <SelectItem key={school} value={school}>
                         {school}
                       </SelectItem>
                     ))}
@@ -164,60 +139,70 @@ const Agenda = () => {
         ) : (
           <section className="py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filterAgenda?.map((item) => (
-                  <Card
-                    key={item.id}
-                    className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
-                  >
-                    <div className="aspect-video overflow-hidden">
-                      <LazyLoadImage
-                        effect={isLoading && "blue"}
-                        loading="lazy"
-                        src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
-                        alt={item.judul}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between mb-3">
-                        <Badge
-                          variant="secondary"
-                          className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
-                        >
-                          {item.category}
-                        </Badge>
-                        <div className="flex items-center text-muted-foreground text-sm">
-                          <Clock className="w-4 h-4 mr-1" />
-                          {new Date(item?.created_at).toLocaleDateString()}
-                        </div>
+              <div
+                className={`${
+                  filterAgenda.length <= 0 ? "" : "grid grid-cols-1"
+                } md:grid-cols-2 lg:grid-cols-3 gap-8`}
+              >
+                {filterAgenda.length > 0 ? (
+                  filterAgenda?.map((item) => (
+                    <Card
+                      key={item.id}
+                      className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
+                    >
+                      <div className="aspect-video overflow-hidden">
+                        <LazyLoadImage
+                          effect={isLoading && "blue"}
+                          loading="lazy"
+                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                          alt={item.judul}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
-                      <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
-                        {item?.judul}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                        {item?.deskripsi}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm flex items-center gap-2 text-muted-foreground">
-                          <MapPin className={"w-4 h-4"} />
-                          {item?.lokasi}
-                        </span>
-                        <Link to={`/agenda/${item?.id}`}>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-government-blue hover:text-government-blue/80"
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between mb-3">
+                          <Badge
+                            variant="secondary"
+                            className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
                           >
-                            Baca Selengkapnya
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                            {item.category}
+                          </Badge>
+                          <div className="flex items-center text-muted-foreground text-sm">
+                            <Clock className="w-4 h-4 mr-1" />
+                            {new Date(item?.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
+                          {item?.judul}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                          {item?.deskripsi}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm flex items-center gap-2 text-muted-foreground">
+                            <MapPin className={"w-4 h-4"} />
+                            {item?.lokasi}
+                          </span>
+                          <Link to={`/agenda/${item?.id}`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-government-blue hover:text-government-blue/80"
+                            >
+                              Baca Selengkapnya
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : (
+                  <p className="text-center capitalize font-bold">
+                    kata kunci tidak ditemukan
+                  </p>
+                )}
               </div>
 
               {/* Pagination */}

@@ -20,23 +20,24 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 const News = () => {
   const [searchItem, setSearchItem] = useState("");
   const { berita, isLoading } = useGetBerita();
-
-  const categories = [
-    "Semua",
-    "Program",
-    "Prestasi",
-    "Pelatihan",
-    "Infrastruktur",
-    "Beasiswa",
-    "Ujian",
-    "Kerjasama",
-    "Event",
-  ];
+  const [selectedSchool, SetSelectedSchool] = useState("semua");
+  const schools = ["Semua", "SMA", "SMK", "SLB"];
 
   // serach item berita
   const filterBerita = berita?.filter((item) => {
-    if (item?.judul?.trim() === "") return;
-    return item?.judul?.toLowerCase().includes(searchItem.toLowerCase());
+    // Search filter
+    const searchMatch =
+      searchItem === "" ||
+      item?.judul?.toLowerCase().includes(searchItem.toLowerCase());
+
+    // School filter
+    const schoolMatch =
+      selectedSchool === "" ||
+      selectedSchool.toLowerCase() === "semua" ||
+      item?.instansi?.toLowerCase().includes(selectedSchool.toLowerCase());
+
+    // All conditions must be true
+    return searchMatch && schoolMatch;
   });
   // --- Pagination setup ---
   const [currentPage, setCurrentPage] = useState(1);
@@ -104,15 +105,15 @@ const News = () => {
                     className="pl-10"
                   />
                 </div>
-                <Select defaultValue="Semua">
+                <Select onValueChange={(value) => SetSelectedSchool(value)}>
                   <SelectTrigger className="w-full sm:w-48">
                     <Filter className="w-4 h-4 mr-2" />
                     <SelectValue placeholder="Kategori" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories?.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
+                    {schools?.map((school) => (
+                      <SelectItem key={school} value={school}>
+                        {school}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -131,59 +132,69 @@ const News = () => {
         ) : (
           <section className="py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filterBerita?.map((item) => (
-                  <Card
-                    key={item.id}
-                    className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
-                  >
-                    <div className="aspect-video overflow-hidden">
-                      <LazyLoadImage
-                        effect={isLoading && "blur"}
-                        loading="lazy"
-                        src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
-                        alt={item.judul}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between mb-3">
-                        <Badge
-                          variant="secondary"
-                          className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
-                        >
-                          {item.category}
-                        </Badge>
-                        <div className="flex items-center text-muted-foreground text-sm">
-                          <Clock className="w-4 h-4 mr-1" />
-                          {new Date(item?.created_at).toLocaleDateString()}
-                        </div>
+              <div
+                className={`${
+                  filterBerita.length <= 0 ? "" : "grid grid-cols-1"
+                } md:grid-cols-2 lg:grid-cols-3 gap-8`}
+              >
+                {filterBerita.length > 0 ? (
+                  filterBerita?.map((item) => (
+                    <Card
+                      key={item.id}
+                      className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
+                    >
+                      <div className="aspect-video overflow-hidden">
+                        <LazyLoadImage
+                          effect={isLoading && "blur"}
+                          loading="lazy"
+                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                          alt={item.judul}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
-                      <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
-                        {item.judul}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                        {item.deskripsi}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          {new Date(item?.created_at).toLocaleDateString()}
-                        </span>
-                        <Link to={`/berita/${item.id}`}>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-government-blue hover:text-government-blue/80"
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between mb-3">
+                          <Badge
+                            variant="secondary"
+                            className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
                           >
-                            Baca Selengkapnya
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                            {item.category}
+                          </Badge>
+                          <div className="flex items-center text-muted-foreground text-sm">
+                            <Clock className="w-4 h-4 mr-1" />
+                            {new Date(item?.created_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
+                          {item.judul}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                          {item.deskripsi}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            {new Date(item?.created_at).toLocaleDateString()}
+                          </span>
+                          <Link to={`/berita/${item.id}`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-government-blue hover:text-government-blue/80"
+                            >
+                              Baca Selengkapnya
+                            </Button>
+                          </Link>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : (
+                  <p className="text-center capitalize font-bold">
+                    kata kunci tidak ditemukan
+                  </p>
+                )}
               </div>
 
               {/* Pagination */}
