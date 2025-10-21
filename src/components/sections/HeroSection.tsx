@@ -2,6 +2,7 @@ import useGetDashboard from "@/features/dashboard/useGetDashboard";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // The array of hero background images
 // const heroImage = [heroImage1, heroImage2, heroImage3];
@@ -57,11 +58,9 @@ const HeroSection = () => {
     }
 
     return () => clearTimeout(timeout);
-  // }, []);
+    // }, []);
   }, [displayedText, isTyping, currentTextIndex]);
 
-  if (isLoading) return "loading...";
-  // console.log('dashboard')
   return (
     <section
       id="hero"
@@ -70,7 +69,8 @@ const HeroSection = () => {
       {/* Background Slideshow */}
       <div className="absolute inset-0 z-0">
         {heroImage?.map((image, index) => (
-          <img
+          <LazyLoadImage
+            effect={isLoading && "true"}
             loading="lazy"
             key={index}
             src={image.url}
@@ -88,7 +88,8 @@ const HeroSection = () => {
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
             <div className="w-12 h-12 backdrop-blur-sm rounded-lg flex items-center justify-center">
-              <img
+              <LazyLoadImage
+                effect={isLoading && "true"}
                 loading="lazy"
                 src={dashboard?.logo?.url}
               />

@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import {
   Search,
+
   Grid3X3,
   List,
   ChevronDown,
@@ -49,16 +48,15 @@ interface Media {
 }
 
 const Galeri: React.FC = () => {
-  const { galeri, isLoading } = useGetGaleri();
+  const { galeri,isLoading } = useGetGaleri();
+
   const album = transformGaleriToAlbums(galeri);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<
     "semua" | "foto" | "video"
   >("semua");
-  const [instansiFilter, setInstansiFilter] = useState<
-    "semua" | "SMA" | "SMK" | "SLB"
-  >("semua");
+  const [instansiFilter, setInstansiFilter] = useState<string>("semua");
   const [showInstansiDropdown, setShowInstansiDropdown] = useState(false);
   const [sortOrder, setSortOrder] = useState<"terbaru" | "terlama">("terbaru");
 
@@ -128,20 +126,24 @@ const Galeri: React.FC = () => {
   );
 
   const handleAlbumClick = (album: Album) => {
-    const albums = {
-      ...album,
-      media: [
-        {
-          description: album?.description,
-          id: album?.id,
-          url: album?.coverImage,
-          thumbnail: album?.coverImage,
-          title: album?.title,
-          type: album?.category,
-        },
-        ...album.media,
-      ],
-    };
+    const isVideo = album?.category == "video";
+
+    const albums = isVideo
+      ? album
+      : {
+          ...album,
+          media: [
+            {
+              description: album?.description,
+              id: album?.id,
+              url: album?.coverImage,
+              thumbnail: album?.coverImage,
+              title: album?.title,
+              type: album?.category,
+            },
+            ...album.media,
+          ],
+        };
 
     setSelectedAlbum(albums);
     setSelectedMediaIndex(0);
@@ -195,7 +197,17 @@ const Galeri: React.FC = () => {
 
   // Render media content
   const renderMediaContent = (media: Media) => {
-    if (media.type === "video") {
+    if (media.type === "foto") {
+      return (
+        <LazyLoadImage
+          loading="lazy"
+          src={media.url}
+          alt={media.title}
+          className="w-full h-64 sm:h-96 object-cover object-center rounded-lg"
+        />
+      );
+    } else {
+      // Jika video YouTube, gunakan iframe
       if (isYouTubeUrl(media.url)) {
         const videoId = getYouTubeId(media.url);
         return (
@@ -217,18 +229,193 @@ const Galeri: React.FC = () => {
           </video>
         );
       }
-    } else {
-      return (
-        <img
-          src={media.url}
-          alt={media.title}
-          className="w-full h-auto max-h-96 object-contain rounded-lg"
-        />
-      );
     }
   };
 
+  // Render album cards component
+  const renderAlbumCard = (album: Album) => (
+    <Card
+      key={album.id + Math.random() * 100}
+      className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 hover:border-gallery-primary rounded-xl"
+      onClick={() => handleAlbumClick(album)}
+    >
+      <div className="relative overflow-hidden">
+        <LazyLoadImage
+          effect={isLoading && "blur"}
+          loading="lazy"
+          src={album.coverImage}
+          alt={album.title}
+          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+        {album.category === "video" && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all duration-300">
+            <div className="bg-white bg-opacity-90 rounded-full p-3 transform scale-100 group-hover:scale-110 transition-transform duration-300">
+              <Play className="h-6 w-6 text-gallery-primary" />
+            </div>
+          </div>
+        )}
+        <div className="absolute top-3 right-3">
+          <Badge
+            variant={album.category === "video" ? "default" : "secondary"}
+            className={
+              album.category === "video"
+                ? "bg-gallery-primary hover:bg-gallery-primary-dark"
+                : ""
+            }
+          >
+            {album.category === "video" ? "Video" : "Foto"}
+          </Badge>
+        </div>
+        <div className="absolute bottom-3 left-3">
+          <Badge variant="outline" className="bg-white bg-opacity-90">
+            {album.mediaCount > 0 ? album.mediaCount : 1} Media
+          </Badge>
+        </div>
+      </div>
+      <CardContent className="p-4">
+        <h3 className="font-semibold text-gallery-text-primary mb-2 line-clamp-2">
+          {album.title}
+        </h3>
+        <div className="space-y-1 text-sm text-gallery-text-secondary">
+          <div className="flex items-center gap-1">
+            <Calendar className="h-3 w-3" />
+            {formatDate(album.date)}
+          </div>
+          <div className="flex items-center gap-1">
+            <MapPin className="h-3 w-3" />
+            {album.location}
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Button
+          className="w-full bg-gallery-primary hover:bg-gallery-primary-dark transition-colors duration-200"
+          size="sm"
+        >
+          <Eye className="h-4 w-4 mr-2" />
+          {album.category === "video" ? "Lihat Video" : "Lihat Album"}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 
+  // Render album list item component
+  const renderAlbumListItem = (album: Album) => (
+    <Card
+      key={album.id + Math.random() * 100}
+      className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 border-2 hover:border-gallery-primary rounded-xl"
+      onClick={() => handleAlbumClick(album)}
+    >
+      <CardContent className="p-4">
+        <div className="flex gap-4">
+          <div className="relative flex-shrink-0">
+            <LazyLoadImage
+              effect={isLoading && "blur"}
+              loading="lazy"
+              src={album.coverImage}
+              alt={album.title}
+              className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-lg"
+            />
+            {album.category === "video" && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-lg">
+                <div className="bg-white bg-opacity-90 rounded-full p-2">
+                  <Play className="h-4 w-4 text-gallery-primary" />
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <h3 className="font-semibold text-gallery-text-primary text-sm sm:text-base">
+                {album.title}
+              </h3>
+              <div className="flex gap-2">
+                <Badge
+                  variant={album.category === "video" ? "default" : "secondary"}
+                  className={`text-xs ${
+                    album.category === "video"
+                      ? "bg-gallery-primary hover:bg-gallery-primary-dark"
+                      : ""
+                  }`}
+                >
+                  {album.category === "video" ? "Video" : "Foto"}
+                </Badge>
+                <Badge variant="outline" className="text-xs">
+                  {album.mediaCount} Media
+                </Badge>
+              </div>
+            </div>
+            <div className="space-y-1 text-xs sm:text-sm text-gallery-text-secondary mb-3">
+              <div className="flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                {formatDate(album.date)}
+              </div>
+              <div className="flex items-center gap-1">
+                <MapPin className="h-3 w-3" />
+                {album.location}
+              </div>
+            </div>
+            <Button
+              size="sm"
+              className="bg-gallery-primary hover:bg-gallery-primary-dark transition-colors duration-200 text-xs sm:text-sm"
+            >
+              <Eye className="h-3 w-3 mr-1" />
+              {album.category === "video" ? "Lihat Video" : "Lihat Album"}
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  // Render pagination component
+  const renderPagination = (
+    currentPage: number,
+    totalPages: number,
+    setCurrentPage: (page: number) => void
+  ) => {
+    if (totalPages <= 1) return null;
+
+    return (
+      <div className="flex justify-center items-center gap-2 mt-6">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+          disabled={currentPage === 1}
+          className="border-2"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Button
+            key={page}
+            variant={page === currentPage ? "default" : "outline"}
+            size="sm"
+            onClick={() => setCurrentPage(page)}
+            className={`border-2 ${
+              page === currentPage
+                ? "bg-gallery-primary bg-blue-500 hover:bg-gallery-primary-dark"
+                : ""
+            }`}
+          >
+            {page}
+          </Button>
+        ))}
+
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+          disabled={currentPage === totalPages}
+          className="border-2"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gallery-bg-light pt-219">
@@ -421,13 +608,68 @@ const Galeri: React.FC = () => {
                 </div>
               </div>
 
-              {viewMode === "grid" ? (
+              {isLoading && viewMode === "grid" && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <Card key={index} className="overflow-hidden rounded-xl border-2">
+                      <div className="relative">
+                        <Skeleton className="w-full h-48" />
+                        <div className="absolute top-3 right-3">
+                          <Skeleton className="h-6 w-12 rounded-full" />
+                        </div>
+                        <div className="absolute bottom-3 left-3">
+                          <Skeleton className="h-5 w-16 rounded-full" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <Skeleton className="h-5 w-3/4 mb-2" />
+                        <div className="space-y-1">
+                          <Skeleton className="h-4 w-1/2" />
+                          <Skeleton className="h-4 w-2/3" />
+                        </div>
+                      </CardContent>
+                      <CardFooter className="p-4 pt-0">
+                        <Skeleton className="h-9 w-full" />
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              )}
+              {isLoading && viewMode === "list" && (
+                <div className="space-y-4">
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <Card key={index} className="overflow-hidden rounded-xl border-2">
+                      <CardContent className="p-4">
+                        <div className="flex gap-4">
+                          <Skeleton className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                              <Skeleton className="h-4 w-3/4" />
+                              <div className="flex gap-2">
+                                <Skeleton className="h-5 w-12 rounded-full" />
+                                <Skeleton className="h-5 w-16 rounded-full" />
+                              </div>
+                            </div>
+                            <div className="space-y-1 mb-3">
+                              <Skeleton className="h-3 w-1/2" />
+                              <Skeleton className="h-3 w-2/3" />
+                            </div>
+                            <Skeleton className="h-8 w-24" />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+              {!isLoading && viewMode === "grid" && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginatedFotoAlbums.map((album) => (
                     <AlbumCard key={album.id} album={album} onClick={handleAlbumClick} />
                   ))}
                 </div>
-              ) : (
+              )}
+              {!isLoading && viewMode === "list" && (
                 <div className="space-y-4">
                   {paginatedFotoAlbums.map((album) => (
                     <AlbumListItem key={album.id} album={album} onClick={handleAlbumClick} />
@@ -505,9 +747,9 @@ const Galeri: React.FC = () => {
           {selectedAlbum && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-xl text-gallery-text-primary">
-                  {selectedAlbum.title}
-                </DialogTitle>
+                {/* <DialogTitle className="text-xl text-gallery-text-primary">
+                  {selectedAlbum.title} 
+                </DialogTitle> */}
               </DialogHeader>
 
               <div className="space-y-6">
@@ -545,27 +787,26 @@ const Galeri: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
-                      <h3 className="font-semibold text-lg text-gallery-text-primary mb-2">
-                        {selectedAlbum.media[selectedMediaIndex]?.title}
+                      <h3 className="font-semibold text-lg text-gallery-text-primary">
+                        {selectedAlbum?.title}
                       </h3>
-                      <div className="flex gap-2 mb-2">
+                      <div className="flex gap-2">
                         {selectedAlbum.media[selectedMediaIndex]?.type ===
                           "video" && (
                           <Badge className="bg-gallery-primary hover:bg-gallery-primary-dark">
                             Video
                           </Badge>
                         )}
-                        <Badge variant="outline">
+                        {/* <Badge variant="outline">
                           {selectedMediaIndex + 1} dari{" "}
                           {selectedAlbum.media.length}
-                        </Badge>
+                        </Badge> */}
                       </div>
-                      <p className="text-gallery-text-secondary">
+                      <p className="text-sm text-gallery-text-secondary">
                         {selectedAlbum.media[selectedMediaIndex]?.description}
                       </p>
                     </div>
                   </div>
-
                   {/* Media Thumbnails */}
                   {selectedAlbum.media.length > 1 && (
                     <div className="space-y-2">
@@ -583,7 +824,8 @@ const Galeri: React.FC = () => {
                             }`}
                             onClick={() => handleMediaSelect(index)}
                           >
-                            <img
+                            <LazyLoadImage
+                              effect={isLoading && "blur"}
                               loading="lazy"
                               src={media.thumbnail}
                               alt={media.title}

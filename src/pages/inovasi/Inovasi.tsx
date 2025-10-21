@@ -23,15 +23,24 @@ import {
   Clock,
   MapPin,
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Link } from "react-router-dom";
-import Footer from "@/components/layout/Footer";
 import BgImage from "../../assets/tracking.jpg";
 import useGetInovasi from "@/features/inovasi/useGetInovasi";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Inovasi = () => {
   const { inovasi, isLoading } = useGetInovasi();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSchool, SetSelectedSchool] = useState("semua");
+  const schools = ["Semua", "SMA", "SMK", "SLB"];
 
   const achievements = [
     {
@@ -50,7 +59,6 @@ const Inovasi = () => {
       description: "Kontribusi dalam Smart Education",
     },
   ];
-
   const stats = [
     { label: "Inovasi Aktif", value: "25+", icon: Lightbulb },
     { label: "Sekolah Terdampak", value: "350+", icon: Target },
@@ -58,12 +66,21 @@ const Inovasi = () => {
     { label: "Guru Terlatih", value: "8K+", icon: TrendingUp },
   ];
 
-  const filteredInnovations = inovasi?.filter(
-    (innovation) =>
-      innovation?.judul?.toLowerCase()?.includes(searchTerm.toLowerCase()) ||
-      innovation.deskripsi?.toLowerCase()?.includes(searchTerm.toLowerCase()) ||
-      innovation.category?.toLowerCase()?.includes(searchTerm.toLowerCase())
-  );
+  const filteredInnovations = inovasi?.filter((item) => {
+    // Search filter
+    const searchMatch =
+      searchTerm === "" ||
+      item?.judul?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    // School filter
+    const schoolMatch =
+      selectedSchool === "" ||
+      selectedSchool.toLowerCase() === "semua" ||
+      item?.instansi?.toLowerCase().includes(selectedSchool.toLowerCase());
+
+    // All conditions must be true
+    return searchMatch && schoolMatch;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -107,7 +124,7 @@ const Inovasi = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-muted/30">
+      {/* <section className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats?.map((stat, index) => (
@@ -127,7 +144,7 @@ const Inovasi = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Main Content */}
       {isLoading ? (
@@ -136,86 +153,106 @@ const Inovasi = () => {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Tabs defaultValue="innovations" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="innovations">Inovasi Terbaru</TabsTrigger>
-                <TabsTrigger value="achievements">Pencapaian</TabsTrigger>
-                {/* <TabsTrigger value="roadmap">Roadmap</TabsTrigger> */}
-              </TabsList>
+              {/* <TabsList className="grid w-full grid-cols-2"> */}
+              {/* <TabsTrigger value="innovations">Inovasi Terbaru</TabsTrigger>
+                <TabsTrigger value="achievements">Pencapaian</TabsTrigger> */}
+              {/* <TabsTrigger value="roadmap">Roadmap</TabsTrigger> */}
+              {/* </TabsList> */}
 
               <TabsContent value="innovations" className="space-y-6">
                 {/* Search and Filter */}
                 <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                  <div className="relative flex-1 max-w-md">
+                  <div className="relative flex-1 ">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                     <Input
                       placeholder="Cari inovasi..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 w-full"
                     />
                   </div>
-                  <Button variant="outline">
-                    <Filter className="w-4 h-4 mr-2" />
-                    Filter
-                  </Button>
+                  <Select onValueChange={(value) => SetSelectedSchool(value)}>
+                    <SelectTrigger className="w-full sm:w-48">
+                      <Filter className="w-4 h-4 mr-2" />
+                      <SelectValue placeholder="Sekolah" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {schools.map((school) => (
+                        <SelectItem key={school} value={school}>
+                          {school}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Innovations Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredInnovations?.map((innovation) => (
-                    <Card
-                      key={innovation.id}
-                      className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
-                    >
-                      <div className="aspect-video overflow-hidden">
-                        <img
-                          loading="lazy"
-                          src={`https://dashboard.btikpsultra.my.id/storage/${innovation?.coverImage}`}
-                          alt={innovation?.judul}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between mb-3">
-                          <Badge
-                            variant="secondary"
-                            className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
-                          >
-                            {innovation?.category || innovation?.tabel}
-                          </Badge>
-                          <div className="flex items-center text-muted-foreground text-sm">
-                            <Clock className="w-4 h-4 mr-1" />
-                            {new Date(
-                              innovation?.created_at
-                            ).toLocaleDateString()}
-                          </div>
+                <div
+                  className={`${
+                    filteredInnovations.length <= 0 ? "" : "grid grid-cols-1"
+                  } md:grid-cols-2 lg:grid-cols-3 gap-8`}
+                >
+                  {filteredInnovations.length > 0 ? (
+                    filteredInnovations?.map((innovation) => (
+                      <Card
+                        key={innovation.id}
+                        className="group hover:shadow-medium transition-all duration-300 overflow-hidden"
+                      >
+                        <div className="aspect-video overflow-hidden">
+                          <LazyLoadImage
+                            effect={isLoading && "blur"}
+                            loading="lazy"
+                            src={`https://dashboard.btikpsultra.my.id/storage/${innovation?.coverImage}`}
+                            alt={innovation?.judul}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
                         </div>
-                        <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
-                          {innovation?.judul}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                          {innovation?.deskripsi}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <span className="flex  items-center gap-1 text-sm text-muted-foreground">
-                            <MapPin className={"w-4 h-4"} />
-                            <p className="capitalize">{innovation?.lokasi}</p>
-                          </span>
-                          <Link to={`/inovasi/${innovation.id}`}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-government-blue hover:text-government-blue/80"
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center justify-between mb-3">
+                            <Badge
+                              variant="secondary"
+                              className="bg-government-blue/10 text-government-blue hover:bg-government-blue/20"
                             >
-                              Baca Selengkapnya
-                            </Button>
-                          </Link>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                              {innovation?.category || innovation?.tabel}
+                            </Badge>
+                            <div className="flex items-center text-muted-foreground text-sm">
+                              <Clock className="w-4 h-4 mr-1" />
+                              {new Date(
+                                innovation?.created_at
+                              ).toLocaleDateString()}
+                            </div>
+                          </div>
+                          <CardTitle className="text-lg leading-tight group-hover:text-government-blue transition-colors">
+                            {innovation?.judul}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                            {innovation?.deskripsi}
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <span className="flex  items-center gap-1 text-sm text-muted-foreground">
+                              <MapPin className={"w-4 h-4"} />
+                              <p className="capitalize">{innovation?.lokasi}</p>
+                            </span>
+                            <Link to={`/inovasi/${innovation.id}`}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-government-blue hover:text-government-blue/80"
+                              >
+                                Baca Selengkapnya
+                              </Button>
+                            </Link>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))
+                  ) : (
+                    <p className="text-center capitalize font-bold">
+                      kata kunci tidak ditemukan
+                    </p>
+                  )}
                 </div>
               </TabsContent>
 

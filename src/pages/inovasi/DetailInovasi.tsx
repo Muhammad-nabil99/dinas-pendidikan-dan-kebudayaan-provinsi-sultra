@@ -13,6 +13,7 @@ import {
 import useGetDetailInovasi from "@/features/inovasi/useGetDetailInovasi";
 import useGetInovasi from "@/features/inovasi/useGetInovasi";
 import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const DetailInovasi = () => {
   const { id } = useParams();
@@ -30,9 +31,9 @@ const DetailInovasi = () => {
   return (
     <div className="min-h-screen bg-background">
       <main>
-        {/* Header Section */}
-        <section className="py-8 bg-muted/30 mt-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Article Content */}
+        <article className="py-8">
+          <div className="max-w-4xl my-14 mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center mb-6">
               <Link to="/inovasi">
                 <Button variant="outline" size="sm">
@@ -42,10 +43,6 @@ const DetailInovasi = () => {
               </Link>
             </div>
           </div>
-        </section>
-
-        {/* Article Content */}
-        <article className="py-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Article Header */}
             <header className="mb-8">
@@ -90,7 +87,8 @@ const DetailInovasi = () => {
 
             {/* Featured Image */}
             <div className="aspect-video overflow-hidden rounded-lg mb-8">
-              <img
+              <LazyLoadImage
+                effect={isLoading && "blur"}
                 src={`https://dashboard.btikpsultra.my.id/storage/${detailInovasi?.coverImage}`}
                 alt={detailInovasi?.judul}
                 className="w-full h-full object-cover"

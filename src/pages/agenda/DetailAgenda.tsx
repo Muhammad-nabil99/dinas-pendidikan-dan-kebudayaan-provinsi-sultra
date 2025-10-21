@@ -12,6 +12,7 @@ import {
 import useGetAgenda from "@/features/agenda/useGetAgenda";
 import useGetDetailAgenda from "@/features/agenda/useGetDetailAgenda";
 import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function DetailAgenda() {
   const { id } = useParams();
@@ -28,9 +29,9 @@ function DetailAgenda() {
   return (
     <div className="min-h-screen bg-background">
       <main>
-        {/* Header Section */}
-        <section className="py-8 bg-muted/30">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Article Content */}
+        <article className="py-8">
+          <div className="max-w-4xl my-14 mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center mb-6">
               <Link to="/agenda">
                 <Button variant="outline" size="sm">
@@ -40,10 +41,6 @@ function DetailAgenda() {
               </Link>
             </div>
           </div>
-        </section>
-
-        {/* Article Content */}
-        <article className="py-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Article Header */}
             <header className="mb-8">
@@ -88,7 +85,8 @@ function DetailAgenda() {
 
             {/* Featured Image */}
             <div className="aspect-video overflow-hidden rounded-lg mb-8">
-              <img
+              <LazyLoadImage
+                effect={isLoading && "blur"}
                 src={`https://dashboard.btikpsultra.my.id/storage/${detailAgenda?.coverImage}`}
                 alt={detailAgenda?.judul}
                 className="w-full h-full object-cover"
