@@ -235,7 +235,7 @@ const Galeri: React.FC = () => {
   // Render album cards component
   const renderAlbumCard = (album: Album) => (
     <Card
-      key={album.id + Math.random() * 100}
+      key={album.id}
       className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => handleAlbumClick(album)}
     >
@@ -302,7 +302,7 @@ const Galeri: React.FC = () => {
   // Render album list item component
   const renderAlbumListItem = (album: Album) => (
     <Card
-      key={album.id + Math.random() * 100}
+      key={album.id}
       className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => handleAlbumClick(album)}
     >

@@ -43,7 +43,7 @@ export const transformGaleriToAlbums = (
       }) || [];
 
     return {
-      id: item.id.toString(),
+      id: `${item.tabel}-${item.id}`,
       title: item.judul,
       category,
       instansi: item.instansi.toUpperCase() as "SMA" | "SMK" | "SLB",

@@ -43,7 +43,7 @@ const AlbumCard: React.FC<AlbumCardProps> = ({ album, onClick }) => {
 
   return (
     <Card
-      key={album.id + Math.random() * 100}
+      key={album.id}
       className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => onClick(album)}
     >
