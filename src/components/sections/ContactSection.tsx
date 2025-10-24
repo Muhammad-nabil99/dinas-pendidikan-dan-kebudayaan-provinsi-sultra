@@ -63,10 +63,10 @@ const ContactSection = () => {
         judul,
         deskripsi,
         bidang,
-        email,
-        nama,
+        email_pengirim: email,
+        nama_pengirim: nama,
         dokumen,
-        // foto,
+        files: foto,
       });
 
       // reset form
@@ -76,7 +76,7 @@ const ContactSection = () => {
       setEmailPengirim("");
       setNamaPengirim("");
       setDokumen(null);
-      // setFoto([]);
+      setFoto([]);
       setErrors({});
       setShowSuccessModal(true);
     } catch (error) {
@@ -255,7 +255,7 @@ const ContactSection = () => {
                     {errors.dokumen && <p className="text-red-500 text-sm mt-1">{errors.dokumen}</p>}
                   </div>
 
-                  {/* <div>
+                   <div>
                     <Label>Upload Foto (maks. 3 file, 3 MB/foto)</Label>
                     <Input
                       type="file"
@@ -265,7 +265,7 @@ const ContactSection = () => {
                       onChange={(e) => setFoto(Array.from(e.target.files || []))}
                     />
                     {errors.foto && <p className="text-red-500 text-sm mt-1">{errors.foto}</p>}
-                  </div> */}
+                  </div> 
 
                   <Button
                     type="submit"
