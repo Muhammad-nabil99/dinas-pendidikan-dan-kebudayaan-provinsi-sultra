@@ -38,7 +38,7 @@ export default function TrackingSection() {
 
   const sampleStatusList = [
     { kode_tracking: "TRK2024001234", status: "Selesai", judul: "Legalisasi ijazah selesai" },
-    { kode_tracking: "TRK2024001235", status: "Dalam Proses", judul: "Pengaduan fasilitas" },
+    { kode_tracking: "TRK2024001235", status: "Diproses", judul: "Pengaduan fasilitas" },
     { kode_tracking: "TRK2024001236", status: "Diterima", judul: "Permohonan beasiswa diterima" },
     { kode_tracking: "TRK2024001237", status: "Ditolak", judul: "Surat tidak valid" },
   ];

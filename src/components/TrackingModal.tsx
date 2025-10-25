@@ -21,14 +21,15 @@ interface TrackingModalProps {
 }
 
 const getStatusIcon = (status: string) => {
-  switch (status) {
-    case "Selesai":
+  const normalizedStatus = status.trim().toLowerCase();
+  switch (normalizedStatus) {
+    case "selesai":
       return <CheckCircle className="w-8 h-8 text-green-600" />;
-    case "Dalam Proses":
-      return <Clock className="w-8 h-8 text-yellow-500" />;
-    case "Diterima":
+    case "diproses":
+      return <Clock className="w-8 h-8 text-yellow-600" />;
+    case "diterima":
       return <MessageSquare className="w-8 h-8 text-blue-600" />;
-    case "Ditolak":
+    case "ditolak":
       return <XCircle className="w-8 h-8 text-red-600" />;
     default:
       return <MessageSquare className="w-8 h-8 text-gray-500" />;
@@ -36,14 +37,15 @@ const getStatusIcon = (status: string) => {
 };
 
 const getStatusColor = (status: string) => {
-  switch (status) {
-    case "Selesai":
+  const normalizedStatus = status.trim().toLowerCase();
+  switch (normalizedStatus) {
+    case "selesai":
       return "text-green-700";
-    case "Dalam Proses":
+    case "diproses":
       return "text-yellow-700";
-    case "Diterima":
+    case "diterima":
       return "text-blue-700";
-    case "Ditolak":
+    case "ditolak":
       return "text-red-700";
     default:
       return "text-gray-700";
