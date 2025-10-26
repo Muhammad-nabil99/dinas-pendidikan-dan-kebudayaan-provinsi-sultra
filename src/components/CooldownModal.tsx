@@ -6,7 +6,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Timer } from "lucide-react"; /
+import { Timer } from "lucide-react"; 
 
 interface CooldownModalProps {
   open: boolean;
