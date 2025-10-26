@@ -36,17 +36,25 @@ export const getDetailBerita = async (id: number) => {
 };
 export const postApiLayanan = async (data) => {
   try {
-    console.log("Data yang dikirim ke API:", data);
 
     const formData = new FormData();
     formData.append("judul", data.judul);
     formData.append("deskripsi", data.deskripsi);
     formData.append("bidang", data.bidang);
-    formData.append("email_pengirim", data.email);
-    formData.append("nama_pengirim", data.nama);
+    formData.append("email_pengirim", data.email_pengirim);
+    formData.append("nama_pengirim", data.nama_pengirim);
+    if (data.files && data.files.length > 0) {
+      data.files.forEach((file) => {
+        formData.append("files[]", file);
+      });
+    } else {
+      console.warn("Foto tidak disertakan dalam pengiriman.");
+    }
     if (data.dokumen) {
       formData.append("dokumen", data.dokumen);
     }
+
+    
 
     const response = await fetch(
       "https://dashboard.btikpsultra.my.id/api/layanan",

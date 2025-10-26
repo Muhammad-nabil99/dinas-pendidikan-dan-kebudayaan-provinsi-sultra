@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import {
   Search,
+
   Grid3X3,
   List,
-  Play,
-  Calendar,
-  MapPin,
-  Eye,
-  Download,
-  ChevronLeft,
-  ChevronRight,
   ChevronDown,
   Filter,
   Image,
   Video,
   ArrowLeft,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  MapPin,
+  Eye,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Import images
 import BgImage from "../assets/tracking.jpg";
-import useGetGaleri from "@/features/galeri/useGetGaleri";
+import useGetGaleri, { Album } from "@/features/galeri/useGetGaleri";
 import { transformGaleriToAlbums } from "@/utils/help";
+
+// Import components
+import GalleryModal from "@/components/gallery/GalleryModal";
+import AlbumCard from "@/components/gallery/AlbumCard";
+import AlbumListItem from "@/components/gallery/AlbumListItem";
+import Pagination from "@/components/gallery/Pagination";
 
 interface Media {
   id: string;
@@ -38,19 +45,6 @@ interface Media {
   thumbnail: string;
   title: string;
   description: string;
-}
-
-interface Album {
-  id: string;
-  title: string;
-  category: "foto" | "video";
-  instansi: "SMA" | "SMK" | "SLB";
-  coverImage: string;
-  mediaCount: number;
-  date: string;
-  location: string;
-  description: string;
-  media: Media[];
 }
 
 const Galeri: React.FC = () => {
@@ -62,9 +56,7 @@ const Galeri: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState<
     "semua" | "foto" | "video"
   >("semua");
-  const [instansiFilter, setInstansiFilter] = useState<
-    "semua" | "SMA" | "SMK" | "SLB"
-  >("semua");
+  const [instansiFilter, setInstansiFilter] = useState<string>("semua");
   const [showInstansiDropdown, setShowInstansiDropdown] = useState(false);
   const [sortOrder, setSortOrder] = useState<"terbaru" | "terlama">("terbaru");
 
@@ -203,7 +195,7 @@ const Galeri: React.FC = () => {
     return match && match[2].length === 11 ? match[2] : null;
   };
 
-  // Render media content berdasarkan jenis media
+  // Render media content
   const renderMediaContent = (media: Media) => {
     if (media.type === "foto") {
       return (
@@ -218,34 +210,32 @@ const Galeri: React.FC = () => {
       // Jika video YouTube, gunakan iframe
       if (isYouTubeUrl(media.url)) {
         const videoId = getYouTubeId(media.url);
-        if (videoId) {
-          return (
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}`}
-              className="w-full h-64 sm:h-80 rounded-lg"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          );
-        }
+        return (
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title={media.title}
+            className="w-full h-96 rounded-lg"
+            allowFullScreen
+          />
+        );
+      } else {
+        return (
+          <video
+            src={media.url}
+            controls
+            className="w-full h-96 rounded-lg"
+          >
+            Your browser does not support the video tag.
+          </video>
+        );
       }
-
-      // Jika video biasa, gunakan tag video
-      return (
-        <video
-          src={media.url}
-          controls
-          className="w-full h-64 sm:h-80 object-cover rounded-lg"
-        />
-      );
     }
   };
 
   // Render album cards component
   const renderAlbumCard = (album: Album) => (
     <Card
-      key={album.id + Math.random() * 100}
+      key={album.id}
       className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => handleAlbumClick(album)}
     >
@@ -312,7 +302,7 @@ const Galeri: React.FC = () => {
   // Render album list item component
   const renderAlbumListItem = (album: Album) => (
     <Card
-      key={album.id + Math.random() * 100}
+      key={album.id}
       className="group cursor-pointer overflow-hidden hover:shadow-lg transition-all duration-300 border-2 hover:border-gallery-primary rounded-xl"
       onClick={() => handleAlbumClick(album)}
     >
@@ -618,21 +608,80 @@ const Galeri: React.FC = () => {
                 </div>
               </div>
 
-              {viewMode === "grid" ? (
+              {isLoading && viewMode === "grid" && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paginatedFotoAlbums.map(renderAlbumCard)}
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <Card key={index} className="overflow-hidden rounded-xl border-2">
+                      <div className="relative">
+                        <Skeleton className="w-full h-48" />
+                        <div className="absolute top-3 right-3">
+                          <Skeleton className="h-6 w-12 rounded-full" />
+                        </div>
+                        <div className="absolute bottom-3 left-3">
+                          <Skeleton className="h-5 w-16 rounded-full" />
+                        </div>
+                      </div>
+                      <CardContent className="p-4">
+                        <Skeleton className="h-5 w-3/4 mb-2" />
+                        <div className="space-y-1">
+                          <Skeleton className="h-4 w-1/2" />
+                          <Skeleton className="h-4 w-2/3" />
+                        </div>
+                      </CardContent>
+                      <CardFooter className="p-4 pt-0">
+                        <Skeleton className="h-9 w-full" />
+                      </CardFooter>
+                    </Card>
+                  ))}
                 </div>
-              ) : (
+              )}
+              {isLoading && viewMode === "list" && (
                 <div className="space-y-4">
-                  {paginatedFotoAlbums.map(renderAlbumListItem)}
+                  {Array.from({ length: 6 }).map((_, index) => (
+                    <Card key={index} className="overflow-hidden rounded-xl border-2">
+                      <CardContent className="p-4">
+                        <div className="flex gap-4">
+                          <Skeleton className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+                              <Skeleton className="h-4 w-3/4" />
+                              <div className="flex gap-2">
+                                <Skeleton className="h-5 w-12 rounded-full" />
+                                <Skeleton className="h-5 w-16 rounded-full" />
+                              </div>
+                            </div>
+                            <div className="space-y-1 mb-3">
+                              <Skeleton className="h-3 w-1/2" />
+                              <Skeleton className="h-3 w-2/3" />
+                            </div>
+                            <Skeleton className="h-8 w-24" />
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+              {!isLoading && viewMode === "grid" && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {paginatedFotoAlbums.map((album) => (
+                    <AlbumCard key={album.id} album={album} onClick={handleAlbumClick} />
+                  ))}
+                </div>
+              )}
+              {!isLoading && viewMode === "list" && (
+                <div className="space-y-4">
+                  {paginatedFotoAlbums.map((album) => (
+                    <AlbumListItem key={album.id} album={album} onClick={handleAlbumClick} />
+                  ))}
                 </div>
               )}
 
-              {renderPagination(
-                fotoCurrentPage,
-                fotoTotalPages,
-                setFotoCurrentPage
-              )}
+              <Pagination
+                currentPage={fotoCurrentPage}
+                totalPages={fotoTotalPages}
+                onPageChange={setFotoCurrentPage}
+              />
             </div>
           )}
 
@@ -657,19 +706,23 @@ const Galeri: React.FC = () => {
 
               {viewMode === "grid" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paginatedVideoAlbums.map(renderAlbumCard)}
+                  {paginatedVideoAlbums.map((album) => (
+                    <AlbumCard key={album.id} album={album} onClick={handleAlbumClick} />
+                  ))}
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {paginatedVideoAlbums.map(renderAlbumListItem)}
+                  {paginatedVideoAlbums.map((album) => (
+                    <AlbumListItem key={album.id} album={album} onClick={handleAlbumClick} />
+                  ))}
                 </div>
               )}
 
-              {renderPagination(
-                videoCurrentPage,
-                videoTotalPages,
-                setVideoCurrentPage
-              )}
+              <Pagination
+                currentPage={videoCurrentPage}
+                totalPages={videoTotalPages}
+                onPageChange={setVideoCurrentPage}
+              />
             </div>
           )}
 

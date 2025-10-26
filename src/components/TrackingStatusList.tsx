@@ -13,17 +13,34 @@ interface TrackingStatusListProps {
 }
 
 const getStatusIcon = (status: string) => {
-  switch (status) {
-    case "Selesai":
+  const normalizedStatus = status.trim().toLowerCase();
+  switch (normalizedStatus) {
+    case "selesai":
       return <CheckCircle className="w-5 h-5 text-green-600 mt-0.5" />;
-    case "Dalam Proses":
-      return <Clock className="w-5 h-5 text-yellow-500 mt-0.5" />;
-    case "Diterima":
+    case "diproses":
+      return <Clock className="w-5 h-5 text-yellow-600 mt-0.5" />;
+    case "diterima":
       return <MessageSquare className="w-5 h-5 text-blue-600 mt-0.5" />;
-    case "Ditolak":
+    case "ditolak":
       return <XCircle className="w-5 h-5 text-red-600 mt-0.5" />;
     default:
       return <MessageSquare className="w-5 h-5 text-gray-600 mt-0.5" />;
+  }
+};
+
+const getStatusColor = (status: string) => {
+  const normalizedStatus = status.trim().toLowerCase();
+  switch (normalizedStatus) {
+    case "selesai":
+      return "text-green-700";
+    case "diproses":
+      return "text-yellow-700";
+    case "diterima":
+      return "text-blue-700";
+    case "ditolak":
+      return "text-red-700";
+    default:
+      return "text-gray-700";
   }
 };
 
@@ -41,7 +58,7 @@ export default function TrackingStatusList({ data }: TrackingStatusListProps) {
               {getStatusIcon(item.status)}
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-medium text-gray-900">{item.status}</span>
+                  <span className={`font-medium ${getStatusColor(item.status)}`}>{item.status}</span>
                   <span className="text-sm text-gray-600">{item.kode_tracking}</span>
                 </div>
                 <p className="text-sm text-gray-800">{item.judul}</p>

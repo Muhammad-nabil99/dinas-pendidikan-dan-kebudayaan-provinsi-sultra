@@ -28,17 +28,22 @@ export const transformGaleriToAlbums = (
 
     // Transform media files
     const media =
-      item.medias?.file?.map((mediaFile: MediaFile, index: number) => ({
-        id: `${item.id}-${index}`,
-        type: mediaFile.type,
-        url: BASE_URL + mediaFile.file,
-        thumbnail: BASE_URL + mediaFile.file,
-        title: `${item.judul} - Media ${index + 1}`,
-        description: item.deskripsi || "",
-      })) || [];
+      item.medias?.file?.map((mediaFile: MediaFile, index: number) => {
+        const isFullUrl = mediaFile.file.startsWith('http');
+        const url = isFullUrl ? mediaFile.file : BASE_URL + mediaFile.file;
+        const thumbnail = isFullUrl ? mediaFile.file : BASE_URL + mediaFile.file;
+        return {
+          id: `${item.id}-${index}`,
+          type: mediaFile.type,
+          url,
+          thumbnail,
+          title: `${item.judul} - Media ${index + 1}`,
+          description: item.deskripsi || "",
+        };
+      }) || [];
 
     return {
-      id: item.id.toString(),
+      id: `${item.tabel}-${item.id}`,
       title: item.judul,
       category,
       instansi: item.instansi.toUpperCase() as "SMA" | "SMK" | "SLB",
