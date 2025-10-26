@@ -22,11 +22,14 @@ import Galery from "./pages/Galery";
 
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 
-import News from "./pages/News";
-import DetailBerita from "./pages/Detail/DetailBerita.js";
+import News from "./pages/berita/News.js";
+import DetailBerita from "./pages/berita/DetailBerita.js";
 import LoadingSpinner from "./components/LoadingSpinner.js";
 import { useEffect, useState } from "react";
-import Inovasi from "./pages/Inovasi.js";
+import Inovasi from "./pages/inovasi/Inovasi.js";
+import Agenda from "./pages/agenda/Agenda.js";
+import DetailInovasi from "./pages/inovasi/DetailInovasi.js";
+import DetailAgenda from "./pages/agenda/DetailAgenda.js";
 
 const queryClient = new QueryClient();
 
@@ -73,17 +76,19 @@ const App = () => {
                 path="/profil/struktur-organisasi"
                 element={<StrukturOrganisasi />}
               />
-              <Route
-                path="/laporan-kegiatan"
-                element={<LaporanKegiatan />}
-              />
-              <Route path="/profil/produk-hukum" element={<ProdukHukum />} />   
+              <Route path="/laporan-kegiatan" element={<LaporanKegiatan />} />
+              <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
 
               {/* PPID Route */}
-              <Route path="/ppid" element={<PPID />} />
+              {/* <Route path="/ppid" element={<PPID />} /> */}
+
+              {/* Agenda Route */}
+              <Route path="/agenda" element={<Agenda />} />
+              <Route path="/agenda/:id" element={<DetailAgenda />} />
 
               {/* Inovasi Route */}
-              <Route path="/inovasi" element={<Inovasi />} /> 
+              <Route path="/inovasi" element={<Inovasi />} />
+              <Route path="/inovasi/:id" element={<DetailInovasi />} />
 
               {/* Galeri Routes */}
               <Route path="/galeri" element={<Galery />} />

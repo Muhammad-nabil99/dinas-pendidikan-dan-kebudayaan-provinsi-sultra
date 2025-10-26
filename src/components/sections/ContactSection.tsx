@@ -1,61 +1,128 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
-import { useState } from "react";
+import { Mail } from "lucide-react";
+import usePostLayanan from "@/features/layanan/usePostLayanan";
+import SuccessModal from "@/components/SuccessModal";
+import CooldownModal from "../CooldownModal";
+
+const MAX_DOKUMEN_SIZE_MB = 5;
+const MAX_FOTO_SIZE_MB = 3;
+const MAX_FOTO_COUNT = 3;
 
 const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    judul: '',
-    deskripsi: '',
-    bidang: '',
-    namaPengirim: '',
-    emailPengirim: '',
-    dokumen: null as File | null,
-    foto: null as File | null,
-  });
+  const [open, isOpen] = useState(false);
+  const { postLayanan, isLoading } = usePostLayanan();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const [judul, setJudul] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [bidang, setBidang] = useState("");
+  const [email, setEmailPengirim] = useState("");
+  const [nama, setNamaPengirim] = useState("");
+  const [dokumen, setDokumen] = useState<File | null>(null);
+  const [foto, setFoto] = useState<File[]>([]);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!nama.trim()) newErrors.nama = "Nama wajib diisi.";
+    if (!email.trim()) newErrors.email = "Email wajib diisi.";
+    if (!bidang.trim()) newErrors.bidang = "Bidang wajib dipilih.";
+    if (!judul.trim()) newErrors.judul = "Judul wajib diisi.";
+    if (!deskripsi.trim()) newErrors.deskripsi = "Pesan wajib diisi.";
+
+    // Validasi ukuran dokumen
+    if (dokumen && dokumen.size > MAX_DOKUMEN_SIZE_MB * 1024 * 1024) {
+      newErrors.dokumen = `Ukuran dokumen maksimal ${MAX_DOKUMEN_SIZE_MB} MB.`;
+    }
+
+    // Validasi foto
+    if (foto.length > MAX_FOTO_COUNT) {
+      newErrors.foto = `Maksimal ${MAX_FOTO_COUNT} foto yang bisa diunggah.`;
+    } else {
+      foto.forEach((file) => {
+        if (file.size > MAX_FOTO_SIZE_MB * 1024 * 1024) {
+          newErrors.foto = `Ukuran foto maksimal ${MAX_FOTO_SIZE_MB} MB per file.`;
+        }
+      });
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    const name = e.target.name;
-    setFormData(prev => ({ ...prev, [name]: file }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmitLayanan = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
-    alert('Pesan berhasil dikirim!');
-    // Reset form
-    setFormData({
-      judul: '',
-      deskripsi: '',
-      bidang: '',
-      namaPengirim: '',
-      emailPengirim: '',
-      dokumen: null,
-      foto: null,
-    });
+    if (!validateForm()) return;
+
+    try {
+      const getLaporan = localStorage.getItem("laporan");
+      const laporan = JSON.parse(getLaporan);
+
+      const laporanTime = new Date(laporan.time);
+      const now = new Date();
+
+      const diffMs = now.getTime() - laporanTime.getTime();
+
+      const diffMinutes = Math.floor(diffMs / (1000 * 60));
+
+      console.log("diffMinutes", diffMinutes);
+
+      if (laporan?.email === email && diffMinutes < 60) {
+        isOpen((value) => !value);
+        return;
+      } else {
+        await postLayanan({
+          judul,
+          deskripsi,
+          bidang,
+          email_pengirim: email,
+          nama_pengirim: nama,
+          dokumen,
+          files: foto,
+        });
+      }
+
+      localStorage.setItem(
+        "laporan",
+        JSON.stringify({ judul, time: new Date(), email })
+      );
+
+      // reset form
+      setJudul("");
+      setDeskripsi("");
+      setBidang("");
+      setEmailPengirim("");
+      setNamaPengirim("");
+      setDokumen(null);
+      setFoto([]);
+      setErrors({});
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.error(error);
+      alert("Terjadi kesalahan saat mengirim laporan. Silakan coba lagi.");
+    }
   };
 
   return (
     <section className="py-20" id="contact">
+      <CooldownModal open={open} onClose={() => isOpen((value) => !value)} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-education-green/10 rounded-full mb-4">
             <Mail className="w-4 h-4 text-education-green mr-2" />
-            <span className="text-sm font-medium text-education-green">Hubungi Kami</span>
+            <span className="text-sm font-medium text-education-green">
+              Hubungi Kami
+            </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Kontak & Informasi
+            Laporan
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Kami siap melayani dan membantu kebutuhan pendidikan Anda
@@ -63,81 +130,73 @@ const ContactSection = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+          {/* Left: Tupoksi */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-2xl font-semibold mb-6">Informasi Kontak</h3>
+              <h3 className="text-2xl font-semibold mb-6">Tupoksi Bidang</h3>
               <div className="space-y-4">
-                <Card className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-government-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-government-blue" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Alamat Kantor</h4>
-                      <p className="text-muted-foreground">
-                        Jalan Ahmad Yani No. 2, Kendari, Sulawesi Tenggara 93117<br />
-                        Indonesia
-                      </p>
-                    </div>
-                  </div>
-                </Card>
+                <div className="border rounded-lg p-6 bg-gray-50">
+                  <h4 className="font-semibold mb-2">
+                    Bidang Perencanaan dan Penganggaran
+                  </h4>
+                  <p className="text-muted-foreground text-sm">
+                    Mengoordinasikan penyusunan rencana, program, kegiatan, dan
+                    anggaran dinas. Menyusun perencanaan strategis, sinkronisasi
+                    kebijakan antar kabupaten/kota, serta pendataan pendidikan
+                    dan kebudayaan.
+                  </p>
+                </div>
 
-                <Card className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-education-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-education-green" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Telepon & Fax</h4>
-                      <p className="text-muted-foreground">
-                        Telepon: (0401) 321234<br />
-                        Fax: (0401) 321235<br />
-                        Hotline: 0800-1234-5678
-                      </p>
-                    </div>
-                  </div>
-                </Card>
+                <div className="border rounded-lg p-6 bg-gray-50">
+                  <h4 className="font-semibold mb-2">
+                    Bidang Pembinaan Sekolah Menengah Atas
+                  </h4>
+                  <p className="text-muted-foreground text-sm">
+                    Merencanakan, mengoordinasikan, dan memfasilitasi kebutuhan
+                    kurikulum, kelembagaan, sarana prasarana, kesiswaan, dan
+                    pendidikan karakter jenjang SMA. Melaksanakan pembinaan mutu
+                    serta evaluasi kegiatan SMA.
+                  </p>
+                </div>
 
-                <Card className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gold/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-gold" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Email</h4>
-                      <p className="text-muted-foreground">
-                        info@disdik.sultraprov.go.id<br />
-                        pengaduan@disdik.sultraprov.go.id<br />
-                        ppid@disdik.sultraprov.go.id
-                      </p>
-                    </div>
-                  </div>
-                </Card>
+                <div className="border rounded-lg p-6 bg-gray-50">
+                  <h4 className="font-semibold mb-2">
+                    Bidang Pembinaan SMK dan Pendidikan Khusus
+                  </h4>
+                  <p className="text-muted-foreground text-sm">
+                    Menangani kurikulum, kelembagaan, sarana prasarana,
+                    kesiswaan, dan pendidikan karakter SMK serta pendidikan
+                    khusus. Fokus pada pengembangan kompetensi siswa dan
+                    koordinasi ujian serta akreditasi.
+                  </p>
+                </div>
 
-                <Card className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Jam Pelayanan</h4>
-                      <div className="text-muted-foreground space-y-1">
-                        <p>Senin - Kamis: 08:00 - 16:00 WITA</p>
-                        <p>Jumat: 08:00 - 16:30 WITA</p>
-                        <p>Istirahat: 12:00 - 13:00 WITA</p>
-                        <p className="text-sm text-red-600 mt-2">
-                          *Sabtu, Minggu dan hari libur nasional tutup
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
+                <div className="border rounded-lg p-6 bg-gray-50">
+                  <h4 className="font-semibold mb-2">
+                    Bidang Pembinaan Guru dan Ketenagaan (GTK)
+                  </h4>
+                  <p className="text-muted-foreground text-sm">
+                    Melakukan pembinaan dan pengelolaan guru serta tenaga
+                    kependidikan. Menangani formasi, mutasi, pengembangan karir,
+                    sertifikasi, dan peningkatan profesionalisme GTK.
+                  </p>
+                </div>
+
+                <div className="border rounded-lg p-6 bg-gray-50">
+                  <h4 className="font-semibold mb-2">Bidang Kebudayaan</h4>
+                  <p className="text-muted-foreground text-sm">
+                    Menangani pelestarian, perlindungan, dan pengembangan
+                    kebudayaan, cagar budaya, sejarah, tradisi, dan kesenian
+                    tingkat provinsi. Mengintegrasikan nilai budaya ke dalam
+                    dunia pendidikan.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Right: Form */}
+          {/* Right: Form */}
           <div>
             <Card className="p-8">
               <CardHeader className="px-0 pt-0">
@@ -146,119 +205,147 @@ const ContactSection = () => {
                   Sampaikan pertanyaan, saran, atau pengaduan Anda
                 </p>
               </CardHeader>
+
               <CardContent className="px-0 pb-0">
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleSubmitLayanan}>
                   <div>
-                    <Label htmlFor="judul">Judul*</Label>
+                    <Label>Nama*</Label>
                     <Input
-                      id="judul"
-                      name="judul"
-                      placeholder="Masukkan judul"
+                      placeholder="Masukkan nama"
                       className="mt-2"
-                      value={formData.judul}
-                      onChange={handleChange}
-                      required
+                      value={nama}
+                      onChange={(e) => setNamaPengirim(e.target.value)}
                     />
+                    {errors.nama && (
+                      <p className="text-red-500 text-sm mt-1">{errors.nama}</p>
+                    )}
                   </div>
 
                   <div>
-                    <Label htmlFor="deskripsi">Deskripsi*</Label>
-                    <Textarea
-                      id="deskripsi"
-                      name="deskripsi"
-                      placeholder="Tulis deskripsi Anda di sini..."
-                      rows={5}
-                      className="mt-2 resize-none"
-                      value={formData.deskripsi}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="bidang">Bidang*</Label>
-                    <Select value={formData.bidang} onValueChange={(value) => setFormData(prev => ({ ...prev, bidang: value }))}>
-                      <SelectTrigger className="mt-2">
-                        <SelectValue placeholder="Pilih bidang" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="bidang_sma">Bidang SMA</SelectItem>
-                        <SelectItem value="bidang_smk">Bidang SMK</SelectItem>
-                        <SelectItem value="bidang_pklk">Bidang Pembinaan PK-LK</SelectItem>
-                        <SelectItem value="bidang_gtk">Bidang GTK</SelectItem>
-                        <SelectItem value="bidang_perencanaan">Bidang Perencanaan dan Penganggaran</SelectItem>
-                        <SelectItem value="bidang_kebudayaan  ">Bidang Kebudayaan</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="namaPengirim">Nama Lengkap*</Label>
+                    <Label>Email*</Label>
                     <Input
-                      id="namaPengirim"
-                      name="namaPengirim"
-                      placeholder="Masukkan nama lengkap"
-                      className="mt-2"
-                      value={formData.namaPengirim}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="emailPengirim">Email*</Label>
-                    <Input
-                      id="emailPengirim"
-                      name="emailPengirim"
                       type="email"
                       placeholder="nama@email.com"
                       className="mt-2"
-                      value={formData.emailPengirim}
-                      onChange={handleChange}
-                      required
+                      value={email}
+                      onChange={(e) => setEmailPengirim(e.target.value)}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div>
-                    <Label htmlFor="foto">Foto</Label>
+                    <Label>Bidang*</Label>
+                    <select
+                      value={bidang}
+                      onChange={(e) => setBidang(e.target.value)}
+                      className="mt-2 rounded-md border border-gray-300 p-2 w-full"
+                    >
+                      <option value="">Pilih Bidang</option>
+                      <option value="bidang_sma">Bidang Pembinaan SMA</option>
+                      <option value="bidang_smk">Bidang Pembinaan SMK</option>
+                      <option value="bidang_pklk">
+                        Bidang Pembinaan PK-LK
+                      </option>
+                      <option value="bidang_gtk">Bidang GTK</option>
+                      <option value="bidang_perencanaan">
+                        Bidang Perencanaan dan Penganggaran
+                      </option>
+                      <option value="bidang_kebudayaan">
+                        Bidang Kebudayaan
+                      </option>
+                    </select>
+                    {errors.bidang && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.bidang}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label>Judul*</Label>
                     <Input
-                      id="foto"
-                      name="foto"
+                      placeholder="Judul pesan"
+                      className="mt-2"
+                      value={judul}
+                      onChange={(e) => setJudul(e.target.value)}
+                    />
+                    {errors.judul && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.judul}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label>Pesan*</Label>
+                    <Textarea
+                      placeholder="Tulis pesan Anda di sini..."
+                      rows={5}
+                      className="mt-2 resize-none"
+                      value={deskripsi}
+                      onChange={(e) => setDeskripsi(e.target.value)}
+                    />
+                    {errors.deskripsi && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.deskripsi}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label>Dokumen (opsional, maks. 5 MB)</Label>
+                    <Input
+                      type="file"
+                      accept=".pdf,.docx"
+                      className="mt-2"
+                      onChange={(e) => setDokumen(e.target.files?.[0] || null)}
+                    />
+                    {errors.dokumen && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.dokumen}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label>Upload Foto (maks. 3 file, 3 MB/foto)</Label>
+                    <Input
                       type="file"
                       accept="image/*"
+                      multiple
                       className="mt-2"
-                      onChange={handleFileChange}
+                      onChange={(e) =>
+                        setFoto(Array.from(e.target.files || []))
+                      }
                     />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="dokumen">Dokumen (PDF)</Label>
-                    <Input
-                      id="dokumen"
-                      name="dokumen"
-                      type="file"
-                      accept=".pdf"
-                      className="mt-2"
-                      onChange={handleFileChange}
-                    />
+                    {errors.foto && (
+                      <p className="text-red-500 text-sm mt-1">{errors.foto}</p>
+                    )}
                   </div>
 
-
-                  <Button className="w-full bg-gradient-primary hover:bg-gradient-primary/90" type="submit">
-                    <Send className="w-4 h-4 mr-2" />
-                    Kirim Pesan
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    {isLoading ? "Mengirim..." : "Kirim Pesan"}
                   </Button>
-
-                  <p className="text-sm text-muted-foreground text-center">
-                    Pesan akan direspon dalam 1-2 hari kerja. Untuk keperluan mendesak,
-                    hubungi langsung melalui telepon.
-                  </p>
                 </form>
               </CardContent>
             </Card>
           </div>
         </div>
       </div>
+
+      {/* ✅ Modal sukses */}
+      <SuccessModal
+        open={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+      />
     </section>
   );
 };

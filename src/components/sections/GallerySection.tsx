@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Camera, Play, X, ChevronLeft, ChevronRight, Download } from "lucide-react";
+import { ArrowRight, Camera, Play, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { dummyAlbums } from "@/pages/Galery";
 import ReactDOM from "react-dom";
+import useGetGaleri from "@/features/galeri/useGetGaleri";
+import { transformGaleriToAlbums } from "@/utils/help";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Define the type for a single album/gallery item
 export interface GalleryItem {
@@ -17,8 +18,20 @@ export interface GalleryItem {
 }
 
 const GallerySection = () => {
+  const { galeri, isLoading } = useGetGaleri();
+  const album = transformGaleriToAlbums(galeri);
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
-  const galleryItems: GalleryItem[] = dummyAlbums.slice(0, 6);
+
+  const galleryItems: GalleryItem[] = album
+    ?.map((galeri) => {
+      return {
+        ...galeri,
+        category: "foto",
+        media: galeri?.media?.filter((item) => item?.type === "foto"),
+      };
+    })
+    ?.slice(0, 6);
+
   const modalRef = useRef<HTMLDivElement>(null);
 
   const openModal = (item: GalleryItem) => {
@@ -72,12 +85,13 @@ const GallerySection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {galleryItems.map((item: GalleryItem) => (
             <div
-              key={item.id}
+              key={item.id + Math.random() * 100}
               onClick={() => openModal(item)}
               className="group overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
               <div className="relative aspect-video overflow-hidden">
-                <img
+                <LazyLoadImage
+                  effect={isLoading && "true"}
                   loading="lazy"
                   src={item.coverImage}
                   alt={item.title}
@@ -156,14 +170,16 @@ const GallerySection = () => {
                 <X className="w-8 h-8" />
               </button>
               <div className="p-3">
-                {selectedItem.category === "video" ? (
+                {selectedItem.category === "video" &&
+                selectedItem?.media?.length > 0 ? (
                   <video
-                    src={selectedItem.media?.[0]?.url}
+                    src={selectedItem?.media?.[0]?.url}
                     controls
                     className="w-full rounded-lg max-h-[60vh] object-cover"
                   />
                 ) : (
-                  <img
+                  <LazyLoadImage
+                    effect={isLoading && "blur"}
                     loading="lazy"
                     src={selectedItem.coverImage}
                     alt={selectedItem.title}
@@ -173,9 +189,11 @@ const GallerySection = () => {
                 <h2 className="capitalize my-2 text-2xl font-bold text-gray-900 mb-4">
                   {selectedItem.title}
                 </h2>
-                <p className="mt-4 text-gray-700">
-                  {selectedItem.media[0].description}
-                </p>
+                {selectedItem?.media?.length > 0 ? null : (
+                  <p className="mt-4 text-gray-700">
+                    {selectedItem?.media[0]?.deskripsi}
+                  </p>
+                )}
               </div>
             </div>
           </div>,

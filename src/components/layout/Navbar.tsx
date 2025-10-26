@@ -8,8 +8,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useGetDashboard from "@/features/dashboard/useGetDashboard";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Navbar = () => {
+  const { dashboard, isLoading } = useGetDashboard();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -18,7 +21,6 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
-    // Jalankan logika scroll hanya jika berada di halaman beranda (/)
     if (location.pathname === "/") {
       const handleScroll = () => {
         const heroSection = document.getElementById("hero"); // Pastikan Hero Section punya id="hero"
@@ -50,7 +52,7 @@ const Navbar = () => {
       ],
     },
     { href: "/laporan-kegiatan", label: "Laporan Kegiatan" },
-    { href: "/ppid", label: "PPID" },
+    // { href: "/ppid", label: "PPID" },
     { href: "/inovasi", label: "Inovasi" },
     { href: "/galeri", label: "Galeri" },
   ];
@@ -68,12 +70,13 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-lg flex items-center justify-center">
-              <img
+              <LazyLoadImage
+                effect={isLoading && "blur"}
                 loading="lazy"
-                src="./logo.png"
-                alt="logo dinas pendidikan"
+                src={dashboard?.logo?.url}
               />
             </div>
+
             <div className="hidden sm:block">
               <h1
                 className={`text-md font-bold ${
