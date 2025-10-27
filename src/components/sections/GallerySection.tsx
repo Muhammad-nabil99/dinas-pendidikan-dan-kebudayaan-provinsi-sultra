@@ -29,7 +29,8 @@ const GallerySection = () => {
         category: "foto",
         media: galeri?.media?.filter((item) => item?.type === "foto"),
       };
-    })
+    })  
+    ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     ?.slice(0, 6);
 
   const modalRef = useRef<HTMLDivElement>(null);
