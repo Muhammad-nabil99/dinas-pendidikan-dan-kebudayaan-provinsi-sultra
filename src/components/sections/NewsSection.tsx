@@ -2,14 +2,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
-import berita1 from "../../assets/berita-1.png";
-import berita2 from "../../assets/berita-2.png";
 import useGetBerita from "@/features/news/useGetBerita";
 
 const NewsSection = () => {
   const { berita, isLoading } = useGetBerita();
 
   if (isLoading) return "Loading...";
+
+  const latestNews = berita
+    ?.sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    )
+    ?.slice(0, 3);
 
   return (
     <section className="py-20 bg-muted/30">
@@ -35,15 +40,15 @@ const NewsSection = () => {
           {/* Berita Utama */}
           <Card
             className={`${
-              berita?.length <= 1 && "lg:col-start-2"
+              latestNews?.length <= 1 && "lg:col-start-2"
             } lg:col-span-3 shadow-md rounded-2xl overflow-hidden`}
           >
             {/* Gambar besar */}
             <div className="w-full h-96 relative overflow-hidden">
               <img
                 loading="lazy"
-                src={`https://dashboard.btikpsultra.my.id/storage/${berita?.[0]?.coverImage}`}
-                alt={berita?.[0]?.judul}
+                src={`https://dashboard.btikpsultra.my.id/storage/${latestNews?.[0]?.coverImage}`}
+                alt={latestNews?.[0]?.judul}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -51,25 +56,26 @@ const NewsSection = () => {
             {/* Konten menempel rapat di bawah gambar */}
             <div className="p-4 flex flex-col gap-2">
               <h2 className="text-2xl font-bold line-clamp-2">
-                {berita?.[0]?.judul}
+                {latestNews?.[0]?.judul}
               </h2>
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Timer className="w-4 h-4" />{" "}
-                  {new Date(berita?.[0]?.created_at).toLocaleTimeString()}
+                  {new Date(latestNews?.[0]?.created_at).toLocaleTimeString()}
                 </span>
                 <span className="flex items-center gap-1">
-                  📅 {new Date(berita?.[0]?.created_at).toLocaleDateString()}
+                  📅{" "}
+                  {new Date(latestNews?.[0]?.created_at).toLocaleDateString()}
                 </span>
               </div>
 
               <p className="text-muted-foreground line-clamp-3">
-                {berita?.[0]?.deskripsi}
+                {latestNews?.[0]?.deskripsi}
               </p>
 
               <div className="mt-2">
-                <Link to={`/berita/${berita?.[0]?.id}`}>
+                <Link to={`/berita/${latestNews?.[0]?.id}`}>
                   <Button
                     variant="default"
                     className="bg-gradient-to-r from-blue-600 to-green-400"
@@ -82,9 +88,9 @@ const NewsSection = () => {
           </Card>
 
           {/* Berita Lainnya */}
-          {berita.length > 1 && (
+          {latestNews?.length > 1 && (
             <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-              {berita.slice(1, 5).map((item) => (
+              {latestNews?.map((item) => (
                 <Card
                   key={item?.id}
                   // className="flex flex-col p-4 shadow-sm rounded-xl h-full"

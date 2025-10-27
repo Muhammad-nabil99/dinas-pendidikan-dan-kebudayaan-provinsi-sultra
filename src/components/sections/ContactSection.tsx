@@ -62,31 +62,33 @@ const ContactSection = () => {
 
     try {
       const getLaporan = localStorage.getItem("laporan");
-      const laporan = JSON.parse(getLaporan);
+      const laporan = getLaporan ? JSON.parse(getLaporan) : null;
 
-      const laporanTime = new Date(laporan.time);
-      const now = new Date();
+      if (laporan) {
+        const laporanTime = new Date(laporan.time);
+        const now = new Date();
 
-      const diffMs = now.getTime() - laporanTime.getTime();
+        const diffMs = now.getTime() - laporanTime.getTime();
 
-      const diffMinutes = Math.floor(diffMs / (1000 * 60));
+        const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
-      console.log("diffMinutes", diffMinutes);
+        console.log("diffMinutes", diffMinutes);
 
-      if (laporan?.email === email && diffMinutes < 60) {
-        isOpen((value) => !value);
-        return;
-      } else {
-        await postLayanan({
-          judul,
-          deskripsi,
-          bidang,
-          email_pengirim: email,
-          nama_pengirim: nama,
-          dokumen,
-          files: foto,
-        });
+        if (laporan.email === email && diffMinutes < 60) {
+          isOpen((value) => !value);
+          return;
+        }
       }
+
+      await postLayanan({
+        judul,
+        deskripsi,
+        bidang,
+        email_pengirim: email,
+        nama_pengirim: nama,
+        dokumen,
+        files: foto,
+      });
 
       localStorage.setItem(
         "laporan",
