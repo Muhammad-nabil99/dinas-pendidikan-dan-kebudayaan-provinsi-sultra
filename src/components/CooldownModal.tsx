@@ -16,13 +16,13 @@ interface CooldownModalProps {
 const CooldownModal: React.FC<CooldownModalProps> = ({ open, onClose }) => {
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md text-center border-yellow-300">
+      <DialogContent className="max-w-md text-center border-blue-300">
         <DialogHeader>
           <div className="flex justify-center mb-4">
             {/* Ganti ikon dan warna menjadi tema peringatan/waktu */}
-            <Timer className="w-16 h-16 text-yellow-500" />
+            <Timer className="w-16 h-16 text-blue-500" />
           </div>
-          <DialogTitle className="text-2xl font-bold text-yellow-700">
+          <DialogTitle className="text-2xl font-bold text-blue-700">
             Harap Menunggu
           </DialogTitle>
           <DialogDescription className="text-base mt-2 text-gray-600">
@@ -35,7 +35,7 @@ const CooldownModal: React.FC<CooldownModalProps> = ({ open, onClose }) => {
         <div className="mt-6">
           <Button
             onClick={onClose}
-            className="w-full bg-yellow-600 hover:bg-yellow-700 text-white"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
           >
             Saya Mengerti
           </Button>

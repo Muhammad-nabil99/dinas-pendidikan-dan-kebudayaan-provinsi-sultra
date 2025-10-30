@@ -7,12 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail } from "lucide-react";
 import usePostLayanan from "@/features/layanan/usePostLayanan";
 import SuccessModal from "@/components/SuccessModal";
+import CooldownModal from "../CooldownModal";
 
 const MAX_DOKUMEN_SIZE_MB = 5;
 const MAX_FOTO_SIZE_MB = 3;
 const MAX_FOTO_COUNT = 3;
 
 const ContactSection = () => {
+  const [open, isOpen] = useState(false);
   const { postLayanan, isLoading } = usePostLayanan();
 
   const [judul, setJudul] = useState("");
@@ -59,15 +61,37 @@ const ContactSection = () => {
     if (!validateForm()) return;
 
     try {
-      await postLayanan({
-        judul,
-        deskripsi,
-        bidang,
-        email_pengirim: email,
-        nama_pengirim: nama,
-        dokumen,
-        files: foto,
-      });
+      const getLaporan = localStorage.getItem("laporan");
+      const laporan = JSON.parse(getLaporan);
+
+      const laporanTime = new Date(laporan.time);
+      const now = new Date();
+
+      const diffMs = now.getTime() - laporanTime.getTime();
+
+      const diffMinutes = Math.floor(diffMs / (1000 * 60));
+
+      console.log("diffMinutes", diffMinutes);
+
+      if (laporan?.email === email && diffMinutes < 60) {
+        isOpen((value) => !value);
+        return;
+      } else {
+        await postLayanan({
+          judul,
+          deskripsi,
+          bidang,
+          email_pengirim: email,
+          nama_pengirim: nama,
+          dokumen,
+          files: foto,
+        });
+      }
+
+      localStorage.setItem(
+        "laporan",
+        JSON.stringify({ judul, time: new Date(), email })
+      );
 
       // reset form
       setJudul("");
@@ -87,6 +111,7 @@ const ContactSection = () => {
 
   return (
     <section className="py-20" id="contact">
+      <CooldownModal open={open} onClose={() => isOpen((value) => !value)} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -115,9 +140,10 @@ const ContactSection = () => {
                     Bidang Perencanaan dan Penganggaran
                   </h4>
                   <p className="text-muted-foreground text-sm">
-                    Mengoordinasikan penyusunan rencana, program, kegiatan, dan anggaran dinas.
-                    Menyusun perencanaan strategis, sinkronisasi kebijakan antar kabupaten/kota,
-                    serta pendataan pendidikan dan kebudayaan.
+                    Mengoordinasikan penyusunan rencana, program, kegiatan, dan
+                    anggaran dinas. Menyusun perencanaan strategis, sinkronisasi
+                    kebijakan antar kabupaten/kota, serta pendataan pendidikan
+                    dan kebudayaan.
                   </p>
                 </div>
 
@@ -126,9 +152,10 @@ const ContactSection = () => {
                     Bidang Pembinaan Sekolah Menengah Atas
                   </h4>
                   <p className="text-muted-foreground text-sm">
-                    Merencanakan, mengoordinasikan, dan memfasilitasi kebutuhan kurikulum,
-                    kelembagaan, sarana prasarana, kesiswaan, dan pendidikan karakter jenjang SMA.
-                    Melaksanakan pembinaan mutu serta evaluasi kegiatan SMA.
+                    Merencanakan, mengoordinasikan, dan memfasilitasi kebutuhan
+                    kurikulum, kelembagaan, sarana prasarana, kesiswaan, dan
+                    pendidikan karakter jenjang SMA. Melaksanakan pembinaan mutu
+                    serta evaluasi kegiatan SMA.
                   </p>
                 </div>
 
@@ -137,9 +164,10 @@ const ContactSection = () => {
                     Bidang Pembinaan SMK dan Pendidikan Khusus
                   </h4>
                   <p className="text-muted-foreground text-sm">
-                    Menangani kurikulum, kelembagaan, sarana prasarana, kesiswaan,
-                    dan pendidikan karakter SMK serta pendidikan khusus.
-                    Fokus pada pengembangan kompetensi siswa dan koordinasi ujian serta akreditasi.
+                    Menangani kurikulum, kelembagaan, sarana prasarana,
+                    kesiswaan, dan pendidikan karakter SMK serta pendidikan
+                    khusus. Fokus pada pengembangan kompetensi siswa dan
+                    koordinasi ujian serta akreditasi.
                   </p>
                 </div>
 
@@ -148,17 +176,19 @@ const ContactSection = () => {
                     Bidang Pembinaan Guru dan Ketenagaan (GTK)
                   </h4>
                   <p className="text-muted-foreground text-sm">
-                    Melakukan pembinaan dan pengelolaan guru serta tenaga kependidikan.
-                    Menangani formasi, mutasi, pengembangan karir, sertifikasi, dan peningkatan profesionalisme GTK.
+                    Melakukan pembinaan dan pengelolaan guru serta tenaga
+                    kependidikan. Menangani formasi, mutasi, pengembangan karir,
+                    sertifikasi, dan peningkatan profesionalisme GTK.
                   </p>
                 </div>
 
                 <div className="border rounded-lg p-6 bg-gray-50">
                   <h4 className="font-semibold mb-2">Bidang Kebudayaan</h4>
                   <p className="text-muted-foreground text-sm">
-                    Menangani pelestarian, perlindungan, dan pengembangan kebudayaan, cagar budaya,
-                    sejarah, tradisi, dan kesenian tingkat provinsi.
-                    Mengintegrasikan nilai budaya ke dalam dunia pendidikan.
+                    Menangani pelestarian, perlindungan, dan pengembangan
+                    kebudayaan, cagar budaya, sejarah, tradisi, dan kesenian
+                    tingkat provinsi. Mengintegrasikan nilai budaya ke dalam
+                    dunia pendidikan.
                   </p>
                 </div>
               </div>
@@ -186,7 +216,9 @@ const ContactSection = () => {
                       value={nama}
                       onChange={(e) => setNamaPengirim(e.target.value)}
                     />
-                    {errors.nama && <p className="text-red-500 text-sm mt-1">{errors.nama}</p>}
+                    {errors.nama && (
+                      <p className="text-red-500 text-sm mt-1">{errors.nama}</p>
+                    )}
                   </div>
 
                   <div>
@@ -198,7 +230,11 @@ const ContactSection = () => {
                       value={email}
                       onChange={(e) => setEmailPengirim(e.target.value)}
                     />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -211,14 +247,22 @@ const ContactSection = () => {
                       <option value="">Pilih Bidang</option>
                       <option value="bidang_sma">Bidang Pembinaan SMA</option>
                       <option value="bidang_smk">Bidang Pembinaan SMK</option>
-                      <option value="bidang_pklk">Bidang Pembinaan PK-LK</option>
+                      <option value="bidang_pklk">
+                        Bidang Pembinaan PK-LK
+                      </option>
                       <option value="bidang_gtk">Bidang GTK</option>
                       <option value="bidang_perencanaan">
                         Bidang Perencanaan dan Penganggaran
                       </option>
-                      <option value="bidang_kebudayaan">Bidang Kebudayaan</option>
+                      <option value="bidang_kebudayaan">
+                        Bidang Kebudayaan
+                      </option>
                     </select>
-                    {errors.bidang && <p className="text-red-500 text-sm mt-1">{errors.bidang}</p>}
+                    {errors.bidang && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.bidang}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -229,7 +273,11 @@ const ContactSection = () => {
                       value={judul}
                       onChange={(e) => setJudul(e.target.value)}
                     />
-                    {errors.judul && <p className="text-red-500 text-sm mt-1">{errors.judul}</p>}
+                    {errors.judul && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.judul}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -241,7 +289,11 @@ const ContactSection = () => {
                       value={deskripsi}
                       onChange={(e) => setDeskripsi(e.target.value)}
                     />
-                    {errors.deskripsi && <p className="text-red-500 text-sm mt-1">{errors.deskripsi}</p>}
+                    {errors.deskripsi && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.deskripsi}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -252,20 +304,28 @@ const ContactSection = () => {
                       className="mt-2"
                       onChange={(e) => setDokumen(e.target.files?.[0] || null)}
                     />
-                    {errors.dokumen && <p className="text-red-500 text-sm mt-1">{errors.dokumen}</p>}
+                    {errors.dokumen && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.dokumen}
+                      </p>
+                    )}
                   </div>
 
-                   <div>
+                  <div>
                     <Label>Upload Foto (maks. 3 file, 3 MB/foto)</Label>
                     <Input
                       type="file"
                       accept="image/*"
                       multiple
                       className="mt-2"
-                      onChange={(e) => setFoto(Array.from(e.target.files || []))}
+                      onChange={(e) =>
+                        setFoto(Array.from(e.target.files || []))
+                      }
                     />
-                    {errors.foto && <p className="text-red-500 text-sm mt-1">{errors.foto}</p>}
-                  </div> 
+                    {errors.foto && (
+                      <p className="text-red-500 text-sm mt-1">{errors.foto}</p>
+                    )}
+                  </div>
 
                   <Button
                     type="submit"
@@ -278,7 +338,6 @@ const ContactSection = () => {
               </CardContent>
             </Card>
           </div>
-
         </div>
       </div>
 

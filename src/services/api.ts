@@ -36,7 +36,6 @@ export const getDetailBerita = async (id: number) => {
 };
 export const postApiLayanan = async (data) => {
   try {
-    console.log("Data yang dikirim ke API:", data);
 
     const formData = new FormData();
     formData.append("judul", data.judul);
