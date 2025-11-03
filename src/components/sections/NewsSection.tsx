@@ -14,12 +14,14 @@ const NewsSection = () => {
       (a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     )
-    ?.slice(0, 3);
+    ?.slice(0, 5); 
+
+  const mainNews = latestNews?.[0]; 
+  const otherNews = latestNews?.slice(1); 
 
   return (
     <section className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-government-blue/10 rounded-full mb-4">
             <CalendarDays className="w-4 h-4 text-government-blue mr-2" />
@@ -37,70 +39,72 @@ const NewsSection = () => {
 
         {/* Featured News */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Berita Utama */}
-          <Card
-            className={`${
-              latestNews?.length <= 1 && "lg:col-start-2"
-            } lg:col-span-3 shadow-md rounded-2xl overflow-hidden`}
-          >
-            {/* Gambar besar */}
-            <div className="w-full h-96 relative overflow-hidden">
-              <img
-                loading="lazy"
-                src={`https://dashboard.btikpsultra.my.id/storage/${latestNews?.[0]?.coverImage}`}
-                alt={latestNews?.[0]?.judul}
-                className="w-full h-full object-cover"
-              />
-            </div>
 
-            {/* Konten menempel rapat di bawah gambar */}
-            <div className="p-4 flex flex-col gap-2">
-              <h2 className="text-2xl font-bold line-clamp-2">
-                {latestNews?.[0]?.judul}
-              </h2>
-
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Timer className="w-4 h-4" />{" "}
-                  {new Date(latestNews?.[0]?.created_at).toLocaleTimeString()}
-                </span>
-                <span className="flex items-center gap-1">
-                  📅{" "}
-                  {new Date(latestNews?.[0]?.created_at).toLocaleDateString()}
-                </span>
+          {mainNews && (
+            <Card
+              className={`${ 
+                (!otherNews || otherNews.length === 0) && "lg:col-start-2"
+              } lg:col-span-3 shadow-md rounded-2xl overflow-hidden`}
+            >
+              {/* Gambar besar */}
+              <div className="w-full h-96 relative overflow-hidden">
+                <img
+                  loading="lazy"
+                  src={`https://dashboard.btikpsultra.my.id/storage/${mainNews?.coverImage}`}
+                  alt={mainNews?.judul}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
-              <p className="text-muted-foreground line-clamp-3">
-                {latestNews?.[0]?.deskripsi}
-              </p>
+              {/* Konten menempel rapat di bawah gambar */}
+              <div className="p-4 flex flex-col gap-2">
+                <h2 className="text-2xl font-bold line-clamp-2">
+                  {mainNews?.judul}
+                </h2>
 
-              <div className="mt-2">
-                <Link to={`/berita/${latestNews?.[0]?.id}`}>
-                  <Button
-                    variant="default"
-                    className="bg-gradient-to-r from-blue-600 to-green-400"
-                  >
-                    Selengkapnya
-                  </Button>
-                </Link>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Timer className="w-4 h-4" />{" "}
+                    {new Date(mainNews?.created_at).toLocaleTimeString()}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    📅{" "}
+                    {new Date(mainNews?.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+
+                <p className="text-muted-foreground line-clamp-3">
+                  {mainNews?.deskripsi}
+                </p>
+
+                <div className="mt-2">
+                  <Link to={`/berita/${mainNews?.id}`}>
+                    <Button
+                      variant="default"
+                      className="bg-gradient-to-r from-blue-600 to-green-400"
+                    >
+                      Selengkapnya
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          )}
 
           {/* Berita Lainnya */}
-          {latestNews?.length > 1 && (
-            <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-              {latestNews?.map((item) => (
+          {otherNews && otherNews.length > 0 && (
+            <div className="lg:col-span-2 grid grid-cols-2 gap-4"> {/* Styling Anda tidak diubah */}
+              
+              {otherNews.map((item) => (
                 <Card
                   key={item?.id}
-                  // className="flex flex-col p-4 shadow-sm rounded-xl h-full"
-                  className="flex flex-col p-4 shadow-sm rounded-xl h-full bg-white/20 backdrop-blur-md border border-blue/30"
+                  className="flex flex-col p-4 shadow-sm rounded-xl h-full bg-white/20 backdrop-blur-md border border-blue/30" // Styling Anda tidak diubah
                 >
                   <img
                     loading="lazy"
                     src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
                     alt={item?.judul}
-                    className="w-full h-32 rounded-md object-cover mb-3"
+                    className="w-full h-32 rounded-md object-cover mb-3" 
                   />
                   <div className="flex-1">
                     <Link to={`/berita/${item?.id}`}>
@@ -108,9 +112,6 @@ const NewsSection = () => {
                         {item?.judul}
                       </h4>
                     </Link>
-                    <p className="text-xs text-muted-foreground mb-1">
-                      {new Date(berita?.[0]?.created_at).toLocaleDateString()}
-                    </p>
                     <p className="text-xs text-muted-foreground line-clamp-2">
                       {item?.deskripsi}
                     </p>
@@ -120,7 +121,7 @@ const NewsSection = () => {
 
               <Button
                 asChild
-                className="col-span-2 w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90 mt-2"
+                className="col-span-2 w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90 mt-2" // Styling Anda tidak diubah
               >
                 <Link to="/berita">Lihat Semua Berita</Link>
               </Button>

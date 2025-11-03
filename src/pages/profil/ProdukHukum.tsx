@@ -175,9 +175,6 @@ const ProdukHukum = () => {
                               <h3 className="text-xl font-semibold text-foreground mb-1">
                                 {item.judul}
                               </h3>
-                              <p className="text-lg text-government-blue font-medium mb-2">
-                                {item.deskripsi}
-                              </p>
                               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                                 <Calendar className="w-4 h-4" />
                                 <span>{formatDate(item.created_at)}</span>

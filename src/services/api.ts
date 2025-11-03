@@ -40,7 +40,7 @@ export const postApiLayanan = async (data) => {
     const formData = new FormData();
     formData.append("judul", data.judul);
     formData.append("deskripsi", data.deskripsi);
-    formData.append("bidang", data.bidang.replace("bidang_", ""));
+    formData.append("bidang", data.bidang);
     formData.append("email_pengirim", data.email_pengirim);
     formData.append("nama_pengirim", data.nama_pengirim);
     formData.append("time", new Date().toISOString());

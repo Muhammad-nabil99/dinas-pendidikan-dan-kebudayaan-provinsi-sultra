@@ -35,8 +35,8 @@ const OrganizationChart = () => {
   const subBagianData: PersonData[] = [
     {
       id: "sub-bag-umum",
-      name: "Suherman, S.Sos, M.PD",
-      title: "Sub Bagian Umum dan Kepegawaian",
+      name: "Kamarudin Raiya, S.Pd., M.A.P",
+      title: "Sub Bagian Umum dan Humas",
       nip: "NIP. 197006 200604 1 010"
     },
     {

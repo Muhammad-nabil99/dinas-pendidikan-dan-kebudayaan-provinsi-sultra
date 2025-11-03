@@ -29,9 +29,21 @@ const GallerySection = () => {
         category: "foto",
         media: galeri?.media?.filter((item) => item?.type === "foto"),
       };
-    })  
-    ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    ?.slice(0, 6);
+    })
+    ?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  // Fungsi untuk mengacak array
+  const shuffleArray = (array: GalleryItem[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Mengacak galleryItems setiap kali komponen di-render ulang
+  const randomizedGalleryItems = shuffleArray(galleryItems)?.slice(0, 6);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -84,7 +96,7 @@ const GallerySection = () => {
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {galleryItems.map((item: GalleryItem) => (
+          {randomizedGalleryItems.map((item: GalleryItem) => (
             <div
               key={item.id + Math.random() * 100}
               onClick={() => openModal(item)}

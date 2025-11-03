@@ -201,9 +201,13 @@ function DetailTugasFungsi() {
         <ArrowLeft className="w-4 h-4 mr-2" />
         Halaman Sebelumnya
       </Button>
-      <div className="my-10 m-auto w-1/2  flex items-center justify-center  bg-slate-300 h-52 rounded-md">
-        <p className="text-center font-semibold capitalize">foto/gambar</p>
+      <div className="my-10 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-52 rounded-md">
+          <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
       </div>
+      {/* <div 
+       className="bg w-full h-60 rounded-md bg-cover bg-center rounded-md"
+       style={{ backgroundImage: `url(/avatar.png)` }}
+       ></div> */}
 
       <h1 className="text-xl text-center my-2 font-bold capitalize">
         {detail.title}

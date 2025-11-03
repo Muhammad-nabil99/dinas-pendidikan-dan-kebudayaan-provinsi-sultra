@@ -9,7 +9,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // The array of texts to be displayed with a typing animation
 // const heroTexts = ["Selamat Datang", "Selama Leu", "Selamat Ngka"];
-const heroTexts = ["Selamat Datang", "Selama Leu", "tumpuno lalo karatoha"];
+const heroTexts = ["Selamat Datang", "Selama Leu", "Maemo", "Tepinda Momapu", "Cumpulalou Kabundomo", "Minteleumo", "Taumba Mo Nkita", "Salama Leumiu", "Salamaci Buamo Ingana"];
 
 const HeroSection = () => {
   const { dashboard, isLoading } = useGetDashboard();
