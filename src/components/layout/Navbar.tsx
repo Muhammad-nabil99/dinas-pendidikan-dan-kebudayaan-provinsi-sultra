@@ -16,7 +16,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const [openMenu, setOpenMenu] = useState(null);
+  const [openMenu, setOpenMenu] = useState<number | null>(null);
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -52,7 +52,14 @@ const Navbar = () => {
       ],
     },
     { href: "/laporan-kegiatan", label: "Laporan Kegiatan" },
-    // { href: "/ppid", label: "PPID" },
+    {
+      label: "PPID",
+      subItems: [
+        { href: "/ppid/profil", label: "Profil & Kontak" },
+        { href: "/ppid/mekanisme", label: "Mekanisme Layanan" },
+        { href: "/ppid/dip", label: "Daftar Informasi Publik" },
+      ],
+    },
     { href: "/inovasi", label: "Inovasi" },
     { href: "/galeri", label: "Galeri" },
   ];

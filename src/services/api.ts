@@ -22,10 +22,10 @@ export const getBerita = async () => {
     console.log(error.message);
   }
 };
-export const getDetailBerita = async (id: number) => {
+export const getDetailBerita = async (slug: string) => {
   try {
     const response = await fetch(
-      `https://dashboard.btikpsultra.my.id/api/berita/${id}`
+      `https://dashboard.btikpsultra.my.id/api/berita/${slug}`
     );
     const data = await response.json();
     return data;
@@ -36,7 +36,6 @@ export const getDetailBerita = async (id: number) => {
 };
 export const postApiLayanan = async (data) => {
   try {
-
     const formData = new FormData();
     formData.append("judul", data.judul);
     formData.append("deskripsi", data.deskripsi);
@@ -54,8 +53,6 @@ export const postApiLayanan = async (data) => {
     if (data.dokumen) {
       formData.append("dokumen", data.dokumen);
     }
-
-    
 
     const response = await fetch(
       "https://dashboard.btikpsultra.my.id/api/layanan",
@@ -191,3 +188,17 @@ export const getGaleri = async () => {
     console.log(error.message);
   }
 };
+
+export const getPPID = async () => {
+  try {
+    const response = await fetch(
+      "https://dashboard.btikpsultra.my.id/api/ppid"
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+

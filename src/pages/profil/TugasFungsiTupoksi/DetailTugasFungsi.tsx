@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useParams } from "react-router-dom";
+import AvatarImage from '@/assets/avatar.png';
 
 const unitKerjaDetails = {
   "kepala-dinas": {
@@ -202,7 +203,7 @@ function DetailTugasFungsi() {
         Halaman Sebelumnya
       </Button>
       <div className="my-10 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-52 rounded-md">
-          <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
+          <img src={AvatarImage} alt="Avatar" className="max-h-full max-w-full object-contain" />
       </div>
       {/* <div 
        className="bg w-full h-60 rounded-md bg-cover bg-center rounded-md"
