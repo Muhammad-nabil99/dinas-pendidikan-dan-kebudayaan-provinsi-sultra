@@ -16,6 +16,9 @@ import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan.js";
 
 // PPID page
 import PPID from "./pages/PPID";
+import PPIDProfil from "./pages/ppid/PPIDProfil";
+import PPIDMekanisme from "./pages/ppid/PPIDMekanisme";
+import PPIDDip from "./pages/ppid/PPIDDip";
 
 // Galeri pages
 import Galery from "./pages/Galery";
@@ -80,7 +83,12 @@ const App = () => {
               <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
 
               {/* PPID Route */}
-              {/* <Route path="/ppid" element={<PPID />} /> */}
+              <Route path="/ppid" element={<PPID />} />
+
+              {/* PPID Sub Routes */}
+              <Route path="/ppid/profil" element={<PPIDProfil />} />
+              <Route path="/ppid/mekanisme" element={<PPIDMekanisme />} />
+              <Route path="/ppid/dip" element={<PPIDDip />} />
 
               {/* Agenda Route */}
               <Route path="/agenda" element={<Agenda />} />
@@ -95,7 +103,7 @@ const App = () => {
 
               {/* News Routes */}
               <Route path="/berita" element={<News />} />
-              <Route path="/berita/:id" element={<DetailBerita />} />
+              <Route path="/berita/:slug" element={<DetailBerita />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

@@ -22,10 +22,10 @@ export const getBerita = async () => {
     console.log(error.message);
   }
 };
-export const getDetailBerita = async (id: number) => {
+export const getDetailBerita = async (slug: string) => {
   try {
     const response = await fetch(
-      `https://dashboard.btikpsultra.my.id/api/berita/${id}`
+      `https://dashboard.btikpsultra.my.id/api/berita/${slug}`
     );
     const data = await response.json();
     return data;

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BgImage from '@/assets/tracking.jpg';
+import AvatarImage from '@/assets/avatar.png';
 
 const fungsiDinas: string[] = [
   "Perumusan kebijakan teknis dan operasional di bidang pendidikan dan kebudayaan sesuai dengan kewenangan",
@@ -228,9 +229,9 @@ const TugasFungsi = () => {
                       className="text-center flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/3 flex flex-col gap-2 p-4"
                     >
                       {/* <div className=" bg w-full h-60 rounded-md bg-gray-600"> </div> */}
-                      <div 
+                      <div
                         className="bg w-full h-60 rounded-md bg-cover bg-center rounded-md"
-                        style={{ backgroundImage: `url(/avatar.png)` }}
+                        style={{ backgroundImage: `url(${AvatarImage})` }}
                       ></div>
                       <h1 className="font-bold capitalize">{item.nama}</h1>
                       <h2>{item.unit}</h2>

@@ -24,7 +24,7 @@ const HeroSection = () => {
     if (!heroImage || heroImage.length === 0) return;
     const imageInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
-    }, 2000); // Change image every 2 seconds
+    }, 2000); 
     return () => clearInterval(imageInterval);
   }, []);
 

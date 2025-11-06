@@ -1,11 +1,11 @@
 import { getDetailBerita } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
-function useGetDetailBerita(id: number) {
+function useGetDetailBerita(slug: string) {
   const { data: detailBerita, isLoading } = useQuery({
-    queryKey: ["berita", id],
-    queryFn: () => getDetailBerita(id),
-    enabled: !!id,
+    queryKey: ["berita", slug],
+    queryFn: () => getDetailBerita(slug),
+    enabled: !!slug,
   });
 
   return { detailBerita, isLoading };

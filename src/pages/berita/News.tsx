@@ -177,7 +177,7 @@ const News = () => {
                           <span className="text-sm text-muted-foreground">
                             {new Date(item?.created_at).toLocaleDateString()}
                           </span>
-                          <Link to={`/berita/${item.id}`}>
+                          <Link to={`/berita/${item.slug}`}>
                             <Button
                               variant="ghost"
                               size="sm"
