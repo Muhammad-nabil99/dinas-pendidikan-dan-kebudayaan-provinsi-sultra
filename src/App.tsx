@@ -80,7 +80,7 @@ const App = () => {
               <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
 
               {/* PPID Route */}
-              {/* <Route path="/ppid" element={<PPID />} /> */}
+              <Route path="/ppid" element={<PPID />} />
 
               {/* Agenda Route */}
               <Route path="/agenda" element={<Agenda />} />
