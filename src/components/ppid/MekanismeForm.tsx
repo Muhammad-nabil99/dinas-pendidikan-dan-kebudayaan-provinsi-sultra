@@ -205,7 +205,7 @@ const MekanismeForm = () => {
               </div>
             </div>
 
-            <div className="p-4 bg-accent-gold/10 rounded-lg">
+            {/* <div className="p-4 bg-accent-gold/10 rounded-lg">
               <h4 className="font-semibold text-accent-gold mb-2">
                 Biaya Pelayanan
               </h4>
@@ -220,7 +220,7 @@ const MekanismeForm = () => {
                 <p>• Biaya cetak: sesuai tarif</p>
                 <p>• Pengiriman: sesuai ongkos kirim</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </CardContent>
