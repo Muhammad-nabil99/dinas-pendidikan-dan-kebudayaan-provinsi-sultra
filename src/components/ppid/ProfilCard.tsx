@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 const ProfilCard = () => {
   return (
     <div className="grid gap-6">
@@ -70,51 +69,65 @@ const ProfilCard = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-government-blue">
             <span className="text-2xl">👤</span>
-            Struktur PPID
+              UPTD PPID
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="text-center p-4 bg-government-blue/10 rounded-lg">
+              <h2 className="font-semibold text-government-blue">
+                PEJABAT STRUKTURAL & FUNGSIONAL
+              </h2>
+              <div className="my-6 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
+              </div>
               <h4 className="font-semibold text-government-blue">
-                PPID Utama
+                KEPALA UPTD BTIKP
               </h4>
-              <p className="text-sm text-muted-foreground">
-                [Template - Nama Kepala Dinas]
-              </p>
               <p className="text-xs text-muted-foreground">
-                Kepala Dinas Pendidikan
+                H. Jasfol Sambo, SE.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="text-center p-3 bg-education-green/10 rounded-lg">
-                <h5 className="font-medium text-education-green">
-                  PPID Pembantu
-                </h5>
+            <div className="grid md:grid-cols-2 gap-2">
+              <div className="text-center p-3 rounded-lg">
+              <div className="my-6 m-auto w-1/2 flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
+              </div>
                 <p className="text-sm text-muted-foreground">
-                  [Template - Nama Sekretaris]
+                 Hasruddin Jumain, S.Ip.
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Sekretaris Dinas
+                  Seksi P2TIP
                 </p>
               </div>
               <div className="text-center p-3 bg-accent-gold/10 rounded-lg">
-                <h5 className="font-medium text-accent-gold">
-                  PPID Pelaksana
-                </h5>
+              <div className="my-6 m-auto w-1/2 flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
+              </div>
                 <p className="text-sm text-muted-foreground">
-                  [Template - Nama Kepala Bagian]
+                  Supriyatno, S.Sos.
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Kabag Program
+                  Seksi P2MP
                 </p>
               </div>
+              
+            </div>
+            <div className="text-center p-3 bg-accent-gold/10 rounded-lg">
+              <div className="my-6 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                <img src="/avatar.png" alt="Avatar" className="max-h-full w-40 object-contain" />
+              </div>
+                <p className="text-sm text-muted-foreground">
+                  Wa Ita, S.Pd.
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Kasubag TU
+              </p>
             </div>
           </div>
         </CardContent>
       </Card>
-
       {/* Kontak PPID */}
       <Card className="shadow-elegant">
         <CardHeader>
@@ -162,9 +175,7 @@ const ProfilCard = () => {
                   <span>Jumat</span>
                   <span>08:00 - 16:00 WIB</span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  *Layanan online 24 jam
-                </p>
+                
               </div>
             </div>
           </div>

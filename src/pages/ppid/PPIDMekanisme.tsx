@@ -17,10 +17,10 @@ const PPIDMekanisme = () => {
         {/* Konten */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center mb-6">
-            <Link to="/ppid">
+            <Link to="/">
               <button className="bg-white/10 border-white/20 text-white hover:bg-white/20 px-4 py-2 rounded-md flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Kembali ke PPID</span>
+                <span className="hidden sm:inline">Kembali ke Beranda</span>
               </button>
             </Link>
           </div>

@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, Download, FileText } from "lucide-react";
+import { Search, Download, FileText, Eye, SearchCheck } from "lucide-react";
 
 interface DipItem {
   id: number;
@@ -33,90 +33,7 @@ const DipList = () => {
   useEffect(() => {
     const fetchDipData = async () => {
       try {
-        // TODO: Replace with actual API call
-        // const response = await getDipData();
-        // setDipData(response.data);
-
-        // Mock data for DIP
-        const mockData: DipItem[] = [
-          {
-            id: 1,
-            kategori: "Organisasi dan Kepegawaian",
-            jumlah: "25 Dokumen",
-            update: "Januari 2024",
-            akses: "Terbuka",
-            deskripsi: "Informasi tentang struktur organisasi, daftar pegawai, dan kepegawaian"
-          },
-          {
-            id: 2,
-            kategori: "Program dan Kegiatan",
-            jumlah: "38 Dokumen",
-            update: "Februari 2024",
-            akses: "Terbuka",
-            deskripsi: "Dokumentasi program pendidikan dan kegiatan yang telah dilaksanakan"
-          },
-          {
-            id: 3,
-            kategori: "Kinerja dan Capaian",
-            jumlah: "15 Dokumen",
-            update: "Maret 2024",
-            akses: "Terbuka",
-            deskripsi: "Laporan kinerja, capaian target, dan evaluasi program"
-          },
-          {
-            id: 4,
-            kategori: "Keuangan dan Anggaran",
-            jumlah: "20 Dokumen",
-            update: "Maret 2024",
-            akses: "Terbuka",
-            deskripsi: "Laporan keuangan, APBD, dan penggunaan anggaran"
-          },
-          {
-            id: 5,
-            kategori: "Pengadaan Barang dan Jasa",
-            jumlah: "12 Dokumen",
-            update: "April 2024",
-            akses: "Terbuka",
-            deskripsi: "Dokumen pengadaan barang dan jasa sesuai peraturan"
-          },
-        ];
-
-        // Mock data for Informasi Berkala
-        const mockBerkala: BerkalaItem[] = [
-          {
-            id: 1,
-            nama_dokumen: "Profil Dinas Pendidikan",
-            tahun: "2024",
-            file_url: "#"
-          },
-          {
-            id: 2,
-            nama_dokumen: "Rencana Strategis (Renstra)",
-            tahun: "2023",
-            file_url: "#"
-          },
-          {
-            id: 3,
-            nama_dokumen: "Laporan Kinerja (LAKIP)",
-            tahun: "2023",
-            file_url: "#"
-          },
-          {
-            id: 4,
-            nama_dokumen: "Laporan Keuangan",
-            tahun: "2023",
-            file_url: "#"
-          },
-          {
-            id: 5,
-            nama_dokumen: "Data Statistik Pendidikan",
-            tahun: "2024",
-            file_url: "#"
-          },
-        ];
-
-        setDipData(mockData);
-        setBerkalaData(mockBerkala);
+             
       } catch (error) {
         console.error("Error fetching DIP data:", error);
       } finally {
@@ -235,8 +152,8 @@ const DipList = () => {
                             className="bg-blue-600 hover:bg-blue-700"
                             onClick={() => window.open(item.file_url, '_blank')}
                           >
-                            <Download className="w-4 h-4 mr-1" />
-                            Unduh
+                            <Eye className="w-4 h-4 mr-1" />
+                            Lihat
                           </Button>
                         </td>
                       </tr>
@@ -310,7 +227,7 @@ const DipList = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-600">
                 <span className="text-2xl">🚫</span>
-                Informasi Dikecualikan
+                Informasi Dikecualikanan
               </CardTitle>
             </CardHeader>
             <CardContent>

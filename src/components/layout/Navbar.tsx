@@ -55,11 +55,12 @@ const Navbar = () => {
     {
       label: "PPID",
       subItems: [
-        { href: "/ppid/profil", label: "Profil & Kontak" },
+        { href: "/ppid/profil", label: "Profil PPID" },
         { href: "/ppid/mekanisme", label: "Mekanisme Layanan" },
         { href: "/ppid/dip", label: "Daftar Informasi Publik" },
       ],
     },
+   
     { href: "/inovasi", label: "Inovasi" },
     { href: "/galeri", label: "Galeri" },
   ];

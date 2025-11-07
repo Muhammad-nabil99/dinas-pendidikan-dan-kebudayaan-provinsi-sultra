@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Eye } from "lucide-react";
 
 interface TableItem {
   id: number;
@@ -56,8 +56,8 @@ const TableInformasi = ({ data, onDownload }: TableInformasiProps) => {
                   className="bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
                   onClick={() => onDownload(item.dokumen_url)}
                 >
-                  <Download className="w-4 h-4 mr-1" />
-                  Unduh
+                  <Eye className="w-4 h-4 mr-1" />
+                  Lihat
                 </Button>
               </td>
             </tr>

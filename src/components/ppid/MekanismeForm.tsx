@@ -3,228 +3,300 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label";
+import usePostLayanan from "@/features/layanan/usePostLayanan";
+import SuccessModal from "@/components/SuccessModal";
+import CooldownModal from "../CooldownModal";
+
+const MAX_DOKUMEN_SIZE_MB = 5;
+const MAX_FOTO_SIZE_MB = 3;
+const MAX_FOTO_COUNT = 3;
 
 const MekanismeForm = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    namaLengkap: "",
-    nik: "",
-    email: "",
-    telepon: "",
-    alamat: "",
-    informasiDiminta: "",
-    tujuanPenggunaan: "",
-  });
+  const { postLayanan, isLoading } = usePostLayanan();
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const [nama, setNamaPengirim] = useState("");
+  const [email, setEmailPengirim] = useState("");
+  const [judul, setJudul] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [dokumen, setDokumen] = useState<File | null>(null);
+  const [foto, setFoto] = useState<File[]>([]);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [open, isOpen] = useState(false);
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!nama.trim()) newErrors.nama = "Nama wajib diisi.";
+    if (!email.trim()) newErrors.email = "Email wajib diisi.";
+    if (!judul.trim()) newErrors.judul = "Judul wajib diisi.";
+    if (!deskripsi.trim()) newErrors.deskripsi = "Pesan wajib diisi.";
+
+    if (dokumen && dokumen.size > MAX_DOKUMEN_SIZE_MB * 1024 * 1024) {
+      newErrors.dokumen = `Ukuran dokumen maksimal ${MAX_DOKUMEN_SIZE_MB} MB.`;
+    }
+
+    if (foto.length > MAX_FOTO_COUNT) {
+      newErrors.foto = `Maksimal ${MAX_FOTO_COUNT} foto yang bisa diunggah.`;
+    } else {
+      foto.forEach((file) => {
+        if (file.size > MAX_FOTO_SIZE_MB * 1024 * 1024) {
+          newErrors.foto = `Ukuran foto maksimal ${MAX_FOTO_SIZE_MB} MB per file.`;
+        }
+      });
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmitLayanan = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    if (!validateForm()) return;
 
     try {
-      // TODO: Implement API call to submit permohonan informasi
-      // const response = await postPermohonanInformasi(formData);
+      const getLaporan = localStorage.getItem("laporan");
+      const laporan = getLaporan ? JSON.parse(getLaporan) : null;
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      if (laporan) {
+        const laporanTime = new Date(laporan.time);
+        const now = new Date();
+        const diffMinutes = Math.floor((now.getTime() - laporanTime.getTime()) / (1000 * 60));
 
-      toast({
-        title: "Berhasil!",
-        description: "Permohonan informasi telah diajukan. Anda akan menerima konfirmasi melalui email.",
+        if (laporan.email === email && diffMinutes < 60) {
+          isOpen((value) => !value);
+          return;
+        }
+      }
+
+      await postLayanan({
+        judul,
+        deskripsi,
+        bidang: "bidang_umum", // ✅ otomatis dikirim sebagai bidang_umum
+        email_pengirim: email,
+        nama_pengirim: nama,
+        dokumen,
+        files: foto,
       });
 
-      // Reset form
-      setFormData({
-        namaLengkap: "",
-        nik: "",
-        email: "",
-        telepon: "",
-        alamat: "",
-        informasiDiminta: "",
-        tujuanPenggunaan: "",
-      });
+      localStorage.setItem(
+        "laporan",
+        JSON.stringify({ judul, time: new Date(), email })
+      );
+
+      // reset form
+      setJudul("");
+      setDeskripsi("");
+      setEmailPengirim("");
+      setNamaPengirim("");
+      setDokumen(null);
+      setFoto([]);
+      setErrors({});
+      setShowSuccessModal(true);
     } catch (error) {
-      toast({
-        title: "Gagal!",
-        description: "Terjadi kesalahan saat mengajukan permohonan. Silakan coba lagi.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
+      console.error(error);
     }
   };
 
+  const handleDokumenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setDokumen(null);
+      return;
+    }
+
+    const allowedDocTypes = ["application/pdf"];
+
+    if (!allowedDocTypes.includes(file.type)) {
+      setErrors((prev) => ({
+        ...prev,
+        dokumen: "Dokumen harus berformat PDF"
+      }));
+      e.target.value = "";
+      setDokumen(null);
+      return;
+    }
+
+    if (file.size > MAX_DOKUMEN_SIZE_MB * 1024 * 1024) {
+      setErrors((prev) => ({
+        ...prev,
+        dokumen: `Ukuran dokumen maksimal ${MAX_DOKUMEN_SIZE_MB} MB.`
+      }));
+      e.target.value = "";
+      setDokumen(null);
+      return;
+    }
+
+    setErrors((prev) => ({ ...prev, dokumen: "" }));
+    setDokumen(file);
+  };
+
+  const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? Array.from(e.target.files) : [];
+
+    const allowedImageTypes = ["image/jpeg", "image/jpg", "image/png"];
+
+    if (files.length > MAX_FOTO_COUNT) {
+      setErrors((prev) => ({
+        ...prev,
+        foto: `Maksimal ${MAX_FOTO_COUNT} foto yang bisa diunggah.`
+      }));
+      e.target.value = "";
+      return;
+    }
+
+    for (const file of files) {
+      if (!allowedImageTypes.includes(file.type)) {
+        setErrors((prev) => ({
+          ...prev,
+          foto: "Format foto harus JPG atau PNG."
+        }));
+        e.target.value = "";
+        return;
+      }
+
+      if (file.size > MAX_FOTO_SIZE_MB * 1024 * 1024) {
+        setErrors((prev) => ({
+          ...prev,
+          foto: `Ukuran foto maksimal ${MAX_FOTO_SIZE_MB} MB per file.`
+        }));
+        e.target.value = "";
+        return;
+      }
+    }
+
+    setErrors((prev) => ({ ...prev, foto: "" }));
+    setFoto(files);
+  };
+
   return (
-    <Card className="shadow-elegant">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-government-blue">
-          <span className="text-2xl">📋</span>
-          Permohonan Informasi Publik
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+    <>
+      <CooldownModal open={open} onClose={() => isOpen((value) => !value)} />
+      <Card className="shadow-elegant">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-government-blue">
+            <span className="text-2xl">📋</span>
+            Permohonan Informasi Publik / Laporan
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <form onSubmit={handleSubmitLayanan} className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-government-blue mb-2 block">
-                    Nama Lengkap
-                  </label>
+                  <Label>Nama Lengkap</Label>
                   <Input
                     placeholder="Masukkan nama lengkap"
-                    value={formData.namaLengkap}
-                    onChange={(e) => handleInputChange("namaLengkap", e.target.value)}
-                    required
+                    className="mt-2"
+                    value={nama}
+                    onChange={(e) => setNamaPengirim(e.target.value)}
                   />
+                  {errors.nama && (
+                    <p className="text-red-500 text-sm mt-1">{errors.nama}</p>
+                  )}
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-government-blue mb-2 block">
-                    NIK
-                  </label>
-                  <Input
-                    placeholder="Nomor Induk Kependudukan"
-                    value={formData.nik}
-                    onChange={(e) => handleInputChange("nik", e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-government-blue mb-2 block">
-                    Email
-                  </label>
+                  <Label>Email</Label>
                   <Input
                     type="email"
                     placeholder="email@example.com"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    required
+                    className="mt-2"
+                    value={email}
+                    onChange={(e) => setEmailPengirim(e.target.value)}
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  )}
                 </div>
+
+                {/* ✅ Hilangkan dropdown bidang dari UI */}
+
                 <div>
-                  <label className="text-sm font-medium text-government-blue mb-2 block">
-                    No. Telepon
-                  </label>
+                  <Label>Informasi Yang Diminta</Label>
                   <Input
-                    placeholder="08xxxxxxxxxx"
-                    value={formData.telepon}
-                    onChange={(e) => handleInputChange("telepon", e.target.value)}
-                    required
+                    placeholder="Informasi Yang Diminta"
+                    className="mt-2"
+                    value={judul}
+                    onChange={(e) => setJudul(e.target.value)}
                   />
+                  {errors.judul && (
+                    <p className="text-red-500 text-sm mt-1">{errors.judul}</p>
+                  )}
                 </div>
-              </div>
 
-              <div>
-                <label className="text-sm font-medium text-government-blue mb-2 block">
-                  Alamat
-                </label>
-                <Textarea
-                  placeholder="Alamat lengkap pemohon"
-                  rows={2}
-                  value={formData.alamat}
-                  onChange={(e) => handleInputChange("alamat", e.target.value)}
-                  required
-                />
-              </div>
+                <div>
+                  <Label>Tujuan Pengunaan</Label>
+                  <Textarea
+                    placeholder="Jelaskan tujuan pengunaan informasi.."
+                    rows={5}
+                    className="mt-2 resize-none"
+                    value={deskripsi}
+                    onChange={(e) => setDeskripsi(e.target.value)}
+                  />
+                  {errors.deskripsi && (
+                    <p className="text-red-500 text-sm mt-1">{errors.deskripsi}</p>
+                  )}
+                </div>
 
-              <div>
-                <label className="text-sm font-medium text-government-blue mb-2 block">
-                  Informasi yang Diminta
-                </label>
-                <Textarea
-                  placeholder="Jelaskan secara detail informasi yang Anda butuhkan..."
-                  rows={3}
-                  value={formData.informasiDiminta}
-                  onChange={(e) => handleInputChange("informasiDiminta", e.target.value)}
-                  required
-                />
-              </div>
+                
 
-              <div>
-                <label className="text-sm font-medium text-government-blue mb-2 block">
-                  Tujuan Penggunaan
-                </label>
-                <Textarea
-                  placeholder="Jelaskan tujuan penggunaan informasi tersebut..."
-                  rows={2}
-                  value={formData.tujuanPenggunaan}
-                  onChange={(e) => handleInputChange("tujuanPenggunaan", e.target.value)}
-                  required
-                />
-              </div>
+              
 
-              <Button
-                type="submit"
-                className="w-full bg-government-blue hover:bg-government-blue/90"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Mengirim..." : "Ajukan Permohonan"}
-              </Button>
-            </form>
-          </div>
-
-          <div className="space-y-4">
-            <div className="p-4 bg-gradient-primary/5 rounded-lg">
-              <h4 className="font-semibold text-government-blue mb-2">
-                Persyaratan Permohonan
-              </h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
-                <li>• Identitas diri yang jelas (KTP/Paspor)</li>
-                <li>• Alamat yang dapat dihubungi</li>
-                <li>• Kontak yang aktif (email/telepon)</li>
-                <li>• Deskripsi informasi yang jelas</li>
-                <li>• Tujuan penggunaan informasi</li>
-              </ul>
+                <Button
+                  type="submit"
+                  className="w-full bg-government-blue hover:bg-government-blue/90"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Mengirim..." : "Ajukan Permohonan"}
+                </Button>
+              </form>
             </div>
 
-            <div className="p-4 bg-education-green/10 rounded-lg">
-              <h4 className="font-semibold text-education-green mb-2">
-                Waktu Pelayanan
-              </h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span>Informasi Sederhana:</span>
-                  <span className="font-medium">10 Hari Kerja</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Informasi Kompleks:</span>
-                  <span className="font-medium">17 Hari Kerja</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Perpanjangan Maksimal:</span>
-                  <span className="font-medium">7 Hari Kerja</span>
-                </div>
+            <div className="space-y-4">
+              <div className="p-4 bg-gradient-primary/5 rounded-lg">
+                <h4 className="font-semibold text-government-blue mb-2">
+                  Persyaratan Permohonan
+                </h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  <li>• Identitas diri yang jelas (KTP/Paspor)</li>
+                  <li>• Alamat yang dapat dihubungi</li>
+                  <li>• Kontak yang aktif (email/telepon)</li>
+                  <li>• Deskripsi informasi yang jelas</li>
+                  <li>• Tujuan penggunaan informasi</li>
+                </ul>
               </div>
-            </div>
 
-            <div className="p-4 bg-accent-gold/10 rounded-lg">
-              <h4 className="font-semibold text-accent-gold mb-2">
-                Biaya Pelayanan
-              </h4>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>
-                  • Permohonan informasi:{" "}
-                  <span className="font-medium text-education-green">
-                    GRATIS
-                  </span>
-                </p>
-                <p>• Biaya fotokopi: Rp 500/lembar</p>
-                <p>• Biaya cetak: sesuai tarif</p>
-                <p>• Pengiriman: sesuai ongkos kirim</p>
+              <div className="p-4 bg-education-green/10 rounded-lg">
+                <h4 className="font-semibold text-education-green mb-2">
+                  Waktu Pelayanan
+                </h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Informasi Sederhana:</span>
+                    <span className="font-medium">1 Hari Kerja</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Informasi Kompleks:</span>
+                    <span className="font-medium">2 Hari Kerja</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Perpanjangan Maksimal:</span>
+                    <span className="font-medium">3 Hari Kerja</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      <SuccessModal
+        open={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+      />
+    </>
   );
 };
 
