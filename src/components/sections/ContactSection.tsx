@@ -73,7 +73,7 @@
 
           const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
-          console.log("diffMinutes", diffMinutes);
+          // console.log("diffMinutes", diffMinutes);
 
           if (laporan.email === email && diffMinutes < 60) {
             isOpen((value) => !value);

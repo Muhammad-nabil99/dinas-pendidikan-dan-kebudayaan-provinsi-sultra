@@ -67,7 +67,6 @@ export const postApiLayanan = async (data) => {
     }
 
     const result = await response.json();
-    console.log("✅ Respons dari server:", result);
     return result;
   } catch (error) {
     console.error("❌ Gagal mengirim data:", error);
@@ -85,7 +84,6 @@ export const getTrackingStatus = async (kodeTracking: string) => {
     }
 
     const data = await response.json();
-    console.log("✅ Status laporan:", data);
     return data;
   } catch (error: any) {
     console.error("❌ Gagal mengambil status laporan:", error);

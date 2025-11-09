@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Label } from "recharts";
 
 const Navbar = () => {
   const { dashboard, isLoading } = useGetDashboard();
@@ -51,7 +52,15 @@ const Navbar = () => {
         { href: "/profil/produk-hukum", label: "Produk Hukum" },
       ],
     },
-    { href: "/laporan-kegiatan", label: "Laporan Kegiatan" },
+    {
+      label: "Publikasi",
+      subItems: [
+        { href: "/inovasi", label: "Inovasi" },
+        { href: "/laporan-kegiatan", label: "Laporan Kegiatan" },
+      ]
+
+    },
+    
     {
       label: "PPID",
       subItems: [
@@ -60,9 +69,10 @@ const Navbar = () => {
         { href: "/ppid/dip", label: "Daftar Informasi Publik" },
       ],
     },
+    { href:   "/galeri", label: "Galeri" },
+    
    
-    { href: "/inovasi", label: "Inovasi" },
-    { href: "/galeri", label: "Galeri" },
+
   ];
 
   return (

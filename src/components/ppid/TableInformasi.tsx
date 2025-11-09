@@ -14,8 +14,6 @@ interface TableInformasiProps {
 }
 
 const TableInformasi = ({ data, onDownload }: TableInformasiProps) => {
-
-  
   return (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse border border-gray-200 bg-white rounded-lg shadow-sm">

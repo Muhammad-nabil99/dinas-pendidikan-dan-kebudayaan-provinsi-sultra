@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, Download, FileText, Eye, SearchCheck } from "lucide-react";
+import { Search, Download, FileText, Eye, SearchCheck, PenTool, Ban, BookOpen, Calendar, Unlock, Info, Users, Phone, Clock, AlertTriangle, X, List } from "lucide-react";
 
 interface DipItem {
   id: number;
@@ -33,7 +33,7 @@ const DipList = () => {
   useEffect(() => {
     const fetchDipData = async () => {
       try {
-             
+
       } catch (error) {
         console.error("Error fetching DIP data:", error);
       } finally {
@@ -89,11 +89,11 @@ const DipList = () => {
   ];
 
   const tabs = [
-    { id: "informasi-berkala", label: "Informasi Berkala", icon: "📄" },
-    { id: "informasi-setiap-saat", label: "Informasi Setiap Saat", icon: "🔍" },
-    { id: "informasi-serta-merta", label: "Informasi Serta Merta", icon: "📝" },
-    { id: "informasi-dikecualikan", label: "Informasi Dikecualikan", icon: "🚫" },
-    { id: "daftar-informasi-publik", label: "Daftar Informasi Publik", icon: "📚" },
+    { id: "informasi-berkala", label: "Informasi Berkala", icon: <Clock className="w-6 h-6" /> },
+    { id: "informasi-setiap-saat", label: "Informasi Setiap Saat", icon: <Clock className="w-6 h-6" /> },
+    { id: "informasi-serta-merta", label: "Informasi Serta Merta", icon: <AlertTriangle className="w-6 h-6" /> },
+    { id: "informasi-dikecualikan", label: "Informasi Dikecualikan", icon: <X className="w-6 h-6" /> },
+    { id: "daftar-informasi-publik", label: "Daftar Informasi Publik", icon: <List className="w-6 h-6" /> },
   ];
 
   if (loading) {
@@ -107,7 +107,7 @@ const DipList = () => {
           <Card className="shadow-elegant">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-education-green">
-                <span className="text-2xl">📄</span>
+                <Clock className="w-6 h-6" />
                 Informasi Berkala
               </CardTitle>
             </CardHeader>
@@ -176,7 +176,7 @@ const DipList = () => {
           <Card className="shadow-elegant">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-accent-gold">
-                <span className="text-2xl">🔍</span>
+                <Clock className="w-6 h-6" />
                 Informasi Setiap Saat
               </CardTitle>
             </CardHeader>
@@ -187,7 +187,7 @@ const DipList = () => {
               <ul className="space-y-2 text-sm">
                 {informasiSetiapSaat.map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <span className="text-accent-gold">•</span>
+                    <SearchCheck className="w-4 h-4 text-accent-gold mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
                   </li>
                 ))}
@@ -201,7 +201,7 @@ const DipList = () => {
           <Card className="shadow-elegant">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-government-blue">
-                <span className="text-2xl">📝</span>
+                <PenTool className="w-6 h-6" />
                 Informasi Serta Merta
               </CardTitle>
             </CardHeader>
@@ -212,7 +212,7 @@ const DipList = () => {
               <ul className="space-y-2 text-sm">
                 {informasiSertaMerta.map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <span className="text-government-blue">•</span>
+                    <PenTool className="w-4 h-4 text-government-blue mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
                   </li>
                 ))}
@@ -226,8 +226,8 @@ const DipList = () => {
           <Card className="shadow-elegant">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-600">
-                <span className="text-2xl">🚫</span>
-                Informasi Dikecualikanan
+                <Ban className="w-6 h-6" />
+                Informasi Dikecualikan
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -237,7 +237,7 @@ const DipList = () => {
               <ul className="space-y-2 text-sm">
                 {informasiDikecualikan.map((item, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <span className="text-red-600">•</span>
+                    <Ban className="w-4 h-4 text-red-600 mt-0.5" />
                     <span className="text-muted-foreground">{item}</span>
                   </li>
                 ))}
@@ -251,7 +251,7 @@ const DipList = () => {
           <Card className="shadow-elegant">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-government-blue">
-                <span className="text-2xl">📚</span>
+                <BookOpen className="w-6 h-6" />
                 Daftar Informasi Publik (DIP)
               </CardTitle>
             </CardHeader>
@@ -284,10 +284,17 @@ const DipList = () => {
                           </p>
                         )}
                         <div className="grid md:grid-cols-3 gap-2 text-sm text-muted-foreground">
-                          <span>📄 {dip.jumlah}</span>
-                          <span>📅 Update: {dip.update}</span>
-                          <span>
-                            🔓 Status:{" "}
+                          <span className="flex items-center gap-1">
+                            <FileText className="w-4 h-4" />
+                            {dip.jumlah}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4" />
+                            Update: {dip.update}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Unlock className="w-4 h-4" />
+                            Status:{" "}
                             <Badge variant={dip.akses === "Terbuka" ? "default" : "secondary"}>
                               {dip.akses}
                             </Badge>

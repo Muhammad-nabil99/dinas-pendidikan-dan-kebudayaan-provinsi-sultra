@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { FileText, Users, Phone, Info, Settings } from "lucide-react";
 
 interface Tab {
   id: string;
   label: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 interface TabsProps {
