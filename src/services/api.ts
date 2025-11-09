@@ -89,7 +89,7 @@ export const getTrackingStatus = async (kodeTracking: string) => {
     console.error("❌ Gagal mengambil status laporan:", error);
     throw error;
   }
-};
+};  
 export const getProdukHukum = async () => {
   try {
     const response = await fetch(

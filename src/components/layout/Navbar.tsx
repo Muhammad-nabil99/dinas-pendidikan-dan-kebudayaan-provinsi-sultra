@@ -49,13 +49,14 @@ const Navbar = () => {
         { href: "/profil/visi-misi", label: "Visi Misi" },
         { href: "/profil/tugas-fungsi", label: "Tugas Pokok & Fungsi" },
         { href: "/profil/struktur-organisasi", label: "Struktur Organisasi" },
-        { href: "/profil/produk-hukum", label: "Produk Hukum" },
       ],
     },
     {
       label: "Publikasi",
       subItems: [
+        { href: "/agenda", label: "Agenda" },
         { href: "/inovasi", label: "Inovasi" },
+        { href: "/profil/produk-hukum", label: "Produk Hukum" },
         { href: "/laporan-kegiatan", label: "Laporan Kegiatan" },
       ]
 

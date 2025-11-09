@@ -15,202 +15,276 @@ interface DivisionData extends PersonData {
 }
 
 const OrganizationChart = () => {
-  // Head of Department
+  // Kepala Dinas
   const kepalaDinas: PersonData = {
     id: "kepala-dinas",
     name: "Prof. Dr. H. Aris Badara, S.Pd., M.Hum",
-    title: "Kepala Dinas",
-    nip: "NIP. 19750503 200003 1 003",
+    title: "KEPALA DINAS PENDIDIKAN DAN KEBUDAYAAN",
+    nip: "NIP. ",
   };
 
-  // Secretary
+  // Sekretaris Dinas
   const sekretaris: PersonData = {
-    id: "sekretaris", 
-    name: "H. Anwaril Hamka, SE, M.SI",
-    title: "Sekretaris",
-    nip: "NIP. 196708 199203 1 004",
+    id: "sekretaris-dinas",
+    name: "Hj. Suhaeny, SE., M.Pd.",
+    title: "SEKRETARIS DINAS",
+    nip: "NIP. ",
   };
 
-  // Sub-departments under Secretary
+  // Sub Bagian di bawah Sekretaris
   const subBagianData: PersonData[] = [
     {
-      id: "sub-bag-umum",
+      id: "kasubag-keuangan-aset",
+      name: "Hj. Apriani, SE.",
+      title: "Kasubag Keuangan dan Aset",
+      nip: "NIP. ",
+    },
+    {
+      id: "kasubag-umum-humas",
       name: "Kamarudin Raiya, S.Pd., M.A.P",
-      title: "Sub Bagian Umum dan Humas",
-      nip: "NIP. 197006 200604 1 010"
+      title: "Kasubag Umum dan Humas",
+      nip: "NIP. ",
     },
     {
-      id: "sub-bag-keuangan", 
-      name: "Rahmat, SE, M.PD",
-      title: "Sub Bagian Keuangan",
-      nip: "NIP. 198305 200912 1 002"
+      id: "kasubag-kepegawaian",
+      name: "Surakhman, SE., MM (Plt)",
+      title: "Kasubag Kepegawaian",
+      nip: "NIP.",
     },
-    {
-      id: "sub-bag-program",
-      name: "Suharno, S.Sos, M.Si",
-      title: "Sub Bagian Program dan Pelaporan", 
-      nip: "NIP. 197112 199203 1 004"
-    }
   ];
 
-  // Main divisions with sections
+  // Bidang dan UPTD
   const divisionsData: DivisionData[] = [
     {
-      id: "bidang-pendidikan-dasar",
-      name: "Drs. La Ode Sabaruddin, M.Pd",
-      title: "Bidang Pendidikan Dasar",
-      nip: "NIP. 196408 198903 1 017",
+      id: "kabid-perencanaan-penganggaran",
+      name: "Amriana, SE., M.Si.",
+      title: "KABID PERENCANAAN & PENGANGGARAN",
+      nip: "NIP. ",
       color: "bg-modern-blue",
       sections: [
         {
-          id: "seksi-kurikulum-sd",
-          name: "Wa Ode Rusdiana S.Pd, M.Pd",
-          title: "Seksi Kurikulum dan Penilaian SD",
-          nip: "NIP. 197009 200604 1 009"
+          id: "seksi-peny-program-penganggaran",
+          name: "Rusmiati Baharudin, S.Pd., M.Pd.",
+          title: "Seksi Peny. Program dan Penganggaran",
+          nip: "NIP. ",
         },
         {
-          id: "seksi-peserta-didik-sd",
-          name: "Hayatun Nufus, S.Pd, M.Pd",
-          title: "Seksi Peserta Didik dan Pembangunan Karakter SD", 
-          nip: "NIP. 198201 200801 2 010"
+          id: "seksi-monev-lapangan",
+          name: "Arfa Sama, SE.",
+          title: "Seksi Monev Lapangan",
+          nip: "NIP. ",
         },
         {
-          id: "seksi-kelembagaan-sd",
-          name: "Drs. Haeruddin, M.Pd",
-          title: "Seksi Kelembagaan dan Sarana Prasarana SD",
-          nip: "NIP. 196512 199203 1 008"
-        }
-      ]
+          id: "seksi-penyelenggaraan-tp",
+          name: "Masri Wati, SE., M.Si.",
+          title: "Seksi Penyelenggaraan TP",
+          nip: "NIP.",
+        },
+      ],
     },
     {
-      id: "bidang-pendidikan-menengah",
-      name: "La Sanusi, S.Pd, M.Pd",
-      title: "Bidang Pendidikan Menengah",
-      nip: "NIP. 197203 200312 1 004",
+      id: "kabid-pembinaan-smk-pklk",
+      name: "Johanis Hengkengkona, S.Sos., M.A.P",
+      title: "KABID PEMBINAAN SMK DAN PKLK",
+      nip: "NIP. ",
       color: "bg-modern-green",
       sections: [
         {
-          id: "seksi-kurikulum-smp",
-          name: "Drs. La Djafar, M.Pd",
-          title: "Seksi Kurikulum dan Penilaian SMP",
-          nip: "NIP. 196808 199412 1 003"
+          id: "seksi-kurikulum-penilaian-smk",
+          name: "Kosong",
+          title: "Seksi Kurikulum dan Penilaian",
+          nip: "NIP. ",
         },
         {
-          id: "seksi-peserta-didik-smp",
-          name: "Wa Ode Sitti Hajar, S.Pd, M.Pd",
-          title: "Seksi Peserta Didik dan Pembangunan Karakter SMP",
-          nip: "NIP. 198105 200502 2 003"
+          id: "seksi-pd-karakter-smk",
+          name: "Ishak Paway, S.Pd., M.A. (Plt)",
+          title: "Seksi PD dan Pembinaan Karakter",
+          nip: "NIP.",
         },
         {
-          id: "seksi-kelembagaan-smp", 
-          name: "Samsu, S.Pd, M.Pd",
-          title: "Seksi Kelembagaan dan Sarana Prasarana SMP",
-          nip: "NIP. 197812 200801 1 008"
-        }
-      ]
+          id: "seksi-kelembagaan-sarpras-smk",
+          name: "La Ode Arfid Alusi, S.Sos",
+          title: "Seksi Kelembagaan dan Sarpras",
+          nip: "NIP.",
+        },
+      ],
     },
     {
-      id: "bidang-guru-tenaga",
-      name: "Drs. Syamsul Bachri, M.Pd",
-      title: "Bidang Guru dan Tenaga Kependidikan", 
-      nip: "NIP. 196711 199412 1 002",
+      id: "kabid-pembinaan-sma",
+      name: "Dra. Hj. Ila Nasra Nusuha, M.Pd.",
+      title: "KABID PEMBINAAN SMA",
+      nip: "NIP. ",
       color: "bg-modern-purple",
       sections: [
         {
-          id: "seksi-pengembangan-karir",
-          name: "Dra. Wa Ode Sumiati, M.Pd",
-          title: "Seksi Pengembangan Karir Guru",
-          nip: "NIP. 196808 199412 2 002"
+          id: "seksi-kurikulum-penilaian-sma",
+          name: "Bayanuddin A. Gani, SE. (Plt)",
+          title: "Seksi Kurikulum dan Penilaian",
+          nip: "NIP.",
         },
         {
-          id: "seksi-pelatihan-guru",
-          name: "Drs. Abd. Gani Busthan, M.Pd", 
-          title: "Seksi Peningkatan dan Pelatihan Guru",
-          nip: "NIP. 196312 199003 1 004"
-        }
-      ]
+          id: "seksi-pd-karakter-sma",
+          name: "Muh. Ilyas, SE., M.Pd.",
+          title: "Seksi PD dan Pembinaan Karakter",
+          nip: "NIP.",
+        },
+        {
+          id: "seksi-kelembagaan-sarpras-sma",
+          name: "Firman Saleh, S.Pd. (Plt)",
+          title: "Seksi Kelembagaan dan Sarpras",
+          nip: "NIP.",
+        },
+      ],
     },
     {
-      id: "bidang-kebudayaan",
-      name: "Drs. La Ode Sahabuddin, M.Pd",
-      title: "Bidang Kebudayaan",
-      nip: "NIP. 196408 198903 1 017", 
+      id: "kabid-guru-ketenagaan",
+      name: "Husrin Haji Hamid, S.Pd.",
+      title: "KABID GURU DAN KETENAGAAN",
+      nip: "NIP. ",
       color: "bg-modern-orange",
       sections: [
         {
-          id: "seksi-kesenian",
-          name: "Drs. La Saniru Laga",
-          title: "Seksi Kesenian dan Perfilman",
-          nip: "NIP. 196709 199203 1 004"
+          id: "seksi-ptk-sma",
+          name: "Zaini Dahlan, S.Pd., M.Pd. (Plt)",
+          title: "Seksi PTK SMA",
+          nip: "NIP.",
         },
         {
-          id: "seksi-sejarah",
-          name: "Drs. Muh. Saleh A.S, M.Si",
-          title: "Seksi Sejarah dan Kepurbakalaan",
-          nip: "NIP. 196304 199203 1 004"
-        }
-      ]
-    }
+          id: "seksi-smk",
+          name: "Sry Dalbi, SE.",
+          title: "Seksi SMK",
+          nip: "NIP.",
+        },
+        {
+          id: "seksi-pklk-tenaga-kebudayaan",
+          name: "Firman Saleh, S.Pd.",
+          title: "Seksi PK-LK dan Tenaga Kebudayaan",
+          nip: "NIP.",
+        },
+      ],
+    },
+    {
+      id: "kabid-kebudayaan",
+      name: "Murniati Asmar Lio, SE.",
+      title: "KABID KEBUDAYAAN",
+      nip: "NIP. ",
+      color: "bg-modern-red",
+      sections: [
+        {
+          id: "seksi-cagar-budaya-permusiuman",
+          name: "Rusmiati Baharudin, S.Pd., M.Pd. (Plt)",
+          title: "Seksi Cagar Budaya dan Permusiuman",
+          nip: "NIP.",
+        },
+        {
+          id: "seksi-sejarah-tradisi",
+          name: "Mahidi, S.Pd.",
+          title: "Seksi Sejarah dan Tradisi",
+          nip: "NIP.",
+        },
+        {
+          id: "seksi-kesenian",
+          name: "Asniar Lio, S.Pd.",
+          title: "Seksi Kesenian",
+          nip: "NIP.",
+        },
+      ],
+    },
+    // {
+    //   id: "uptd-btikp",
+    //   name: "H. Jasfol Sambo, SE.",
+    //   title: "UPTD BTIKP",
+    //   nip: "NIP. ",
+    //   color: "bg-modern-teal",
+    //   sections: [
+    //     {
+    //       id: "seksi-p2tip",
+    //       name: "Hasruddin Jumain, S.Ip.",
+    //       title: "Seksi P2TIP",
+    //       nip: "NIP.",
+    //     },
+    //     {
+    //       id: "seksi-p2mp",
+    //       name: "Supriyatno, S.Sos.",
+    //       title: "Seksi P2MP",
+    //       nip: "NIP.",
+    //     },
+    //     {
+    //       id: "kasubag-tu-btikp",
+    //       name: "Wa Ita, S.Pd.",
+    //       title: "Kasubag TU",
+    //       nip: "NIP.",
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "uptd-museum-taman-budaya",
+    //   name: "Laudin, S.Sos., M.Hum.",
+    //   title: "UPTD MUSEUM DAN TAMAN BUDAYA",
+    //   nip: "NIP. ",
+    //   color: "bg-modern-indigo",
+    //   sections: [
+    //     {
+    //       id: "kasubag-tu-museum",
+    //       name: "Dr. W. Syuhida, S.Pd., M.Pd.",
+    //       title: "Kepala Sub Bagian Tata Usaha",
+    //       nip: "NIP.",
+    //     },
+    //     {
+    //       id: "kasi-permuseuman",
+    //       name: "Daud Topa, S. Sos.",
+    //       title: "Kepala Seksi Permuseuman",
+    //       nip: "NIP.",
+    //     },
+    //     {
+    //       id: "kasi-taman-budaya",
+    //       name: "Netiawan, SH., M.Pd.",
+    //       title: "Kepala Seksi Taman Budaya",
+    //       nip: "NIP.",
+    //     },
+    //   ],
+    // },
   ];
 
-  const additionalUnits = [
-    "SATUAN PENDIDIKAN",
-    "KELOMPOK PENDIDIKAN", 
-    "UPTD",
-    "CABANG DINAS"
-  ];
+  const additionalUnits = ["SATUAN PENDIDIKAN", "KELOMPOK PENDIDIKAN", "UPTD", "CABANG DINAS"];
 
   // Person Card Component
-  const PersonCard = ({ person, className = "", size = "md" }: { 
-    person: PersonData; 
-    className?: string; 
-    size?: "sm" | "md" | "lg" 
+  const PersonCard = ({
+    person,
+    className = "",
+    size = "md",
+  }: {
+    person: PersonData;
+    className?: string;
+    size?: "sm" | "md" | "lg";
   }) => {
-    const sizeClasses = {
-      sm: "p-3",
-      md: "p-4", 
-      lg: "p-6"
-    };
-
-    const avatarSizes = {
-      sm: "w-12 h-12",
-      md: "w-16 h-16",
-      lg: "w-20 h-20"
-    };
-
+    const sizeClasses = { sm: "p-3", md: "p-4", lg: "p-6" };
+    const avatarSizes = { sm: "w-12 h-12", md: "w-16 h-16", lg: "w-20 h-20" };
     const textSizes = {
       sm: { name: "text-sm", title: "text-xs", nip: "text-xs" },
       md: { name: "text-base", title: "text-sm", nip: "text-xs" },
-      lg: { name: "text-lg", title: "text-base", nip: "text-sm" }
+      lg: { name: "text-lg", title: "text-base", nip: "text-sm" },
     };
 
     return (
-      <Card className={`bg-white border-2 border-dashed border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${className}`}>
+      <Card
+        className={`bg-white border-2 border-dashed border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${className}`}
+      >
         <CardContent className={sizeClasses[size]}>
           <div className="flex flex-col items-center text-center space-y-2">
-            <div className={`${avatarSizes[size]} rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center overflow-hidden border-4 border-white shadow-md`}>
+            <div
+              className={`${avatarSizes[size]} rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center overflow-hidden border-4 border-white shadow-md`}
+            >
               {person.image ? (
-                <img 
-                  src={person.image} 
-                  alt={person.name}
-                  className="w-full h-full object-cover"
-                />
+                <img src={person.image} alt={person.name} className="w-full h-full object-cover" />
               ) : (
                 <User className="w-8 h-8 text-gray-500" />
               )}
             </div>
             <div>
-              <h3 className={`font-bold text-gray-800 ${textSizes[size].name}`}>
-                {person.name}
-              </h3>
-              <p className={`font-medium text-gray-600 mt-1 ${textSizes[size].title}`}>
-                {person.title}
-              </p>
-              {person.nip && (
-                <p className={`text-gray-500 mt-1 ${textSizes[size].nip}`}>
-                  {person.nip}
-                </p>
-              )}
+              <h3 className={`font-bold text-gray-800 ${textSizes[size].name}`}>{person.name}</h3>
+              <p className={`font-medium text-gray-600 mt-1 ${textSizes[size].title}`}>{person.title}</p>
+              {person.nip && <p className={`text-gray-500 mt-1 ${textSizes[size].nip}`}>{person.nip}</p>}
             </div>
           </div>
         </CardContent>
@@ -219,17 +293,20 @@ const OrganizationChart = () => {
   };
 
   // Connecting Line Component
-  const ConnectingLine = ({ orientation = "vertical", length = "short", className = "" }: {
+  const ConnectingLine = ({
+    orientation = "vertical",
+    length = "short",
+    className = "",
+  }: {
     orientation?: "vertical" | "horizontal";
     length?: "short" | "medium" | "long";
     className?: string;
   }) => {
     const lengthClasses = {
       short: orientation === "vertical" ? "h-8" : "w-8",
-      medium: orientation === "vertical" ? "h-16" : "w-16", 
-      long: orientation === "vertical" ? "h-24" : "w-24"
+      medium: orientation === "vertical" ? "h-16" : "w-16",
+      long: orientation === "vertical" ? "h-24" : "w-24",
     };
-
     const orientationClasses = orientation === "vertical" ? "w-0.5" : "h-0.5";
 
     return (
@@ -239,26 +316,32 @@ const OrganizationChart = () => {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-6 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
-      {/* Head of Department */}
+      {/* Kepala Dinas */}
       <div className="flex flex-col items-center space-y-4 mb-8">
-        <PersonCard person={kepalaDinas} size="lg" className="bg-gradient-to-br from-blue-500 to-blue-700 text-white border-blue-600" />
+        <PersonCard
+          person={kepalaDinas}
+          size="lg"
+          className="bg-gradient-to-br from-blue-500 to-blue-700 text-white border-blue-600"
+        />
         <ConnectingLine orientation="vertical" length="medium" />
       </div>
 
-      {/* Secretary */}
+      {/* Sekretaris */}
       <div className="flex flex-col items-center space-y-6 mb-12">
-        <PersonCard person={sekretaris} size="lg" className="bg-gradient-to-br from-green-500 to-green-700 text-white border-green-600" />
-        
-        {/* Horizontal line to sub-departments */}
+        <PersonCard
+          person={sekretaris}
+          size="lg"
+          className="bg-gradient-to-br from-green-500 to-green-700 text-white border-green-600"
+        />
+
         <div className="flex items-center justify-center w-full">
           <div className="flex-1 max-w-xs border-dashed border-t-2 border-gray-400"></div>
           <div className="w-4 h-4 bg-gray-400 rounded-full mx-2"></div>
           <div className="flex-1 max-w-xs border-dashed border-t-2 border-gray-400"></div>
         </div>
 
-        {/* Sub-departments */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
-          {subBagianData.map((person, index) => (
+          {subBagianData.map((person) => (
             <div key={person.id} className="flex flex-col items-center">
               <ConnectingLine orientation="vertical" length="short" />
               <PersonCard person={person} className="bg-gradient-to-br from-teal-400 to-teal-600 text-white border-teal-500" />
@@ -267,50 +350,44 @@ const OrganizationChart = () => {
         </div>
       </div>
 
-      {/* Main Divisions */}
+      {/* Bidang dan UPTD */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
         {divisionsData.map((division) => (
           <div key={division.id} className="space-y-6">
-            {/* Division Head */}
             <div className="flex flex-col items-center">
-              <PersonCard 
-                person={division} 
-                size="lg" 
-                className={`${division.color} text-white border-opacity-50`} 
+              <PersonCard
+                person={division}
+                size="lg"
+                className={`${division.color} text-white border-opacity-50`}
               />
               <ConnectingLine orientation="vertical" length="medium" />
             </div>
 
-            {/* Division Sections */}
             <div className="grid grid-cols-1 gap-4">
               {division.sections.map((section) => (
-                <PersonCard 
-                  key={section.id} 
-                  person={section} 
-                  size="sm"
-                  className="bg-white border-gray-300"
-                />
+                <PersonCard key={section.id} person={section} size="sm" className="bg-white border-gray-300" />
               ))}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Additional Units */}
+      {/* Unit Tambahan */}
       <div className="mt-16">
         <div className="flex items-center justify-center mb-8">
           <div className="flex-1 border-dashed border-t-2 border-gray-400 max-w-md"></div>
           <div className="w-6 h-6 bg-gray-400 rounded-full mx-4"></div>
           <div className="flex-1 border-dashed border-t-2 border-gray-400 max-w-md"></div>
         </div>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {additionalUnits.map((unit, index) => (
-            <Card key={index} className="bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="p-4">
-                <div className="text-center">
-                  <h3 className="font-semibold text-sm">{unit}</h3>
-                </div>
+            <Card
+              key={index}
+              className="bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            >
+              <CardContent className="p-4 text-center">
+                <h3 className="font-semibold text-sm">{unit}</h3>
               </CardContent>
             </Card>
           ))}
