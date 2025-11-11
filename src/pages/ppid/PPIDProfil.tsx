@@ -1,20 +1,29 @@
-import { ArrowLeft, User, Info, Users, Phone, Mail, Smartphone, Globe, MapPin, Building, Clock } from "lucide-react";
+import {
+  ArrowLeft,
+  User,
+  Info,
+  Users,
+  Phone,
+  Mail,
+  Smartphone,
+  Globe,
+  MapPin,
+  Building,
+  Clock,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import BgImage from '../../assets/tracking.jpg';
+import BgImage from "../../assets/tracking.jpg";
 
 const PPIDProfil = () => {
   return (
     <main className="min-h-screen bg-background">
-      {/* Header Section */}
       <section
-          className="relative py-20 text-white bg-cover bg-center"
-          style={{ backgroundImage: `url(${BgImage})`  }}
-        >
-          {/* Overlay warna biru dengan opacity */}
-          <div className="absolute inset-0 bg-blue-900/70"></div>
+        className="relative py-20 text-white bg-cover bg-center"
+        style={{ backgroundImage: `url(${BgImage})` }}
+      >
+        <div className="absolute inset-0 bg-blue-900/70"></div>
 
-        {/* Konten */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center mb-6">
             <Link to="/">
@@ -59,7 +68,8 @@ const PPIDProfil = () => {
                       Pengertian
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      PPID adalah pejabat yang bertanggung jawab di bidang penyimpanan pendokumentasian, penyediaan, dan/atau
+                      PPID adalah pejabat yang bertanggung jawab di bidang
+                      penyimpanan pendokumentasian, penyediaan, dan/atau
                       pelayanan informasi di badan publik.
                     </p>
                     <h3 className="font-semibold text-government-blue mb-3">
@@ -85,7 +95,8 @@ const PPIDProfil = () => {
                       Visi PPID
                     </h3>
                     <p className="text-muted-foreground mb-4 italic">
-                      "Mewujudkan pelayanan informasi publik yang transparan, akuntabel, dan berkualitas."
+                      "Mewujudkan pelayanan informasi publik yang transparan,
+                      akuntabel, dan berkualitas."
                     </p>
                     <h3 className="font-semibold text-government-blue mb-3">
                       Misi PPID
@@ -111,7 +122,7 @@ const PPIDProfil = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-government-blue">
                   <Users className="w-6 h-6" />
-                    UPTD PPID
+                  UPTD PPID
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -120,8 +131,12 @@ const PPIDProfil = () => {
                     <h2 className="font-semibold text-government-blue">
                       PEJABAT STRUKTURAL & FUNGSIONAL
                     </h2>
-                    <div className="my-6 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-44 rounded-md">
-                      <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
+                    <div className="my-6 m-auto md:w-10/12 lg:w-1/4 w-1/2  flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                      <img
+                        src="/avatar.png"
+                        alt="Avatar"
+                        className="max-h-full max-w-full object-contain"
+                      />
                     </div>
                     <h4 className="font-semibold text-government-blue">
                       KEPALA UPTD BTIKP
@@ -133,20 +148,28 @@ const PPIDProfil = () => {
 
                   <div className="grid md:grid-cols-2 gap-2">
                     <div className="text-center p-3 rounded-lg">
-                    <div className="my-6 m-auto w-1/2 flex items-center justify-center bg-slate-300 h-44 rounded-md">
-                      <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
-                    </div>
+                      <div className="my-6 m-auto md:w-10/12 lg:w-1/2  flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                        <img
+                          src="/avatar.png"
+                          alt="Avatar"
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
                       <p className="text-sm text-muted-foreground">
-                       Hasruddin Jumain, S.Ip.
+                        Hasruddin Jumain, S.Ip.
                       </p>
                       <p className="text-xs text-muted-foreground">
                         Seksi P2TIP
                       </p>
                     </div>
                     <div className="text-center p-3 bg-accent-gold/10 rounded-lg">
-                    <div className="my-6 m-auto w-1/2 flex items-center justify-center bg-slate-300 h-44 rounded-md">
-                      <img src="/avatar.png" alt="Avatar" className="max-h-full max-w-full object-contain" />
-                    </div>
+                      <div className="my-6 m-auto md:w-10/12 lg:w-1/2 flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                        <img
+                          src="/avatar.png"
+                          alt="Avatar"
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
                       <p className="text-sm text-muted-foreground">
                         Supriyatno, S.Sos.
                       </p>
@@ -154,18 +177,19 @@ const PPIDProfil = () => {
                         Seksi P2MP
                       </p>
                     </div>
-
                   </div>
                   <div className="text-center p-3 bg-accent-gold/10 rounded-lg">
-                    <div className="my-6 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-44 rounded-md">
-                      <img src="/avatar.png" alt="Avatar" className="max-h-full w-40 object-contain" />
+                    <div className="my-6 m-auto md:w-1/2 lg:w-1/4  flex items-center justify-center bg-slate-300 h-44 rounded-md">
+                      <img
+                        src="/avatar.png"
+                        alt="Avatar"
+                        className="max-h-full w-40 object-contain"
+                      />
                     </div>
-                      <p className="text-sm text-muted-foreground">
-                        Wa Ita, S.Pd.
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Kasubag TU
+                    <p className="text-sm text-muted-foreground">
+                      Wa Ita, S.Pd.
                     </p>
+                    <p className="text-xs text-muted-foreground">Kasubag TU</p>
                   </div>
                 </div>
               </CardContent>
@@ -217,7 +241,6 @@ const PPIDProfil = () => {
                         <span>Jumat</span>
                         <span>08:00 - 16:00 WIB</span>
                       </div>
-
                     </div>
                   </div>
                 </div>

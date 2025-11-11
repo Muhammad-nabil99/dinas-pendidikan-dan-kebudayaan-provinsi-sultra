@@ -16,19 +16,13 @@ import ProdukHukum from "./pages/profil/ProdukHukum";
 import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan.js";
 
 // PPID page
-<<<<<<< HEAD
-// import PPID from "./pages/PPID";
-=======
->>>>>>> 58f5eba10119de1cc294128270fcc04cf3a9477f
 import PPIDProfil from "./pages/ppid/PPIDProfil";
 import PPIDMekanisme from "./pages/ppid/PPIDMekanisme";
 import PPIDDip from "./pages/ppid/PPIDDip";
 
 // Galeri pages
 import Galery from "./pages/Galery";
-
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
-
 import News from "./pages/berita/News.js";
 import DetailBerita from "./pages/berita/DetailBerita.js";
 import LoadingSpinner from "./components/LoadingSpinner.js";
