@@ -59,6 +59,11 @@ const unitKerja: UnitKerja[] = [
     unit: "Unit Pelaksana Teknis Dinas (UPTD)",
     id: "unit-pelaksana-teknis-dinas-uptd",
   },
+  {
+    nama: "",
+    unit: "Kantor Cabang Dinas (KCD)",
+    id: "kantor-cabang-dinas",
+  },
 ];
 
 const TugasFungsi = () => {
@@ -230,7 +235,7 @@ const TugasFungsi = () => {
                     >
                       {/* <div className=" bg w-full h-60 rounded-md bg-gray-600"> </div> */}
                       <div
-                        className="bg w-full h-60 rounded-md bg-cover bg-center rounded-md"
+                        className="bg w-full h-60 bg-cover bg-center rounded-md"
                         style={{ backgroundImage: `url(${AvatarImage})` }}
                       ></div>
                       <h1 className="font-bold capitalize">{item.nama}</h1>
