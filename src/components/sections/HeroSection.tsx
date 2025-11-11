@@ -126,12 +126,13 @@ const HeroSection = () => {
               <span>Laporan Kegiatan</span>
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
-            <a
-              href="/profil/sejarah"
+            <Link
+              to="/profil"
               className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 border-2 border-white hover:text-white bg-white/10 text-white"
-            >
+           >
               Profil Dinas
-            </a>
+            </Link>
+            
           </div>
 
           {/* Stats */}

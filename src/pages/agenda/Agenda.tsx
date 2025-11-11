@@ -199,7 +199,7 @@ const Agenda = () => {
                     </Card>
                   ))
                 ) : (
-                  <p className="text-center capitalize font-bold">
+                  <p className="text-center capitalize text-gray-400 ">
                     kata kunci tidak ditemukan
                   </p>
                 )}

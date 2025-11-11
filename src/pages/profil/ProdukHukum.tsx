@@ -187,7 +187,7 @@ const ProdukHukum = () => {
                         </div>
                         <div className="flex flex-col sm:flex-row gap-2">
                           {/* View Document */}
-                          <Button
+                          {/* <Button
                             variant="outline"
                             size="sm"
                             onClick={() => {
@@ -197,23 +197,24 @@ const ProdukHukum = () => {
                           >
                             <FileText className="w-4 h-4 mr-2" />
                             Lihat Detail
-                          </Button>
+                          </Button> */}
 
                           {/* Download Document */}
                           <Button
                             size="sm"
                             onClick={() => {
                               const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
-                              const link = document.createElement("a");
-                              link.href = fileUrl;
-                              link.download = item.judul || "dokumen.pdf";
-                              document.body.appendChild(link);
-                              link.click();
-                              document.body.removeChild(link);
+                              window.open(fileUrl, "_blank");
+                              // const link = document.createElement("a");
+                              // link.href = fileUrl;
+                              // link.download = item.judul || "dokumen.pdf";
+                              // document.body.appendChild(link);
+                              // link.click();
+                              // document.body.removeChild(link);
                             }}
                           >
-                            <Download className="w-4 h-4 mr-2" />
-                            Download
+                            <FileText className="w-4 h-4 mr-2" />
+                            Lihat Detail
                           </Button>
                         </div>
                       </div>
