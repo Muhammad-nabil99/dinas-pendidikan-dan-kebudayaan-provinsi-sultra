@@ -7,7 +7,7 @@ import useGetPengumuman from "@/features/pengumuman/useGetPengumuman";
 const PengumumanSection = () => {
   const { pengumuman, isLoading } = useGetPengumuman();
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return 'ini loading' ;
 
   return (
     <section className="py-20 bg-muted/30">

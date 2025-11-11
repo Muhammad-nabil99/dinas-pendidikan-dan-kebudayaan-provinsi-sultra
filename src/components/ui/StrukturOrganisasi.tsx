@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { User } from "lucide-react";
-import salim from "@/assets/salim.jpg"
 
 interface PersonData {
   id: string;
@@ -22,7 +21,6 @@ const OrganizationChart = () => {
     name: "Prof. Dr. H. Aris Badara, S.Pd., M.Hum",
     title: "KEPALA DINAS PENDIDIKAN DAN KEBUDAYAAN",
     nip: "NIP. ",
-    image: salim
   };
 
   // Sekretaris Dinas

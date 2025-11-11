@@ -45,6 +45,7 @@ const Navbar = () => {
     {
       label: "Profil",
       subItems: [
+        { href: "/profil/sambutan", label: "Kata Sambutan" },
         { href: "/profil/sejarah", label: "Sejarah" },
         { href: "/profil/visi-misi", label: "Visi Misi" },
         { href: "/profil/tugas-fungsi", label: "Tugas Pokok & Fungsi" },
