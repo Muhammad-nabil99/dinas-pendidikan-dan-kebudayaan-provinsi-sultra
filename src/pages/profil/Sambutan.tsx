@@ -40,7 +40,7 @@ const Sambutan = () => {
                             Kepala Dinas
                         </h1>
                         <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-xl md:max-w-2xl mx-auto">
-                            Pendidikan Provinsi Sulawesi Tenggara
+                            Pendidikan dan Kebudayaan Provinsi Sulawesi Tenggara 
                         </p>
                     </div>
                 </div>
