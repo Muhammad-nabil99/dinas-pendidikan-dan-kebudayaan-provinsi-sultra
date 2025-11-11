@@ -10,7 +10,6 @@ const Footer = () => {
     <footer className="bg-government-blue text-white mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo dan Deskripsi */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12  rounded-lg flex items-center justify-center">
@@ -30,7 +29,7 @@ const Footer = () => {
             <p className="text-blue-100 mb-4 leading-relaxed">
               Melayani dan mengembangkan sistem pendidikan yang berkualitas
               untuk mencerdaskan kehidupan bangsa di Provinsi Sulawesi Tenggara.
-            </p>
+            </p>  
             <div className="flex items-center space-x-4 text-blue-200">
               <Clock className="w-5 h-5" />
               <div>
@@ -68,14 +67,6 @@ const Footer = () => {
                   Laporan Kegiatan
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  to="/pelayanan/visi-misi"
-                  className="text-blue-200 hover:text-white transition-colors"
-                >
-                  Pelayanan
-                </Link>
-              </li> */}
               <li>
                 <Link
                   to="/ppid"
