@@ -9,7 +9,17 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // The array of texts to be displayed with a typing animation
 // const heroTexts = ["Selamat Datang", "Selama Leu", "Selamat Ngka"];
-const heroTexts = ["Selamat Datang", "Selama Leu", "Maemo", "Tepinda Momapu", "Cumpulalou Kabundomo", "Minteleumo", "Taumba Mo Nkita", "Salama Leumiu", "Salamaci Buamo Ingana"];
+const heroTexts = [
+  "Selamat Datang",
+  "Selama Leu",
+  "Maemo",
+  "Tepinda Momapu",
+  "Cumpulalou Kabundomo",
+  "Minteleumo",
+  "Taumba Mo Nkita",
+  "Salama Leumiu",
+  "Salamaci Buamo Ingana",
+];
 
 const HeroSection = () => {
   const { dashboard, isLoading } = useGetDashboard();
@@ -24,7 +34,7 @@ const HeroSection = () => {
     if (!heroImage || heroImage.length === 0) return;
     const imageInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
-    }, 2000); 
+    }, 2000);
     return () => clearInterval(imageInterval);
   }, []);
 
@@ -84,7 +94,6 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-blue-900/70 to-transparent"></div>
       </div>
 
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 pt-60 md:pt-20 lg:pt-40">
         <div className="max-w-3xl text-center mx-auto">
           <div className="flex items-center justify-center space-x-3 mb-6">
@@ -127,12 +136,11 @@ const HeroSection = () => {
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
             <Link
-              to="/profil"
+              to="/profil/sejarah"
               className="inline-flex items-center justify-center px-8 py-3 rounded-md text-base font-medium transition duration-200 border-2 border-white hover:text-white bg-white/10 text-white"
-           >
+            >
               Profil Dinas
             </Link>
-            
           </div>
 
           {/* Stats */}

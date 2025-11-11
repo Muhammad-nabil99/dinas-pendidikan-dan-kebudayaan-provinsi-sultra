@@ -15,7 +15,6 @@ import ProdukHukum from "./pages/profil/ProdukHukum";
 import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan.js";
 
 // PPID page
-import PPID from "./pages/PPID";
 import PPIDProfil from "./pages/ppid/PPIDProfil";
 import PPIDMekanisme from "./pages/ppid/PPIDMekanisme";
 import PPIDDip from "./pages/ppid/PPIDDip";
@@ -54,9 +53,9 @@ const App = () => {
     return () => window.removeEventListener("load", handleLoad);
   }, []);
 
-  // if (loading) {
-  //   return <LoadingSpinner loading={loading} />; // full-screen loader
-  // }
+  if (loading) {
+    return <LoadingSpinner loading={loading} />; // full-screen loader
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
