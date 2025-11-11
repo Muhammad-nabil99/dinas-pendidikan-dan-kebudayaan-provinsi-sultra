@@ -13,6 +13,7 @@ const fungsiDinas: string[] = [
 ];
 
 type UnitKerja = {
+  image?:string;
   nama: string;
   unit: string;
   id: string;
@@ -20,41 +21,49 @@ type UnitKerja = {
 
 const unitKerja: UnitKerja[] = [
   {
+    image:AvatarImage,
     nama: "Prof. Dr. Aris, S.Pd., M.Hum.",
     unit: "Kepala Dinas Pendidikan dan Kebudayaan Provinsi Sulawesi Tenggara",
     id: "kepala-dinas",
   },
   {
+    image:AvatarImage,
     nama: "Hj. Suhaeny, SE., M.Pd.",
     unit: "Sekretaris Dinas",
     id: "sekretaris",
   },
   {
+    image:AvatarImage,
     nama: "Amriana, SE., M.Si.",
     unit: "Bidang Perencanaan dan Penganggaran",
     id: "bidang-perencanaan-dan-penganggaran",
   },
   {
+    image:AvatarImage,
     nama: "Dra. Hj. Ila Nasra Nusuha, M.Pd.",
     unit: "Bidang Pembinaan Sekolah Menengah Atas",
     id: "bidang-pembinaan-sekolah-menengah-atas",
   },
   {
+    image:AvatarImage,
     nama: "Johanis Hengkengkona, S.Sos., M.A.P",
     unit: "Bidang Pembinaan Sekolah Menengah Kejuruan dan Pendidikan Khusus-Layanan Khusus",
     id: "bidang-pembinaan-sekolah-menengah-kejuruan-dan-pendidikan-khusus-layanan-khusus",
   },
   {
+    image:AvatarImage,
     nama: "Husrin Haji Hamid, S.Pd.",
     unit: "Bidang Pembinaan Guru dan Ketenagaan",
     id: "bidang-pembinaan-guru-dan-ketenagaan",
   },
   {
+    image:AvatarImage,
     nama: "Murniati Asmar Lio, SE.",
     unit: "Bidang Kebudayaan",
     id: "bidang-kebudayaan",
   },
   {
+    image:AvatarImage,
     nama: "H. Jasfol Sambo, SE.",
     unit: "Unit Pelaksana Teknis Dinas (UPTD)",
     id: "unit-pelaksana-teknis-dinas-uptd",
@@ -211,7 +220,7 @@ const TugasFungsi = () => {
           </div>
 
           <div>
-            <h1 className="my-20 text-4xl text-center capitalize font-bold text-government-blue mb-4">
+            <h1 className="text-center capitalize font-bold text-government-blue text-lg ">
               Tugas pokok dan fungsi masing – masing unit kerja
             </h1>
             <div className="flex items-center justify-center">
@@ -221,7 +230,7 @@ const TugasFungsi = () => {
               >
                 &lt;
               </button>
-              <div className="flex overflow-hidden">
+              <div className="flex overflow-hidden ">
                 <div
                   className="flex"
                   style={carouselTransformStyle}
@@ -231,9 +240,8 @@ const TugasFungsi = () => {
                     <Link
                       to={`/profil/tugas-fungsi/${item.id}`}
                       key={`${item.id}-${index}`}
-                      className="text-center flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/3 flex flex-col gap-2 p-4"
+                      className="text-center flex-shrink-0 flex-grow-0 md:basis-1/3 flex flex-col gap-2 p-4"
                     >
-                      {/* <div className=" bg w-full h-60 rounded-md bg-gray-600"> </div> */}
                       <div
                         className="bg w-full h-60 bg-cover bg-center rounded-md"
                         style={{ backgroundImage: `url(${AvatarImage})` }}

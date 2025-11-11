@@ -119,12 +119,12 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-blue-300" />
-                <span className="text-blue-200 text-sm">(0401) 321234</span>
+                <span className="text-blue-200 text-sm">0401-3212374</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-blue-300" />
                 <span className="text-blue-200 text-sm">
-                  info@disdik.sultraprov.go.id
+                  dikbud.sulawesitenggara@gmail.com 
                 </span>
               </div>
             </div>

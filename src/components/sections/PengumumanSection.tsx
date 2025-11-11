@@ -7,7 +7,12 @@ import useGetPengumuman from "@/features/pengumuman/useGetPengumuman";
 const PengumumanSection = () => {
   const { pengumuman, isLoading } = useGetPengumuman();
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return;
+
+  const latestAnnouncement = pengumuman?.sort(
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
 
   return (
     <section className="py-20 bg-muted/30">
@@ -20,9 +25,8 @@ const PengumumanSection = () => {
               Pengumuman
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Dapatkan pengumuman resmi seputar pendidikan
-            di Sulawesi Tenggara.
+          <h2 className="capitalize text-center text-3xl md:text-4xl font-bold text-foreground mb-4">
+            pengumuman resmi seputar pendidikan di Sulawesi Tenggara.
           </h2>
         </div>
 
@@ -38,7 +42,7 @@ const PengumumanSection = () => {
               <img
                 loading="lazy"
                 src={`https://dashboard.btikpsultra.my.id/storage/${pengumuman?.[0]?.coverImage}`}
-                alt={pengumuman?.[0]?.judul}
+                alt={latestAnnouncement?.[0]?.judul}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -46,25 +50,26 @@ const PengumumanSection = () => {
             {/* Konten menempel rapat di bawah gambar */}
             <div className="p-4 flex flex-col gap-2">
               <h2 className="text-2xl font-bold line-clamp-2">
-                {pengumuman?.[0]?.judul}
+                {latestAnnouncement?.[0]?.judul}
               </h2>
 
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Timer className="w-4 h-4" />{" "}
-                  {new Date(pengumuman?.[0]?.created_at).toLocaleTimeString()}
+                  {new Date(latestAnnouncement?.[0]?.created_at).toLocaleTimeString()}
                 </span>
                 <span className="flex items-center gap-1">
-                  📅 {new Date(pengumuman?.[0]?.created_at).toLocaleDateString()}
+                  📅{" "}
+                  {new Date(latestAnnouncement?.[0]?.created_at).toLocaleDateString()}
                 </span>
               </div>
 
               <p className="text-muted-foreground line-clamp-3">
-                {pengumuman?.[0]?.deskripsi}
+                {latestAnnouncement?.[0]?.deskripsi}
               </p>
 
               <div className="mt-2">
-                <Link to={`/berita/${pengumuman?.[0]?.id}`}>
+                <Link to={`/berita/${latestAnnouncement?.[0]?.id}`}>
                   <Button
                     variant="default"
                     className="bg-gradient-to-r from-blue-600 to-green-400"

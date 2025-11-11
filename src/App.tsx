@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AppLayout from "./layout/AppLayout.js";
 // Profil pages
+import Sambutan from "./pages/profil/Sambutan";
 import Sejarah from "./pages/profil/Sejarah";
 import VisiMisi from "./pages/profil/VisiMisi";
 import TugasFungsi from "./pages/profil/TugasFungsi";
@@ -15,7 +16,10 @@ import ProdukHukum from "./pages/profil/ProdukHukum";
 import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan.js";
 
 // PPID page
-import PPID from "./pages/PPID";
+<<<<<<< HEAD
+// import PPID from "./pages/PPID";
+=======
+>>>>>>> 58f5eba10119de1cc294128270fcc04cf3a9477f
 import PPIDProfil from "./pages/ppid/PPIDProfil";
 import PPIDMekanisme from "./pages/ppid/PPIDMekanisme";
 import PPIDDip from "./pages/ppid/PPIDDip";
@@ -54,9 +58,9 @@ const App = () => {
     return () => window.removeEventListener("load", handleLoad);
   }, []);
 
-  // if (loading) {
-  //   return <LoadingSpinner loading={loading} />; // full-screen loader
-  // }
+  if (loading) {
+    return <LoadingSpinner loading={loading} />; // full-screen loader
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -68,6 +72,7 @@ const App = () => {
             <Route element={<AppLayout />}>
               <Route path="/" element={<Index />} />
               {/* Profil Routes */}
+              <Route path="/profil/sambutan" element={<Sambutan />} />
               <Route path="/profil/sejarah" element={<Sejarah />} />
               <Route path="/profil/visi-misi" element={<VisiMisi />} />
               <Route path="/profil/tugas-fungsi" element={<TugasFungsi />} />
