@@ -16,10 +16,6 @@ import ProdukHukum from "./pages/profil/ProdukHukum";
 import LaporanKegiatan from "./pages/laporanKegiatan/LaporanKegiatan.js";
 
 // PPID page
-<<<<<<< HEAD
-// import PPID from "./pages/PPID";
-=======
->>>>>>> 58f5eba10119de1cc294128270fcc04cf3a9477f
 import PPIDProfil from "./pages/ppid/PPIDProfil";
 import PPIDMekanisme from "./pages/ppid/PPIDMekanisme";
 import PPIDDip from "./pages/ppid/PPIDDip";
