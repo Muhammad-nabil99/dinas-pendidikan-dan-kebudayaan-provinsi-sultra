@@ -7,17 +7,17 @@ import useGetBerita from "@/features/news/useGetBerita";
 const NewsSection = () => {
   const { berita, isLoading } = useGetBerita();
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return;
 
   const latestNews = berita
     ?.sort(
       (a, b) =>
         new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     )
-    ?.slice(0, 5); 
+    ?.slice(0, 5);
 
-  const mainNews = latestNews?.[0]; 
-  const otherNews = latestNews?.slice(1); 
+  const mainNews = latestNews?.[0];
+  const otherNews = latestNews?.slice(1);
 
   return (
     <section className="py-20 bg-muted/30">
@@ -39,10 +39,9 @@ const NewsSection = () => {
 
         {/* Featured News */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-
           {mainNews && (
             <Card
-              className={`${ 
+              className={`${
                 (!otherNews || otherNews.length === 0) && "lg:col-start-2"
               } lg:col-span-3 shadow-md rounded-2xl overflow-hidden`}
             >
@@ -68,8 +67,7 @@ const NewsSection = () => {
                     {new Date(mainNews?.created_at).toLocaleTimeString()}
                   </span>
                   <span className="flex items-center gap-1">
-                    📅{" "}
-                    {new Date(mainNews?.created_at).toLocaleDateString()}
+                    📅 {new Date(mainNews?.created_at).toLocaleDateString()}
                   </span>
                 </div>
 
@@ -78,14 +76,14 @@ const NewsSection = () => {
                 </p>
 
                 <div className="mt-2">
-                <Link to={`/berita/${mainNews?.slug}`}>
-                  <Button
-                    variant="default"
-                    className="bg-gradient-to-r from-blue-600 to-green-400"
-                  >
-                    Selengkapnya
-                  </Button>
-                </Link>
+                  <Link to={`/berita/${mainNews?.slug}`}>
+                    <Button
+                      variant="default"
+                      className="bg-gradient-to-r from-blue-600 to-green-400"
+                    >
+                      Selengkapnya
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Card>
@@ -93,8 +91,9 @@ const NewsSection = () => {
 
           {/* Berita Lainnya */}
           {otherNews && otherNews.length > 0 && (
-            <div className="lg:col-span-2 grid grid-cols-2 gap-4"> {/* Styling Anda tidak diubah */}
-              
+            <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+              {" "}
+              {/* Styling Anda tidak diubah */}
               {otherNews.map((item) => (
                 <Card
                   key={item?.id}
@@ -104,7 +103,7 @@ const NewsSection = () => {
                     loading="lazy"
                     src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
                     alt={item?.judul}
-                    className="w-full h-32 rounded-md object-cover mb-3" 
+                    className="w-full h-32 rounded-md object-cover mb-3"
                   />
                   <div className="flex-1">
                     <Link to={`/berita/${item?.slug}`}>
@@ -118,7 +117,6 @@ const NewsSection = () => {
                   </div>
                 </Card>
               ))}
-
               <Button
                 asChild
                 className="col-span-2 w-full bg-gradient-to-r from-government-blue via-education-green to-green-400 text-white hover:opacity-90 mt-2" // Styling Anda tidak diubah
