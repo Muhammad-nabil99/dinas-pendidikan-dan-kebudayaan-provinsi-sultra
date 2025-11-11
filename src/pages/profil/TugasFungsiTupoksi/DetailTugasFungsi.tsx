@@ -5,35 +5,44 @@ import AvatarImage from '@/assets/avatar.png';
 
 const unitKerjaDetails = {
   "kepala-dinas": {
-    title: "Kepala Dinas Pendidikan",
+    title: "Kepala Dinas Pendidikan dan Kebudayaan",
     description:
-      "Bertanggung jawab penuh atas pelaksanaan seluruh urusan pendidikan dan kebudayaan di provinsi.",
+      "Memimpin, membina, mengkoordinasikan, merencanakan, melaksanakan kebijakan dan program strategis, serta mengendalikan seluruh kegiatan bidang pendidikan dan kebudayaan. Kepala Dinas bertanggung jawab atas terlaksananya seluruh tugas dan fungsi dinas.",
     fungsi: {
-      description: "",
-      points: [],
-      dibawahi: [],
+      description: "Utama",
+      points: [
+        "Mengendalikan seluruh kegiatan bidang pendidikan dan kebudayaan.",
+        "Bertanggung jawab atas pelaksanaan tugas dinas."
+      ],
+      dibawahi: [
+        "Seluruh bidang",
+        "Sekretariat",
+        "UPTD",
+        "KCD",
+      ],
     },
   },
   sekretaris: {
     title: "Sekretaris",
     description:
-      "Mempunyai tugas merencanakan, menyusun, melaksanakan, membina tugas-tugas kebijakan taktis di bidang pelayanan administratif, perlengkapan, keuangan, kepegawaian, inventarisasi aset, ketatausahaan, protokol, humas, rumah tangga, organisasi dan ketatalaksana, analisa jabatan, dokumentasi peraturan perundang-undangan dan mengkoordinasikan penyelenggaraan tugas-tugas bidang secara terpadu",
+      // "Mempunyai tugas merencanakan, menyusun, melaksanakan, membina tugas-tugas kebijakan taktis di bidang pelayanan administratif, perlengkapan, keuangan, kepegawaian, inventarisasi aset, ketatausahaan, protokol, humas, rumah tangga, organisasi dan ketatalaksana, analisa jabatan, dokumentasi peraturan perundang-undangan dan mengkoordinasikan penyelenggaraan tugas-tugas bidang secara terpadu",
+      "Mengelola pelayanan administratif, perlengkapan, keuangan, kepegawaian, aset, ketatausahaan, protokol, humas, rumah tangga, organisasi, dokumentasi peraturan, serta mengoordinasikan pelaksanaan tugas bidang secara terpadu.",
     fungsi: {
       description:
         "Dalam melaksanakan tugas pokok sebagaimana dimaksud di atas sekretariat mempunyai fungsi sebagai berikut",
       points: [
-        "Pelaksanaan koordinasi perencanaan/penyusunan rencana program dan kegiatan pada sekretariat",
-        "Pelaksanaan urusan perencanaan/penyusunan program sekretariat",
-        "Pelaksanaan urusan perlengkapan kantor",
-        "Pelaksanaan administrasi keuangan",
-        "Pelaksanaan urusan keprotokoleran, humas, dan rumah tangga",
-        "Pelaksanaan urusan barang milik daerah",
-        "Pelaksanaan administrasi kepegawaian",
-        "Pelaksanaan urusan hukum dan perundang-undangan",
-        "Pelaksanaan urusan ketatausahaan",
-        "Pelaksanaan urusan organisasi dan tatalaksana, dokumentasi perundang-undangan, serta analisis jabatan",
-        "Pelaporan dan evaluasi pelaksanaan program dan kegiatan sekretariat",
-        "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsi",
+        "Koordinasi perencanaan dan penyusunan program sekretariat.",
+        "Administrasi perlengkapan, keuangan, kepegawaian, dan barang milik daerah.",
+        "Pelaksanaan urusan hukum, organisasi, ketatausahaan, serta dokumentasi perundangan.",
+        "Pelaporan dan evaluasi program sekretariat.",
+        "Melaksanakan fungsi lain dari Kepala Dinas.",
+        // "Pelaksanaan urusan barang milik daerah",
+        // "Pelaksanaan administrasi kepegawaian",
+        // "Pelaksanaan urusan hukum dan perundang-undangan",
+        // "Pelaksanaan urusan ketatausahaan",
+        // "Pelaksanaan urusan organisasi dan tatalaksana, dokumentasi perundang-undangan, serta analisis jabatan",
+        // "Pelaporan dan evaluasi pelaksanaan program dan kegiatan sekretariat",
+        // "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsi",
       ],
       dibawahi: [
         "Sub Bagian Kepegawaian",
@@ -45,22 +54,23 @@ const unitKerjaDetails = {
   "bidang-perencanaan-dan-penganggaran": {
     title: "Bidang Perencanaan dan Penganggaran",
     description:
-      "Mengkoordinasikan rencana, program, kegiatan, anggaran, menyusun, mengevaluasi dan melaporkan pelasanaan program kerja, menyusun dan mengevaluasi serta melaporkan pelaksanaan program kerja dan anggaran dinas, mengsinkronkan kebijakan operasional serta program pendidikan dan kebudayaan antar kabupaten/kota dalam Daerah, menyusun perencanaan strategis dinas, menyusun rencana kerja tahunan dinas, menyusun rencana kerja dan anggaran dinas, penyusunan bahan pelaksanaan urusan tugas pembantuan di bidang pendidikan dan kebudayaan, memberikan layanan teknis dibidang perencanaan, melakukan kegiatan pendataan pendidikan dan kebudayaan.",
+      // "Mengkoordinasikan rencana, program, kegiatan, anggaran, menyusun, mengevaluasi dan melaporkan pelasanaan program kerja, menyusun dan mengevaluasi serta melaporkan pelaksanaan program kerja dan anggaran dinas, mengsinkronkan kebijakan operasional serta program pendidikan dan kebudayaan antar kabupaten/kota dalam Daerah, menyusun perencanaan strategis dinas, menyusun rencana kerja tahunan dinas, menyusun rencana kerja dan anggaran dinas, penyusunan bahan pelaksanaan urusan tugas pembantuan di bidang pendidikan dan kebudayaan, memberikan layanan teknis dibidang perencanaan, melakukan kegiatan pendataan pendidikan dan kebudayaan.",
+      "Mengkoordinasikan perencanaan, program, kegiatan, anggaran, monitoring, evaluasi, serta sinkronisasi kebijakan pendidikan dan kebudayaan antar kabupaten/kota.",
     fungsi: {
       description:
         "Dalam melaksanakan tugas pokok sebagaimana dimaksud di atas bidang perencanaan dan penganggaran mempunyai fungsi sebagai berikut :",
       points: [
-        "Menyusun rencana program dan kegaiatan bidang",
-        "Pengkoordinasian penyusunan rencana program, kegiatan, dan anggaran dinas sebagai pedoman pelaksanaan tugas",
-        "Penyusunan rencana strategis pendidikan dan kebudayaan sesuai dengan perencanaan strategis pendidikan dan kebudayaan nasional dan perencanaan pembangunan jangka menengah daerah provinsi",
-        "Pengkoordinasian, dan penyusunan laporan pelaksanaan program/kegiatan dinas",
-        "Pemberian pelayanan teknis di bidang perencanaan dan penganggaran",
-        "Pelaporan dan evaluasi pelasanaan program dan kegiatan bidang",
-        "Pengkordinasian pelaksanaan pendataan pendidikan dan kebudayaan",
-        "Pengkoordinasian dan singkronisasi kebijakan operasional dan program pendidikan dan kebudayaan antar kabupaten/kota dalam provinsi",
-        "Pelaksanaan dan/atau fasilitasi penyelenggaraan tugas pembantuan di bidang pendidikan dasar, PAUDNI, dan kebudayaan",
-        "Pelaksanaan monitoring, evaluasi dari program dan kegiatan dinas",
-        "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
+        "Penyusunan program, kegiatan, rencana strategis, dan anggaran dinas.",
+        "Pelayanan teknis perencanaan dan penganggaran.",
+        "Monitoring, evaluasi, dan pelaporan kegiatan.",
+        "Pelaksanaan pendataan pendidikan dan kebudayaan.",
+        "Sinkronisasi kebijakan pendidikan dan kebudayaan tingkat provinsi.",
+        // "Pelaporan dan evaluasi pelasanaan program dan kegiatan bidang",
+        // "Pengkordinasian pelaksanaan pendataan pendidikan dan kebudayaan",
+        // "Pengkoordinasian dan singkronisasi kebijakan operasional dan program pendidikan dan kebudayaan antar kabupaten/kota dalam provinsi",
+        // "Pelaksanaan dan/atau fasilitasi penyelenggaraan tugas pembantuan di bidang pendidikan dasar, PAUDNI, dan kebudayaan",
+        // "Pelaksanaan monitoring, evaluasi dari program dan kegiatan dinas",
+        // "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
       ],
       dibawahi: [
         "Seksi Penyusunan Rencana Program dan Penganggaran",
@@ -72,19 +82,19 @@ const unitKerjaDetails = {
   "bidang-pembinaan-sekolah-menengah-atas": {
     title: "Bidang Pembinaan Sekolah Menengah Atas",
     description:
-      "Merencanakan, mengkoordinasikan, menyelenggarakan fasilitas kebutuhan kurikulum, penilaian, kelembaggaan, sarana prasarana, kesiswaan, dan pendidikan karakter.",
+      "Mengelola kurikulum, penilaian, kelembagaan, sarana prasarana, kesiswaan, serta pendidikan karakter pada jenjang SMA.",
     fungsi: {
       description:
         "Dalam melaksanakan tugas pokok sebagaimana dimaksud di atas bidang perencanaan dan penganggaran mempunyai fungsi sebagai berikut :",
       points: [
-        "Melaksanakan penyusunan rencana program dan kegiatan bidang",
-        "Penyelenggaraan kegiatan pengembangan kelembangaan dan sarana prasarana",
-        "Pelaporan dan evaluasi hasil pelaksanaan program dan kegiatan bidang",
-        "Pelaksanaan koordinasi dan pengendalian seksi - seksi",
-        "Pelaksanaan koordinasi atas pembangunan dan pengelolaan penyelenggaraan sosialisasi dan pengembangan kerangka dasar dan struktur kurikulum Sekolah Menengah Atas",
-        "Pelaksanaan pembinaan dan pengembangan mutu kesiswaan dan pendidikan karakter",
-        "Pelaksanaan koordinasi, monitoring, dan evaluasi pelaksanaan, Ujian Nasional, Ujian Sekolah, dan kegiatan akreditasi Sekolah Menengah Atas",
-        "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
+        "Penyusunan program dan kegiatan bidang.",
+        "Pengembangan kelembagaan dan sarana prasarana SMA.",
+        "Pembinaan mutu kesiswaan dan pendidikan karakter.",
+        "Monitoring, evaluasi, dan pelaporan pelaksanaan kegiatan.",
+        "Koordinasi pelaksanaan ujian dan akreditasi SMA.",
+        // "Pelaksanaan pembinaan dan pengembangan mutu kesiswaan dan pendidikan karakter",
+        // "Pelaksanaan koordinasi, monitoring, dan evaluasi pelaksanaan, Ujian Nasional, Ujian Sekolah, dan kegiatan akreditasi Sekolah Menengah Atas",
+        // "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
       ],
       dibawahi: [
         "Seksi Kurikulum dan Penilaian",
@@ -98,19 +108,19 @@ const unitKerjaDetails = {
       title:
         "Bidang Pembinaan Sekolah Menengah Kejuruan dan Pendidikan Khusus-Layanan Khusus",
       description:
-        "Merencanakan, mengkoordinasikan, menyelenggarakan fasilitas kebutuhan kurikulum, penilaian, kelembaggaan, sarana prasarana, kesiswaan, dan pendidikan karakter.",
+        "Mengelola kurikulum, penilaian, kelembagaan, sarana prasarana, kesiswaan, pendidikan karakter, serta pembinaan pendidikan khusus/layanan khusus.",
       fungsi: {
         description:
           "Dalam melaksanakan tugas sebagaimana dimaksud di atas Bidang Pembinaan Sekolah Menengah Atas mepunyai fungsi:",
         points: [
-          "Melaksanakan penyusunan rencana program dan kegiatan bidang",
-          "Penyelenggaraan kegiatan pengembangan kelembangaan dan sarana prasarana",
-          "Pelaporan dan evaluasi hasil pelaksanaan program dan kegiatan bidang",
-          "Pelaksanaan koordinasi dan pengendalian seksi - seksi",
-          "Pelaksanaan koordinasi atas pembangunan dan pengelolaan penyelenggaraan sosialisasi dan pengembangan kerangka dasar dan struktur kurikulum Sekolah Menengah Atas",
-          "Pelaksanaan pembinaan dan pengembangan mutu kesiswaan dan pendidikan karakter",
-          "Pelaksanaan koordinasi, monitoring, dan evaluasi pelaksanaan, Ujian Nasional, Ujian Sekolah, dan kegiatan akreditasi Sekolah Menengah Atas",
-          "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
+          "Penyusunan program dan kegiatan bidang.",
+          "Pembinaan kelembagaan dan sarana prasarana SMK/PKLK.",
+          "Pembinaan lomba, seni, olahraga, dan kompetensi siswa.",
+          "Monitoring, evaluasi, pelaksanaan ujian, dan akreditasi SMK.",
+          // "Pelaksanaan koordinasi atas pembangunan dan pengelolaan penyelenggaraan sosialisasi dan pengembangan kerangka dasar dan struktur kurikulum Sekolah Menengah Atas",
+          // "Pelaksanaan pembinaan dan pengembangan mutu kesiswaan dan pendidikan karakter",
+          // "Pelaksanaan koordinasi, monitoring, dan evaluasi pelaksanaan, Ujian Nasional, Ujian Sekolah, dan kegiatan akreditasi Sekolah Menengah Atas",
+          // "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
         ],
         dibawahi: [
           "Seksi Kurikulum dan Penilaian",
@@ -122,24 +132,24 @@ const unitKerjaDetails = {
   "bidang-pembinaan-guru-dan-ketenagaan": {
     title: "Bidang Pembinaan Guru dan Ketenagaan",
     description:
-      "Menyusun kebijakan teknis dan operasional di bidang pencapaian standar pendidik dan tenaga kependidikan/kebudayaan, penyusunan formasi kebutuhan tenaga guru dan kebudayaan, pembinaan disiplin aparatur sipil negara dan tenaga teknis kebudayaan, pemindahan dan pemerataan guru, koordinasi peningkatan kesejahteraan guru, pengelolaan angka kredit jabatan fungsional guru dan tenaga kependidikan lainnya, koordinasi pembinaan karir tenaga guru dan kebudayaan, koordinasi pengembangan kemampuan kompetensi profesionalsime serta pelayanan administrasi kepegawaian kepada guruguru dan tenaga teknis pendidikan dan kebudayaan.",
+      "Menyusun kebijakan teknis terkait standar pendidik dan tenaga kependidikan, kebutuhan formasi guru, pembinaan disiplin, mutasi, angka kredit jabatan, kesejahteraan, karir, serta kompetensi profesionalisme guru.",
     fungsi: {
       description:
         "Dalam melaksanakan tugas di atas, Bidang Pembinaan Guru dan Ketenagaan menyelenggarakan fungsi sebagai berikut:",
       points: [
-        "Pelaksanaan pengumpulan dan pengelolaan data guru dan tenaga teknis kebudayaan, penyajian dan pelayanan informasi data guru-guru dan tenaga fungsional lain pada pendidikan menengah, pendidikan khusus-layanan khusus, dan tenaga teknis kebudayaan",
-        "Penyiapan bahan dan penyusunan formasi, kebutuhan, dan seleksi guru-guru dan tenaga fungsional lain pada pendidikan menengah, pendidikan khusus-layanan khusus, dan tenaga teknis kebudayaan",
-        "Penyiapan bahan untuk proses mutasi kepangkatan, mutasi status alih fungsi, alih jenis mutasi penetapan lintas kabupaten/kota dalam satu provinsi",
-        "Penyiapan bahan dalam rangka pembinaan, pengembangan karir dan kesejahteraan guru-guru dan tenaga fungsional lain pendidikan menengah, pendidikan khusus dan layanan khusus, dan tenaga kebudayaan",
-        "Penyiapan bahan dalam rangka pembinaan, pengembangan kemampuan profesionalisme guru-guru dan tenaga fungsional lain pada pendidikan menengah, pendidikan khusus dan layanan khusus, dan tenaga teknis kebudayaan",
-        "Pelayanan administrasi kepegawaian/angka kredit jabatan fungsional guru-guru dan tenaga fungsional lain pendidikan menengah, pendidikan khusus-layana khusus, dan tenaga kebudayaan",
-        "Pelaksanaan urusan ketataushaan guru dan tenaga teknis lainnya",
-        "Pelaksanaan koordinasi, fasilitasi, monitoring, dan evaluasi kegiatan kebudayaan skala provinsi",
-        "Pelaporan dan evaluasi hasil pelaksanaan program dan kegiatan bidang",
-        "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
+        "Pengelolaan data guru dan tenaga teknis kebudayaan.",
+        "Penyusunan kebutuhan formasi dan seleksi guru.",
+        "Pembinaan karir, kesejahteraan, dan profesionalisme guru.",
+        "Pelayanan administrasi kepegawaian dan angka kredit.",
+        "Monitoring, evaluasi, dan pelaporan kegiatan bidang.",
+        // "Pelayanan administrasi kepegawaian/angka kredit jabatan fungsional guru-guru dan tenaga fungsional lain pendidikan menengah, pendidikan khusus-layana khusus, dan tenaga kebudayaan",
+        // "Pelaksanaan urusan ketataushaan guru dan tenaga teknis lainnya",
+        // "Pelaksanaan koordinasi, fasilitasi, monitoring, dan evaluasi kegiatan kebudayaan skala provinsi",
+        // "Pelaporan dan evaluasi hasil pelaksanaan program dan kegiatan bidang",
+        // "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
       ],
       dibawahi: [
-        "Seksi Pendidik dan Tenaga Kepndidikan Sekolah Menengah Atas",
+        "Seksi Pendidik dan Tenaga Kependidikan Sekolah Menengah Atas",
         "Seksi Pendidik dan Tenaga Kependidikan Sekolah Menegah Kejuruan",
         "Seksi Pendidik dan Tenaga Kependidikan Pendidikan Khusus-Layanan Khusus dan Tenaga Kebudayaan",
       ],
@@ -148,23 +158,23 @@ const unitKerjaDetails = {
   "bidang-kebudayaan": {
     title: "Bidang Kebudayaan",
     description:
-      "Menyusun kebijakan taktis dalam merencanakan, mengkoordinasikan, menyelenggarakan manajemen taktial di bidang upaya perlindungan, pelestarian, dan pemanfaatan warisan budaya benda dan warisan budaya tak benda, program/kegiatan cagar budaya dan permuseuman, sejarah dan tradisi, serta kegiatan kesenian, pembentukan tim ahli cagar budaya skala provinsi, pendataan kebudayaan, pengembangan pendidikan karakter bangsa, pengembangan kompetensi dan sumberdaya seni, penyediaan kebutuhan sarana prasarana budaya, sejarah, dan kesenian.",
+      "Merencanakan, mengkoordinasikan, dan melaksanakan upaya perlindungan, pelestarian, dan pemanfaatan warisan budaya, museum, sejarah, tradisi, kesenian, serta pengembangan karakter bangsa.",
     fungsi: {
       description:
         "Dalam melaksanakan tugas sebagaimana dimaksud di atas, bidang kebudayaan menyelenggarakan fungsi sebagai berikut :",
       points: [
-        "Pelaksanaan penyusunan rencana program dan kegiatan kebudayaan",
-        "Pelaksanaan koordinasi kebudayaan dengan stakeholder kebudayaan pada dinas kabupaten/kota dalam daerah, pada perguruan tinggi dan masyarakat",
-        "Pelaksanaan koordinasi atas kegiatan tugas pembantuan bidang kebudayaan skala provinsi",
-        "Pelaksanaan koordinasi atas pembinaan, pembangunan, dan pengelolaan/penyelenggaraan kegiatan museum dan cagar budaya skala provinsi",
-        "Pelaksanaan koordinasi atas pembinaan, pembangunan, dan pengelolaan/penyelenggaraan kegiatan museum dan cagar budaya skala provinsi",
-        "Pelaksanaan koordinasi, fasilitasi, monitoring, dan evaluasi kegiatan kebudayaan skala provinsi",
-        "Pelaksanaan fasilitasi kebutuhan sarana prasarana budaya, sejarah, dan kesenian skala provinsi",
-        "Pelaksanaan koordinasi atas pengelolaan kegiatan kesenian",
-        "Pelaksanaan pembinaan dan pengembangan kompetensi sumber daya seni skala provinsi",
-        "Pelaksanaan pendataan kebudayaan, sejarah dan kesenian skala provinsi",
-        "Pelaporan dan evaluasi hasil pelaksanaan program dan kegiatan bidang",
-        "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
+        "Penyusunan program dan kegiatan kebudayaan.",
+        "Koordinasi kebudayaan dengan kabupaten/kota dan stakeholder.",
+        "Pembinaan museum, cagar budaya, dan kesenian.",
+        "Fasilitasi sarana prasarana budaya dan seni.",
+        "Pendataan dan pengembangan kompetensi sumber daya seni.",
+        // "Pelaksanaan koordinasi, fasilitasi, monitoring, dan evaluasi kegiatan kebudayaan skala provinsi",
+        // "Pelaksanaan fasilitasi kebutuhan sarana prasarana budaya, sejarah, dan kesenian skala provinsi",
+        // "Pelaksanaan koordinasi atas pengelolaan kegiatan kesenian",
+        // "Pelaksanaan pembinaan dan pengembangan kompetensi sumber daya seni skala provinsi",
+        // "Pelaksanaan pendataan kebudayaan, sejarah dan kesenian skala provinsi",
+        // "Pelaporan dan evaluasi hasil pelaksanaan program dan kegiatan bidang",
+        // "Pelaksanaan fungsi lain yang diberikan oleh Kepala Dinas sesuai dengan tugas dan fungsinya.",
       ],
       dibawahi: [
         "Seksi Cagar Budaya dan Permuseuman",
@@ -176,15 +186,38 @@ const unitKerjaDetails = {
   "unit-pelaksana-teknis-dinas-uptd": {
     title: "Unit Pelaksana Teknis Dinas (UPTD)",
     description:
-      "Unit Pelaksana Teknis Dinas adalah Unsur Pelaksana teknis opersional dan/atau teknis penunjang tertentu. Kepala unit pelaksana teknis dinas berada di bawah dan bertanggung jawab kepada Kepala Dinas,",
+      "UPTD adalah unsur pelaksana teknis operasional/penunjang tertentu yang berada di bawah dan bertanggung jawab kepada Kepala Dinas.",
     fungsi: {
       description: "",
-      points: [
+      points: [],
+      dibawahi: [
         "UPTD. Museum dan Taman Budaya",
         "UPTD Balai Teknologi Informasi dan Komunikasi Pendidikan",
-        "UPTD Penangan Siswa Berkebutuhan Khusus",
+        "UPTD Penanganan Siswa Berkebutuhan Khusus",
       ],
-      dibawahi: [],
+    },
+  },
+  "kantor-cabang-dinas": {
+    title: "Kantor Cabang Dinas (KCD)",
+    description:
+      "KCD merupakan perpanjangan tangan dinas pada wilayah tertentu untuk membantu pelaksanaan tugas pendidikan dan kebudayaan di daerah.",
+    fungsi: {
+      description: "Membantu pelaksanaan tugas pendidikan dan kebudayaan di daerah.",
+      points: [],
+      dibawahi: [
+        "KCD Bau Bau dan Buton Selatan",
+        "KCD Wakatobi",
+        "KCD Buton",
+        "KCD Buton Utara",
+        "KCD Muna Barat Buton Tengah",
+        "KCD Muna",
+        "KCD Bombana",
+        "KCD Kolaka dan Kolaka Timur",
+        "KCD Kolaka Utara",
+        "KCD Konawe dan Konawe Utara",
+        "KCD Konawe Selatan",
+        "KCD Konawe Kepulauan",
+      ],
     },
   },
 };
