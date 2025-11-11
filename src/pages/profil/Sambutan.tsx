@@ -48,14 +48,14 @@ const Sambutan = () => {
 
             {/* Konten Sambutan */}
             <section className="bg-white py-12 sm:py-16">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start gap-10">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center lg:items-start gap-10">
                     
-                    {/* Gambar di kiri */}
-                    <div className="w-full md:w-1/3  justify-center">
+                    {/* Gambar di atas / kiri */}
+                    <div className="w-full lg:w-1/3 flex flex-col items-center text-center lg:items-start lg:text-left">
                         <img
                             src={KadisImages}
                             alt="Kepala Dinas"
-                            className="rounded-2xl shadow-lg w-72 h-auto object-cover"
+                            className="rounded-2xl shadow-lg w-64 sm:w-72 h-auto object-cover mx-auto lg:mx-0"
                         />
                         
                         <p className="font-bold text-lg mt-4">Prof. Dr. Aris, S.Pd., M.Hum.</p>
@@ -63,9 +63,8 @@ const Sambutan = () => {
                         <p className="text-base">Provinsi Sulawesi Tenggara</p>
                     </div>
                                 
-
-                    {/* Sambutan di kanan */}
-                    <div className="w-full md:w-2/3">
+                    {/* Sambutan */}
+                    <div className="w-full lg:w-2/3 text-center lg:text-left">
                         <article className="flex flex-col gap-6 text-gray-800 text-base sm:text-lg leading-relaxed">
                             <p>Assalamu’alaikum warahmatullahi wabarakatuh,</p>
                             <p>Salam sejahtera bagi kita semua, Om Swastiastu, Namo Buddhaya, Salam Kebajikan.</p>
@@ -80,8 +79,6 @@ const Sambutan = () => {
 
                             <p>Wassalamu’alaikum warahmatullahi wabarakatuh,</p>
                             <p>Salam sejahtera bagi kita semua.</p>
-
-                            
                         </article>
                     </div>
                 </div>
@@ -90,4 +87,4 @@ const Sambutan = () => {
     )
 }
 
-export default Sambutan;
+export default Sambutan
