@@ -14,6 +14,9 @@ const PengumumanSection = () => {
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
 
+  console.log('latestAnnouncement',latestAnnouncement?.[0]);
+  
+
   return (
     <section className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +72,7 @@ const PengumumanSection = () => {
               </p>
 
               <div className="mt-2">
-                <Link to={`/berita/${latestAnnouncement?.[0]?.id}`}>
+                <Link to={`/pengumuman/${latestAnnouncement?.[0]?.id}`}>
                   <Button
                     variant="default"
                     className="bg-gradient-to-r from-blue-600 to-green-400"

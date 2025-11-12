@@ -25,7 +25,6 @@ import Galery from "./pages/Galery";
 import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFungsi";
 import News from "./pages/berita/News.js";
 import DetailBerita from "./pages/berita/DetailBerita.js";
-import LoadingSpinner from "./components/LoadingSpinner.js";
 import { useEffect, useState } from "react";
 import Inovasi from "./pages/inovasi/Inovasi.js";
 import Agenda from "./pages/agenda/Agenda.js";
@@ -35,26 +34,9 @@ import DetailAgenda from "./pages/agenda/DetailAgenda.js";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // wait for page + assets to load
-    const handleLoad = () => {
-      setTimeout(() => setLoading(false), 1000); // add delay for nicer UX
-    };
 
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
-
-    return () => window.removeEventListener("load", handleLoad);
-  }, []);
-
-  if (loading) {
-    return <LoadingSpinner loading={loading} />; // full-screen loader
-  }
+  
 
   return (
     <QueryClientProvider client={queryClient}>

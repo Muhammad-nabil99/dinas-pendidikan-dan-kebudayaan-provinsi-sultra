@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import BgImage from '@/assets/tracking.jpg';
-import AvatarImage from '@/assets/avatar.png';
+import BgImage from "@/assets/tracking.jpg";
+import AvatarImage from "@/assets/avatar.png";
 
 const fungsiDinas: string[] = [
   "Perumusan kebijakan teknis dan operasional di bidang pendidikan dan kebudayaan sesuai dengan kewenangan",
@@ -13,7 +13,7 @@ const fungsiDinas: string[] = [
 ];
 
 type UnitKerja = {
-  image?:string;
+  image?: string;
   nama: string;
   unit: string;
   id: string;
@@ -21,49 +21,49 @@ type UnitKerja = {
 
 const unitKerja: UnitKerja[] = [
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Prof. Dr. Aris, S.Pd., M.Hum.",
     unit: "Kepala Dinas Pendidikan dan Kebudayaan Provinsi Sulawesi Tenggara",
     id: "kepala-dinas",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Hj. Suhaeny, SE., M.Pd.",
     unit: "Sekretaris Dinas",
     id: "sekretaris",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Amriana, SE., M.Si.",
     unit: "Bidang Perencanaan dan Penganggaran",
     id: "bidang-perencanaan-dan-penganggaran",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Dra. Hj. Ila Nasra Nusuha, M.Pd.",
     unit: "Bidang Pembinaan Sekolah Menengah Atas",
     id: "bidang-pembinaan-sekolah-menengah-atas",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Johanis Hengkengkona, S.Sos., M.A.P",
     unit: "Bidang Pembinaan Sekolah Menengah Kejuruan dan Pendidikan Khusus-Layanan Khusus",
     id: "bidang-pembinaan-sekolah-menengah-kejuruan-dan-pendidikan-khusus-layanan-khusus",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Husrin Haji Hamid, S.Pd.",
     unit: "Bidang Pembinaan Guru dan Ketenagaan",
     id: "bidang-pembinaan-guru-dan-ketenagaan",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "Murniati Asmar Lio, SE.",
     unit: "Bidang Kebudayaan",
     id: "bidang-kebudayaan",
   },
   {
-    image:AvatarImage,
+    image: AvatarImage,
     nama: "H. Jasfol Sambo, SE.",
     unit: "Unit Pelaksana Teknis Dinas (UPTD)",
     id: "unit-pelaksana-teknis-dinas-uptd",
@@ -148,7 +148,7 @@ const TugasFungsi = () => {
       {/* Hero Section dengan Background */}
       <section
         className="relative py-20 text-white bg-cover bg-center"
-        style={{ backgroundImage: `url(${BgImage})`  }}
+        style={{ backgroundImage: `url(${BgImage})` }}
       >
         <div className="absolute inset-0 bg-blue-900/70"></div>
 
@@ -191,7 +191,7 @@ const TugasFungsi = () => {
             <h1 className="my-10 text-2xl text-center capitalize font-bold text-government-blue mb-4">
               Tugas
             </h1>
-            <p >
+            <p>
               Berdasarkan Peraturan Daerah Provinsi Sulawesi Tenggara nomor 13
               Tahun 2016, tentang Pembentukan dan Susunan Perangkat Daerah
               Provinsi Sulawesi Tenggara, didalamnya menyebutkan bahwa “Dinas
@@ -219,20 +219,24 @@ const TugasFungsi = () => {
             </ol>
           </div>
 
-          <div>
-            <h1 className="text-center capitalize font-bold text-government-blue text-lg ">
-              Tugas pokok dan fungsi masing – masing unit kerja
+          <div className="mt-10">
+            <h1 className="text-center capitalize font-bold text-government-blue text-lg sm:text-xl md:text-2xl mb-4">
+              Tugas Pokok dan Fungsi Masing – Masing Unit Kerja
             </h1>
-            <div className="flex items-center justify-center">
+
+            <div className="flex items-center justify-center gap-3 sm:gap-6">
+              {/* Prev Button */}
               <button
                 onClick={handlePrevClick}
-                className="w-10 h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg "
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform"
               >
                 &lt;
               </button>
-              <div className="flex overflow-hidden ">
+
+              {/* Carousel Container */}
+              <div className="flex overflow-hidden w-full max-w-6xl">
                 <div
-                  className="flex"
+                  className="flex transition-transform duration-500 ease-in-out"
                   style={carouselTransformStyle}
                   onTransitionEnd={handleTransitionEnd}
                 >
@@ -240,21 +244,27 @@ const TugasFungsi = () => {
                     <Link
                       to={`/profil/tugas-fungsi/${item.id}`}
                       key={`${item.id}-${index}`}
-                      className="text-center flex-shrink-0 flex-grow-0 md:basis-1/3 flex flex-col gap-2 p-4"
+                      className="text-center flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/3 flex flex-col gap-2 p-3 sm:p-4"
                     >
                       <div
-                        className="bg w-full h-60 bg-cover bg-center rounded-md"
-                        style={{ backgroundImage: `url(${AvatarImage})` }}
+                        className="bg w-full h-48 sm:h-56 md:h-60 bg-cover bg-center rounded-md shadow-md"
+                        style={{ backgroundImage: `url(${AvatarImage}) ` }}
                       ></div>
-                      <h1 className="font-bold capitalize">{item.nama}</h1>
-                      <h2>{item.unit}</h2>
+                      <h1 className="font-bold capitalize text-base sm:text-lg md:text-xl">
+                        {item.nama}
+                      </h1>
+                      <h2 className="text-sm sm:text-base text-gray-700">
+                        {item.unit}
+                      </h2>
                     </Link>
                   ))}
                 </div>
               </div>
+
+              {/* Next Button */}
               <button
                 onClick={handleNextClick}
-                className=" w-10 h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg "
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform"
               >
                 &gt;
               </button>
