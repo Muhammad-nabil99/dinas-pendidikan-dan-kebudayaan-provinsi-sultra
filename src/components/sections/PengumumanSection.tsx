@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarDays, ArrowRight, Timer } from "lucide-react";
+import { CalendarDays, ArrowRight, Timer , Calendar} from "lucide-react";
 import { Link } from "react-router-dom";
 import useGetPengumuman from "@/features/pengumuman/useGetPengumuman";
 
@@ -62,7 +62,7 @@ const PengumumanSection = () => {
                   {new Date(latestAnnouncement?.[0]?.created_at).toLocaleTimeString()}
                 </span>
                 <span className="flex items-center gap-1">
-                  📅{" "}
+                  {" "}
                   {new Date(latestAnnouncement?.[0]?.created_at).toLocaleDateString()}
                 </span>
               </div>

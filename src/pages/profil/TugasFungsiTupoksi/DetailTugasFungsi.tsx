@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useParams } from "react-router-dom";
-import AvatarImage from '@/assets/avatar.png';
+import AvatarImage from "@/assets/avatar.png";
+import { useEffect, useState } from "react";
 
 const unitKerjaDetails = {
   "kepala-dinas": {
@@ -12,14 +13,9 @@ const unitKerjaDetails = {
       description: "Utama",
       points: [
         "Mengendalikan seluruh kegiatan bidang pendidikan dan kebudayaan.",
-        "Bertanggung jawab atas pelaksanaan tugas dinas."
+        "Bertanggung jawab atas pelaksanaan tugas dinas.",
       ],
-      dibawahi: [
-        "Seluruh bidang",
-        "Sekretariat",
-        "UPTD",
-        "KCD",
-      ],
+      dibawahi: ["Seluruh bidang", "Sekretariat", "UPTD", "KCD"],
     },
   },
   sekretaris: {
@@ -202,7 +198,8 @@ const unitKerjaDetails = {
     description:
       "KCD merupakan perpanjangan tangan dinas pada wilayah tertentu untuk membantu pelaksanaan tugas pendidikan dan kebudayaan di daerah.",
     fungsi: {
-      description: "Membantu pelaksanaan tugas pendidikan dan kebudayaan di daerah.",
+      description:
+        "Membantu pelaksanaan tugas pendidikan dan kebudayaan di daerah.",
       points: [],
       dibawahi: [
         "KCD Bau Bau dan Buton Selatan",
@@ -222,26 +219,42 @@ const unitKerjaDetails = {
   },
 };
 function DetailTugasFungsi() {
+  const currentWidth = window.innerWidth;
+  const [isMobile, setIsMobile] = useState(currentWidth < 640);
+  const [width, setWidth] = useState(currentWidth);
   const { id } = useParams<{ id: string }>();
   const detail = unitKerjaDetails[id as keyof typeof unitKerjaDetails];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(currentWidth);
+      setIsMobile(currentWidth < 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [width, isMobile, currentWidth]);
 
   if (!detail) {
     return <p className="text-center mt-10">Data tidak ditemukan</p>;
   }
+  console.log("isMobile", isMobile);
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-8 mt-16">
       <Button variant="outline" onClick={() => window.history.back()}>
         <ArrowLeft className="w-4 h-4 mr-2" />
-        Halaman Sebelumnya
+        {!isMobile && "Halaman Sebelumnya"}
       </Button>
-      <div className="my-10 m-auto w-1/4 flex items-center justify-center bg-slate-300 h-52 rounded-md">
-          <img src={AvatarImage} alt="Avatar" className="max-h-full max-w-full object-contain" />
+      <div className="my-10 m-auto md:w-1/3 sm:w-1/3  flex items-center justify-center bg-slate-300 h-52 rounded-md">
+        <img
+          src={AvatarImage}
+          alt="Avatar"
+          className="max-h-full max-w-full object-contain"
+        />
       </div>
-      {/* <div 
-       className="bg w-full h-60 rounded-md bg-cover bg-center rounded-md"
-       style={{ backgroundImage: `url(/avatar.png)` }}
-       ></div> */}
 
       <h1 className="text-xl text-center my-2 font-bold capitalize">
         {detail.title}

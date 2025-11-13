@@ -30,6 +30,7 @@ import Inovasi from "./pages/inovasi/Inovasi.js";
 import Agenda from "./pages/agenda/Agenda.js";
 import DetailInovasi from "./pages/inovasi/DetailInovasi.js";
 import DetailAgenda from "./pages/agenda/DetailAgenda.js";
+import DetailPengumuman from "./pages/pengumuman/DetailPengumuman.js";
 
 const queryClient = new QueryClient();
 
@@ -82,7 +83,10 @@ const App = () => {
 
               {/* News Routes */}
               <Route path="/berita" element={<News />} />
-              <Route path="/berita/:slug" element={<DetailBerita />} />
+              <Route path="/berita/:id" element={<DetailBerita />} />
+
+              {/* Pengumuman Routes */}
+              <Route path="/pengumuman/:id" element={<DetailPengumuman />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

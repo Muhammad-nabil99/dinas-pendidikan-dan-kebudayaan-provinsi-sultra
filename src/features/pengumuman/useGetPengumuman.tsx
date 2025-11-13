@@ -1,4 +1,4 @@
-import { getAgenda, getLaporanKegiatan, getNews, getPengumuman } from "@/services/api";
+import { getAgenda, getLaporanKegiatan, getPengumuman } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
 function useGetPengumuman() {

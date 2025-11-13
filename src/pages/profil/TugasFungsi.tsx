@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BgImage from "@/assets/tracking.jpg";
 import AvatarImage from "@/assets/avatar.png";
@@ -78,70 +78,65 @@ const unitKerja: UnitKerja[] = [
 const TugasFungsi = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(true);
-  const carouselSpeed: number = 3000;
-  const [unitsToShow, setUnitsToShow] = useState<number>(3);
+  const [itemsPerView, setItemsPerView] = useState<number>(3);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
-        setUnitsToShow(1);
-      } else if (window.innerWidth < 768) {
-        setUnitsToShow(2);
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
       } else {
-        setUnitsToShow(3);
+        setItemsPerView(3);
       }
     };
 
-    window.addEventListener("resize", handleResize);
     handleResize();
-
+    window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const displayedUnits: UnitKerja[] = [
+  const extendedUnits: UnitKerja[] = [
     ...unitKerja,
-    ...unitKerja.slice(0, unitsToShow),
+    ...unitKerja.slice(0, itemsPerView),
   ];
+  const totalSlides = unitKerja.length;
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % displayedUnits.length);
-    }, carouselSpeed);
+      handleNext();
+    }, 4000);
 
     return () => clearInterval(timer);
-  }, [displayedUnits.length, carouselSpeed]);
+  }, [currentIndex, itemsPerView]);
 
-  const handleNextClick = (): void => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % displayedUnits.length);
-  };
-
-  const handlePrevClick = (): void => {
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + displayedUnits.length) % displayedUnits.length
-    );
-  };
-
-  const handleTransitionEnd = (): void => {
-    if (currentIndex >= unitKerja.length) {
+  const handleNext = () => {
+    if (currentIndex >= totalSlides) {
       setIsTransitioning(false);
       setCurrentIndex(0);
-    }
-  };
-
-  useEffect(() => {
-    if (!isTransitioning) {
       setTimeout(() => {
         setIsTransitioning(true);
+        setCurrentIndex(1);
       }, 50);
+    } else {
+      setCurrentIndex((prev) => prev + 1);
     }
-  }, [isTransitioning]);
-
-  const carouselTransformStyle: React.CSSProperties = {
-    transform: `translateX(-${(100 / unitsToShow) * currentIndex}%)`,
-    transition: isTransitioning ? "transform 0.5s ease-in-out" : "none",
-    width: `${(displayedUnits.length / unitsToShow) * 27}%`,
   };
+
+  const handlePrev = () => {
+    if (currentIndex <= 0) {
+      setIsTransitioning(false);
+      setCurrentIndex(totalSlides);
+      setTimeout(() => {
+        setIsTransitioning(true);
+        setCurrentIndex(totalSlides - 1);
+      }, 50);
+    } else {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const translateValue = -(currentIndex * (100 / itemsPerView));
 
   return (
     <>
@@ -194,10 +189,10 @@ const TugasFungsi = () => {
             <p>
               Berdasarkan Peraturan Daerah Provinsi Sulawesi Tenggara nomor 13
               Tahun 2016, tentang Pembentukan dan Susunan Perangkat Daerah
-              Provinsi Sulawesi Tenggara, didalamnya menyebutkan bahwa “Dinas
+              Provinsi Sulawesi Tenggara, didalamnya menyebutkan bahwa "Dinas
               Pendidikan dan Kebudayaan mempunyai tugas membantu Gubernur
               melaksanakan urusan pemerintahan yang menjadi kewenangan daerah
-              dan tugas pembantuan di bidang pendidikan dan kebudayaan.”
+              dan tugas pembantuan di bidang pendidikan dan kebudayaan."
             </p>
           </div>
 
@@ -220,54 +215,91 @@ const TugasFungsi = () => {
           </div>
 
           <div className="mt-10">
-            <h1 className="text-center capitalize font-bold text-government-blue text-lg sm:text-xl md:text-2xl mb-4">
+            <h1 className="text-center capitalize font-bold text-government-blue text-lg sm:text-xl md:text-2xl mb-8">
               Tugas Pokok dan Fungsi Masing – Masing Unit Kerja
             </h1>
 
-            <div className="flex items-center justify-center gap-3 sm:gap-6">
-              {/* Prev Button */}
+            <div className="relative">
+              {/* Navigation Buttons */}
               <button
-                onClick={handlePrevClick}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform"
+                onClick={handlePrev}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -ml-4 sm:-ml-6 md:-ml-8 bg-gray-800 hover:bg-gray-700 text-white p-2 sm:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+                aria-label="Previous"
               >
-                &lt;
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+
+              <button
+                onClick={handleNext}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 -mr-4 sm:-mr-6 md:-mr-8 bg-gray-800 hover:bg-gray-700 text-white p-2 sm:p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
 
               {/* Carousel Container */}
-              <div className="flex overflow-hidden w-full max-w-6xl">
+              <div className="overflow-hidden px-2 sm:px-4">
                 <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={carouselTransformStyle}
-                  onTransitionEnd={handleTransitionEnd}
+                  className="flex"
+                  style={{
+                    transform: `translateX(${translateValue}%)`,
+                    transition: isTransitioning
+                      ? "transform 0.5s ease-in-out"
+                      : "none",
+                  }}
                 >
-                  {displayedUnits.map((item, index) => (
-                    <Link
-                      to={`/profil/tugas-fungsi/${item.id}`}
+                  {extendedUnits.map((item, index) => (
+                    <div
                       key={`${item.id}-${index}`}
-                      className="text-center flex-shrink-0 flex-grow-0 basis-full sm:basis-1/2 md:basis-1/3 flex flex-col gap-2 p-3 sm:p-4"
+                      className="flex-shrink-0 px-2 sm:px-3 md:px-4"
+                      style={{ width: `${100 / itemsPerView}%` }}
                     >
-                      <div
-                        className="bg w-full h-48 sm:h-56 md:h-60 bg-cover bg-center rounded-md shadow-md"
-                        style={{ backgroundImage: `url(${AvatarImage}) ` }}
-                      ></div>
-                      <h1 className="font-bold capitalize text-base sm:text-lg md:text-xl">
-                        {item.nama}
-                      </h1>
-                      <h2 className="text-sm sm:text-base text-gray-700">
-                        {item.unit}
-                      </h2>
-                    </Link>
+                      <Link
+                        to={`/profil/tugas-fungsi/${item.id}`}
+                        className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full"
+                      >
+                        <div
+                          className="w-full h-48 sm:h-56 md:h-64 bg-cover bg-center"
+                          style={{
+                            backgroundImage: `url(${item.image || AvatarImage})`,
+                          }}
+                        />
+                        <div className="p-4">
+                          <h3 className="font-bold text-base sm:text-lg md:text-xl mb-2 min-h-[3rem] line-clamp-2">
+                            {item.nama || "Kantor Cabang Dinas"}
+                          </h3>
+                          <p className="text-sm sm:text-base text-gray-600 line-clamp-3">
+                            {item.unit}
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
                   ))}
                 </div>
               </div>
 
-              {/* Next Button */}
-              <button
-                onClick={handleNextClick}
-                className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 text-white p-2 rounded-full shadow-lg active:scale-90 transition-transform"
-              >
-                &gt;
-              </button>
+              {/* Dots Indicator */}
+              <div className="flex justify-center gap-2 mt-6">
+                {Array.from({ length: totalSlides }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      index === currentIndex % totalSlides
+                        ? "w-8 h-2.5 bg-blue-900"
+                        : "w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Info Text */}
+            <div className="text-center mt-6 text-gray-500 text-sm">
+              <p>
+                Slide {(currentIndex % totalSlides) + 1} dari {totalSlides}
+              </p>
             </div>
           </div>
         </div>

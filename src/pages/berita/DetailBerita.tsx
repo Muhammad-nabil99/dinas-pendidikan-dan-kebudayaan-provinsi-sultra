@@ -15,9 +15,9 @@ import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const DetailBerita = () => {
-  const { slug } = useParams();
+  const { id } = useParams();
   const { berita, isLoading: isLoadingBerita } = useGetBerita();
-  const { detailBerita, isLoading } = useGetDetailBerita(slug);
+  const { detailBerita, isLoading } = useGetDetailBerita(Number(id));
 
   if (isLoading || isLoadingBerita)
     return (
@@ -133,7 +133,7 @@ const DetailBerita = () => {
                 .filter((item) => item.id !== detailBerita?.id)
                 .slice(0, 3)
                 .map((item) => (
-                  <Link key={item.id} to={`/berita/${item.slug}`}>
+                  <Link key={item.id} to={`/berita/${item.id}`}>
                     <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
                       <div className="aspect-video overflow-hidden">
                         <img

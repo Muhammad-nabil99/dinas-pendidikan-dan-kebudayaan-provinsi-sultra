@@ -22,10 +22,10 @@ export const getBerita = async () => {
     console.log(error.message);
   }
 };
-export const getDetailBerita = async (slug: string) => {
+export const getDetailBerita = async (id: number) => {
   try {
     const response = await fetch(
-      `https://dashboard.btikpsultra.my.id/api/berita/${slug}`
+      `https://dashboard.btikpsultra.my.id/api/berita/${id}`
     );
     const data = await response.json();
     return data;
@@ -138,6 +138,18 @@ export const getPengumuman = async () => {
     console.log(error.message);
   }
 };
+export const getDetailPengumuman = async (id: number) => {
+  try {
+    const response = await fetch(
+      `https://dashboard.btikpsultra.my.id/api/pengumuman/${id}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    new Error(error);
+    console.log(error.message);
+  }
+};
 export const getLaporanKegiatan = async () => {
   try {
     const response = await fetch(
@@ -170,7 +182,6 @@ export const getDetailInovasi = async (id: number) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    new Error(error);
     console.log(error.message);
   }
 };
