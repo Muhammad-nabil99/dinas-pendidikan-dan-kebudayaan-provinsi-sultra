@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -13,13 +13,16 @@ import useGetAgenda from "@/features/agenda/useGetAgenda";
 import useGetDetailAgenda from "@/features/agenda/useGetDetailAgenda";
 import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import useNotFound from "@/hooks/useNotFound";
 
 function DetailAgenda() {
   const { id } = useParams();
-  const { agenda, isLoading: isLoadingBerita } = useGetAgenda();
-  const { detailAgenda, isLoading } = useGetDetailAgenda(Number(id));
 
-  if (isLoading || isLoadingBerita)
+  const { agenda, isLoading: isLoadingAgenda } = useGetAgenda();
+  const { detailAgenda, isLoading } = useGetDetailAgenda(Number(id));
+  useNotFound(agenda, isLoadingAgenda, id);
+
+  if (isLoading || isLoadingAgenda)
     return (
       <div className="min-h-screen bg-background">
         <DetailLoadingSkeleton />
@@ -123,45 +126,47 @@ function DetailAgenda() {
         </article>
 
         {/* Related Articles */}
-        <section className="py-16 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8">
-              Berita Terkait
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {agenda
-                .filter((item) => item.id !== detailAgenda?.id)
-                .slice(0, 3)
-                .map((item) => (
-                  <Link key={item.id} to={`/agenda/${item.id}`}>
-                    <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
-                      <div className="aspect-video overflow-hidden">
-                        <img
-                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
-                          alt={item?.judul}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+        {agenda?.length >= 2 && (
+          <section className="py-16 bg-muted/30">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-bold text-foreground mb-8">
+                Agenda Terkait
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {agenda
+                  .filter((item) => item.id !== detailAgenda?.id)
+                  .slice(0, 3)
+                  .map((item) => (
+                    <Link key={item.id} to={`/agenda/${item.id}`}>
+                      <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
+                        <div className="aspect-video overflow-hidden">
+                          <img
+                            src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                            alt={item?.judul}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <Badge
+                            variant="secondary"
+                            className="bg-education-green/10 text-education-green mb-2"
+                          >
+                            {item?.category}
+                          </Badge>
+                          <h3 className="font-semibold text-foreground group-hover:text-government-blue transition-colors line-clamp-2 mb-2">
+                            {item?.judul}
+                          </h3>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {item?.deskripsi}
+                          </p>
+                        </div>
                       </div>
-                      <div className="p-4">
-                        <Badge
-                          variant="secondary"
-                          className="bg-education-green/10 text-education-green mb-2"
-                        >
-                          {item?.category}
-                        </Badge>
-                        <h3 className="font-semibold text-foreground group-hover:text-government-blue transition-colors line-clamp-2 mb-2">
-                          {item?.judul}
-                        </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {item?.deskripsi}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </div>
   );

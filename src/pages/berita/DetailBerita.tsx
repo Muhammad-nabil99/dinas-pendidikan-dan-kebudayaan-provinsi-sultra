@@ -1,22 +1,19 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import useGetDetailBerita from "@/features/news/useGetDetailBerita";
 import useGetBerita from "@/features/news/useGetBerita";
-import {
-  ArrowLeft,
-  Calendar,
-  Clock,
-  User,
-  Share2,
-  Bookmark,
-} from "lucide-react";
+import { ArrowLeft, Clock, User } from "lucide-react";
 import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useEffect } from "react";
+import useNotFound from "@/hooks/useNotFound";
 
 const DetailBerita = () => {
   const { id } = useParams();
   const { berita, isLoading: isLoadingBerita } = useGetBerita();
+
+  useNotFound(berita, isLoadingBerita, id);
   const { detailBerita, isLoading } = useGetDetailBerita(Number(id));
 
   if (isLoading || isLoadingBerita)
@@ -70,7 +67,7 @@ const DetailBerita = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <Button variant="outline" size="sm">
                     <Share2 className="w-4 h-4 mr-2" />
                     Bagikan
@@ -79,7 +76,7 @@ const DetailBerita = () => {
                     <Bookmark className="w-4 h-4 mr-2" />
                     Simpan
                   </Button>
-                </div>
+                </div> */}
               </div>
             </header>
 
@@ -111,57 +108,59 @@ const DetailBerita = () => {
                   {new Date(detailBerita?.created_at).toLocaleDateString()}
                 </div>
 
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                   <Button variant="outline" size="sm">
                     <Share2 className="w-4 h-4 mr-2" />
                     Bagikan Artikel
                   </Button>
-                </div>
+                </div> */}
               </div>
             </footer>
           </div>
         </article>
 
         {/* Related Articles */}
-        <section className="py-16 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-foreground mb-8">
-              Berita Terkait
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {berita
-                .filter((item) => item.id !== detailBerita?.id)
-                .slice(0, 3)
-                .map((item) => (
-                  <Link key={item.id} to={`/berita/${item.id}`}>
-                    <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
-                      <div className="aspect-video overflow-hidden">
-                        <img
-                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
-                          alt={item?.judul}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
+        {berita?.length >= 2 && (
+          <section className="py-16 bg-muted/30">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-bold text-foreground mb-8">
+                Berita Terkait
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {berita
+                  .filter((item) => item.id !== detailBerita?.id)
+                  .slice(0, 3)
+                  .map((item) => (
+                    <Link key={item.id} to={`/berita/${item.id}`}>
+                      <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
+                        <div className="aspect-video overflow-hidden">
+                          <img
+                            src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                            alt={item?.judul}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <Badge
+                            variant="secondary"
+                            className="bg-education-green/10 text-education-green mb-2"
+                          >
+                            {item?.category}
+                          </Badge>
+                          <h3 className="font-semibold text-foreground group-hover:text-government-blue transition-colors line-clamp-2 mb-2">
+                            {item?.judul}
+                          </h3>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {item?.deskripsi}
+                          </p>
+                        </div>
                       </div>
-                      <div className="p-4">
-                        <Badge
-                          variant="secondary"
-                          className="bg-education-green/10 text-education-green mb-2"
-                        >
-                          {item?.category}
-                        </Badge>
-                        <h3 className="font-semibold text-foreground group-hover:text-government-blue transition-colors line-clamp-2 mb-2">
-                          {item?.judul}
-                        </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {item?.deskripsi}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </div>
   );

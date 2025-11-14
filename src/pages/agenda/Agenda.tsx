@@ -30,6 +30,7 @@ const Agenda = () => {
   const [selectedSchool, SetSelectedSchool] = useState("semua");
   const schools = ["Semua", "SMA", "SMK", "SLB"];
 
+
   // search item agenda
   const filterAgenda = agenda?.filter((item) => {
     // Search filter
@@ -43,9 +44,8 @@ const Agenda = () => {
       selectedSchool.toLowerCase() === "semua" ||
       item?.instansi?.toLowerCase().includes(selectedSchool.toLowerCase());
 
-
     // All conditions must be true
-    return searchMatch && schoolMatch ;
+    return searchMatch && schoolMatch;
   });
 
   // --- Pagination setup ---

@@ -240,7 +240,6 @@ function DetailTugasFungsi() {
   if (!detail) {
     return <p className="text-center mt-10">Data tidak ditemukan</p>;
   }
-  console.log("isMobile", isMobile);
 
   return (
     <main className="container mx-auto px-4 py-8 mt-16">

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarDays, ArrowRight, Timer , Calendar} from "lucide-react";
+import { CalendarDays, ArrowRight, Timer, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import useGetPengumuman from "@/features/pengumuman/useGetPengumuman";
 
@@ -13,9 +13,6 @@ const PengumumanSection = () => {
     (a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
-
-  console.log('latestAnnouncement',latestAnnouncement?.[0]);
-  
 
   return (
     <section className="py-20 bg-muted/30">
@@ -59,11 +56,15 @@ const PengumumanSection = () => {
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1">
                   <Timer className="w-4 h-4" />{" "}
-                  {new Date(latestAnnouncement?.[0]?.created_at).toLocaleTimeString()}
+                  {new Date(
+                    latestAnnouncement?.[0]?.created_at
+                  ).toLocaleTimeString()}
                 </span>
                 <span className="flex items-center gap-1">
                   {" "}
-                  {new Date(latestAnnouncement?.[0]?.created_at).toLocaleDateString()}
+                  {new Date(
+                    latestAnnouncement?.[0]?.created_at
+                  ).toLocaleDateString()}
                 </span>
               </div>
 

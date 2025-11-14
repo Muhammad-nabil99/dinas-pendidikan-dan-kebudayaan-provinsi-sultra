@@ -35,10 +35,6 @@ import DetailPengumuman from "./pages/pengumuman/DetailPengumuman.js";
 const queryClient = new QueryClient();
 
 const App = () => {
-
-
-  
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -63,7 +59,6 @@ const App = () => {
               />
               <Route path="/laporan-kegiatan" element={<LaporanKegiatan />} />
               <Route path="/profil/produk-hukum" element={<ProdukHukum />} />
-
 
               {/* PPID Sub Routes */}
               <Route path="/ppid/profil" element={<PPIDProfil />} />

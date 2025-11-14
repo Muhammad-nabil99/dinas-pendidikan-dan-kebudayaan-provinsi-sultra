@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import useGetDetailPengumuman from "@/features/pengumuman/useGetDetailPengumuman";
@@ -13,11 +13,15 @@ import {
 } from "lucide-react";
 import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useEffect } from "react";
+import useNotFound from "@/hooks/useNotFound";
 
 const DetailPengumuman = () => {
   const { id } = useParams();
   const { pengumuman, isLoading: isLoadingPengumuman } = useGetPengumuman();
   const { detailPengumuman, isLoading } = useGetDetailPengumuman(Number(id));
+
+  useNotFound(pengumuman, isLoading, id);
 
   if (isLoading || isLoadingPengumuman)
     return (
@@ -102,7 +106,6 @@ const DetailPengumuman = () => {
             >
               {detailPengumuman?.deskripsi}
             </div>
-            
 
             {/* Article Footer */}
             <footer className="mt-12 pt-8 border-t">
@@ -122,7 +125,7 @@ const DetailPengumuman = () => {
             </footer>
           </div>
         </article>
-            
+
         {/* Related Announcements */}
         <section className="py-16 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -160,7 +163,6 @@ const DetailPengumuman = () => {
                     </div>
                   </Link>
                 ))}
-                
             </div>
           </div>
         </section>
