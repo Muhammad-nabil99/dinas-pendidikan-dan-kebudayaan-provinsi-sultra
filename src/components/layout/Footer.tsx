@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube } from "lucide-react";
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
@@ -29,7 +29,7 @@ const Footer = () => {
             <p className="text-blue-100 mb-4 leading-relaxed">
               Melayani dan mengembangkan sistem pendidikan yang berkualitas
               untuk mencerdaskan kehidupan bangsa di Provinsi Sulawesi Tenggara.
-            </p>  
+            </p>
             <div className="flex items-center space-x-4 text-blue-200">
               <Clock className="w-5 h-5" />
               <div>
@@ -115,9 +115,35 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-blue-300" />
                 <span className="text-blue-200 text-sm">
-                  dikbud.sulawesitenggara @gmail.com 
+                  dikbud.sulawesitenggara @gmail.com
                 </span>
-               
+
+              </div>
+              <div className="flex items-center space-x-4 mt-4">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100091938777598"
+                  className="text-blue-200 hover:text-white transition-colors"
+                  aria-label="Facebook"
+                  target="_blank"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/dikbud_sultra/"
+                  className="text-blue-200 hover:text-white transition-colors"
+                  aria-label="Instagram"
+                  target="_blank"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@disdikbudsultra"
+                  className="text-blue-200 hover:text-white transition-colors"
+                  aria-label="YouTube"
+                  target="_blank"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
               </div>
             </div>
           </div>
