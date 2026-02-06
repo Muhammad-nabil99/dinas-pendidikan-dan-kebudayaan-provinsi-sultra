@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import {
   Search,
+  Eye,
   Download,
   Calendar,
   FileText,
@@ -291,8 +292,8 @@ const LaporanKegiatan = () => {
                               )
                             }
                           >
-                            <Download className="w-4 h-4 mr-2" />
-                            Download
+                            <Eye className="w-5 h-5 mr-2" />
+                            Lihat
                           </Button>
                         </div>
                       </div>

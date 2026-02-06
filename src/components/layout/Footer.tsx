@@ -6,6 +6,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 const Footer = () => {
   const { dashboard, isLoading } = useGetDashboard();
 
+const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-government-blue text-white mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -134,7 +136,7 @@ const Footer = () => {
 
         <div className="border-t border-blue-400/30 mt-8 pt-8 text-center">
           <p className="text-blue-200 text-sm">
-            © 2024 Dinas Pendidikan Provinsi Sulawesi Tenggara. Hak Cipta
+            © {currentYear} Dinas Pendidikan Provinsi Sulawesi Tenggara. Hak Cipta
             Dilindungi Undang-Undang.
           </p>
         </div>

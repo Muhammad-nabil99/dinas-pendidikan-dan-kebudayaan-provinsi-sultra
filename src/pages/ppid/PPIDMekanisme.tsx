@@ -76,7 +76,7 @@ const PPIDMekanisme = () => {
       await postLayanan({
         judul,
         deskripsi,
-        bidang: "bidang_umum", // ✅ otomatis dikirim sebagai bidang_umum
+        bidang: "bidang_btikp", // ✅ otomatis dikirim sebagai bidang_umum
         email_pengirim: email,
         nama_pengirim: nama,
         dokumen,
@@ -300,8 +300,6 @@ const PPIDMekanisme = () => {
                     </h4>
                     <ul className="space-y-1 text-sm text-muted-foreground">
                       <li><CheckCircle className="w-4 h-4 inline mr-1" />Email Aktif</li>
-                      <li><CheckCircle className="w-4 h-4 inline mr-1" />Alamat yang dapat dihubungi</li>
-                      <li><CheckCircle className="w-4 h-4 inline mr-1" />Kontak yang aktif (email/telepon)</li>
                       <li><CheckCircle className="w-4 h-4 inline mr-1" />Deskripsi informasi yang jelas</li>
                       <li><CheckCircle className="w-4 h-4 inline mr-1" />Tujuan penggunaan informasi</li>
                     </ul>

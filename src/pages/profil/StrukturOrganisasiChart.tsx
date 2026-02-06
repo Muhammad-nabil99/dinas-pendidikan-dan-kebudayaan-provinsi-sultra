@@ -1,10 +1,7 @@
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import OrganizationChart from "@/components/ui/StrukturOrganisasi";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Calendar, ArrowLeft, Clock, Search, Filter } from "lucide-react";
+import { Calendar, ArrowLeft, } from "lucide-react";
 import BgImage from '@/assets/tracking.jpg';
 
 const StrukturOrganisasi = () => {
@@ -14,7 +11,7 @@ const StrukturOrganisasi = () => {
           className="relative py-20 text-white bg-cover bg-center"
           style={{ backgroundImage: `url(${BgImage})`  }}
         >
-          {/* Overlay warna biru dengan opacity */}
+  
           <div className="absolute inset-0 bg-blue-900/70"></div>
 
           {/* Konten */}

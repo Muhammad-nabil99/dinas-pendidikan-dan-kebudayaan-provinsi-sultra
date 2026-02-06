@@ -27,36 +27,18 @@ import DetailTugasFungsi from "./pages/profil/TugasFungsiTupoksi/DetailTugasFung
 
 import News from "./pages/berita/News.js";
 import DetailBerita from "./pages/berita/DetailBerita.js";
-import LoadingSpinner from "./components/LoadingSpinner.js";
-import { useEffect, useState } from "react";
+
 import Inovasi from "./pages/inovasi/Inovasi.js";
 import Agenda from "./pages/agenda/Agenda.js";
 import DetailInovasi from "./pages/inovasi/DetailInovasi.js";
 import DetailAgenda from "./pages/agenda/DetailAgenda.js";
+import ContactPage from "./components/sections/Contact.js";
+import ContactSection from "./components/sections/ContactSection.js";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // wait for page + assets to load
-    const handleLoad = () => {
-      setTimeout(() => setLoading(false), 1000); // add delay for nicer UX
-    };
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
-
-    return () => window.removeEventListener("load", handleLoad);
-  }, []);
-
-  if (loading) {
-    return <LoadingSpinner loading={loading} />; // full-screen loader
-  }
+  
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -103,7 +85,11 @@ const App = () => {
               {/* News Routes */}
               <Route path="/berita" element={<News />} />
               <Route path="/berita/:slug" element={<DetailBerita />} />
+              
 
+              {/* <Route path="/laporan" element={<ContactSection />} /> */}
+              <Route path="/laporan" element={<ContactSection />} />
+              
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Route>

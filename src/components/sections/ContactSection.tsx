@@ -1,13 +1,15 @@
-  import { useState } from "react";
-  import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-  import { Button } from "@/components/ui/button";
-  import { Input } from "@/components/ui/input";
-  import { Label } from "@/components/ui/label";
-  import { Textarea } from "@/components/ui/textarea";
-  import { Mail } from "lucide-react";
-  import usePostLayanan from "@/features/layanan/usePostLayanan";
-  import SuccessModal from "@/components/SuccessModal";
-  import CooldownModal from "../CooldownModal";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, ArrowLeft } from "lucide-react";
+import usePostLayanan from "@/features/layanan/usePostLayanan";
+import SuccessModal from "@/components/SuccessModal";
+import CooldownModal from "../CooldownModal";
+import BgImage from "@/assets/tracking.jpg";
 
   const MAX_DOKUMEN_SIZE_MB = 5;
   const MAX_FOTO_SIZE_MB = 3;
@@ -108,7 +110,6 @@
         setShowSuccessModal(true);
       } catch (error) {
         console.error(error);
-        // alert("Terjadi kesalahan saat mengirim laporan. Silakan coba lagi.");
       }
     };
     const handleDokumenChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -190,243 +191,276 @@
 
 
     return (
-      <section className="py-20" id="contact">
-        <CooldownModal open={open} onClose={() => isOpen((value) => !value)} />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 bg-education-green/10 rounded-full mb-4">
-              <Mail className="w-4 h-4 text-education-green mr-2" />
-              <span className="text-sm font-medium text-education-green">
-                Hubungi Kami
-              </span>
+      <div className="min-h-screen bg-background">
+        <main>
+          {/* Header Section */}
+          <section
+            className="relative py-20 text-white bg-cover bg-center"
+            style={{ backgroundImage: `url(${BgImage})` }}
+          >
+            {/* Overlay warna biru dengan opacity */}
+            <div className="absolute inset-0 bg-blue-900/70"></div>
+
+            {/* Konten */}
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center mb-6">
+                <Link to="/">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                  >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    <span className="hidden sm:inline">Kembali ke Beranda</span>
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center px-3 py-1 bg-white/20 border border-white/30 rounded-full mb-3">
+                  <Mail className="w-3 h-3 mr-2" />
+                  <span className="text-xs font-medium">Layanan Digital</span>
+                </div>
+
+                <h2 className="text-2xl md:text-3xl font-bold mb-3">
+                  Aspirasi & Pengaduan
+                </h2>
+
+                <p className="text-base max-w-2xl mx-auto opacity-90">
+                  Sampaikan pesan Anda ke Unit Kerja yang tepat agar dapat segera kami tindak lanjuti.
+                </p>
+              </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Laporan
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Kami siap melayani dan membantu kebutuhan pendidikan Anda
-            </p>
-          </div>
+          </section>
+        </main>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left: Tupoksi */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Tupoksi Bidang</h3>
-                <div className="space-y-4">
-                  <div className="border rounded-lg p-6 bg-gray-50">
-                    <h4 className="font-semibold mb-2">
-                      Bidang Perencanaan dan Penganggaran
-                    </h4>
-                    <p className="text-muted-foreground text-sm">
-                      Mengoordinasikan penyusunan rencana, program, kegiatan, dan
-                      anggaran dinas. Menyusun perencanaan strategis, sinkronisasi
-                      kebijakan antar kabupaten/kota, serta pendataan pendidikan
-                      dan kebudayaan.
-                    </p>
-                  </div>
+        <section className="py-16" id="contact">
+          <CooldownModal open={open} onClose={() => isOpen((value) => !value)} />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Left: Tupoksi */}
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-2xl font-semibold mb-2">Panduan Pengiriman Pesan</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Agar pesan Anda cepat ditanggapi, mohon tujukan ke unit yang tepat sesuai kategori berikut:
+                  </p>
+                  
+                  <div className="space-y-4">
+                    
+                    {/* Kategori 1: Bidang di Dinas Provinsi */}
+                    <div className="border rounded-lg p-6 bg-blue-50 border-blue-100">
+                      <h4 className="font-semibold mb-2 text-blue-800">
+                        1. Bidang & Sekretariat Dinas
+                      </h4>
+                      <p className="text-muted-foreground text-sm">
+                        Pilih opsi ini untuk urusan kebijakan tingkat provinsi, kurikulum, 
+                        mutasi guru antar kabupaten, sertifikasi (GTK), serta sarana prasarana 
+                        sekolah (SMA/SMK/SLB) yang menjadi kewenangan provinsi.
+                      </p>
+                      <ul className="list-disc list-inside text-xs text-muted-foreground mt-2 pl-2">
+                        <li>Termasuk: Perencanaan, GTK, SMA, SMK, PKLK, Kebudayaan.</li>
+                      </ul>
+                    </div>
 
-                  <div className="border rounded-lg p-6 bg-gray-50">
-                    <h4 className="font-semibold mb-2">
-                      Bidang Pembinaan Sekolah Menengah Atas
-                    </h4>
-                    <p className="text-muted-foreground text-sm">
-                      Merencanakan, mengoordinasikan, dan memfasilitasi kebutuhan
-                      kurikulum, kelembagaan, sarana prasarana, kesiswaan, dan
-                      pendidikan karakter jenjang SMA. Melaksanakan pembinaan mutu
-                      serta evaluasi kegiatan SMA.
-                    </p>
-                  </div>
+                    {/* Kategori 2: UPTD (Unit Teknis) */}
+                    <div className="border rounded-lg p-6 bg-orange-50 border-orange-100">
+                      <h4 className="font-semibold mb-2 text-orange-800">
+                        2. UPTD (Unit Pelaksana Teknis)
+                      </h4>
+                      <p className="text-muted-foreground text-sm">
+                        Pilih opsi ini untuk layanan teknis spesifik:
+                      </p>
+                      <ul className="list-disc list-inside text-sm text-muted-foreground mt-2">
+                        <li><strong>BTIKP:</strong> Layanan TIK, Website, dan Data Pendidikan.</li>
+                        <li><strong>Museum/Taman Budaya:</strong> Kunjungan museum, event seni & budaya.</li>
+                        <li><strong>PSBK:</strong> Penanganan siswa berkebutuhan khusus/inklusi.</li>
+                      </ul>
+                    </div>
 
-                  <div className="border rounded-lg p-6 bg-gray-50">
-                    <h4 className="font-semibold mb-2">
-                      Bidang Pembinaan SMK dan Pendidikan Khusus
-                    </h4>
-                    <p className="text-muted-foreground text-sm">
-                      Menangani kurikulum, kelembagaan, sarana prasarana,
-                      kesiswaan, dan pendidikan karakter SMK serta pendidikan
-                      khusus. Fokus pada pengembangan kompetensi siswa dan
-                      koordinasi ujian serta akreditasi.
-                    </p>
-                  </div>
+                    {/* Kategori 3: KCD (Cabang Dinas) */}
+                    <div className="border rounded-lg p-6 bg-green-50 border-green-100">
+                      <h4 className="font-semibold mb-2 text-green-800">
+                        3. Kantor Cabang Dinas (KCD)
+                      </h4>
+                      <p className="text-muted-foreground text-sm">
+                        Pilih KCD sesuai <strong>wilayah/kabupaten</strong> tempat sekolah Anda berada.
+                        KCD bertugas sebagai perpanjangan tangan Dinas Pendidikan Provinsi untuk 
+                        urusan administrasi, pengawasan, dan pembinaan di tingkat kabupaten/kota.
+                      </p>
+                    </div>
 
-                  <div className="border rounded-lg p-6 bg-gray-50">
-                    <h4 className="font-semibold mb-2">
-                      Bidang Pembinaan Guru dan Ketenagaan (GTK)
-                    </h4>
-                    <p className="text-muted-foreground text-sm">
-                      Melakukan pembinaan dan pengelolaan guru serta tenaga
-                      kependidikan. Menangani formasi, mutasi, pengembangan karir,
-                      sertifikasi, dan peningkatan profesionalisme GTK.
-                    </p>
-                  </div>
-
-                  <div className="border rounded-lg p-6 bg-gray-50">
-                    <h4 className="font-semibold mb-2">Bidang Kebudayaan</h4>
-                    <p className="text-muted-foreground text-sm">
-                      Menangani pelestarian, perlindungan, dan pengembangan
-                      kebudayaan, cagar budaya, sejarah, tradisi, dan kesenian
-                      tingkat provinsi. Mengintegrasikan nilai budaya ke dalam
-                      dunia pendidikan.
-                    </p>
                   </div>
                 </div>
               </div>
-            </div>
+              
+              {/* Right: Form */}
+              <div>
+                <Card className="p-8">
+                  <CardHeader className="px-0 pt-0">
+                    <CardTitle className="text-xl">Kirim Pesan</CardTitle>
+                    <p className="text-muted-foreground">
+                      Sampaikan pertanyaan, saran, atau pengaduan Anda
+                    </p>
+                  </CardHeader>
 
-            
-            {/* Right: Form */}
-            <div>
-              <Card className="p-8">
-                <CardHeader className="px-0 pt-0">
-                  <CardTitle className="text-xl">Kirim Pesan</CardTitle>
-                  <p className="text-muted-foreground">
-                    Sampaikan pertanyaan, saran, atau pengaduan Anda
-                  </p>
-                </CardHeader>
+                  <CardContent className="px-0 pb-0">
+                    <form className="space-y-6" onSubmit={handleSubmitLayanan}>
+                      <div>
+                        <Label>Nama</Label>
+                        <Input
+                          placeholder="Masukkan nama"
+                          className="mt-2"
+                          value={nama}
+                          onChange={(e) => setNamaPengirim(e.target.value)}
+                        />
+                        {errors.nama && (
+                          <p className="text-red-500 text-sm mt-1">{errors.nama}</p>
+                        )}
+                      </div>
 
-                <CardContent className="px-0 pb-0">
-                  <form className="space-y-6" onSubmit={handleSubmitLayanan}>
-                    <div>
-                      <Label>Nama</Label>
-                      <Input
-                        placeholder="Masukkan nama"
-                        className="mt-2"
-                        value={nama}
-                        onChange={(e) => setNamaPengirim(e.target.value)}
-                      />
-                      {errors.nama && (
-                        <p className="text-red-500 text-sm mt-1">{errors.nama}</p>
-                      )}
-                    </div>
+                      <div>
+                        <Label>Email</Label>
+                        <Input
+                          type="email"
+                          placeholder="nama@email.com"
+                          className="mt-2"
+                          value={email}
+                          onChange={(e) => setEmailPengirim(e.target.value)}
+                        />
+                        {errors.email && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.email}
+                          </p>
+                        )}
+                      </div>
 
-                    <div>
-                      <Label>Email</Label>
-                      <Input
-                        type="email"
-                        placeholder="nama@email.com"
-                        className="mt-2"
-                        value={email}
-                        onChange={(e) => setEmailPengirim(e.target.value)}
-                      />
-                      {errors.email && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.email}
-                        </p>
-                      )}
-                    </div>
+                      <div>
+                        <Label>Bidang / Unit Kerja</Label>
+                        <select
+                          value={bidang}
+                          onChange={(e) => setBidang(e.target.value)}
+                          className="mt-2 rounded-md border border-gray-300 p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                          <option value="">Pilih Bidang/Unit</option>
+                          
+                          {/* Bidang Utama */}
+                          <option value="bidang_perencanaan">Bidang Perencanaan</option>
+                          <option value="bidang_gtk">Bidang GTK</option>
+                          <option value="bidang_sma">Bidang Pembinaan SMA</option>
+                          <option value="bidang_smk_pklk">Bidang SMK - PKLK</option>
+                          <option value="bidang_kebudayaan">Bidang Kebudayaan</option>
+                          <option value="humas">Humas</option>
+                          <option value="kepegawaian_keuangan">Kepegawaian dan Keuangan</option>
 
-                    <div>
-                      <Label>Bidang</Label>
-                      <select
-                        value={bidang}
-                        onChange={(e) => setBidang(e.target.value)}
-                        className="mt-2 rounded-md border border-gray-300 p-2 w-full"
+                          {/* UPTD */}
+                          <option value="uptd_btikp">UPTD BTIKP</option>
+                          <option value="uptd_museum_budaya">UPTD Museum dan Taman Budaya</option>
+                          <option value="uptd_psbk">UPTD Penanganan Siswa Berkebutuhan Khusus</option>
+
+                          {/* KCD (Kantor Cabang Dinas) */}
+                          <option value="kcd_konawe_konut">KCD Konawe & Konawe Utara</option>
+                          <option value="kcd_kolaka_koltim">KCD Kolaka & Kolaka Timur</option>
+                          <option value="kcd_kolaka_utara">KCD Kolaka Utara</option>
+                          <option value="kcd_bombana">KCD Bombana</option>
+                          <option value="kcd_konkep">KCD Konawe Kepulauan</option>
+                          <option value="kcd_muna">KCD Muna</option>
+                          <option value="kcd_mubar_buteng">KCD Muna Barat & Buton Tengah</option>
+                          <option value="kcd_baubau_busel">KCD Baubau & Buton Selatan</option>
+                          <option value="kcd_buton">KCD Buton</option>
+                          <option value="kcd_wakatobi">KCD Wakatobi</option>
+                          <option value="kcd_butur">KCD Buton Utara</option>
+                          <option value="kcd_konsel">KCD Konawe Selatan</option>
+                        </select>
+
+                        {errors.bidang && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.bidang}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label>Judul</Label>
+                        <Input
+                          placeholder="Judul pesan"
+                          className="mt-2"
+                          value={judul}
+                          onChange={(e) => setJudul(e.target.value)}
+                        />
+                        {errors.judul && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.judul}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label>Pesan</Label>
+                        <Textarea
+                          placeholder="Tulis pesan Anda di sini..."
+                          rows={5}
+                          className="mt-2 resize-none"
+                          value={deskripsi}
+                          onChange={(e) => setDeskripsi(e.target.value)}
+                        />
+                        {errors.deskripsi && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.deskripsi}
+                          </p>
+                        )}
+                      </div>
+                      
+                      <div>
+                        <Label>Upload Foto (Opsional, PNG/JPG maks. 3 file, 3 MB/file)</Label>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          className="mt-2"
+                          onChange={handleFotoChange}
+                        />
+                        {errors.foto && (
+                          <p className="text-red-500 text-sm mt-1">{errors.foto}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label>Dokumen (Opsional, PDF maks. 5 MB)</Label>
+                        <Input
+                          type="file"
+                          accept=".pdf,.docx"
+                          className="mt-2"
+                          onChange={handleDokumenChange}
+                        />
+                        {errors.dokumen && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.dokumen}
+                          </p>
+                        )}
+                      </div>
+
+                      <Button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                       >
-                        <option value="">Pilih Bidang</option>
-                        <option value="bidang_sma">Bidang Pembinaan SMA</option>
-                        <option value="bidang_smk">Bidang Pembinaan SMK</option>
-                        <option value="bidang_pklk">
-                          Bidang Pembinaan PK-LK
-                        </option>
-                        <option value="bidang_gtk">Bidang GTK</option>
-                        <option value="bidang_perencanaan">
-                          Bidang Perencanaan dan Penganggaran
-                        </option>
-                        <option value="bidang_kebudayaan">
-                          Bidang Kebudayaan
-                        </option>
-                      </select>
-                      {errors.bidang && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.bidang}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <Label>Judul</Label>
-                      <Input
-                        placeholder="Judul pesan"
-                        className="mt-2"
-                        value={judul}
-                        onChange={(e) => setJudul(e.target.value)}
-                      />
-                      {errors.judul && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.judul}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <Label>Pesan</Label>
-                      <Textarea
-                        placeholder="Tulis pesan Anda di sini..."
-                        rows={5}
-                        className="mt-2 resize-none"
-                        value={deskripsi}
-                        onChange={(e) => setDeskripsi(e.target.value)}
-                      />
-                      {errors.deskripsi && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.deskripsi}
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div>
-                     <Label>Upload Foto (Opsional, PNG/JPG maks. 3 file, 3 MB/file)</Label>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        className="mt-2"
-                        onChange={handleFotoChange}
-                      />
-                      {errors.foto && (
-                        <p className="text-red-500 text-sm mt-1">{errors.foto}</p>
-                      )}
-                    </div>
-
-
-                    <div>
-                      <Label>Dokumen (Opsional, PDF maks. 5 MB)</Label>
-                      <Input
-                        type="file"
-                        accept=".pdf,.docx"
-                        className="mt-2"
-                        onChange={handleDokumenChange}
-                      />
-                      {errors.dokumen && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.dokumen}
-                        </p>
-                      )}
-                    </div>
-
-                    
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                      {isLoading ? "Mengirim..." : "Kirim Pesan"}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+                        {isLoading ? "Mengirim..." : "Kirim Pesan"}
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* ✅ Modal sukses */}
-        <SuccessModal
-          open={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
-        />
-      </section>
+          {/* ✅ Modal sukses */}
+          <SuccessModal
+            open={showSuccessModal}
+            onClose={() => setShowSuccessModal(false)}
+          />
+        </section>
+      </div>
     );
   };
 

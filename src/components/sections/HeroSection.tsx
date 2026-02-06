@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-// The array of hero background imagesx`x
-// const heroImage = [heroImage1, heroImage2, heroImage3];
 
-// The array of texts to be displayed with a typing animation
-// const heroTexts = ["Selamat Datang", "Selama Leu", "Selamat Ngka"];
 const heroTexts = [
   "Selamat Datang",
   "Selama Leu",
@@ -34,7 +30,7 @@ const HeroSection = () => {
     if (!heroImage || heroImage.length === 0) return;
     const imageInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImage.length);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(imageInterval);
   }, []);
 
