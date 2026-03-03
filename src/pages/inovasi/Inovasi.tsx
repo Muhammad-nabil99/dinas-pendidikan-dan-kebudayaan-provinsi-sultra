@@ -228,7 +228,7 @@ const Inovasi = () => {
                     ))
                   ) : (
                     <p className="text-center capitalize text-gray-400">
-                      kata kunci tidak ditemukan
+                     Belum ada data inovasi pendidikan yang tersedia.
                     </p>
                   )}
                 </div>

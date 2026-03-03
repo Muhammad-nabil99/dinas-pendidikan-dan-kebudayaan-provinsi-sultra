@@ -8,6 +8,13 @@ const NewsSection = () => {
   const { berita, isLoading } = useGetBerita();
 
   if (isLoading) return;
+  const formatTanggal = (dateString) => {
+  return new Date(dateString).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
 
   const latestNews = berita
     ?.sort(
@@ -66,8 +73,9 @@ const NewsSection = () => {
                     <Timer className="w-4 h-4" />{" "}
                     {new Date(mainNews?.created_at).toLocaleTimeString()}
                   </span>
+                  
                   <span className="flex items-center gap-1">
-                    📅 {new Date(mainNews?.created_at).toLocaleDateString()}
+                    📅 {formatTanggal(mainNews?.created_at)}
                   </span>
                 </div>
 
