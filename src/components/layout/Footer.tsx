@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube } from "lucide-react";
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
+import { getStorageUrl } from "@/services/urls";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Footer = () => {
@@ -16,7 +17,7 @@ const Footer = () => {
                 <LazyLoadImage
                   effect={isLoading && "blur"}
                   loading="lazy"
-                  src={dashboard?.logo?.url}
+                  src={getStorageUrl(dashboard?.logo?.file || dashboard?.logo?.url)}
                 />
               </div>
               <div>

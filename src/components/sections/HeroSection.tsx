@@ -1,4 +1,5 @@
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
+import { getStorageUrl } from "@/services/urls";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -84,7 +85,7 @@ const HeroSection = () => {
             effect={isLoading && "true"}
             loading="lazy"
             key={index}
-            src={image.url}
+            src={getStorageUrl(image?.file || image?.url)}
             alt={`Slide ${index}`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentIndex ? "opacity-100" : "opacity-0"
@@ -101,7 +102,7 @@ const HeroSection = () => {
               <LazyLoadImage
                 effect={isLoading && "true"}
                 loading="lazy"
-                src={dashboard?.logo?.url}
+                src={getStorageUrl(dashboard?.logo?.file || dashboard?.logo?.url)}
               />
             </div>
             <div className="text-white/90">

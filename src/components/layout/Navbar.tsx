@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useGetDashboard from "@/features/dashboard/useGetDashboard";
+import { getStorageUrl } from "@/services/urls";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Label } from "recharts";
 
@@ -93,7 +94,7 @@ const Navbar = () => {
               <LazyLoadImage
                 effect={isLoading && "blur"}
                 loading="lazy"
-                src={dashboard?.logo?.url}
+                src={getStorageUrl(dashboard?.logo?.file || dashboard?.logo?.url)}
               />
             </div>
 
