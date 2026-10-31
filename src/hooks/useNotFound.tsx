@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 function useNotFound(data, isLoading: boolean, id: string) {
   const navigate = useNavigate();
   useEffect(() => {
-    if (!isLoading && data) {
-      const exists = data.some((item) => item.id === Number(id));
+    if (!isLoading && Array.isArray(data)) {
+      const exists = data.some((item) => item?.id === Number(id));
 
       if (!exists) {
         navigate("/not-found", { replace: true });

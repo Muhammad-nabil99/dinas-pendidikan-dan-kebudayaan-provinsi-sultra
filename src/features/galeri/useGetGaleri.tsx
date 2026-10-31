@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export interface MediaFile {
   file: string;
+  url?: string;
   type: "foto" | "video";
 }
 
@@ -13,12 +14,15 @@ interface Medias {
   updated_at: string;
 }
 
-interface GaleriItem {
+export interface GaleriItem {
   id: number;
   medias_id: number;
   judul: string;
   deskripsi: string;
   coverImage: string;
+  cover_image?: string;
+  cover_image_url?: string;
+  coverImage_url?: string;
   lokasi: string;
   instansi: string;
   category: string | null;
@@ -30,10 +34,11 @@ interface GaleriItem {
 }
 
 export interface GaleriResponse {
-  berita: GaleriItem[];
-  inovasi: GaleriItem[];
-  agenda: GaleriItem[];
-  pengumuman: GaleriItem[];
+  berita?: GaleriItem[];
+  inovasi?: GaleriItem[];
+  agenda?: GaleriItem[];
+  pengumuman?: GaleriItem[];
+  data?: GaleriItem[] | GaleriResponse;
 }
 
 // Album interface for display

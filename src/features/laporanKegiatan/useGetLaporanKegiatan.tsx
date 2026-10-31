@@ -2,10 +2,16 @@ import { getLaporanKegiatan } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 
 function useGetLaporanKegiatan() {
-  const { data: laporanKegiatan, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["laporanKegiatan"],
     queryFn: getLaporanKegiatan,
   });
+
+  const laporanKegiatan = Array.isArray(data)
+    ? data
+    : Array.isArray(data?.data)
+    ? data.data
+    : [];
 
   return { laporanKegiatan, isLoading };
 }
