@@ -15,6 +15,7 @@ import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useEffect } from "react";
 import useNotFound from "@/hooks/useNotFound";
+import { getStorageUrl } from "@/services/urls";
 
 const DetailPengumuman = () => {
   const { id } = useParams();
@@ -91,7 +92,7 @@ const DetailPengumuman = () => {
             <div className="aspect-video overflow-hidden rounded-lg mb-8">
               <LazyLoadImage
                 effect={isLoading && "blur"}
-                src={`https://dashboard.btikpsultra.my.id/storage/${detailPengumuman?.coverImage}`}
+                src={getStorageUrl(detailPengumuman?.coverImage)}
                 alt={detailPengumuman?.judul}
                 className="w-full h-full object-cover"
               />
@@ -141,7 +142,7 @@ const DetailPengumuman = () => {
                     <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
                       <div className="aspect-video overflow-hidden">
                         <img
-                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                          src={getStorageUrl(item?.coverImage)}
                           alt={item?.judul}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />

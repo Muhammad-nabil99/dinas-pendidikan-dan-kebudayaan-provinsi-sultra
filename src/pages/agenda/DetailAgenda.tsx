@@ -14,6 +14,7 @@ import useGetDetailAgenda from "@/features/agenda/useGetDetailAgenda";
 import DetailLoadingSkeleton from "@/components/DetailLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import useNotFound from "@/hooks/useNotFound";
+import { getStorageUrl } from "@/services/urls";
 
 function DetailAgenda() {
   const { id } = useParams();
@@ -90,7 +91,7 @@ function DetailAgenda() {
             <div className="aspect-video overflow-hidden rounded-lg mb-8">
               <LazyLoadImage
                 effect={isLoading && "blur"}
-                src={`https://dashboard.btikpsultra.my.id/storage/${detailAgenda?.coverImage}`}
+                src={getStorageUrl(detailAgenda?.coverImage)}
                 alt={detailAgenda?.judul}
                 className="w-full h-full object-cover"
               />
@@ -141,7 +142,7 @@ function DetailAgenda() {
                       <div className="group bg-card rounded-lg overflow-hidden hover:shadow-medium transition-all duration-300">
                         <div className="aspect-video overflow-hidden">
                           <img
-                            src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                            src={getStorageUrl(item?.coverImage)}
                             alt={item?.judul}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />

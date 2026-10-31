@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import BgImage from "../../assets/tracking.jpg";
 import useGetAgenda from "@/features/agenda/useGetAgenda";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
+import { getStorageUrl } from "@/services/urls";
 
 const Agenda = () => {
   const [searchItem, setSearchItem] = useState("");
@@ -154,7 +155,7 @@ const Agenda = () => {
                         <LazyLoadImage
                           effect={isLoading && "blue"}
                           loading="lazy"
-                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                          src={getStorageUrl(item?.coverImage)}
                           alt={item.judul}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />

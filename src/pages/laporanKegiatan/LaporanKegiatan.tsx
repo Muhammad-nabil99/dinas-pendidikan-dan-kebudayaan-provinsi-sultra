@@ -25,6 +25,7 @@ import { Link } from "react-router-dom";
 import BgImage from "../../assets/tracking.jpg";
 import useGetLaporanKegiatan from "@/features/laporanKegiatan/useGetLaporanKegiatan";
 import ActivityListLoadingSkeleton from "@/components/ActivityListLoadingSkeleton";
+import { getStorageUrl } from "@/services/urls";
 
 const LaporanKegiatan = () => {
   const { laporanKegiatan, isLoading } = useGetLaporanKegiatan();
@@ -286,7 +287,7 @@ const LaporanKegiatan = () => {
                             size="sm"
                             onClick={() =>
                               window.open(
-                                `https://dashboard.btikpsultra.my.id/storage/${item.dokumens?.dokumen}`,
+                                getStorageUrl(item.dokumens?.dokumen),
                                 "_blank"
                               )
                             }

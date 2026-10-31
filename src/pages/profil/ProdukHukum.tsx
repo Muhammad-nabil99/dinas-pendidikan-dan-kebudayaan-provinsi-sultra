@@ -23,6 +23,7 @@ import { Link } from "react-router-dom";
 import BgImage from "@/assets/tracking.jpg";
 import useGetProdukHukum from "@/features/produkHukum/useGetProdukHukum";
 import ActivityListLoadingSkeleton from "@/components/ActivityListLoadingSkeleton";
+import { getStorageUrl } from "@/services/urls";
 
 const ProdukHukum = () => {
   const { produkHukum, isLoading } = useGetProdukHukum();
@@ -191,7 +192,7 @@ const ProdukHukum = () => {
                             variant="outline"
                             size="sm"
                             onClick={() => {
-                              const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
+                              const fileUrl = getStorageUrl(item.dokumens.dokumen);
                               window.open(fileUrl, "_blank");
                             }}
                           >
@@ -203,7 +204,7 @@ const ProdukHukum = () => {
                           <Button
                             size="sm"
                             onClick={() => {
-                              const fileUrl = `https://dashboard.btikpsultra.my.id/storage/${item.dokumens.dokumen}`;
+                              const fileUrl = getStorageUrl(item.dokumens.dokumen);
                               window.open(fileUrl, "_blank");
                               // const link = document.createElement("a");
                               // link.href = fileUrl;

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Timer, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import useGetPengumuman from "@/features/pengumuman/useGetPengumuman";
+import { getStorageUrl } from "@/services/urls";
 
 const PengumumanSection = () => {
   const { pengumuman, isLoading } = useGetPengumuman();
@@ -41,7 +42,7 @@ const PengumumanSection = () => {
             <div className="w-full h-96 relative overflow-hidden">
               <img
                 loading="lazy"
-                src={`https://dashboard.btikpsultra.my.id/storage/${pengumuman?.[0]?.coverImage}`}
+                src={getStorageUrl(pengumuman?.[0]?.coverImage)}
                 alt={latestAnnouncement?.[0]?.judul}
                 className="w-full h-full object-cover"
               />

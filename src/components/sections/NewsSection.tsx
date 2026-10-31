@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarDays, ArrowRight, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
 import useGetBerita from "@/features/news/useGetBerita";
+import { getStorageUrl } from "@/services/urls";
 
 const NewsSection = () => {
   const { berita, isLoading } = useGetBerita();
@@ -49,7 +50,7 @@ const NewsSection = () => {
               <div className="w-full h-96 relative overflow-hidden">
                 <img
                   loading="lazy"
-                  src={`https://dashboard.btikpsultra.my.id/storage/${mainNews?.coverImage}`}
+                  src={getStorageUrl(mainNews?.coverImage)}
                   alt={mainNews?.judul}
                   className="w-full h-full object-cover"
                 />
@@ -101,7 +102,7 @@ const NewsSection = () => {
                 >
                   <img
                     loading="lazy"
-                    src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                    src={getStorageUrl(item?.coverImage)}
                     alt={item?.judul}
                     className="w-full h-32 rounded-md object-cover mb-3"
                   />

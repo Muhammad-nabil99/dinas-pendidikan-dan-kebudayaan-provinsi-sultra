@@ -16,6 +16,7 @@ import BgImage from "../../assets/tracking.jpg";
 import useGetBerita from "@/features/news/useGetBerita";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { getStorageUrl } from "@/services/urls";
 
 const News = () => {
   const [searchItem, setSearchItem] = useState("");
@@ -147,7 +148,7 @@ const News = () => {
                         <LazyLoadImage
                           effect={isLoading && "blur"}
                           loading="lazy"
-                          src={`https://dashboard.btikpsultra.my.id/storage/${item?.coverImage}`}
+                          src={getStorageUrl(item?.coverImage)}
                           alt={item.judul}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />

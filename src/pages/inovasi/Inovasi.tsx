@@ -33,6 +33,7 @@ import {
 import { Link } from "react-router-dom";
 import BgImage from "../../assets/tracking.jpg";
 import useGetInovasi from "@/features/inovasi/useGetInovasi";
+import { getStorageUrl } from "@/services/urls";
 import CardLoadingSkeleton from "@/components/CardLoadingSkeleton";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
@@ -180,7 +181,7 @@ const Inovasi = () => {
                           <LazyLoadImage
                             effect={isLoading && "blur"}
                             loading="lazy"
-                            src={`https://dashboard.btikpsultra.my.id/storage/${innovation?.coverImage}`}
+                            src={getStorageUrl(innovation?.coverImage)}
                             alt={innovation?.judul}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />

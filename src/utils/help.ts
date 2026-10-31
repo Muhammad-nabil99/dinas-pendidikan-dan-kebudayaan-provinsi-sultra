@@ -3,8 +3,7 @@ import {
   MediaFile,
   Album,
 } from "@/features/galeri/useGetGaleri";
-
-const BASE_URL = "https://dashboard.btikpsultra.my.id/storage/";
+import { getStorageUrl } from "@/services/urls";
 
 // Transform API data to Album format
 export const transformGaleriToAlbums = (
@@ -29,9 +28,8 @@ export const transformGaleriToAlbums = (
     // Transform media files
     const media =
       item.medias?.file?.map((mediaFile: MediaFile, index: number) => {
-        const isFullUrl = mediaFile.file.startsWith('http');
-        const url = isFullUrl ? mediaFile.file : BASE_URL + mediaFile.file;
-        const thumbnail = isFullUrl ? mediaFile.file : BASE_URL + mediaFile.file;
+        const url = getStorageUrl(mediaFile.file);
+        const thumbnail = getStorageUrl(mediaFile.file);
         return {
           id: `${item.id}-${index}`,
           type: mediaFile.type,
@@ -47,7 +45,7 @@ export const transformGaleriToAlbums = (
       title: item.judul,
       category,
       instansi: item.instansi.toUpperCase() as "SMA" | "SMK" | "SLB",
-      coverImage: BASE_URL + item.coverImage,
+      coverImage: getStorageUrl(item.coverImage),
       mediaCount: item.medias?.file?.length || 0,
       date: item.created_at,
       location: item.lokasi,
